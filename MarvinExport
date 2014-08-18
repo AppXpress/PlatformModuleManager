@@ -1,0 +1,128 @@
+#!bin/bash
+
+function showOptions ( )
+{
+	echo ""
+	echo "usage: bash MarvinExport [options]"
+	echo ""
+	echo "	-exportFolder	set default repository to clone from"
+	echo "	-gitFolder	set default source folder to be zipped"
+	echo "  	-customer	set customer path for exported zip"
+	echo "  	-co		set custom object path for exported zip"
+}
+#######################################################
+function rewritePropertyFile ( )
+{
+	sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
+	sed -i "s/p_export=[^ ]*/p_export=$export/g" marvinEx.properties
+	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" marvinEx.properties
+	sed -i "s/p_co=[^ ]*/p_co=$co/g" marvinEx.properties
+	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" marvinEx.properties
+}
+#######################################################
+###############Set Property File#######################
+#######################################################
+propFile=marvinEx.properties
+if [ ! -f "$propFile" ] ; then
+    touch "$propFile"
+	echo "version=1" >> $propFile
+	echo "p_export=" >> $propFile
+	echo "p_co=" >> $propFile
+	echo "p_folder=" >> $propFile
+	echo "p_customer=">> $propFile
+fi
+#######################################################
+###############Set properties##########################
+#######################################################
+if [ -f marvinEx.properties ] ; then
+	. marvinEx.properties
+fi
+export="$p_export"
+folder="$p_folder"
+co="$p_co"
+customer="$p_customer"
+
+if [[ $1 == "-help" ]] ; then
+	showOptions
+	exit 0
+fi
+#######################################################
+################Check for set Options##################
+#######################################################
+	#Set repo variable third arg
+	#program will use this as a default to clone from
+	if [ "$1" == "-exportFolder" ] ; then
+		if [[ -n $2 ]] ; then
+			export=$2
+			rewritePropertyFile
+			echo "Set export folder name"
+		else
+			echo "Need to add name of repository"
+		fi
+		exit 0
+	fi
+	#Set folder name variable third arg
+	#program will use this as a default folder to create a zip
+	if [ "$1" == "-gitFolder" ] ; then
+		if [[ -n $2 ]] ; then
+			folder=$2
+			rewritePropertyFile
+			echo "Set source folder property"
+		else
+			echo "Need to add name of folder"
+		fi
+		exit 0
+	fi
+	if [ "$1" == "-customer" ] ; then
+		if [[ -n $2 ]] ; then
+			customer=$2
+			rewritePropertyFile
+			echo "Set customer path"
+		else
+			echo "Need to add name of branch in repository"
+		fi
+		exit 0
+	fi
+	if [ "$1" == "-co" ] ; then
+		if [[ -n $2 ]] ; then
+			co=$2
+			rewritePropertyFile
+			echo "Set custom object path"
+		else
+			echo "Need to add name of branch in repository"
+		fi
+		exit 0
+	fi
+echo "Exported Folder Name : $export "
+echo "Default Git Structure folder : $folder "
+echo "Default Customer : $customer "
+echo "Default custom object: $co "
+
+if [ -z "$export" ] ; then
+	read -p "Enter exported folder name: " export
+fi
+	
+if [ -z "$folder" ] ; then
+	read -p "Enter GIT staging folder name: " folder
+fi
+
+if [ -z "$customer" ] ; then
+	read -p "Enter Customer : " customer
+fi
+
+if [ -z "$co" ] ; then
+	read -p "Enter Custom Object : " co
+fi
+
+version=$(($version + 1))
+echo $version
+sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
+
+##OPTIONS##
+read -p "OverWrite Fef ( Y or N ) -> " fef
+read -p "OverWrite Scripts ( Y or N )-> " scripts 
+
+if [ -d "PlatModx" ] ; then
+	rm -rf PlatModx
+fi
+java -jar MarvinExportUtil.jar $export $folder $customer $co $scripts $fef
