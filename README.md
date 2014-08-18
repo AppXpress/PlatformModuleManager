@@ -92,4 +92,7 @@ name. MarvinExport is following the same structure as the one found in stash pso
 Enter `bash MarvinExport -help` to view various options in setting or clearing the property
 file. 
 
+### Src Folder
+
+The src folder contains the source code of the two executable jars.
 
