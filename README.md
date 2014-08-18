@@ -50,15 +50,15 @@ of your program. The following examples will import correctly:
 
 `// @!import x.js y.js z.js`
 
-`/*
+```/*
 
   @!import example.js
   
-*/`
+*/```
 
 This following example will not import the file correctly ->
 
-` /*
+``` /*
     Top comment 
 */
 
@@ -67,7 +67,7 @@ function myFunction () {
   //@!import alpha.js
 }
 //@!import example.js
-`
+```
 
 The import utility does not continue to look for @!import statement
 once the top comment has ended in order to run more efficiently. Therefore,
