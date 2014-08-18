@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Using MarvinImport and MarvinExport
 ============
 
@@ -96,3 +97,7 @@ file.
 
 The src folder contains the source code of the two executable jars.
 
+=======
+GTNexus
+=======
+>>>>>>> 66f5e6c116bc5533960e18037c021d74b30aabc6
