@@ -54,11 +54,13 @@ of your program. The following examples will import correctly:
 
   @!import example.js
   
-*/```
+*/
+```
 
 This following example will not import the file correctly ->
 
-``` /*
+``` 
+/*
     Top comment 
 */
 
