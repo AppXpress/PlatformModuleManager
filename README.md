@@ -50,7 +50,8 @@ of your program. The following examples will import correctly:
 
 `// @!import x.js y.js z.js`
 
-```/*
+```
+/*
 
   @!import example.js
   
