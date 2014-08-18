@@ -1,8 +1,12 @@
 Using MarvinImport and MarvinExport
 ============
 
-Bash script Marvin allows you to zip up a specifically structured GIT
+Bash script MarvinImport allows you to zip up a specifically structured GIT
 repository and zip it up so it is ready to import in one step.
+
+Bash script MarvinExport allows you to unzip an exported platform module
+and merge it with your local working directory. The script will not push these
+changes to Git, this must be done manually. 
 
 ## Git Structure
 
@@ -12,13 +16,13 @@ contains folders for different customers, under which there is custom object
 folders. The lib folder contains reusable javascript files. 
 
 
-## Running Marvin
+## Running MarvinImport
 
 Marvin should be run in its own folder. This folder should contain MarvinImportUtil.
 MarvinImportUtil.jar is found in this repository. Marvin uses Git, so Git must be
 installed but no knowledge of Git is required to run Marvin.
 
-`bash Marvin`
+`bash MarvinImport`
 
 ## Marvin's Property File
 
@@ -27,7 +31,7 @@ file that can be called to re-run the same commands over and over again.
 The property file has properties for repository URL, repository branch,
 customer name, and custom object name. The property file can be set
 by adding the changes directly to the file or by running the different
-options available to Marvin. Run -> `bash Marvin -help` to view the 
+options available to Marvin. Run -> `bash MarvinImport -help` to view the 
 different options.
 
 ## Using Marvin's Import Utility
