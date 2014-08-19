@@ -149,16 +149,6 @@ if [ ! -d customer/$customer/$folder ] ; then
 	exit 0
 fi
 
-
-#################################################
-
-###Move marvin into correct folder and run it####
-
-cp Marvin1.07.jar customer
-cd customer
-mv Marvin1.07.jar $customer/Marvin1.07.jar
-cd $customer
-
 ##Before running jar, remove previous zip if there#
 ##Also, reset working dir to match git and clean ##
 ##customer folder##################################
@@ -173,8 +163,14 @@ fi
 branchReset="stash/"$branch
 echo $branchReset
 
+cd customer
+cd $customer
+
 git reset --hard $branchReset
 git clean -f $folder
+
+cd ..
+cd ..
 
 java -jar MarvinImportUtil.jar $customer $folder
 
