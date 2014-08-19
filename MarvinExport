@@ -111,7 +111,7 @@ if [ -z "$customer" ] ; then
 fi
 
 if [ -z "$co" ] ; then
-	read -p "Enter Custom Object : " co
+	read -p "Enter Platform Module : " co
 fi
 
 version=$(($version + 1))

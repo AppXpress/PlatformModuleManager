@@ -6,7 +6,7 @@ function showOptions ( )
 	echo "usage: bash Marvin [options]"
 	echo ""
 	echo "	-repository		set default repository to clone from"
-	echo "	-co				set default source folder to be zipped"
+	echo "	-pm				set default Platform Module Folder"
 	echo "	-branch			set default branch in repository to clone from"
 	echo "	-clear 			clear property file of defaults"
 	echo "	-customer		set customer file path of desired platform module"
@@ -56,7 +56,7 @@ customer="$p_customer"
 	fi
 	#Set folder name variable third arg
 	#program will use this as a default folder to create a zip
-	if [ "$1" == "-co" ] ; then
+	if [ "$1" == "-pm" ] ; then
 		if [[ -n $2 ]] ; then
 			folder=$2
 			rewritePropertyFile
