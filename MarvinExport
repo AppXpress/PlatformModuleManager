@@ -118,11 +118,47 @@ version=$(($version + 1))
 echo $version
 sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
 
+fef=""
+scripts=""
+
+OPTIND=1
+while getopts "h?f?s?o?i?:" opt; do
+    case "$opt" in
+    h|\?)
+        showOptions
+        exit 0
+        ;;
+    f)  fef="y"
+        ;;
+    s)  scripts="y"
+        ;;
+	o)  scripts="y"
+		fef="y"
+		;;
+	i)	scripts="n"
+		fef="n"
+		;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+[ "$1" = "--" ] && shift
+#####################################################
+
 ##OPTIONS##
-read -p "OverWrite Fef ( Y or N ) -> " fef
-read -p "OverWrite Scripts ( Y or N )-> " scripts 
+if [ -z "$fef" ] ; then
+	read -p "OverWrite Fef ( Y or N ) -> " fef
+fi
+if [ -z "$scripts" ] ; then
+	read -p "OverWrite Scripts ( Y or N )-> " scripts 
+fi
 
 if [ -d "PlatModx" ] ; then
 	rm -rf PlatModx
 fi
+
+
+
+
 java -jar MarvinExportUtil.jar $export $folder $customer $co $scripts $fef

@@ -47,6 +47,7 @@ public class SourceZipper {
 		//Special handling for customUi fef bundle
 		if( name.endsWith("/customUi")){
 			handleFef( name );
+			//emptyDir( name ); 
 			return;
 		}
 		
@@ -158,7 +159,6 @@ public class SourceZipper {
 	 * Empty out folder and then delete folder recursively
 	 */
 	private static void emptyDir(String name){
-		System.out.println(name);
 		File folder = new File(name);
 		
 		if( folder.isDirectory() ){
@@ -169,46 +169,20 @@ public class SourceZipper {
 			folder.delete();
 		}
 		else{
-			System.out.println("Cleaning..." + folder.delete());
+			folder.delete();
 		}			
 	}
 	private static void handleFef(String name){
 		File sub = new File( name );
 		for( String s : sub.list() ){
+			//If its already a zip, ignore 
+			if( s.endsWith(".zip"))
+				continue;
 			System.out.println("s--- " + s);
 			//Zip up fef bundle folder
-			try {
-				ZipFile zipFile = new ZipFile(name + "/" + s + ".zip");
-				 // Initiate Zip Parameters which define various properties such
-				  // as compression method, etc.
-				  ZipParameters parameters = new ZipParameters();
-
-				  // set compression method to store compression
-				  parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
-
-				  // Set the compression level
-				  parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-				  //zipFile.addFolder( name + "/" + s, parameters);
-				  addToFefZip( name + "/" + s , zipFile, parameters);
-			} catch (ZipException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			new ZipUtility( name + "/" + s );
 			//Get rid of folder no longer needed
-			//emptyDir( name + "/" + s);
-		}
-	}
-	private static void addToFefZip( String f , ZipFile z , ZipParameters p) throws ZipException{
-		File cur = new File(f);
-		System.out.println("Folder " + f );
-		if( cur.isDirectory() ){
-			z.addFolder(f, p);
-			for(String s : cur.list() )
-				addToFefZip( f + "/" + s , z , p);
-		}
-		else{
-			z.addFile(cur, p);
+			emptyDir( name + "/" + s);
 		}
 	}
 }

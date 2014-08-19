@@ -92,6 +92,23 @@ name. MarvinExport is following the same structure as the one found in stash pso
 Enter `bash MarvinExport -help` to view various options in setting or clearing the property
 file. 
 
+### Options 
+
+The following options can be set to run with MarvinExport
+
+```
+-h		displays options on how to set the property file
+
+-o		sets the script to overwrite FEF and scripts
+
+-f		sets the script to overwrite FEF
+
+-s		sets the script to overwrite scripts
+
+-i 		sets the script to not overwrite FEF or scripts 
+
+```
+
 ### Src Folder
 
 The src folder contains the source code of the two executable jars.

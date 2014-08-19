@@ -9,6 +9,7 @@ public class ZipUtility{
 			//packDirectoryPath = ( new File(folder).getName() );
 			packDirectoryPath = folder;
 			System.out.println( "Directory -> " + packDirectoryPath);
+			System.out.println(" Zipping up...");
 			zipDirectory();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -48,9 +49,9 @@ private void zipfiles(String directoryPath, ZipOutputStream zos) throws IOExcept
     for (String dirElement: new File(directoryPath).list()) {
         String dirElementPath = directoryPath+"/"+dirElement;    
         //String dirElementPath = directoryPath+ File.separator +dirElement;  
-        System.out.println(dirElementPath);      
+        //System.out.println(dirElementPath);      
         File f = new File(dirElementPath);
-        System.out.println("Adding..." + f.getName());
+        //System.out.println("Adding..." + f.getName());
         // For directories - go down the directory tree recursively
         if (f.isDirectory()) {
             zipfiles(dirElementPath, zos);
