@@ -50,7 +50,7 @@ public class CoDesignXML {
 					break;
 				}
 				System.out.println( scriptPath + "/" + s);
-				String xmlName = designPath + "/" + "Design_$" + s + ".xml";
+				String xmlName = designPath + "/" + "Design_" + s + ".xml";
 				System.out.println( "xml " + xmlName);
 				System.out.println( sub.list().length );
 				if( sub.list().length == 1)

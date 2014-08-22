@@ -62,7 +62,7 @@ public class ModifyXMLDOM {
             System.out.println("XML file updated successfully");
              
         } catch (SAXException | ParserConfigurationException | IOException | TransformerException e1) {
-            e1.printStackTrace();
+            System.err.println("Cannot find file - > " + xmlFile );
         }
     }
  

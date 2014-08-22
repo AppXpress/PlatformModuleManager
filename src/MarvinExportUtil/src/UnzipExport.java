@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -74,7 +75,7 @@ public class UnzipExport {
 	/*
 	 * Empty out folder and then delete folder recursively
 	 */
-	private static void emptyDir(String name){
+	static void emptyDir(String name){
 		File folder = new File(name);
 		
 		if( folder.isDirectory() ){
@@ -120,6 +121,30 @@ public class UnzipExport {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	//Makes folder human readable -> folder currently set up
+	// to be titled 'PlatModX'
+	public static void readable( String folderName ){
+		File f = new File(folderName);
+		if( ! f.exists() )
+			System.err.println("Cannot find folder -> " + folderName );
+		else{
+			if( f.isDirectory() ){
+				for( String s : f.list() ) 
+					readable( folderName + "/" + s );
+			}
+			if( f.getName().contains("$") ){
+				String rename = f.getName().replace("$", "");
+				Path p = f.toPath();
+				try {
+					Files.move(p, p.resolveSibling(rename));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

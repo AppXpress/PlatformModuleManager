@@ -158,7 +158,12 @@ if [ -d "PlatModx" ] ; then
 	rm -rf PlatModx
 fi
 
-
+echo $export
+echo $folder
+echo $customer
+echo $co
+echo $scripts
+echo $fef
 
 
 java -jar MarvinExportUtil.jar $export $folder $customer $co $scripts $fef

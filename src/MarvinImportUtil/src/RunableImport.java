@@ -22,13 +22,17 @@ public class RunableImport {
 		System.out.println("Gathering imports...");
 		runImportFind( args[0] , args[1] );
 		
-		//Ensure design xml files correctly indicate
-		//custom object design scripts
-		CoDesignXML.main( args );
-		
 		//Zip up the folder -> args[1] 
 		String root = "customer/" + args[0] +"/" + args[1];
-		SourceZipper zipSrc = new SourceZipper( root );
+		//Zips up File structure - now ready to import	
+		
+		//Ensure design xml files correctly indicate
+		//custom object design scripts
+		CoDesignXML.main( args ); 
+		
+		//Maps Git repo to importable file structure
+		Repository_Mapper.map( root );
+		
 		new ZipUtility( root );
 	}
 	

@@ -167,7 +167,7 @@ cd customer
 cd $customer
 
 git reset --hard $branchReset
-git clean -f $folder
+git clean -f -d $folder
 
 cd ..
 cd ..

@@ -27,7 +27,7 @@ public class GitMap {
 	public static boolean OVER_WRITE_FEF;
 	public static boolean OVER_WRITE_SCRIPTS;
 	public static ArrayList<String> overwritten_Scripts;
-	public static void main(String args[] ){
+	public static void main(String args[] ) throws IOException{
 		setProperties();
 		if( args.length < 4 ){
 			System.err.println("Incorrect Args");
@@ -60,14 +60,22 @@ public class GitMap {
 			System.err.println("Cannot find folder " + args[1] );
 		}
 		
+		String unzippedName = "PlatModX";
+		
+		if( new File("PlatModX").exists() )
+			UnzipExport.emptyDir("PlatModX");
+		//File extract = new File("PlatModX");
+		//extract.createNewFile();
 		String [] unZipArgs = { args[0] };
 		//Unzip folder args[0]
 		UnzipExport.run( unZipArgs );
 		
+		//Make files/folder human readable . i.e -> strip $ signs
+		UnzipExport.readable( unzippedName );
+		
 		UnzipExport.backup( args[1] , args[2] , args[3]);
 		
 		
-		String unzippedName = "PlatModX";
 		//String unzippedName = "PlatModX1";
 		GitMap mapper = new GitMap( unzippedName , args[1] , args[2] , args[3]);
 		
@@ -235,8 +243,10 @@ public class GitMap {
 		}
 		path = path + "/" + subCo;
 		if( ! exists(path) ){
-			System.err.println("Cannot find "+ subCo + " in customer " + sub );
-			return false;
+			//System.err.println("Cannot find "+ subCo + " in customer " + sub );
+			File platform = new File( path );
+			platform.mkdir();
+			//return false;
 		}
 		return true;
 	}
