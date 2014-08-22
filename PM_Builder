@@ -172,7 +172,7 @@ git clean -f -d $folder
 cd ..
 cd ..
 
-java -jar MarvinImportUtil.jar $customer $folder
+java -jar pm_builder_util.jar $customer $folder
 
 exit 0
 ###########################################################################

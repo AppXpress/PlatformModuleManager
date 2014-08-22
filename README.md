@@ -1,10 +1,10 @@
-Using MarvinImport and MarvinExport
+Using PM_Builder and PM_Extracter
 ============
 
-Bash script MarvinImport allows you to zip up a specifically structured GIT
+Bash script PM_Builder allows you to zip up a specifically structured GIT
 repository and zip it up so it is ready to import in one step.
 
-Bash script MarvinExport allows you to unzip an exported platform module
+Bash script PM_Extracter allows you to unzip an exported platform module
 and merge it with your local working directory. The script will not push these
 changes to Git, this must be done manually. 
 
@@ -16,27 +16,27 @@ contains folders for different customers, under which there is custom object
 folders. The lib folder contains reusable javascript files. 
 
 
-## Running MarvinImport
+## Running PM_Builder 
 
-Marvin should be run in its own folder. This folder should contain MarvinImportUtil.
-MarvinImportUtil.jar is found in this repository. Marvin uses Git, so Git must be
-installed but no knowledge of Git is required to run Marvin.
+Marvin should be run in its own folder. This folder should contain PM_Builder Util.
+PM_Builder_Util.jar is found in this repository. PM_Builder uses Git, so Git must be
+installed but no knowledge of Git is required to run the script.
 
-`bash MarvinImport`
+`bash PM_Builder `
 
-## Marvin's Property File
+## PM_Builder's Property File
 
-Marvin allows for quick reuse by allowing the user to set up a property
+This script allows for quick reuse by allowing the user to set up a property
 file that can be called to re-run the same commands over and over again.
 The property file has properties for repository URL, repository branch,
 customer name, and custom object name. The property file can be set
 by adding the changes directly to the file or by running the different
-options available to Marvin. Run -> `bash MarvinImport -help` to view the 
+options available to the PM_Builder. Run -> `bash PM_Builder -help` to view the 
 different options.
 
-## Using Marvin's Import Utility
+## Using PM_Builder's Import Utility
 
-Marvin can add common files to any folder in your file structure. Use ->
+The PM_Builder_util.jar can add common files to any folder in your file structure. Use ->
 
 @!import commonFile.js
 
@@ -77,24 +77,24 @@ once the top comment has ended in order to run more efficiently. Therefore,
 any text not in a comment will cause the scanner to end looking at a 
 particular script. 
 
-## Running MarvinExport
+## Running PM_Extracter
 
-Marvin export is a bash that automates the process of exporting a custom module
-and merging with your local working directory. MarvinExport backs up the current
+PM_Extracter is a bash that automates the process of exporting a custom module
+and merging with your local working directory. PM_Extracter backs up the current
 working directory before the merge and supplies two options, overWrite Fef and 
 overWrite scripts. Currently, the bash script will prompt you for a **y** or **n** 
-to both options. MarvinExport must be run in a place where it can access your
+to both options. PM_Extracter must be run in a place where it can access your
 local directory and exported platform module.
 
-MarvinExport similarly has a property file that stores the working directory, the
+PM_Extracter similarly has a property file that stores the working directory, the
 name of the exported platform module, the platform module folder, and the customers
-name. MarvinExport is following the same structure as the one found in stash pso/platform.
-Enter `bash MarvinExport -help` to view various options in setting or clearing the property
+name. PM_Extracter is following the same structure as the one found in stash pso/platform.
+Enter `bash PM_Extracter -help` to view various options in setting or clearing the property
 file. 
 
 ### Options 
 
-The following options can be set to run with MarvinExport
+The following options can be set to run with PM_Extracter
 
 ```
 -h		displays options on how to set the property file

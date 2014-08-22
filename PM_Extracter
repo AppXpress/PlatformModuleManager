@@ -166,4 +166,4 @@ echo $scripts
 echo $fef
 
 
-java -jar MarvinExportUtil.jar $export $folder $customer $co $scripts $fef
+java -jar pm_extracter_util.jar $export $folder $customer $co $scripts $fef
