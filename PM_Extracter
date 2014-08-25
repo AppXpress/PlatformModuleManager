@@ -5,10 +5,19 @@ function showOptions ( )
 	echo ""
 	echo "usage: bash MarvinExport [options]"
 	echo ""
-	echo "	-exportFolder	set default repository to clone from"
-	echo "	-gitFolder	set default source folder to be zipped"
-	echo "  	-customer	set customer path for exported zip"
-	echo "  	-co		set custom object path for exported zip"
+	echo "	-exportFolder		set default repository to clone from"
+	echo "	-gitFolder		set default source folder to be zipped"
+	echo "  	-customer		set customer path for exported zip"
+	echo "  	-platformFolder		set custom object path for exported zip"
+	echo "	-h			help "
+	echo "	-f			over write fef"
+	echo "  	-s			over write scripts"
+	echo "  	-o         		over write fef and scripts"
+	echo "  	-i          		do not over write fef or scripts"
+	echo "  	-c          		set customer"
+	echo "  	-g          		set git folder"
+	echo "  	-z          		set exported zip folder"
+	echo "  	-p          		set platform folder"
 }
 #######################################################
 function rewritePropertyFile ( )
@@ -16,7 +25,7 @@ function rewritePropertyFile ( )
 	sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
 	sed -i "s/p_export=[^ ]*/p_export=$export/g" marvinEx.properties
 	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" marvinEx.properties
-	sed -i "s/p_co=[^ ]*/p_co=$co/g" marvinEx.properties
+	sed -i "s/p_pm=[^ ]*/p_pm=$platformFolder/g" marvinEx.properties
 	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" marvinEx.properties
 }
 #######################################################
@@ -27,7 +36,7 @@ if [ ! -f "$propFile" ] ; then
     touch "$propFile"
 	echo "version=1" >> $propFile
 	echo "p_export=" >> $propFile
-	echo "p_co=" >> $propFile
+	echo "p_pm=" >> $propFile
 	echo "p_folder=" >> $propFile
 	echo "p_customer=">> $propFile
 fi
@@ -39,7 +48,7 @@ if [ -f marvinEx.properties ] ; then
 fi
 export="$p_export"
 folder="$p_folder"
-co="$p_co"
+platformFolder="$p_pm"
 customer="$p_customer"
 
 if [[ $1 == "-help" ]] ; then
@@ -83,9 +92,9 @@ fi
 		fi
 		exit 0
 	fi
-	if [ "$1" == "-co" ] ; then
+	if [ "$1" == "-platformFolder" ] ; then
 		if [[ -n $2 ]] ; then
-			co=$2
+			platformFolder=$2
 			rewritePropertyFile
 			echo "Set custom object path"
 		else
@@ -96,33 +105,12 @@ fi
 echo "Exported Folder Name : $export "
 echo "Default Git Structure folder : $folder "
 echo "Default Customer : $customer "
-echo "Default custom object: $co "
-
-if [ -z "$export" ] ; then
-	read -p "Enter exported folder name: " export
-fi
-	
-if [ -z "$folder" ] ; then
-	read -p "Enter GIT staging folder name: " folder
-fi
-
-if [ -z "$customer" ] ; then
-	read -p "Enter Customer : " customer
-fi
-
-if [ -z "$co" ] ; then
-	read -p "Enter Platform Module : " co
-fi
-
-version=$(($version + 1))
-echo $version
-sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
-
+echo "Default custom object: $platformFolder "
+#####################################################
 fef=""
 scripts=""
-
 OPTIND=1
-while getopts "h?f?s?o?i?:" opt; do
+while getopts "h?f?s?o?i?c:g:z:p:" opt; do
     case "$opt" in
     h|\?)
         showOptions
@@ -138,8 +126,37 @@ while getopts "h?f?s?o?i?:" opt; do
 	i)	scripts="n"
 		fef="n"
 		;;
+	c) customer="$OPTARG"
+	;;
+	g) folder="$OPTARG"
+	;;
+	z) export="$OPTARG"
+	;;
+	p) platformFolder="$OPTARG"
+	;;
     esac
 done
+###################################################
+
+if [ -z "$export" ] ; then
+	read -p "Enter exported folder name: " export
+fi
+	
+if [ -z "$folder" ] ; then
+	read -p "Enter GIT staging folder name: " folder
+fi
+
+if [ -z "$customer" ] ; then
+	read -p "Enter Customer : " customer
+fi
+
+if [ -z "$platformFolder" ] ; then
+	read -p "Enter Platform Module : " platformFolder
+fi
+
+version=$(($version + 1))
+echo $version
+sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
 
 shift $((OPTIND-1))
 
@@ -161,9 +178,9 @@ fi
 echo $export
 echo $folder
 echo $customer
-echo $co
+echo $platformFolder
 echo $scripts
 echo $fef
 
 
-java -jar pm_extracter_util.jar $export $folder $customer $co $scripts $fef
+java -jar pm_extracter_util.jar $export $folder $customer $platformFolder $scripts $fef

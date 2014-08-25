@@ -107,6 +107,14 @@ The following options can be set to run with PM_Extracter
 
 -i 		sets the script to not overwrite FEF or scripts 
 
+-g		set git local directory
+
+-p      set platform folder name
+
+-c      set customer folder name 
+
+-z      set exported zip folder name 
+
 ```
 
 ### Src Folder
