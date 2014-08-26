@@ -110,6 +110,9 @@ public class GitMap {
 		mapFolders( src , path );
 		
 	}
+	/*
+	 * Maps exported folder export to local file structure destination
+	*/
 	private void mapFolders( String export , String destination ){
 		File platform = new File( export );
 		File coFolder = new File( destination );		
@@ -172,6 +175,9 @@ public class GitMap {
 	}		
 		
 	}
+	/*
+	 * Maps specifically the customObjectModule/designs folder
+	 */
 	private void mapCoDesign(String path){
 		path = path + "/CustomObjectModule/designs/scripts";
 		File scripts = new File( path );
@@ -229,7 +235,10 @@ public class GitMap {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
+	 * Validates the path depicted by command line variables
+	 * If path is not validate, rest of program will not run
+	 */
 	private boolean validatePath( String folder, String sub, String subCo ){
 		String path = folder + "/customer";
 		if( ! exists(path) ){
@@ -257,7 +266,9 @@ public class GitMap {
 			return false;
 		return true;
 	}
-	
+	/*
+	 * Unused method
+	 */
 	private static void setProperties(){
 		try {
 			ClassLoader loader = Thread.currentThread().getContextClassLoader(); 

@@ -4,6 +4,9 @@ import java.nio.file.*;
 
 public class ZipUtility{
 	public String packDirectoryPath;
+	/*
+	 * Zips up folder depicted by path folder
+	 */
 	public ZipUtility(String folder){
 		try {
 			//packDirectoryPath = ( new File(folder).getName() );

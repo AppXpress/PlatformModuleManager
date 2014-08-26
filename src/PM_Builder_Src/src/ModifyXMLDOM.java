@@ -19,7 +19,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
  
 public class ModifyXMLDOM {
-
+	/*
+	 * Modifies a design xml file and makes sure it contains the correct
+	 * scriptingFeature tag
+	 */
 	public static void main(String path , String co , boolean js) {
         File xmlFile = new File(path);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -40,17 +43,6 @@ public class ModifyXMLDOM {
             	addScriptingTag( doc , js , co );
             
              
-            //update Element value
-            //updateElementValue(doc);
-             
-            //delete element
-            //deleteElement(doc);
-             
-            //add new element
-            //addElement(doc);
-            
-            //addScriptingTag( doc , true , "CO");
-             
             //write the updated document to file or console
             doc.getDocumentElement().normalize();
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -66,41 +58,6 @@ public class ModifyXMLDOM {
         }
     }
  
-    private static void addElement(Document doc) {
-        NodeList employees = doc.getElementsByTagName("Employee");
-        Element emp = null;
-         
-        //loop for each employee
-        for(int i=0; i<employees.getLength();i++){
-            emp = (Element) employees.item(i);
-            Element salaryElement = doc.createElement("salary");
-            salaryElement.appendChild(doc.createTextNode("10000"));
-            emp.appendChild(salaryElement);
-        }
-    }
- 
-    private static void deleteElement(Document doc) {
-        NodeList employees = doc.getElementsByTagName("Employee");
-        Element emp = null;
-        //loop for each employee
-        for(int i=0; i<employees.getLength();i++){
-            emp = (Element) employees.item(i);
-            Node genderNode = emp.getElementsByTagName("gender").item(0);
-            emp.removeChild(genderNode);
-        }
-         
-    }
- 
-    private static void updateElementValue(Document doc) {
-        NodeList employees = doc.getElementsByTagName("Employee");
-        Element emp = null;
-        //loop for each employee
-        for(int i=0; i<employees.getLength();i++){
-            emp = (Element) employees.item(i);
-            Node name = emp.getElementsByTagName("name").item(0).getFirstChild();
-            name.setNodeValue(name.getNodeValue().toUpperCase());
-        }
-    }
     /*
      * Checks the xml DOM to see if the scriptingFeature tag is included in the
      * tree
@@ -191,23 +148,6 @@ public class ModifyXMLDOM {
     		System.err.println("Cannot find tag CustomObjectDesignV110");
     	}
     	
-    }
-        
-    private static void updateAttributeValue(Document doc) {
-        NodeList employees = doc.getElementsByTagName("Employee");
-        Element emp = null;
-        //loop for each employee
-        for(int i=0; i<employees.getLength();i++){
-            emp = (Element) employees.item(i);
-            String gender = emp.getElementsByTagName("gender").item(0).getFirstChild().getNodeValue();
-            if(gender.equalsIgnoreCase("male")){
-                //prefix id attribute with M
-                emp.setAttribute("id", "M"+emp.getAttribute("id"));
-            }else{
-                //prefix id attribute with F
-                emp.setAttribute("id", "F"+emp.getAttribute("id"));
-            }
-        }
     }
  
 }

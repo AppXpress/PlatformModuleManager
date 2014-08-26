@@ -50,10 +50,11 @@ public class SearchImports {
 		}
 		return importFiles;
 	}
+	/*
+	 * Looks through a line for the @!import statement
+	 */
 	private static void scanLine( String line ){
-		//System.out.println(line);
 		line = line.replaceAll(",", " ");
-		//System.out.println(line);
 		if( line.contains("@!import")  ){
 			String [] words = line.split(" ");
 			boolean rdyImport = false;

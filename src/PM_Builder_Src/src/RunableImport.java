@@ -40,6 +40,10 @@ public class RunableImport {
 		String path =  "customer/"+customer+"/"+folder;
 		recursiveSearch( path );
 	}
+	/*
+	 * Looks recursively through the file structure 
+	 * Searching through the file structure to find @!import statements
+	 */
 	private static void recursiveSearch( String fp ){
 		File topFolder = new File( fp );
 		//System.out.println( topFolder.getName() );

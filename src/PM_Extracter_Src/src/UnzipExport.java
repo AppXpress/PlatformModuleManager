@@ -8,7 +8,9 @@ import net.lingala.zip4j.exception.ZipException;
 
 
 public class UnzipExport {
-
+	/*
+	 * Unzips folder
+	 */
 	public static void run(String[] args) {
 		if( args.length != 1){
 			System.out.println("Need to enter a folder and version");
@@ -54,6 +56,9 @@ public class UnzipExport {
 			}
 		}
 	}
+	/*
+	 * Backs up folder depicted by path set by command line variables
+	 */
 	public static void backup(String folder, String cust, String plat ){
 		String path = folder + "/customer" + "/" + cust + "/" + plat ;
 		String backup = "PM_Git_Backup/" + plat;
@@ -90,18 +95,10 @@ public class UnzipExport {
 			folder.delete();
 		}			
 	}
-
+	
 	private static void copyDirectory(String old, String nw ){
 		File git = new File( old );
 		File gb = new File( nw );
-		//if(! gb.exists()) {
-		//    try {
-		//		gb.createNewFile();
-		//	} catch (IOException e) {
-		//		// TODO Auto-generated catch block
-		//		e.printStackTrace();
-		//	}
-		//} 
 		try {
 			Files.copy( git.toPath() , gb.toPath() );
 			if( git.isDirectory() ){
