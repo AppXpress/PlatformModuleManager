@@ -41,9 +41,9 @@ the libraries tab
 
 * Now, right click again on your project name, click on export then under java click on *runnable jar file*
 
-* For the pm_builder, make the launch config *Runnable Imports* and export it with the name pm_builder_util.
+* For the pm_builder, make the launch config **Runnable Imports** and export it with the name pm_builder_util.
 
-* For the pm_extracter, make the launch config *GitMap* and export it with the name pm_extracter_util.
+* For the pm_extracter, make the launch config **GitMap** and export it with the name pm_extracter_util.
 
 * Underneath the location and the launch config you will see three radio buttons. Make sure the middle one, Packaged
 required libraries into generated JAR, is selected.
