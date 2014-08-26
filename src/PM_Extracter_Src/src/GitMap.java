@@ -87,11 +87,11 @@ public class GitMap {
 	 * each time and the older ones are not needed
 	 */
 	private static void clearCustomLinksXML(String git) {
-		String fullPath = git + "/" + "$CustomLinkD1";
+		String fullPath = git + "/" + "CustomLinkD1";
 		File dir = new File( fullPath );
 		if( dir.exists() ){
 			for( File x : dir.listFiles() )
-				x.delete();
+				x.delete() ;
 		}
 	}
 	/*
@@ -265,7 +265,7 @@ public class GitMap {
 			Properties properties = new Properties();
 			properties.load( stream );
 		} catch (Exception e) {
-			System.out.println("Properties thingy does work now");
+			//System.out.println("Properties thingy does not work now");
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}

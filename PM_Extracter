@@ -22,7 +22,6 @@ function showOptions ( )
 #######################################################
 function rewritePropertyFile ( )
 {
-	sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
 	sed -i "s/p_export=[^ ]*/p_export=$export/g" marvinEx.properties
 	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" marvinEx.properties
 	sed -i "s/p_pm=[^ ]*/p_pm=$platformFolder/g" marvinEx.properties
@@ -34,7 +33,6 @@ function rewritePropertyFile ( )
 propFile=marvinEx.properties
 if [ ! -f "$propFile" ] ; then
     touch "$propFile"
-	echo "version=1" >> $propFile
 	echo "p_export=" >> $propFile
 	echo "p_pm=" >> $propFile
 	echo "p_folder=" >> $propFile
@@ -102,10 +100,6 @@ fi
 		fi
 		exit 0
 	fi
-echo "Exported Folder Name : $export "
-echo "Default Git Structure folder : $folder "
-echo "Default Customer : $customer "
-echo "Default custom object: $platformFolder "
 #####################################################
 fef=""
 scripts=""
@@ -154,10 +148,6 @@ if [ -z "$platformFolder" ] ; then
 	read -p "Enter Platform Module : " platformFolder
 fi
 
-version=$(($version + 1))
-echo $version
-sed -i "s/version=[^ ]*/version=$version/g" marvinEx.properties
-
 shift $((OPTIND-1))
 
 [ "$1" = "--" ] && shift
@@ -175,12 +165,10 @@ if [ -d "PlatModx" ] ; then
 	rm -rf PlatModx
 fi
 
-echo $export
-echo $folder
-echo $customer
-echo $platformFolder
-echo $scripts
-echo $fef
+echo "Exported module : $export"
+echo "Local Directory : $folder"
+echo "Customer folder : $customer"
+echo "PlatformModule folder : $platformFolder"
 
 
 java -jar pm_extracter_util.jar $export $folder $customer $platformFolder $scripts $fef
