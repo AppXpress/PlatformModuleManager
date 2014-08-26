@@ -15,6 +15,40 @@ the repository should have a customer and lib folder. The customer folder
 contains folders for different customers, under which there is custom object
 folders. The lib folder contains reusable javascript files. 
 
+## Building Jar from Eclipse
+
+Both of the jar executables, pm_builder_util and pm_extracter_util, are built
+with *JRE 1.8*. If your current java version is not JRE 1.8, you might run into
+some problems running the the jars. Check your java -version by entering in
+the following command ->
+
+`java -version` 
+
+If it is not 1.8, it is safest to build your own jar using the source code found
+in the src/PM_Builder_Src and src/PM_extracter_src respectively. Steps to build
+a jar in eclipse follow.
+
+* Open a new java project by going to File->Java Project->
+
+* Drag the source code found in src/PM_Builder_Src/src into the src folder of your new project
+
+* Right click on your project name , go into Build Path->Configure Build Path and navigate to
+the libraries tab
+
+* Add the jar that is found in the src/Libraries folder in this Git Repository, called zip4j_1.3.2.jar
+
+* Press ok
+
+* Now, right click again on your project name, click on export then under java click on *runnable jar file*
+
+* For the pm_builder, make the launch config *Runnable Imports* and export it with the name pm_builder_util.
+
+* For the pm_extracter, make the launch config *GitMap* and export it with the name pm_extracter_util.
+
+* Underneath the location and the launch config you will see three radio buttons. Make sure the middle one, Packaged
+required libraries into generated JAR, is selected.
+
+* Place each new jar with its corresponding bash script and it should run fine. 
 
 ## Running PM_Builder 
 
