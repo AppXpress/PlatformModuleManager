@@ -23,7 +23,7 @@ import net.lingala.zip4j.util.Zip4jConstants;
  * @date	8-27-2014
  * GT Nexus
  */
-public class Repository_Mapper {
+public class RepositoryMapper {
 	/**
 	 * Maps folder src
 	 * 
