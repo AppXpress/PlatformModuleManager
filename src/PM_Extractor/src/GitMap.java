@@ -11,10 +11,21 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static java.nio.file.StandardCopyOption.*;
-
+/**
+ * Main method used by pm_extrator_util.jar. Unzips an exported platform module
+ * and maps it into a working directory.
+ * 
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
+ */
 public class GitMap {
-	/*
-	 * Takes 3 args ->
+	public static boolean OVER_WRITE_FEF;
+	public static boolean OVER_WRITE_SCRIPTS;
+	public static ArrayList<String> overwritten_Scripts;
+	/**
+	 * Takes 4-6 args ->
 	 * @arg[0]			Exported Platform Module Name
 	 * @arg[1]			Relative Path of GIT staging folder
 	 * @arg[2]			Customer of Platform Module
@@ -24,11 +35,7 @@ public class GitMap {
 	 * @args[4]			If Y ->		overwriteScripts = true
 	 * @args[5]			If Y ->		overwriteFEF = true
 	 */
-	public static boolean OVER_WRITE_FEF;
-	public static boolean OVER_WRITE_SCRIPTS;
-	public static ArrayList<String> overwritten_Scripts;
 	public static void main(String args[] ) throws IOException{
-		setProperties();
 		if( args.length < 4 ){
 			System.err.println("Incorrect Args");
 			return;
@@ -52,72 +59,81 @@ public class GitMap {
 		File exp = new File ( args[0] );
 		
 		if( ! exp.exists() ){
-			System.err.println("Cannot find folder " + args[0]);
+			System.err.println("Cannot find Exported Folder -> " + args[0]);
 			return;
 		}
 		File git = new File( args[1] );
 		if( ! git.exists() ){
-			System.err.println("Cannot find folder " + args[1] );
+			System.err.println("Cannot find local Git Directory -> " + args[1] );
 		}
 		
 		String unzippedName = "PlatModX";
 		
 		if( new File("PlatModX").exists() )
 			UnzipExport.emptyDir("PlatModX");
-		//File extract = new File("PlatModX");
-		//extract.createNewFile();
-		String [] unZipArgs = { args[0] };
-		//Unzip folder args[0]
-		UnzipExport.run( unZipArgs );
+		
+		//Unzip Exported Platform Module
+		UnzipExport.run( args[0] );
 		
 		//Make files/folder human readable . i.e -> strip $ signs
 		UnzipExport.readable( unzippedName );
 		
+		//Back up folder about to be overwritten
 		UnzipExport.backup( args[1] , args[2] , args[3]);
 		
-		
-		//String unzippedName = "PlatModX1";
-		GitMap mapper = new GitMap( unzippedName , args[1] , args[2] , args[3]);
+		//Map exported folder to local Git directory holding same platform module
+		new GitMap( unzippedName , args[1] , args[2] , args[3]);
 		
 		if( OVER_WRITE_SCRIPTS)
 			printOWS();
 	}
-	/*
-	 * Clears out Custom Links XML files - these will change
-	 * each time and the older ones are not needed
+	/**
+	 * Custom Link xml files are going to be replaced with the new 
+	 * custom link files from the exported module. This method rids the
+	 * CustomLinkD1 folder of outdate custom links files.
+	 * 
+	 * @param gitPath		path of platform module in local dir
 	 */
-	private static void clearCustomLinksXML(String git) {
-		String fullPath = git + "/" + "CustomLinkD1";
+	private static void clearCustomLinksXML(String gitPath) {
+		String fullPath = gitPath + "/" + "CustomLinkD1";
 		File dir = new File( fullPath );
 		if( dir.exists() ){
 			for( File x : dir.listFiles() )
 				x.delete() ;
 		}
 	}
-	/*
-	 * Map exported folder to git structure 
+	/**
+	 * Maps the exported platform module folder to the platform module
+	 * folder currently residing in the path depicted by the params.
+	 * 
+	 * @param src		Source that depicts backend of map -> will be 'PlatModX'
+	 * @param git		Folder that holds local Git directory
+	 * @param customer	Customer folder in which this platform module resides
+	 * @param pm		Platform Module name
 	 */
-	public GitMap( String src, String git, String customer, String co){
+	public GitMap( String src, String git, String customer, String pm){
 		//Ensure path exists - GIT repo is set up correctly
-		if ( ! validatePath( git , customer, co ) )
+		if ( ! validatePath( git , customer, pm ) )
 			return;
-		String path = git + "/customer/" + customer + "/" + co;
 		
-		//clearCustomLinks folder
+		String path = git + "/customer/" + customer + "/" + pm;
+		
 		clearCustomLinksXML( path );
 		
 		mapCoDesign(src);
 		mapFolders( src , path );
 		
 	}
-	/*
-	 * Maps exported folder export to local file structure destination
-	*/
+	/**
+	 * Map folder export to folder destination
+	 * 
+	 * @param export			Folder where unzipped exported platform module is
+	 * @param destination		Folder where platform module is in local git directory
+	 */
 	private void mapFolders( String export , String destination ){
 		File platform = new File( export );
 		File coFolder = new File( destination );		
 		
-		//System.out.println("Plat " + platform.getName() + "  Co " + coFolder.getName() );
 		for( String p : platform.list() ){
 			File platSub = new File( export + "/" + p );
 			boolean gitContains = false;
@@ -130,7 +146,7 @@ public class GitMap {
 			}
 			//if folder is contained already in GIT, enter the folder
 			if( gitContains ) {
-				//Ignore CustomUi folder is over write fef is set to false
+				//Ignore CustomUi folder if over write fef is set to false
 				//Therefore, does not over write fef folder
 				if( ! OVER_WRITE_FEF && p.equals("customUi")){
 					//Do not go in here
@@ -175,8 +191,12 @@ public class GitMap {
 	}		
 		
 	}
-	/*
-	 * Maps specifically the customObjectModule/designs folder
+	/**
+	 * In the exported unzipped platform module, move around the custom object
+	 * design scripts so they can be smoothly mapped 1=1 into git directory. This
+	 * method moves there location and removes $ from their names
+	 * 
+	 * @param path	Path of Unzipped Exported platform module
 	 */
 	private void mapCoDesign(String path){
 		path = path + "/CustomObjectModule/designs/scripts";
@@ -208,8 +228,11 @@ public class GitMap {
 		else
 			System.err.println( " cannot find script folder" );
 	}
-	/*
-	 * Copy src to cop
+	/**
+	 * Moves file location src to file location cop
+	 * 
+	 * @param src		File location
+	 * @param cop		File location
 	 */
 	private void mapCopy( String src, String cop ){
 		try{
@@ -235,9 +258,14 @@ public class GitMap {
 			e.printStackTrace();
 		}
 	}
-	/*
-	 * Validates the path depicted by command line variables
-	 * If path is not validate, rest of program will not run
+	/**
+	 * Validates the path composed of parameters
+	 * 
+	 * @param folder	Highest folder
+	 * @param sub		Second highest folder
+	 * @param subCo		Lowest subfolder 
+	 * @return			true if file structure exists
+	 * 					false if file structure does not exist
 	 */
 	private boolean validatePath( String folder, String sub, String subCo ){
 		String path = folder + "/customer";
@@ -251,14 +279,19 @@ public class GitMap {
 			return false;
 		}
 		path = path + "/" + subCo;
+		//If path does not exist - create it
 		if( ! exists(path) ){
-			//System.err.println("Cannot find "+ subCo + " in customer " + sub );
 			File platform = new File( path );
 			platform.mkdir();
-			//return false;
 		}
 		return true;
 	}
+	/**
+	 * Tests if path exists
+	 * @param path		File location
+	 * @return			true if file exists
+	 * 					false otherwise
+	 */
 	private boolean exists(String path){
 
 		File temp = new File( path );
@@ -266,13 +299,13 @@ public class GitMap {
 			return false;
 		return true;
 	}
-	/*
-	 * Unused method
+	/**
+	 * Unused method -> template if the jar were to have a propeties file
 	 */
 	private static void setProperties(){
 		try {
 			ClassLoader loader = Thread.currentThread().getContextClassLoader(); 
-			InputStream stream = loader.getResourceAsStream("marvin.properties");
+			InputStream stream = loader.getResourceAsStream("exportor.properties");
 			Properties properties = new Properties();
 			properties.load( stream );
 		} catch (Exception e) {
@@ -281,6 +314,10 @@ public class GitMap {
 			//e.printStackTrace();
 		}
 	}
+	/**
+	 * Prints the scripts that were overwritten so the user can quickly
+	 * noticed if unwanted actions were performed on local git dir
+	 */
 	private static void printOWS(){
 		System.out.print("You over wrote these scripts -> ");
 		for( String s : overwritten_Scripts)

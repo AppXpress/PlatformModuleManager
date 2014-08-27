@@ -5,22 +5,29 @@ import java.nio.file.Path;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
-
+/**
+ * Unzips an exported platform module file and puts it in a folder
+ * named 'PlatModX'. Also has methods to backup local git directory and
+ * strip unwanted $ signs from files and folders
+ * 
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
+ */
 
 public class UnzipExport {
-	/*
-	 * Unzips folder
+	/**
+	 * Unzips file 'folder' into PlatModX
+	 * 
+	 * @param folder	Path of exported zip file
 	 */
-	public static void run(String[] args) {
-		if( args.length != 1){
-			System.out.println("Need to enter a folder and version");
-			return;
-		}
+	public static void run( String folder) {
 		try{
-			File f = new File( args[0] );
+			File f = new File( folder );
 			if( f.exists() ){
 				String destination = "PlatModX";
-				String source = args[0];
+				String source = folder;
 				unzip( source, destination );
 				recurseUnzip( destination );
 			}
@@ -28,10 +35,14 @@ public class UnzipExport {
 				System.out.println("Cannot find folder!");
 		}
 		catch(Exception e){
-			System.out.println("main error");
+			System.out.println("Error in UnzipExport.run");
 		}
 	}
-	
+	/**
+	 * Unzips src into dest
+	 * @param src		Zip file 
+	 * @param dest		Destination for zip file
+	 */
 	public static void unzip( String src, String dest){
 		try {
 			ZipFile zip = new ZipFile(src);
@@ -41,6 +52,11 @@ public class UnzipExport {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Recursively iterated through file structure folder and unzips
+	 * and contained zip files
+	 * @param folder		Destination of file structure to iterate over
+	 */
 	private static void recurseUnzip( String folder ){
 		File f = new File( folder );
 		if( f.isDirectory() ){
@@ -56,8 +72,12 @@ public class UnzipExport {
 			}
 		}
 	}
-	/*
-	 * Backs up folder depicted by path set by command line variables
+	/**
+	 * Backs up folder/customer/cust/plat into a folder called PM_Git_Backup
+	 * 
+	 * @param folder	Local git directory
+	 * @param cust		Name of customer folder name
+	 * @param plat		Platform module folder name
 	 */
 	public static void backup(String folder, String cust, String plat ){
 		String path = folder + "/customer" + "/" + cust + "/" + plat ;
@@ -74,11 +94,13 @@ public class UnzipExport {
 			copyDirectory(path , backup );
 		}
 		catch(Exception e){
-			System.err.println("error backing up " + e);
+			System.err.println("error backing up -> " + e);
 		}
 	}
-	/*
-	 * Empty out folder and then delete folder recursively
+	/**
+	 * Performs a recurisve remove on directory name
+	 * 
+	 * @param name	Directory that is to be cleared
 	 */
 	static void emptyDir(String name){
 		File folder = new File(name);
@@ -95,7 +117,12 @@ public class UnzipExport {
 			folder.delete();
 		}			
 	}
-	
+	/**
+	 * Copies a file structure into anther
+	 * 
+	 * @param old	File structure to copy from
+	 * @param nw	File structure to copy to
+	 */
 	private static void copyDirectory(String old, String nw ){
 		File git = new File( old );
 		File gb = new File( nw );
@@ -121,8 +148,11 @@ public class UnzipExport {
 		}
 	}
 
-	//Makes folder human readable -> folder currently set up
-	// to be titled 'PlatModX'
+	/**
+	 * Cleans folder structure of $ signs
+	 * 
+	 * @param folderName	Location of file structure
+	 */
 	public static void readable( String folderName ){
 		File f = new File(folderName);
 		if( ! f.exists() )
