@@ -1,18 +1,24 @@
-
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Main method of pm_builder_util.jar. Takes a folder, maps it to a zippable
+ * file structure, then zips it up.
+ * 
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
+ */
 public class RunableImport {
-	/*
-	 * Args		0	Name of Customer
-	 * 	  		1	Name of Folder
+	/**
+	 * 
+	 * @param args	0 -	Name of customer folder
+	 * 				1 - Name of platform module folder
 	 */
-	
 	public static void main( String args[]){
 		if( args.length != 2 ){
 			System.out.println("Incorrect parameters");
@@ -28,25 +34,31 @@ public class RunableImport {
 		
 		//Ensure design xml files correctly indicate
 		//custom object design scripts
-		CoDesignXML.main( args ); 
+		CoDesignXML.iter( args[0] , args[1] ); 
 		
 		//Maps Git repo to importable file structure
 		Repository_Mapper.map( root );
 		
 		new ZipUtility( root );
 	}
-	
+	/**
+	 * Iterates through folder customer/customer/folder
+	 * @param customer		Name of customer folder
+	 * @param folder		Name of platform module folder
+	 */
 	private static void runImportFind( String customer, String folder){
 		String path =  "customer/"+customer+"/"+folder;
 		recursiveSearch( path );
 	}
-	/*
+	/**
 	 * Looks recursively through the file structure 
-	 * Searching through the file structure to find @!import statements
+	 * Searching through the file structure to find @!import statements.
+	 * It ignores zip, xml , and xsd files
+	 * 
+	 * @param fp	File structure to recursively search
 	 */
 	private static void recursiveSearch( String fp ){
 		File topFolder = new File( fp );
-		//System.out.println( topFolder.getName() );
 		for( String iter : topFolder.list()){
 			File folder = new File( fp + "/" + iter );
 			if( folder.isDirectory() )
@@ -67,7 +79,9 @@ public class RunableImport {
 			}
 		}
 	}
-	/*
+	/**
+	 * Imports file 'file' from lib folder into location
+	 * 
 	 * @param	file		Name of file to import - file found in /lib
 	 * @param	location	Name of current location to import lib file
 	 */

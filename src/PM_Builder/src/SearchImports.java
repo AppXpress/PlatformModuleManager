@@ -5,17 +5,24 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * Usage: call InitImports.parseD
+/**
+ * Parses a file for @!import statements
+ * 
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
  */
 
 public class SearchImports {
 	private static String filePath;
 	private static ArrayList <String> importFiles;
-	/*
+	/**
 	 * Look through top comment and try to find @!import statements
 	 * File name directly after @!import statement will be attempted
 	 * to be imported into the current folder
+	 * 
+	 * @param f		File to parse
 	 */
 	public static ArrayList<String> parseDoc( File f ){
 		importFiles = new ArrayList<String>();
@@ -50,8 +57,10 @@ public class SearchImports {
 		}
 		return importFiles;
 	}
-	/*
+	/**
 	 * Looks through a line for the @!import statement
+	 * 
+	 * @param	line	Line of a file
 	 */
 	private static void scanLine( String line ){
 		line = line.replaceAll(",", " ");
@@ -61,7 +70,6 @@ public class SearchImports {
 			for( int i = 0 ; i < words.length ; i++ ){
 				//System.out.println( words[i]);
 				if( rdyImport ){
-					//rdyImport = false;
 					importFiles.add( words[i] );
 				}
 				if( words[i].contains("@!import") )

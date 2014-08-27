@@ -8,7 +8,7 @@ import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
-/*
+/**
  * 	Take pulled Git repository and map to a file structure
  *  that can be imported onto Platform
  *  
@@ -17,15 +17,23 @@ import net.lingala.zip4j.util.Zip4jConstants;
  *  
  *  Program will malfunction/produce unexpected unimportable results if Git folder
  *  structure is different.
+ *  
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
  */
 public class Repository_Mapper {
-	
+	/**
+	 * Maps folder src
+	 * 
+	 * @param src	folder to map
+	 */
 	public static void map( String src ){
 		try{
-			System.out.println("IT MAPS HERE");
 			File root = new File( src );
 			if( ! root.exists() )
-				System.out.println("do existo");
+				System.out.println("Cannot find " + src );
 			//Renames files/folders to importable names
 			prepareImport( src );
 			//Bundles up multiple scripts into compressed file
@@ -35,13 +43,13 @@ public class Repository_Mapper {
 			System.err.println("Cannot find file");
 		}
 	}
-	/*
+	/**
 	 * Searches through platform module and renames specific 
 	 * folders and files so that they can be properly imported.
 	 * 
 	 * Mostly, adds $ signs where they belong to files and folders
 	 * 
-	 * @param	String	src		- Path of Platform Module
+	 * @param	src		Path of Platform Module
 	 */
 	private static void prepareImport( String src ){
 		File platform = new File ( src );
@@ -50,6 +58,11 @@ public class Repository_Mapper {
 			fixTopFolder( path );
 		}
 	}
+	/**
+	 * Fixes names in p to be ready for the import onto GTNexus system
+	 * 
+	 * @param p	path of platform module
+	 */
 	private static void fixTopFolder( String p ){
 		if( p.endsWith("CustomLinkD1")){
 			renameFile( p , "$CustomLinkD1");
@@ -67,18 +80,27 @@ public class Repository_Mapper {
 			}
 		}		
 	}
-	
+	/**
+	 * Iterates through platform module
+	 * 
+	 * @param src	Path of platform module
+	 */
 	private static void createBundles( String src ){
 		File r = new File ( src );
 		for( String folderName : r.list()){
-			System.out.println("runner " + folderName);
+			System.out.println("Running... " + folderName);
 			String path = src + "/" + folderName;
 			if( new File(path).isDirectory() )
 				searchSubFolder( path );
 				
 		}
 	}
-	
+	/**
+	 * Searches to see if folder has multiple js scripts. If so, bundle
+	 * them up.
+	 * 
+	 * @param name	Folder
+	 */
 	private static void searchSubFolder( String name ){
 		File f = new File( name );
 		//Special handling for CustomObjectModule/designs/Scripts folder
@@ -90,6 +112,7 @@ public class Repository_Mapper {
 			return;
 		}
 		System.out.println(name);
+		
 		//Special handling for customUi fef bundle
 		if( name.endsWith("/customUi")){
 			handleFef( name );
@@ -113,7 +136,6 @@ public class Repository_Mapper {
 			File cur = new File(name);
 			for(String s : cur.list() )
 				if( isJavaScriptFile(s)){	
-					//moveFiles( name + "/" + s , name + "/" + bundleFolder);
 					moveFiles( s , name , bundleFolder);
 				}
 			//Zip up bundle folder
@@ -124,15 +146,16 @@ public class Repository_Mapper {
 			emptyDir(name + "/" + bundleFolder);
 		}
 	}
-	/*
+	/**
 	 * Set up CO/designs/scripts into correct format
-	 * @param	File f		CO/designs/scripts folder
+	 * 
+	 * @param	name		CO/designs/scripts folder
 	 */
 	private static void handleCODesignScripts(String name) {
 		File f = new File(name);
 		//Look through CO folders 
 		for( String foldername : f.list()){
-			System.out.println(foldername + " Foldeah");
+			System.out.println(foldername + " Foldah");
 			File coFolder = new File( name + "/" + foldername);
 			if( ! ( coFolder.isDirectory() ) ){
 				continue;
@@ -154,8 +177,6 @@ public class Repository_Mapper {
 										zipName));
 				if( ! reNameFolder )
 					System.err.println("Error renaming folder");
-				//System.err.println( name + "/" + zipName);
-				//System.err.println(zipName);
 				ZipUtility zu = new ZipUtility( name + "/"+ zipName );
 				//Get rid of folder no longer needed
 				emptyDir( name + "/" + zipName );
@@ -163,18 +184,36 @@ public class Repository_Mapper {
 		}
 		
 	}
+	/**
+	 * Is this file a js script?
+	 * @param s		Path of file
+	 * @return		true - if file is a js script
+	 * 				false otherwise
+	 */
 	private static boolean isJavaScriptFile(String s){
 		String sub = s.substring( s.length() - 2);
 		if( sub.equals( "js"))
 			return true;
 		return false;
 	}
+	/**
+	 * Is file a zip file?
+	 * @param s		Path of file
+	 * @return		true - if file is zip file
+	 * 				false otherwise
+	 */
 	private static boolean isZipDir(String s){
 		String sub = s.substring( s.length() - 3);
 		if( sub.equals( "zip"))
 			return true;
 		return false;
 	}
+	/**
+	 * Creates a bundle folder - returns its name
+	 * 
+	 * @param parentName	Folder
+	 * @return				returns Folder<Bundle> file name
+	 */
 	private static String createBundleFolder( String parentName ){
 		File folder = new File( parentName );
 		String [] extractName = parentName.split("/");
@@ -186,12 +225,13 @@ public class Repository_Mapper {
 		child.mkdir();
 		return child.getName();
 	}
-	/*
+	/**
+	 * Moves a file into the specified target folder
+	 * Used for moving js files into a bundle folder
+	 * 
 	 * @param 	fileName 	Name of file to be moved
 	 * @param	folderPath	Path of current folder of file
 	 * @param	subFolder	Path of folder where file is to be moved
-	 * Moves a file into the specified target folder
-	 * 		Used for moving js files into a bundle folder
 	 */
 	private static void moveFiles( String fileName, String folderPath , String subFolder)
 	{
@@ -201,11 +241,11 @@ public class Repository_Mapper {
 		if( ! move)
 			System.err.println("Did not work");
 	}
-	/*
+	/**
 	 * Renames a file in the same directory
 	 * 
-	 * @param	String org		Original file path
-	 * @param	String name		New name of file designated by org path
+	 * @param	org		Original file path
+	 * @param	name		New name of file designated by org path
 	 */
 	private static void renameFile(String org, String name){
 		File custom = new File( org );
@@ -217,8 +257,10 @@ public class Repository_Mapper {
 			System.out.println("File move failed");
 		}
 	}
-	/*
+	/**
 	 * Empty out folder and then delete folder recursively
+	 * 
+	 * @param name	Name of folder to empty
 	 */
 	private static void emptyDir(String name){
 		File folder = new File(name);
@@ -234,6 +276,11 @@ public class Repository_Mapper {
 			folder.delete();
 		}			
 	}
+	/**
+	 * Handles fef folder
+	 * 
+	 * @param name	name of folder
+	 */
 	private static void handleFef(String name){
 		File sub = new File( name );
 		for( String s : sub.list() ){
@@ -248,11 +295,13 @@ public class Repository_Mapper {
 		}
 	}
 	
-	/*
+	/**
 	 * Adds $ to designs and scripts inside CustomObjectModule folder
+	 * 
+	 * @param path	Folder path
 	 */
 	private static void fixCOModule ( String path ){
-		//Go into desisns
+		//Go into designs
 		String designPath = path + "/designs" ;
 		File designsFolder = new File( designPath );
 		//Fixes xml files
@@ -281,7 +330,6 @@ public class Repository_Mapper {
 				}
 			}
 		}
-		
 		
 		//Go into xsd
 		String xsdPath = path + "/xsd";

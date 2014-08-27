@@ -1,15 +1,23 @@
 import java.util.zip.*;
 import java.io.*;
-import java.nio.file.*;
-
+/**
+ * Zips up a folder
+ * 
+ * 
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
+ */
 public class ZipUtility{
 	public String packDirectoryPath;
-	/*
+	/**
 	 * Zips up folder depicted by path folder
+	 * 
+	 * @param folder	File to zip up
 	 */
 	public ZipUtility(String folder){
 		try {
-			//packDirectoryPath = ( new File(folder).getName() );
 			packDirectoryPath = folder;
 			System.out.println( "Directory -> " + packDirectoryPath);
 			System.out.println(" Zipping up...");
@@ -44,7 +52,7 @@ public void zipDirectory(  ) throws IOException {
 /**
  * Recursively pack directory contents.
  * @param directoryPath - current directory path that is visited recursively
- * @param zos - ZIP output stream reference to add elements to
+ * @param zos 			- ZIP output stream reference to add elements to
  * @throws IOException
  */
 private void zipfiles(String directoryPath, ZipOutputStream zos) throws IOException {

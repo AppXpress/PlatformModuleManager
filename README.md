@@ -1,4 +1,4 @@
-Using PM_Builder and PM_extractor
+Using PM_Builder and PM_Extractor
 ============
 
 Bash script PM_Builder allows you to zip up a specifically structured GIT

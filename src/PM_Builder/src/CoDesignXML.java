@@ -1,29 +1,23 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-/*
- * Ensure Custom Object design xml documents correctly
- * include scriptingFeature tag if it has scripts
+/**
+ * Ensures that custom object designs xml match up with their scripting
+ * 
+ * @author Andrew Reynolds
+ * @version	1.0
+ * @date	8-27-2014
+ * GT Nexus
  */
 public class CoDesignXML {
 	public static String designPath;
 	public static String scriptPath;
-	/*
-	 * @args[0]		name of customer
-	 * @args[1]		name of Platform Folder
+	/**
+	 * Iterates through a platform module
+	 * 
+	 * @param customer	Customer folder where platform module exists
+	 * @param folder	Platform module folder
 	 */
-	public static void main(String args[] ){
-		runner( args[0], args[1]);
-		//ModifyXMLDOM.main( "tester.xml", "tester ", false);
-	}
-	public static void runner(String c, String f ){
-		String customer = c;
-		String folder = f;
+	public static void iter(String customer, String folder ){
 		String path =  "customer/"+customer+"/"+folder;
 		File exist = new File( path );
 		if( ! exist.exists() ){
@@ -39,6 +33,9 @@ public class CoDesignXML {
 		designPath =  path + "/CustomObjectModule/designs";
 		checkXML( );
 	}
+	/**
+	 * Checks to see if xml matches with scripts for custom object
+	 */
 	private static void checkXML(  ){
 		try{
 			File scripts = new File( scriptPath );
