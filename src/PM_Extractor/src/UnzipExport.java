@@ -26,7 +26,7 @@ public class UnzipExport {
 		try{
 			File f = new File( folder );
 			if( f.exists() ){
-				String destination = "PlatModX";
+				String destination = GitMap.PLATFORM_MODULE_UNZIP_NAME;
 				String source = folder;
 				unzip( source, destination );
 				recurseUnzip( destination );

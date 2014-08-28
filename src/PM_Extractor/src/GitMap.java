@@ -23,6 +23,9 @@ import static java.nio.file.StandardCopyOption.*;
 public class GitMap {
 	public static boolean OVER_WRITE_FEF;
 	public static boolean OVER_WRITE_SCRIPTS;
+	
+	public static final String PLATFORM_MODULE_UNZIP_NAME = "PlatModX";
+	
 	public static ArrayList<String> overwritten_Scripts;
 	/**
 	 * Takes 4-6 args ->
@@ -52,11 +55,12 @@ public class GitMap {
 		else
 			OVER_WRITE_FEF = false;
 		
+		String exportedPlatform = args[0];
 		//Append .zip extension if left off 
-		if( ! args[0].contains(".zip"))
-			args[0] = args[0] + ".zip";
+		if( ! exportedPlatform.contains(".zip"))
+			exportedPlatform = exportedPlatform + ".zip";
 		
-		File exp = new File ( args[0] );
+		File exp = new File ( exportedPlatform );
 		
 		if( ! exp.exists() ){
 			System.err.println("Cannot find Exported Folder -> " + args[0]);
@@ -67,22 +71,20 @@ public class GitMap {
 			System.err.println("Cannot find local Git Directory -> " + args[1] );
 		}
 		
-		String unzippedName = "PlatModX";
-		
-		if( new File("PlatModX").exists() )
-			UnzipExport.emptyDir("PlatModX");
+		if( new File(PLATFORM_MODULE_UNZIP_NAME).exists() )
+			UnzipExport.emptyDir(PLATFORM_MODULE_UNZIP_NAME);
 		
 		//Unzip Exported Platform Module
-		UnzipExport.run( args[0] );
+		UnzipExport.run( exportedPlatform );
 		
 		//Make files/folder human readable . i.e -> strip $ signs
-		UnzipExport.readable( unzippedName );
+		UnzipExport.readable( PLATFORM_MODULE_UNZIP_NAME );
 		
 		//Back up folder about to be overwritten
 		UnzipExport.backup( args[1] , args[2] , args[3]);
 		
 		//Map exported folder to local Git directory holding same platform module
-		new GitMap( unzippedName , args[1] , args[2] , args[3]);
+		new GitMap( args[1] , args[2] , args[3]);
 		
 		if( OVER_WRITE_SCRIPTS)
 			printOWS();
@@ -111,7 +113,7 @@ public class GitMap {
 	 * @param customer	Customer folder in which this platform module resides
 	 * @param pm		Platform Module name
 	 */
-	public GitMap( String src, String git, String customer, String pm){
+	public GitMap( String git, String customer, String pm){
 		//Ensure path exists - GIT repo is set up correctly
 		if ( ! validatePath( git , customer, pm ) )
 			return;
@@ -120,8 +122,9 @@ public class GitMap {
 		
 		clearCustomLinksXML( path );
 		
-		mapCoDesign(src);
-		mapFolders( src , path );
+		this.mapCoDesign( PLATFORM_MODULE_UNZIP_NAME);
+		
+		this.mapFolders( PLATFORM_MODULE_UNZIP_NAME , path );
 		
 	}
 	/**
