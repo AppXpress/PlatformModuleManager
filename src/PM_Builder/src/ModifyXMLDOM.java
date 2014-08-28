@@ -26,13 +26,15 @@ import org.xml.sax.SAXException;
  * GT Nexus
  */
 public class ModifyXMLDOM {
+	
+	static final String XML_DESIGN_TAG = "CustomObjectDesignV110";
 	/**
 	 * @param path	path of xml file
 	 * @param co	custom object name
 	 * @param js	true if scriptingFeature should indicate a js file
 	 * 				false if scriptingFeature should indicate a zip file
 	 */
-	public static void main(String path , String co , boolean js) {
+	public static void modify(String path , String co , boolean js) {
         File xmlFile = new File(path);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -47,7 +49,7 @@ public class ModifyXMLDOM {
             	else
             		updateTagZip( doc , co );
             else
-            	addScriptingTag( doc , js , co );
+            	addScriptingTag( doc , co, js );
             
              
             //write the updated document to file or console
@@ -125,7 +127,7 @@ public class ModifyXMLDOM {
      * 					false if indicating a zip file
      * @param	co		Name of custom object
      */
-    private static void addScriptingTag( Document doc , boolean jsFile , String co ){
+    private static void addScriptingTag( Document doc , String co , boolean jsFile ){
     	Element scripting = doc.createElement("scriptingFeature");
     	
     	Element enabled = doc.createElement("enabled");
@@ -161,11 +163,11 @@ public class ModifyXMLDOM {
     	fme.appendChild( doc.createTextNode("true"));
     	scripting.appendChild(fme);
     	try{
-    		NodeList dom = doc.getElementsByTagName("CustomObjectDesignV110");
+    		NodeList dom = doc.getElementsByTagName(XML_DESIGN_TAG);
     		dom.item(0).appendChild(scripting);
     	}
     	catch(NullPointerException e){
-    		System.err.println("Cannot find tag CustomObjectDesignV110");
+    		System.err.println("Cannot find tag " + XML_DESIGN_TAG);
     	}
     	
     }

@@ -65,29 +65,29 @@ property file can store exported folder name, local directory name, customer nam
 and platform module name. The builder's property file can store repository url, repository
 branch, customer name, and platform module name. The property files are called builder.properties
 and extractor.properties and can be found in your home /.platformtools folder. For each , 
-Run -> `bash pmbuilder -help` to view the 
-different options.
+Run -> `bash pmbuilder -help` or `bash pmextractor -help` to view the 
+different options for each respective script.
 
 ## Using PM Builder's Import Utility
 
 The pmBuilderUtil.jar can add common files to any folder in your file structure. Use ->
 
-@!import commonFile.js
+!import commonFile.js
 
 to import a file from the **lib** folder in your repository. The import
 statement must be contained in the comment or comment block at the beginning
 of your program. The following examples will import correctly:
 
-`// @!import commonFile.js`
+`// !import commonFile.js`
 
-`// @!import commonFile1.js,commonFile2,js,etc.js`
+`// !import commonFile1.js,commonFile2,js,etc.js`
 
-`// @!import x.js y.js z.js`
+`// !import x.js y.js z.js`
 
 ```
 /*
 
-  @!import example.js
+  !import example.js
   
 */
 ```
@@ -101,12 +101,12 @@ This following example will not import the file correctly ->
 
 function myFunction () {
   // code
-  //@!import alpha.js
+  //!import alpha.js
 }
-//@!import example.js
+//!import example.js
 ```
 
-The import utility does not continue to look for @!import statement
+The import utility does not continue to look for !import statement
 once the top comment has ended in order to run more efficiently. Therefore,
 any text not in a comment will cause the scanner to end looking at a 
 particular script. 

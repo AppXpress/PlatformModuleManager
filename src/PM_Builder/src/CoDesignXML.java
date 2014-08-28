@@ -51,9 +51,9 @@ public class CoDesignXML {
 				System.out.println( "xml " + xmlName);
 				System.out.println( sub.list().length );
 				if( sub.list().length == 1)
-					ModifyXMLDOM.main( xmlName , s , true);
+					ModifyXMLDOM.modify( xmlName , s , true);
 				else
-					ModifyXMLDOM.main( xmlName, s, false);
+					ModifyXMLDOM.modify( xmlName, s, false);
 			}
 		}
 		catch(Exception e){

@@ -2,7 +2,7 @@
  * Main method of pm_builder_util.jar. This executeable does the following
  * things in order with the end goal to create an importable zip file.
  * 
- * 1) Scans the js scripts in the platform module for the @!import symbol. If found,
+ * 1) Scans the js scripts in the platform module for the !import symbol. If found,
  * automatically imports indicated scripts from lib folder into correct folder.
  * 2) Makes sure each of the custom object design xml's contain the correct scriptingFeature
  * tag, therefore ensuring that the platform module's scripts will import correctly.

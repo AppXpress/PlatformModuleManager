@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parses a file for @!import statements
+ * Parses a file for !import statements
  * 
  * @author Andrew Reynolds
  * @version	1.0
@@ -20,9 +20,12 @@ public class ImportScanner {
 	private static String filePath;
 	private static ArrayList <String> importFiles;
 	
+	static final String IMPORT_SYMBOL = "!import";
+	// TODO	For IDE, compare imported scripts functions with functions in
+	// currently folder to ensure no identical, conflicting functions
 	/**
 	 * Looks recursively through the file structure 
-	 * Searching through the file structure to find @!import statements.
+	 * Searching through the file structure to find !import statements.
 	 * It ignores zip, xml , and xsd files
 	 * 
 	 * @param fp	File structure to recursively search
@@ -72,8 +75,8 @@ public class ImportScanner {
 	}
 	
 	/**
-	 * Look through top comment and try to find @!import statements
-	 * File name directly after @!import statement will be attempted
+	 * Look through top comment and try to find !import statements
+	 * File name directly after !import statement will be attempted
 	 * to be imported into the current folder
 	 * 
 	 * @param f		File to parse
@@ -112,7 +115,7 @@ public class ImportScanner {
 		return importFiles;
 	}
 	/**
-	 * Looks through a line for the @!import statement. If @!import
+	 * Looks through a line for the !import statement. If !import
 	 * is found, adds the following word, which should be a name of a js script
 	 * located in lib folder, and adds it to importFiles
 	 * 
@@ -120,7 +123,7 @@ public class ImportScanner {
 	 */
 	private static void scanLine( String line ){
 		line = line.replaceAll(",", " ");
-		if( line.contains("@!import")  ){
+		if( line.contains("!import")  ){
 			String [] words = line.split(" ");
 			boolean rdyImport = false;
 			for( int i = 0 ; i < words.length ; i++ ){
@@ -128,7 +131,7 @@ public class ImportScanner {
 				if( rdyImport ){
 					importFiles.add( words[i] );
 				}
-				if( words[i].contains("@!import") )
+				if( words[i].contains("!import") )
 					rdyImport = true;
 			}			
 		}					

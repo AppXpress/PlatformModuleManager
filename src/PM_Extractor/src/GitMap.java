@@ -31,7 +31,7 @@ public class GitMap {
 	
 	public static final String PLATFORM_MODULE_UNZIP_NAME = "PlatModX";
 	
-	public static ArrayList<String> overwritten_Scripts;
+	public static ArrayList<String> overwrittenScripts;
 	/**
 	 * Takes 4-6 args ->
 	 * @arg[0]			Exported Platform Module Name
@@ -48,7 +48,7 @@ public class GitMap {
 			System.err.println("Incorrect Args");
 			return;
 		}
-		overwritten_Scripts = new ArrayList<String>();
+		overwrittenScripts = new ArrayList<String>();
 		if( args.length > 4 && args[4].equalsIgnoreCase("y")){
 			OVER_WRITE_SCRIPTS = true;
 		}
@@ -62,7 +62,7 @@ public class GitMap {
 		
 		String exportedPlatform = args[0];
 		//Append .zip extension if left off 
-		if( ! exportedPlatform.contains(".zip"))
+		if( ! exportedPlatform.endsWith(".zip"))
 			exportedPlatform = exportedPlatform + ".zip";
 		
 		String localDir = args[1];
@@ -108,7 +108,7 @@ public class GitMap {
 	/**
 	 * Custom Link xml files are going to be replaced with the new 
 	 * custom link files from the exported module. This method rids the
-	 * CustomLinkD1 folder of outdate custom links files.
+	 * CustomLinkD1 folder of outdated custom links files.
 	 * 
 	 * @param gitPath		path of platform module in local dir
 	 */
@@ -130,13 +130,13 @@ public class GitMap {
 	 * @param customer	Customer folder in which this platform module resides
 	 * @param pm		Platform Module name
 	 */
-	public GitMap( String exp , String git, String customer, String pm){
+	public GitMap( String exportedZip , String git, String customer, String pm){
 		//Ensure path exists - GIT repo is set up correctly
 		if ( ! validatePath( git , customer, pm ) )
 			return;
 		
 		//Unzip Exported Platform Module
-		ExportedPlatform.unzip( exp );
+		ExportedPlatform.unzip( exportedZip );
 				
 		//Make files/folder human readable . i.e -> strip $ signs
 		ExportedPlatform.readable( PLATFORM_MODULE_UNZIP_NAME );
@@ -172,36 +172,36 @@ public class GitMap {
 						gitContains = true;
 						break;
 					}
-			}
-			//if folder is contained already in GIT, enter the folder
-			if( gitContains ) {
-				//Ignore CustomUi folder if over write fef is set to false
-				//Therefore, does not over write fef folder
-				if( ! OVER_WRITE_FEF && p.equals("customUi")){
-					//Do not go in here
 				}
-				else
-					mapFolders( export + "/" + p , destination + "/" + p );
+				//if folder is contained already in GIT, enter the folder
+				if( gitContains ) {
+					//Ignore CustomUi folder if over write fef is set to false
+					//Therefore, does not over write fef folder
+					if( ! OVER_WRITE_FEF && p.equals("customUi")){
+						//Do not go in here
+					}
+					else
+						mapFolders( export + "/" + p , destination + "/" + p );
+				}
+				// if it is a bundle within the export, ignore the bundle and go inside
+				else if( p.endsWith("Bundle") ){
+					mapFolders( export + "/" + p , destination );		
+				}
+				//if file , copy file from export into destination 
+				else{
+					System.out.println("Creating " + destination + "/" + p );
+					File dir = new File( destination + "/" + p);
+					dir.mkdir();
+					mapFolders( export + "/" + p , destination + "/" + p);
+				}
 			}
-			// if it is a bundle within the export, ignore the bundle and go inside
-			else if( p.endsWith("Bundle") ){
-				mapFolders( export + "/" + p , destination );		
-			}
-			//if file , copy file from export into destination 
-			else{
-				System.out.println("Creating " + destination + "/" + p );
-				File dir = new File( destination + "/" + p);
-				dir.mkdir();
-				mapFolders( export + "/" + p , destination + "/" + p);
-			}
-		}
 		else{
 			File f = new File( destination + "/" + p);
 			//if file -> rewrite file to match that in exported module
 			if( OVER_WRITE_SCRIPTS ){
 				if( f.exists() && f.getName().endsWith(".js")){
 					System.out.println( f.getName() );
-					overwritten_Scripts.add(f.getName());
+					overwrittenScripts.add(f.getName());
 				}
 				System.out.println("Adding -> " + destination + "/" + p);
 				mapCopy( export + "/" + p ,
@@ -344,7 +344,7 @@ public class GitMap {
 	 */
 	private static void printOWS(){
 		System.out.print("You over wrote these scripts -> ");
-		for( String s : overwritten_Scripts)
+		for( String s : overwrittenScripts)
 			System.out.print( s + ",");
 		System.out.println();
 	}
