@@ -1,10 +1,10 @@
-Using PM_Builder and PM_Extractor
+Using pmbuilder and pmextractor
 ============
 
-Bash script PM_Builder allows you to zip up a specifically structured GIT
+Bash script pmbuilder allows you to zip up a specifically structured GIT
 repository and zip it up so it is ready to import in one step.
 
-Bash script PM_Extractor allows you to unzip an exported platform module
+Bash script pmextractor allows you to unzip an exported platform module
 and merge it with your local working directory. The script will not push these
 changes to Git, this must be done manually. 
 
@@ -17,7 +17,7 @@ folders. The lib folder contains reusable javascript files.
 
 ## Building Jar from Eclipse
 
-Both of the jar executables, pm_builder_util and pm_extractor_util, are built
+Both of the jar executables, pmBuilderUtil and pmExtractorUtil, are built
 with *JRE 1.8*. If your current java version is not JRE 1.8, you might run into
 some problems running the the jars. Check your java -version by entering in
 the following command ->
@@ -41,36 +41,36 @@ the libraries tab
 
 * Now, right click again on your project name, click on export then under java click on **runnable jar file**
 
-* For the pm_builder, make the launch config **PlatformModuleBuilder** and export it with the name pm_builder_util.
+* For the pm_builder, make the launch config **PlatformModuleBuilder** and export it with the name pmBuilderUtil.
 
-* For the pm_extractor, make the launch config **GitMap** and export it with the name pm_extractor_util.
+* For the pm_extractor, make the launch config **GitMap** and export it with the name pmExtractorUtil.
 
 * Underneath the location and the launch config you will see three radio buttons. Make sure the middle one, Packaged
 required libraries into generated JAR, is selected.
 
 * Place each new jar with its corresponding bash script and it should run fine. 
 
-## Running PM_Builder 
+## Running pmbuilder 
 
-PM_Builder should be run in its own folder. This folder should contain pm_builder_util.
-pm_builder_util.jar is found in this repository. PM_Builder uses Git, so Git must be
+pmbuilder should be run in its own folder. This folder should contain pmBuilderUtil.
+pmBuilderUtil.jar is found in this repository. pmbuilder uses Git, so Git must be
 installed but no knowledge of Git is required to run the script.
 
-`bash PM_Builder `
+`bash pmbuilder `
 
-## PM_Builder's Property File
+## PM Builder's Property File
 
 This script allows for quick reuse by allowing the user to set up a property
 file that can be called to re-run the same commands over and over again.
 The property file has properties for repository URL, repository branch,
 customer name, and custom object name. The property file can be set
 by adding the changes directly to the file or by running the different
-options available to the PM_Builder. Run -> `bash PM_Builder -help` to view the 
+options available to the pmbuilder. Run -> `bash pmbuilder -help` to view the 
 different options.
 
-## Using PM_Builder's Import Utility
+## Using PM Builder's Import Utility
 
-The pm_builder_util.jar can add common files to any folder in your file structure. Use ->
+The pmBuilderUtil.jar can add common files to any folder in your file structure. Use ->
 
 @!import commonFile.js
 
@@ -111,24 +111,24 @@ once the top comment has ended in order to run more efficiently. Therefore,
 any text not in a comment will cause the scanner to end looking at a 
 particular script. 
 
-## Running PM_extractor
+## Running pmextractor
 
-PM_Extractor is a bash that automates the process of exporting a custom module
-and merging with your local working directory. PM_extractor backs up the current
+pmextractor is a bash that automates the process of exporting a custom module
+and merging with your local working directory. pmextractor backs up the current
 working directory before the merge and supplies two options, overWrite Fef and 
 overWrite scripts. Currently, the bash script will prompt you for a **y** or **n** 
-to both options. PM_extractor must be run in a place where it can access your
+to both options. pmextractor must be run in a place where it can access your
 local directory and exported platform module.
 
-PM_extractor similarly has a property file that stores the working directory, the
+pmextractor similarly has a property file that stores the working directory, the
 name of the exported platform module, the platform module folder, and the customers
-name. PM_extractor is following the same structure as the one found in stash pso/platform.
-Enter `bash PM_extractor -help` to view various options in setting or clearing the property
+name. pmextractor is following the same structure as the one found in stash pso/platform.
+Enter `bash pmextractor -h` to view various options in setting or clearing the property
 file. 
 
 ### Options 
 
-The following options can be set to run with PM_Extractor
+The following options can be set to run with pmextractor
 
 ```
 -h		displays options on how to set the property file

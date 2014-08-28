@@ -1,10 +1,16 @@
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
 /**
- * Main method of pm_builder_util.jar. Takes a folder, maps it to a zippable
- * file structure, then zips it up.
+ * Main method of pm_builder_util.jar. This executeable does the following
+ * things in order with the end goal to create an importable zip file.
+ * 
+ * 1) Scans the js scripts in the platform module for the @!import symbol. If found,
+ * automatically imports indicated scripts from lib folder into correct folder.
+ * 2) Makes sure each of the custom object design xml's contain the correct scriptingFeature
+ * tag, therefore ensuring that the platform module's scripts will import correctly.
+ * 3) Maps the local git structure to the folder structure required to become importable
+ * by GTNexus platform. This requires correct folder names and bundling js scripts into
+ * zip files when necessary.
+ * 4) Zips up correctly mapped file structure into a zip file, ready to import into GTNexus
+ * system
  * 
  * @author Andrew Reynolds
  * @version	1.0
@@ -17,85 +23,80 @@ public class PlatformModuleBuilder {
 	 * @param args	0 -	Name of customer folder
 	 * 				1 - Name of platform module folder
 	 */
+	
 	public static void main( String args[]){
 		if( args.length != 2 ){
-			System.out.println("Incorrect parameters");
+			System.err.println("Incorrect parameters. Program requires two parameters");
 			return;
 		}
+		String customer = args[0];
+		String pmFolder = args[1];
+		PlatformModuleBuilder pmb = new PlatformModuleBuilder( customer , pmFolder );
+	}
+	/**
+	 * Inputs recently pulled down git repository and outputs zip file that is
+	 * ready to be imported onto GTNexus system
+	 * 
+	 * @param customer		Name of customer folder
+	 * @param platform		Name of platform module folder
+	 */
+	public PlatformModuleBuilder( String customer , String platform ){
 		//Find @!import and import allocated scripts
 		System.out.println("Gathering imports...");
-		runImportFind( args[0] , args[1] );
 		
+		//runImportFind( customer , platform );
+		this.runImportFind(customer, platform);
 		//Zip up the folder -> args[1] 
-		String root = "customer/" + args[0] +"/" + args[1];
+		String root = "customer/" + customer +"/" + platform;
 		//Zips up File structure - now ready to import	
-		
+				
 		//Ensure design xml files correctly indicate
 		//custom object design scripts
-		CoDesignXML.iter( args[0] , args[1] ); 
-		
+		this.xmlDesignCustomObjectScriptMatcher( customer, platform );
+				
 		//Maps Git repo to importable file structure
-		RepositoryMapper.map( root );
+		this.map( root );
 		
-		new ZipUtility( root );
+		//Zips up platform module folder
+		this.zip( root ); 
+					
+	}
+	/**
+	 * Zips up platform module folder
+	 * 
+	 * @param root	Path of platform module folder to zip
+	 */
+	private void zip(String root) {
+		new ZipUtility( root );		
+	}
+	/**
+	 * Maps pulled platform module to a file structure that can be imported
+	 * onto GTNexus system
+	 * 
+	 * @param root	File path of platform module
+	 */
+	private void map(String root) {
+		PlatformMapUtil.map( root );
+	}
+	/**
+	 * Searches through the custom object module folder and ensures that
+	 * each custom object design xml file corresponds to the correct number
+	 * of custom object scripts
+	 * 
+	 * @param customer		Name of customer folder
+	 * @param platform		Name of platform module folder
+	 */
+	private void xmlDesignCustomObjectScriptMatcher(String customer,
+			String platform) {
+		CoDesignXML.iter( customer , platform ); 
 	}
 	/**
 	 * Iterates through folder customer/customer/folder
 	 * @param customer		Name of customer folder
 	 * @param folder		Name of platform module folder
 	 */
-	private static void runImportFind( String customer, String folder){
+	private void runImportFind( String customer, String folder){
 		String path =  "customer/"+customer+"/"+folder;
-		recursiveSearch( path );
-	}
-	/**
-	 * Looks recursively through the file structure 
-	 * Searching through the file structure to find @!import statements.
-	 * It ignores zip, xml , and xsd files
-	 * 
-	 * @param fp	File structure to recursively search
-	 */
-	private static void recursiveSearch( String fp ){
-		File topFolder = new File( fp );
-		for( String iter : topFolder.list()){
-			File folder = new File( fp + "/" + iter );
-			if( folder.isDirectory() )
-				recursiveSearch( fp + "/" + folder.getName() );
-			else{
-				String fileName = fp + "/" + folder.getName();
-				if( fileName.length() > 2 ){
-					String type = fileName.substring(fileName.length()-3 , fileName.length()  );
-					if( type.equals("zip") || type.equals("xml") || type.equals("xsd") ||
-							type.equals("xlf"))
-						continue;
-				}
-				System.out.println(fileName);
-				ArrayList<String> filesToImport = SearchImports.parseDoc(new File(fileName));
-				if( filesToImport.size() > 0 )
-					for( String s : filesToImport )
-						importFile( s, fp);
-			}
-		}
-	}
-	/**
-	 * Imports file 'file' from lib folder into location
-	 * 
-	 * @param	file		Name of file to import - file found in /lib
-	 * @param	location	Name of current location to import lib file
-	 */
-	private static void importFile( String file , String location){
-		File source = new File("lib/" + file);
-		if( ! ( source.exists() ) ){
-			System.out.println("Failed to import " + source.getName() + " - File not Found");
-			return;
-		}
-		File dest = new File(location + "/"+file);
-		try {
-			if( ! ( dest.exists() ) )
-				Files.copy(source.toPath(), dest.toPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ImportScanner.search ( path );
 	}
 }
