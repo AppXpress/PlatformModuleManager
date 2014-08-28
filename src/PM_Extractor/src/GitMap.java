@@ -32,7 +32,7 @@ public class GitMap {
 	 * @arg[0]			Exported Platform Module Name
 	 * @arg[1]			Relative Path of GIT staging folder
 	 * @arg[2]			Customer of Platform Module
-	 * @arg[3]			Custom Object that is being exported
+	 * @arg[3]			Platform Module that is being exported
 	 * 
 	 * Optional Args	
 	 * @args[4]			If Y ->		overwriteScripts = true
@@ -60,34 +60,45 @@ public class GitMap {
 		if( ! exportedPlatform.contains(".zip"))
 			exportedPlatform = exportedPlatform + ".zip";
 		
-		File exp = new File ( exportedPlatform );
+		String localDir = args[1];
+		String customer = args[2];
+		String platform = args[3];
 		
-		if( ! exp.exists() ){
-			System.err.println("Cannot find Exported Folder -> " + args[0]);
+		//Make sure Git Folder and Exported Folder exist
+		if( ! validateFolders( exportedPlatform, args[1] ))
 			return;
-		}
-		File git = new File( args[1] );
-		if( ! git.exists() ){
-			System.err.println("Cannot find local Git Directory -> " + args[1] );
-		}
 		
 		if( new File(PLATFORM_MODULE_UNZIP_NAME).exists() )
 			UnzipExport.emptyDir(PLATFORM_MODULE_UNZIP_NAME);
 		
-		//Unzip Exported Platform Module
-		UnzipExport.run( exportedPlatform );
-		
-		//Make files/folder human readable . i.e -> strip $ signs
-		UnzipExport.readable( PLATFORM_MODULE_UNZIP_NAME );
-		
-		//Back up folder about to be overwritten
-		UnzipExport.backup( args[1] , args[2] , args[3]);
-		
 		//Map exported folder to local Git directory holding same platform module
-		new GitMap( args[1] , args[2] , args[3]);
+		new GitMap( exportedPlatform , localDir , customer , platform );
 		
 		if( OVER_WRITE_SCRIPTS)
 			printOWS();
+	}
+	/**
+	 * Test to ensure local directory and exported zip folder exist
+	 * @param export	Exported folder name
+	 * @param localDir	Local git directory
+	 * @return		true if both folders exists
+	 * 				false otherwise
+	 */
+	private static boolean validateFolders( String export , String localDir) {
+		File f = new File ( export );
+		
+		if( ! f.exists() ){
+			System.err.println("Cannot find Exported Folder -> " + f.getName() );
+			return false;
+		}
+		f = new File( localDir );
+		if( ! f.exists() ){
+			System.err.println("Cannot find local Git Directory -> " + f.getName() );
+			return false;
+		}
+		
+		
+		return true;
 	}
 	/**
 	 * Custom Link xml files are going to be replaced with the new 
@@ -103,6 +114,7 @@ public class GitMap {
 			for( File x : dir.listFiles() )
 				x.delete() ;
 		}
+		
 	}
 	/**
 	 * Maps the exported platform module folder to the platform module
@@ -113,10 +125,19 @@ public class GitMap {
 	 * @param customer	Customer folder in which this platform module resides
 	 * @param pm		Platform Module name
 	 */
-	public GitMap( String git, String customer, String pm){
+	public GitMap( String exp , String git, String customer, String pm){
 		//Ensure path exists - GIT repo is set up correctly
 		if ( ! validatePath( git , customer, pm ) )
 			return;
+		
+		//Unzip Exported Platform Module
+		UnzipExport.run( exp );
+				
+		//Make files/folder human readable . i.e -> strip $ signs
+		UnzipExport.readable( PLATFORM_MODULE_UNZIP_NAME );
+				
+		//Back up folder about to be overwritten
+		UnzipExport.backup( git , customer , pm );
 		
 		String path = git + "/customer/" + customer + "/" + pm;
 		
