@@ -9,6 +9,7 @@ function showOptions ( )
 	echo "	-gitFolder		set default source folder to be zipped"
 	echo "  	-customer		set customer path for exported zip"
 	echo "  	-platformFolder		set custom object path for exported zip"
+	echo "		-clear				clear property file" 
 	echo "	-h			help "
 	echo "	-f			over write fef"
 	echo "  	-s			over write scripts"
@@ -22,15 +23,20 @@ function showOptions ( )
 #######################################################
 function rewritePropertyFile ( )
 {
-	sed -i "s/p_export=[^ ]*/p_export=$export/g" marvinEx.properties
-	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" marvinEx.properties
-	sed -i "s/p_pm=[^ ]*/p_pm=$platformFolder/g" marvinEx.properties
-	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" marvinEx.properties
+	sed -i "s/p_export=[^ ]*/p_export=$export/g" $propFile
+	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" $propFile
+	sed -i "s/p_pm=[^ ]*/p_pm=$platformFolder/g" $propFile
+	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" $propFile
 }
 #######################################################
 ###############Set Property File#######################
 #######################################################
-propFile=marvinEx.properties
+propDir=~/.platformtools
+if [ ! -d "$propDir" ] ; then
+	mkdir "$propDir"
+fi
+
+propFile=~/.platformtools/extractor.properties
 if [ ! -f "$propFile" ] ; then
     touch "$propFile"
 	echo "p_export=" >> $propFile
@@ -41,8 +47,8 @@ fi
 #######################################################
 ###############Set properties##########################
 #######################################################
-if [ -f marvinEx.properties ] ; then
-	. marvinEx.properties
+if [ -f "$propFile" ] ; then
+	. "$propFile"
 fi
 export="$p_export"
 folder="$p_folder"
@@ -98,6 +104,11 @@ fi
 		else
 			echo "Need to add name of branch in repository"
 		fi
+		exit 0
+	fi
+	if [ "$1" == "-clear" ] ; then
+		rm "$propFile"
+		echo "Property file cleared"
 		exit 0
 	fi
 #####################################################

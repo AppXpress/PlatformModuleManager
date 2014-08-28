@@ -14,26 +14,35 @@ function showOptions ( )
 #######################################################
 function rewritePropertyFile ( )
 {
-	rm marvin_data.properties
-	touch "marvin_data.properties"
-	echo "p_repository=$repo" >> $propFile
-	echo "p_folder=$folder" >> $propFile
-	echo "p_branch=$branch" >> $propFile
-	echo "p_customer=$customer" >> $propFile
+	sed -i "s/p_repository=[^ ]*/p_repository=$repo/g" $propFile
+	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" $propFile
+	sed -i "s/p_branch=[^ ]*/p_branch=$branch/g" $propFile
+	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" $propFile
+	
 }
 #######################################################
 ###############Set Property File#######################
 #######################################################
-propFile=marvin_data.properties
+propDir=~/.platformtools
+if [ ! -d "$propDir" ] ; then
+	mkdir "$propDir"
+fi
+
+propFile=~/.platformtools/builder.properties
 if [ ! -f "$propFile" ] ; then
     touch "$propFile"
+	echo "p_repository=" >> $propFile
+	echo "p_folder=" >> $propFile
+	echo "p_branch=" >> $propFile
+	echo "p_customer=">> $propFile
 fi
 #######################################################
 ###############Set properties##########################
 #######################################################
-if [ -f marvin_data.properties ] ; then
-	. marvin_data.properties
+if [ -f "$propFile" ] ; then
+	. "$propFile"
 fi
+
 repo="$p_repository"
 folder="$p_folder"
 branch="$p_branch"

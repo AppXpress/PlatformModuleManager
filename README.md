@@ -58,14 +58,14 @@ installed but no knowledge of Git is required to run the script.
 
 `bash pmbuilder `
 
-## PM Builder's Property File
+## PM Builder's & PM Extractor's Property File
 
-This script allows for quick reuse by allowing the user to set up a property
-file that can be called to re-run the same commands over and over again.
-The property file has properties for repository URL, repository branch,
-customer name, and custom object name. The property file can be set
-by adding the changes directly to the file or by running the different
-options available to the pmbuilder. Run -> `bash pmbuilder -help` to view the 
+Both scripts allow for quick reuse by supplying a property file. The extractor's
+property file can store exported folder name, local directory name, customer name,
+and platform module name. The builder's property file can store repository url, repository
+branch, customer name, and platform module name. The property files are called builder.properties
+and extractor.properties and can be found in your home /.platformtools folder. For each , 
+Run -> `bash pmbuilder -help` to view the 
 different options.
 
 ## Using PM Builder's Import Utility
