@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 /**
  * Main method of pm_builder_util.jar. Takes a folder, maps it to a zippable
  * file structure, then zips it up.
@@ -13,7 +11,7 @@ import java.util.regex.Pattern;
  * @date	8-27-2014
  * GT Nexus
  */
-public class RunableImport {
+public class PlatformModuleBuilder {
 	/**
 	 * 
 	 * @param args	0 -	Name of customer folder
@@ -37,7 +35,7 @@ public class RunableImport {
 		CoDesignXML.iter( args[0] , args[1] ); 
 		
 		//Maps Git repo to importable file structure
-		Repository_Mapper.map( root );
+		RepositoryMapper.map( root );
 		
 		new ZipUtility( root );
 	}

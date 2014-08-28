@@ -41,7 +41,7 @@ the libraries tab
 
 * Now, right click again on your project name, click on export then under java click on **runnable jar file**
 
-* For the pm_builder, make the launch config **Runnable Imports** and export it with the name pm_builder_util.
+* For the pm_builder, make the launch config **PlatformModuleBuilder** and export it with the name pm_builder_util.
 
 * For the pm_extractor, make the launch config **GitMap** and export it with the name pm_extractor_util.
 
