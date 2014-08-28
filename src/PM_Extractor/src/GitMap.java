@@ -1,11 +1,8 @@
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -14,6 +11,14 @@ import static java.nio.file.StandardCopyOption.*;
 /**
  * Main method used by pm_extrator_util.jar. Unzips an exported platform module
  * and maps it into a working directory.
+ * 
+ * Accomplishes the following steps
+ * 1) Validates passed in parameters to ensure the files exists and are accessible
+ * 2) Unzips the exported platform module
+ * 3) Strips the platform module of $
+ * 4) Backs up the current local directory
+ * 5) Overwrites the current directory with the exported platform module by
+ * mapping the exported platform module into the local directory
  * 
  * @author Andrew Reynolds
  * @version	1.0
@@ -69,7 +74,7 @@ public class GitMap {
 			return;
 		
 		if( new File(PLATFORM_MODULE_UNZIP_NAME).exists() )
-			UnzipExport.emptyDir(PLATFORM_MODULE_UNZIP_NAME);
+			ExportedPlatform.emptyDir(PLATFORM_MODULE_UNZIP_NAME);
 		
 		//Map exported folder to local Git directory holding same platform module
 		new GitMap( exportedPlatform , localDir , customer , platform );
@@ -131,13 +136,13 @@ public class GitMap {
 			return;
 		
 		//Unzip Exported Platform Module
-		UnzipExport.run( exp );
+		ExportedPlatform.unzip( exp );
 				
 		//Make files/folder human readable . i.e -> strip $ signs
-		UnzipExport.readable( PLATFORM_MODULE_UNZIP_NAME );
+		ExportedPlatform.readable( PLATFORM_MODULE_UNZIP_NAME );
 				
 		//Back up folder about to be overwritten
-		UnzipExport.backup( git , customer , pm );
+		ExportedPlatform.backup( git , customer , pm );
 		
 		String path = git + "/customer/" + customer + "/" + pm;
 		
@@ -292,12 +297,7 @@ public class GitMap {
 	 * 					false if file structure does not exist
 	 */
 	private boolean validatePath( String folder, String sub, String subCo ){
-		String path = folder + "/customer";
-		if( ! exists(path) ){
-			System.err.println("Cannot find customer folder in GIT staging folder");
-			return false;
-		}
-		path = path + "/" + sub;
+		String path = folder + "/customer/" + sub;
 		if( ! exists(path) ){
 			System.err.println("Cannot find specific customer in customer folder");
 			return false;

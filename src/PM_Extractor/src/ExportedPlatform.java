@@ -16,13 +16,13 @@ import net.lingala.zip4j.exception.ZipException;
  * GT Nexus
  */
 
-public class UnzipExport {
+public class ExportedPlatform {
 	/**
 	 * Unzips file 'folder' into PlatModX
 	 * 
 	 * @param folder	Path of exported zip file
 	 */
-	public static void run( String folder) {
+	public static void unzip( String folder) {
 		try{
 			File f = new File( folder );
 			if( f.exists() ){
