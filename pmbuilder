@@ -10,6 +10,10 @@ function showOptions ( )
 	echo "	-branch			set default branch in repository to clone from"
 	echo "	-clear 			clear property file of defaults"
 	echo "	-customer		set customer file path of desired platform module"
+	echo "	-h				show options"
+	echo "	-c 				set customer"
+	echo "	-b 				set branch"
+	echo "	-f				set platform module folder"
 }
 #######################################################
 function rewritePropertyFile ( )
@@ -106,12 +110,30 @@ elif [[ $1 == "-clear" ]] ; then
 	echo "Property file cleared"
 	exit 0
 fi
-
-echo "Default Repository : $repo "
-echo "Default Source Folder : $folder "
-echo "Default branch :	$branch"
-echo "Default customer : $customer"
 ##############################################
+#########Set options##########################
+##############################################
+OPTIND=1
+while getopts "h?c:f:b:" opt; do
+    case "$opt" in
+    h|\?)
+        showOptions
+        exit 0
+        ;;
+	c) customer="$OPTARG"
+	;;
+	f) folder="$OPTARG"
+	;;
+	b) branch="$OPTARG"
+	;;
+    esac
+done
+
+echo "Repository : $repo "
+echo "Source Folder : $folder "
+echo "Branch :	$branch"
+echo "Customer : $customer"
+###################################################
 if [ ! -d .git ] ; then
 	git init
 fi 

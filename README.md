@@ -1,16 +1,18 @@
 Using pmbuilder and pmextractor
 ============
 
-Bash script pmbuilder allows you to zip up a specifically structured GIT
-repository and zip it up so it is ready to import in one step.
+Bash script pmbuilder utilizes command line arguments and a jar executable to
+take a specifically structured platform module located in a remote git repository
+and zip it up into a correctly formatted importable zip file.
 
-Bash script pmextractor allows you to unzip an exported platform module
-and merge it with your local working directory. The script will not push these
-changes to Git, this must be done manually. 
+Bash script pmextractor takes an exported zip file and merges it with your
+current local working directory. pmextractor performs the opposite mapping function
+as pmbuilder, that is extracting a zip file and mapping it to match the desired human
+readable file structure found in the git repository. 
 
 ## Git Structure
 
-The Git should be structured found in stash under pso/platform. Specifically,
+The local working directory should have the same structure as the one found in stash under pso/platform. Specifically,
 the repository should have a customer and lib folder. The customer folder 
 contains folders for different customers, under which there is custom object
 folders. The lib folder contains reusable javascript files. 
@@ -18,17 +20,17 @@ folders. The lib folder contains reusable javascript files.
 ## Building Jar from Eclipse
 
 Both of the jar executables, pmBuilderUtil and pmExtractorUtil, are built
-with *JRE 1.8*. If your current java version is not JRE 1.8, you might run into
+with **JRE 1.8**. If your current java version is not 1.8, you might run into
 some problems running the the jars. Check your java -version by entering in
 the following command ->
 
 `java -version` 
 
 If it is not 1.8, it is safest to build your own jar using the source code found
-in the src/PM_Builder and src/PM_extractor respectively. Steps to build
+in the src/PM_Builder and src/PM_extractor folders respectively. Steps to build
 a jar in eclipse follow.
 
-* Open a new java project by going to File->Java Project->
+* Open a new java project by going to File->Java Project
 
 * Drag the source code found in src/PM_Builder/src into the src folder of your new project
 
@@ -41,12 +43,12 @@ the libraries tab
 
 * Now, right click again on your project name, click on export then under java click on **runnable jar file**
 
-* For the pm_builder, make the launch config **PlatformModuleBuilder** and export it with the name pmBuilderUtil.
+* For the pmbuilder, make the launch config **PlatformModuleBuilder** and export it with the name pmBuilderUtil.
 
-* For the pm_extractor, make the launch config **GitMap** and export it with the name pmExtractorUtil.
+* For the pmextractor, make the launch config **GitMap** and export it with the name pmExtractorUtil.
 
-* Underneath the location and the launch config you will see three radio buttons. Make sure the middle one, Packaged
-required libraries into generated JAR, is selected.
+* Underneath the location and the launch config you will see three radio buttons. Make sure the middle one, *Packaged
+required libraries into generated JAR*, is selected.
 
 * Place each new jar with its corresponding bash script and it should run fine. 
 
@@ -54,7 +56,10 @@ required libraries into generated JAR, is selected.
 
 pmbuilder should be run in its own folder. This folder should contain pmBuilderUtil.
 pmBuilderUtil.jar is found in this repository. pmbuilder uses Git, so Git must be
-installed but no knowledge of Git is required to run the script.
+installed but no knowledge of Git is required to run the script. It is important to note
+that pmbuilder should not be run in the same folder as your local git working directory, as
+it could cause conflicts. The script is standalone, and will re pull changes from git every
+time it runs. 
 
 `bash pmbuilder `
 
@@ -74,9 +79,9 @@ The pmBuilderUtil.jar can add common files to any folder in your file structure.
 
 !import commonFile.js
 
-to import a file from the **lib** folder in your repository. The import
-statement must be contained in the comment or comment block at the beginning
-of your program. The following examples will import correctly:
+to import a file from the **lib** folder in your repository.
+
+The following examples will import correctly:
 
 `// !import commonFile.js`
 
@@ -109,7 +114,22 @@ function myFunction () {
 The import utility does not continue to look for !import statement
 once the top comment has ended in order to run more efficiently. Therefore,
 any text not in a comment will cause the scanner to end looking at a 
-particular script. 
+particular script.
+
+### Options 
+
+The following options can be set to run with pmbuilder
+
+```
+-h		displays options on how to set the property file
+
+-f		sets platform module folder
+
+-c 		set customer
+
+-b 		set branch to pull from repository
+
+```
 
 ## Running pmextractor
 
