@@ -1,9 +1,14 @@
 package com.gtnexus.appxpress.pmbuilder;
 
+import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
+import static com.gtnexus.appxpress.AppXpressConstants.LIB;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,50 +17,54 @@ import java.util.regex.Pattern;
  * Parses a file for !import statements
  * 
  * @author Andrew Reynolds
+ * @author John Donovan
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-
 public class ImportScanner {
-	private static String filePath;
-	private static ArrayList<String> importFiles;
 
-	static final String IMPORT_SYMBOL = "!import";
+	private ArrayList<String> importFiles;
+
+	public ImportScanner() {
+	}
 
 	// TODO For IDE, compare imported scripts functions with functions in
 	// currently folder to ensure no identical, conflicting functions
+
 	/**
 	 * Looks recursively through the file structure Searching through the file
 	 * structure to find !import statements. It ignores zip, xml , and xsd files
 	 * 
-	 * @param fp
-	 *            File structure to recursively search
+	 * @param filePath
+	 *            File path to recursively search
 	 */
-	static void search(String fp) {
-		File topFolder = new File(fp);
-		for (String iter : topFolder.list()) {
-			File folder = new File(fp + "/" + iter);
-			if (folder.isDirectory()) {
-				search(fp + "/" + folder.getName());
-			} else {
-				String fileName = fp + "/" + folder.getName();
-				if (fileName.length() > 2) {
-					String type = fileName.substring(fileName.length() - 3,
-							fileName.length());
-					if (type.equals("zip") || type.equals("xml")
-							|| type.equals("xsd") || type.equals("xlf")) {
-						continue;
-					}
-				}
-				System.out.println(fileName);
-				ArrayList<String> filesToImport = parseDoc(new File(fileName));
-				if (filesToImport.size() > 0) {
-					for (String s : filesToImport) {
-						importFile(s, fp);
-					}
+	public void search(String filePath) {
+		File topFolder = new File(filePath);
+		if (!topFolder.isDirectory()) {
+			throw new IllegalArgumentException(filePath
+					+ " is invalid. filePath "
+					+ "must be a valid path to a directory");
+		}
+		for (File file : topFolder.listFiles()) {
+			if (file.isDirectory()) {
+				search(file.getAbsolutePath());
+			} else if (isForImport(file)) {
+				for (String s : parseDoc(file)) {
+					importFile(s, filePath);
 				}
 			}
 		}
+	}
+
+	private boolean isForImport(File file) {
+		final List<String> invalidExtensions = Arrays.asList("zip", "xml",
+				"xsd", "xlf");
+		String[] splitName = file.getName().split("\\.");
+		if (splitName.length > 1
+				&& !invalidExtensions.contains(splitName[splitName.length - 1])) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -66,20 +75,19 @@ public class ImportScanner {
 	 * @param location
 	 *            Name of current location to import lib file
 	 */
-	private static void importFile(String file, String location) {
-		File source = new File("lib/" + file);
-		if (!(source.exists())) {
+	private void importFile(String file, String location) {
+		File source = new File(LIB + File.separator + file);
+		if (!source.exists()) {
 			System.out.println("Failed to import " + source.getName()
 					+ " - File not Found");
 			return;
 		}
-		File dest = new File(location + "/" + file);
+		File destination = new File(location + File.separator + file);
 		try {
-			if (!(dest.exists())) {
-				Files.copy(source.toPath(), dest.toPath());
+			if (!destination.exists()) {
+				Files.copy(source.toPath(), destination.toPath());
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -92,10 +100,9 @@ public class ImportScanner {
 	 * @param f
 	 *            File to parse
 	 */
-	public static ArrayList<String> parseDoc(File f) {
+	private ArrayList<String> parseDoc(File f) {
 		importFiles = new ArrayList<String>();
 		try {
-			filePath = f.getAbsolutePath();
 			Scanner scan = new Scanner(f);
 			String readline;
 			boolean commentStart = false;
@@ -121,8 +128,9 @@ public class ImportScanner {
 				if (!(commentStart || m2.find() || !readline.equals(""))) {
 					break;
 				}
+				// TODO importFiles is always an empty list. Thus, no files will
+				// ever be imported @see search()
 			}
-			System.out.println("Finished Scanning");
 			scan.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,17 +146,16 @@ public class ImportScanner {
 	 * @param line
 	 *            Line of a file
 	 */
-	private static void scanLine(String line) {
+	private void scanLine(String line) {
 		line = line.replaceAll(",", " ");
-		if (line.contains("!import")) {
+		if (line.contains(IMPORT_FLAG)) {
 			String[] words = line.split(" ");
 			boolean rdyImport = false;
 			for (int i = 0; i < words.length; i++) {
-				// System.out.println( words[i]);
 				if (rdyImport) {
 					importFiles.add(words[i]);
 				}
-				if (words[i].contains("!import")) {
+				if (words[i].contains(IMPORT_FLAG)) {
 					rdyImport = true;
 				}
 			}

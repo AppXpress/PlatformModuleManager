@@ -1,5 +1,11 @@
 package com.gtnexus.appxpress.pmbuilder;
 
+import static com.gtnexus.appxpress.AppXpressConstants.$;
+import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
+import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTING_FEATURE;
+import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
+import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -29,6 +35,14 @@ import org.xml.sax.SAXException;
 public class ModifyXMLDOM {
 
 	static final String XML_DESIGN_TAG = "CustomObjectDesignV110";
+	static final String TEXT_JS = "text/javascript";
+	static final String APPLICATION_ZIP = "application/zip";
+	static final String FILENAME = "fileName";
+	static final String FIELD_MASKING_ENABLED = "fieldMaskingEnabled";
+	static final String MIME_TYPE = "mimeType";
+	static final String DESCRIPTION = "description";
+	static final String GENERIC_FILE_JS = "generic.js";
+	static final String GENERIC_FILE_ZIP = "generic.zip";
 
 	/**
 	 * @param path
@@ -81,7 +95,7 @@ public class ModifyXMLDOM {
 	 */
 	private static boolean checkTag(Document doc) {
 		NodeList scriptingFeature = doc
-				.getElementsByTagName("scriptingFeature");
+				.getElementsByTagName(SCRIPTING_FEATURE);
 		if (scriptingFeature.getLength() == 0) {
 			return false;
 		} else {
@@ -99,13 +113,13 @@ public class ModifyXMLDOM {
 	 *            Custom object name
 	 */
 	private static void updateTagJs(Document doc, String co) {
-		NodeList scriptingTag = doc.getElementsByTagName("scriptingFeature");
+		NodeList scriptingTag = doc.getElementsByTagName(SCRIPTING_FEATURE);
 		Element elm = (Element) scriptingTag.item(0);
-		Node name = elm.getElementsByTagName("mimeType").item(0)
+		Node name = elm.getElementsByTagName(MIME_TYPE).item(0)
 				.getFirstChild();
-		name.setNodeValue("text/javascript");
-		String jsName = "ScriptDesign_$" + co + ".js";
-		name = elm.getElementsByTagName("fileName").item(0).getFirstChild();
+		name.setNodeValue(TEXT_JS);
+		String jsName = SCRIPT_DESIGN + $ + co + JS_EXTENSION;
+		name = elm.getElementsByTagName(FILENAME).item(0).getFirstChild();
 		name.setNodeValue(jsName);
 	}
 
@@ -120,13 +134,13 @@ public class ModifyXMLDOM {
 	 *            Name of custom object
 	 */
 	private static void updateTagZip(Document doc, String co) {
-		NodeList scriptingTag = doc.getElementsByTagName("scriptingFeature");
+		NodeList scriptingTag = doc.getElementsByTagName(SCRIPTING_FEATURE);
 		Element elm = (Element) scriptingTag.item(0);
-		Node name = elm.getElementsByTagName("mimeType").item(0)
+		Node name = elm.getElementsByTagName(MIME_TYPE).item(0)
 				.getFirstChild();
-		name.setNodeValue("application/zip");
-		String zipName = "ScriptDesign_$" + co + ".zip";
-		name = elm.getElementsByTagName("fileName").item(0).getFirstChild();
+		name.setNodeValue(APPLICATION_ZIP);
+		String zipName = SCRIPT_DESIGN + $ + co + ZIP_EXTENSION;
+		name = elm.getElementsByTagName(FILENAME).item(0).getFirstChild();
 		name.setNodeValue(zipName);
 	}
 
@@ -142,36 +156,31 @@ public class ModifyXMLDOM {
 	 *            Name of custom object
 	 */
 	private static void addScriptingTag(Document doc, String co, boolean jsFile) {
-		Element scripting = doc.createElement("scriptingFeature");
+		Element scripting = doc.createElement(SCRIPTING_FEATURE);
 		Element enabled = doc.createElement("enabled");
 		enabled.appendChild(doc.createTextNode("true"));
 		scripting.appendChild(enabled);
-		Element mime = doc.createElement("mimeType");
+		Element mime = doc.createElement(MIME_TYPE);
 		String type;
-		if (jsFile) {
-			type = "text/javascript";
-		} else {
-			type = "application/zip";
-		}
-		mime.appendChild(doc.createTextNode(type));
+		mime.appendChild(doc.createTextNode(getMimeType(jsFile)));
 		scripting.appendChild(mime);
-		Element desc = doc.createElement("description");
+		Element desc = doc.createElement(DESCRIPTION);
 		if (jsFile) {
-			type = "generic.js";
+			type = GENERIC_FILE_JS;
 		} else {
-			type = "generic.zip";
+			type = GENERIC_FILE_ZIP;
 		}
 		desc.appendChild(doc.createTextNode(type));
 		scripting.appendChild(desc);
-		Element fn = doc.createElement("fileName");
+		Element fn = doc.createElement(FILENAME);
 		if (jsFile) {
-			type = "ScriptDesign_$" + co + ".js";
+			type = SCRIPT_DESIGN + $ + co + JS_EXTENSION;
 		} else {
-			type = "ScriptDesign_$" + co + ".zip";
+			type = SCRIPT_DESIGN + $ + co + ZIP_EXTENSION;
 		}
 		fn.appendChild(doc.createTextNode(type));
 		scripting.appendChild(fn);
-		Element fme = doc.createElement("fieldMaskingEnabled");
+		Element fme = doc.createElement(FIELD_MASKING_ENABLED);
 		fme.appendChild(doc.createTextNode("true"));
 		scripting.appendChild(fme);
 		try {
@@ -180,5 +189,17 @@ public class ModifyXMLDOM {
 		} catch (NullPointerException e) {
 			System.err.println("Cannot find tag " + XML_DESIGN_TAG);
 		}
+	}
+	
+	private static String getMimeType(boolean isJsFile) {
+		if (isJsFile) {
+			return TEXT_JS;
+		} else {
+			return APPLICATION_ZIP;
+		}
+	}
+	
+	private String getDescription(boolean isJsFile) {
+		return null;
 	}
 }

@@ -22,7 +22,7 @@ function rewritePropertyFile ( )
 	sed -i "s/p_folder=[^ ]*/p_folder=$folder/g" $propFile
 	sed -i "s/p_branch=[^ ]*/p_branch=$branch/g" $propFile
 	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" $propFile
-	
+
 }
 #######################################################
 ###############Set Property File#######################
@@ -55,52 +55,52 @@ customer="$p_customer"
 #######################################################
 ################Check for set Options##################
 #######################################################
-	#Set repo variable third arg
-	#program will use this as a default to clone from
-	if [ "$1" == "-repository" ] ; then
-		if [[ -n $2 ]] ; then
-			repo=$2
-			rewritePropertyFile
-			echo "Set repository property"
-		else
-			echo "Need to add name of repository"
-		fi
-		exit 0
+#Set repo variable third arg
+#program will use this as a default to clone from
+if [ "$1" == "-repository" ] ; then
+	if [[ -n $2 ]] ; then
+		repo=$2
+		rewritePropertyFile
+		echo "Set repository property"
+	else
+		echo "Need to add name of repository"
 	fi
-	#Set folder name variable third arg
-	#program will use this as a default folder to create a zip
-	if [ "$1" == "-pm" ] ; then
-		if [[ -n $2 ]] ; then
-			folder=$2
-			rewritePropertyFile
-			echo "Set source folder property"
-		else
-			echo "Need to add name of folder"
-		fi
-		exit 0
+	exit 0
+fi
+#Set folder name variable third arg
+#program will use this as a default folder to create a zip
+if [ "$1" == "-pm" ] ; then
+	if [[ -n $2 ]] ; then
+		folder=$2
+		rewritePropertyFile
+		echo "Set source folder property"
+	else
+		echo "Need to add name of folder"
 	fi
-	#Set default branch of repository to clone from
-	if [ "$1" == "-branch" ] ; then
-		if [[ -n $2 ]] ; then
-			branch=$2
-			rewritePropertyFile
-			echo "Set repository branch property"
-		else
-			echo "Need to add name of branch in repository"
-		fi
-		exit 0
+	exit 0
+fi
+#Set default branch of repository to clone from
+if [ "$1" == "-branch" ] ; then
+	if [[ -n $2 ]] ; then
+		branch=$2
+		rewritePropertyFile
+		echo "Set repository branch property"
+	else
+		echo "Need to add name of branch in repository"
 	fi
-	#Set customer path of platform module folder
-	if [ "$1" == "-customer" ] ; then
-		if [[ -n $2 ]] ; then
-			customer=$2
-			rewritePropertyFile
-			echo "Set customer path"
-		else
-			echo "Need to add name of branch in repository"
-		fi
-		exit 0
+	exit 0
+fi
+#Set customer path of platform module folder
+if [ "$1" == "-customer" ] ; then
+	if [[ -n $2 ]] ; then
+		customer=$2
+		rewritePropertyFile
+		echo "Set customer path"
+	else
+		echo "Need to add name of branch in repository"
 	fi
+	exit 0
+fi
 
 if [[ $1 == "-help" ]] ; then
 	showOptions
@@ -116,16 +116,16 @@ fi
 OPTIND=1
 while getopts "h?c:f:b:" opt; do
     case "$opt" in
-    h|\?)
-        showOptions
-        exit 0
-        ;;
-	c) customer="$OPTARG"
-	;;
-	f) folder="$OPTARG"
-	;;
-	b) branch="$OPTARG"
-	;;
+	    h|\?)
+	        showOptions
+	        exit 0
+	        ;;
+			c)	customer="$OPTARG"
+					;;
+			f)	folder="$OPTARG"
+					;;
+			b)	branch="$OPTARG"
+					;;
     esac
 done
 
@@ -136,12 +136,12 @@ echo "Customer : $customer"
 ###################################################
 if [ ! -d .git ] ; then
 	git init
-fi 
+fi
 
 if [ -z "$repo" ] ; then
-	read -p "Enter repository url: " repo 
+	read -p "Enter repository url: " repo
 fi
-	
+
 if [ -z "$branch" ] ; then
 	read -p "Enter branch of repository: " branch
 fi
@@ -174,7 +174,7 @@ if [ ! -d customer/$customer ] ; then
 	echo "Cannot find customer $customer folder"
 	exit 0
 fi
-	
+
 if [ ! -d customer/$customer/$folder ] ; then
 	echo "Cannot find custom object $folder in customer folder $customer"
 	exit 0

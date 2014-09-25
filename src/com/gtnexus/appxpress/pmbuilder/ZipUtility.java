@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress.pmbuilder;
 
+import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,31 +12,23 @@ import java.util.zip.ZipOutputStream;
 /**
  * Zips up a folder
  * 
- * 
+ * @author John Donovan
  * @author Andrew Reynolds
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
 public class ZipUtility {
 
-	public String packDirectoryPath;
+	private File fileToZip;
 
 	/**
 	 * Zips up folder depicted by path folder
 	 * 
-	 * @param folder
+	 * @param pathToZip
 	 *            File to zip up
 	 */
-	public ZipUtility(String folder) {
-		try {
-			packDirectoryPath = folder;
-			System.out.println("Directory -> " + packDirectoryPath);
-			System.out.println(" Zipping up...");
-			zipDirectory();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ZipUtility(String pathToZip) {
+		fileToZip = new File(pathToZip);
 	}
 
 	/**
@@ -45,63 +39,47 @@ public class ZipUtility {
 	 * @throws IOException
 	 */
 	public void zipDirectory() throws IOException {
-		// The output zip file name
-		String outputFile = packDirectoryPath + ".zip";
-		// Open streams to write the ZIP contents to
-		FileOutputStream fos = new FileOutputStream(outputFile);
-		ZipOutputStream zos = new ZipOutputStream(fos);
-		// iterate directory structure recursively and add zip entries
-		zipfiles(packDirectoryPath, zos);
-		// Close the streams
-		zos.closeEntry();
-		zos.close();
-		fos.close();
+		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
+			throw new IOException("No such directory: "
+					+ fileToZip.getAbsolutePath());
+		}
+		System.out.println("Zipping up directory -> " + fileToZip.getAbsolutePath());
+		String outputFile = fileToZip.getAbsolutePath() + ZIP_EXTENSION;
+		try (FileOutputStream fos = new FileOutputStream(outputFile);
+				ZipOutputStream zos = new ZipOutputStream(fos)) {
+			zipFiles(fileToZip, zos);
+			zos.closeEntry();
+		} catch (IOException e) {
+			throw new IOException("Exception when recursively zipping "
+					+ fileToZip.getAbsolutePath(), e);
+		}
 	}
 
 	/**
 	 * Recursively pack directory contents.
 	 * 
-	 * @param directoryPath
+	 * @param root
 	 *            - current directory path that is visited recursively
 	 * @param zos
 	 *            - ZIP output stream reference to add elements to
 	 * @throws IOException
 	 */
-	private void zipfiles(String directoryPath, ZipOutputStream zos)
-			throws IOException {
-		// Iterate through the directory elements
-		for (String dirElement : new File(directoryPath).list()) {
-			String dirElementPath = directoryPath + "/" + dirElement;
-			// String dirElementPath = directoryPath+ File.separator
-			// +dirElement;
-			// System.out.println(dirElementPath);
-			File f = new File(dirElementPath);
-			// System.out.println("Adding..." + f.getName());
-			// For directories - go down the directory tree recursively
-			if (f.isDirectory()) {
-				zipfiles(dirElementPath, zos);
-
+	private void zipFiles(File root, ZipOutputStream zos) throws IOException {
+		for(File file : root.listFiles()) {
+			if(file.isDirectory()) {
+				zipFiles(file, zos);
 			} else {
-				ZipEntry ze = new ZipEntry(dirElementPath.replace(
-						packDirectoryPath + "/", ""));
-				// ZipEntry ze= new
-				// ZipEntry(dirElementPath.replaceAll(packDirectoryPath +
-				// File.separator, ""));
-				zos.putNextEntry(ze);
-				// Open input stream to packed file
-				FileInputStream fis = new FileInputStream(dirElementPath);
-				// An array to which will hold byte being read from the packed
-				// file
-				byte[] bytesRead = new byte[512];
-				// Read bytes from packed file and store them in the ZIP output
-				// stream
-				int bytesNum;
-				while ((bytesNum = fis.read(bytesRead)) > 0) {
-					zos.write(bytesRead, 0, bytesNum);
+				ZipEntry entry = new ZipEntry(file.getName());
+				zos.putNextEntry(entry);
+				FileInputStream fis = new FileInputStream(file);
+				byte[] block = new byte[1024];
+				int bytesRead = 0;
+				while((bytesRead = fis.read(block)) > 0) {
+					zos.write(block, 0, bytesRead);
 				}
-				// Close the stream
 				fis.close();
 			}
 		}
 	}
+
 }

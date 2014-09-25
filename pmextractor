@@ -5,22 +5,22 @@ function showOptions ( )
 	echo ""
 	echo "usage: bash pmextractor [options]"
 	echo ""
-	echo "	-exportFolder		set default repository to clone from"
-	echo "	-gitFolder		set default source folder to be zipped"
-	echo "  	-customer		set customer path for exported zip"
-	echo "  	-platformFolder		set custom object path for exported zip"
-	echo "		-clear				clear property file" 
+	echo "	-exportFolder			set default repository to clone from"
+	echo "	-gitFolder				set default source folder to be zipped"
+	echo "  -customer					set customer path for exported zip"
+	echo "  -platformFolder		set custom object path for exported zip"
+	echo "	-clear						clear property file"
 	echo "	-h			help "
 	echo "	-f			over write fef"
-	echo "  	-s			over write scripts"
-	echo "  	-o         		over write fef and scripts"
-	echo "  	-i          		do not over write fef or scripts"
-	echo "  	-c          		set customer"
-	echo "  	-g          		set git folder"
-	echo "  	-z          		set exported zip folder"
-	echo "  	-p          		set platform folder"
+	echo "  -s			over write scripts"
+	echo "  -o      over write fef and scripts"
+	echo "  -i      do not over write fef or scripts"
+	echo "  -c      set customer"
+	echo "  -g      set git folder"
+	echo "  -z      set exported zip folder"
+	echo "  -p      set platform folder"
 }
-#######################################################
+
 function rewritePropertyFile ( )
 {
 	sed -i "s/p_export=[^ ]*/p_export=$export/g" $propFile
@@ -28,40 +28,25 @@ function rewritePropertyFile ( )
 	sed -i "s/p_pm=[^ ]*/p_pm=$platformFolder/g" $propFile
 	sed -i "s/p_customer=[^ ]*/p_customer=$customer/g" $propFile
 }
-#######################################################
-###############Set Property File#######################
-#######################################################
-propDir=~/.platformtools
-if [ ! -d "$propDir" ] ; then
-	mkdir "$propDir"
-fi
 
-propFile=~/.platformtools/extractor.properties
-if [ ! -f "$propFile" ] ; then
-    touch "$propFile"
-	echo "p_export=" >> $propFile
-	echo "p_pm=" >> $propFile
-	echo "p_folder=" >> $propFile
-	echo "p_customer=">> $propFile
-fi
-#######################################################
-###############Set properties##########################
-#######################################################
-if [ -f "$propFile" ] ; then
-	. "$propFile"
-fi
-export="$p_export"
-folder="$p_folder"
-platformFolder="$p_pm"
-customer="$p_customer"
+function ensurePropertyFileExists ()
+{
+	propDir=~/.platformtools
+	if [ ! -d "$propDir" ] ; then
+		mkdir "$propDir"
+	fi
+	propFile=~/.platformtools/extractor.properties
+	if [ ! -f "$propFile" ] ; then
+			touch "$propFile"
+		echo "p_export=" >> $propFile
+		echo "p_pm=" >> $propFile
+		echo "p_folder=" >> $propFile
+		echo "p_customer=">> $propFile
+	fi
+}
 
-if [[ $1 == "-help" ]] ; then
-	showOptions
-	exit 0
-fi
-#######################################################
-################Check for set Options##################
-#######################################################
+function checkSetOptions ()
+{
 	#Set repo variable third arg
 	#program will use this as a default to clone from
 	if [ "$1" == "-exportFolder" ] ; then
@@ -111,75 +96,106 @@ fi
 		echo "Property file cleared"
 		exit 0
 	fi
-#####################################################
-fef=""
-scripts=""
-OPTIND=1
-while getopts "h?f?s?o?i?c:g:z:p:" opt; do
-    case "$opt" in
-    h|\?)
-        showOptions
-        exit 0
-        ;;
-    f)  fef="y"
-        ;;
-    s)  scripts="y"
-        ;;
-	o)  scripts="y"
-		fef="y"
-		;;
-	i)	scripts="n"
-		fef="n"
-		;;
-	c) customer="$OPTARG"
-	;;
-	g) folder="$OPTARG"
-	;;
-	z) export="$OPTARG"
-	;;
-	p) platformFolder="$OPTARG"
-	;;
-    esac
-done
-###################################################
+}
 
-if [ -z "$export" ] ; then
-	read -p "Enter exported folder name: " export
-fi
-	
-if [ -z "$folder" ] ; then
-	read -p "Enter GIT staging folder name: " folder
+function readFlags ()
+{
+	fef=""
+	scripts=""
+	OPTIND=1
+	while getopts "h?f?s?o?i?c:g:z:p:" opt; do
+			case "$opt" in
+				h|\?)
+						showOptions
+						exit 0
+						;;
+				f)  fef="y"
+						;;
+				s)  scripts="y"
+						;;
+				o)  scripts="y"
+						fef="y"
+						;;
+				i)	scripts="n"
+						fef="n"
+						;;
+				c)	customer="$OPTARG"
+						;;
+				g)	folder="$OPTARG"
+						;;
+				z)	export="$OPTARG"
+						;;
+				p)	platformFolder="$OPTARG"
+						;;
+			esac
+	done
+}
+
+function readProperties ()
+{
+	if [ -f "$propFile" ] ; then
+		. "$propFile"
+	fi
+	export="$p_export"
+	folder="$p_folder"
+	platformFolder="$p_pm"
+	customer="$p_customer"
+}
+
+function promptUserForValuesWhenNecessary ()
+{
+	if [ -z "$export" ] ; then
+		read -p "Enter exported folder name: " export
+	fi
+
+	if [ -z "$folder" ] ; then
+		read -p "Enter GIT staging folder name: " folder
+	fi
+
+	if [ -z "$customer" ] ; then
+		read -p "Enter Customer : " customer
+	fi
+
+	if [ -z "$platformFolder" ] ; then
+		read -p "Enter Platform Module : " platformFolder
+	fi
+
+	shift $((OPTIND-1))
+
+	[ "$1" = "--" ] && shift
+
+	if [ -z "$fef" ] ; then
+		read -p "OverWrite Fef ( Y or N ) -> " fef
+	fi
+	if [ -z "$scripts" ] ; then
+		read -p "OverWrite Scripts ( Y or N )-> " scripts
+	fi
+
+	if [ -d "PlatModx" ] ; then
+		rm -rf PlatModx
+	fi
+}
+
+#-----------Begin script run-----------------------------
+if [[ $1 == "-help" ]] ; then
+	showOptions
+	exit 0
 fi
 
-if [ -z "$customer" ] ; then
-	read -p "Enter Customer : " customer
-fi
+export=
+folder=
+platformFolder=
+customer=
 
-if [ -z "$platformFolder" ] ; then
-	read -p "Enter Platform Module : " platformFolder
-fi
-
-shift $((OPTIND-1))
-
-[ "$1" = "--" ] && shift
-#####################################################
-
-##OPTIONS##
-if [ -z "$fef" ] ; then
-	read -p "OverWrite Fef ( Y or N ) -> " fef
-fi
-if [ -z "$scripts" ] ; then
-	read -p "OverWrite Scripts ( Y or N )-> " scripts 
-fi
-
-if [ -d "PlatModx" ] ; then
-	rm -rf PlatModx
-fi
+ensurePropertyFileExists
+checkSetOptions
+readFlags
+readProperties
+promptUserForValuesWhenNecessary
 
 echo "Exported module : $export"
 echo "Local Directory : $folder"
 echo "Customer folder : $customer"
 echo "PlatformModule folder : $platformFolder"
-
 
 java -jar pmExtractorUtil.jar $export $folder $customer $platformFolder $scripts $fef

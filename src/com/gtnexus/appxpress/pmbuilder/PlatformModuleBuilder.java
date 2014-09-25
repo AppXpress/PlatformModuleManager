@@ -1,75 +1,78 @@
 package com.gtnexus.appxpress.pmbuilder;
 
+import java.io.File;
+import java.io.IOException;
+
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
+
 /**
- * Main method of pm_builder_util.jar. This executeable does the following
- * things in order with the end goal to create an importable zip file.
+ * This executable does the following
+ * things in order with the end goal to create an importable .zip file.
  * 
- * 1) Scans the js scripts in the platform module for the !import symbol. If
- * found, automatically imports indicated scripts from lib folder into correct
- * folder. 2) Makes sure each of the custom object design xml's contain the
- * correct scriptingFeature tag, therefore ensuring that the platform module's
- * scripts will import correctly. 3) Maps the local git structure to the folder
- * structure required to become importable by GTNexus platform. This requires
- * correct folder names and bundling js scripts into zip files when necessary.
- * 4) Zips up correctly mapped file structure into a zip file, ready to import
- * into GTNexus system
+ * 1) 	Scans the js scripts in the platform module for the <b>!import symbol</b>. If
+ * 		found, automatically imports indicated scripts from lib folder into correct
+ * 		folder. 
+ * 2) 	Makes sure each of the custom object design xml's contain the
+ * 		correct scriptingFeature tag, therefore ensuring that the platform module's
+ * 		scripts will import correctly. 
+ * 3) 	Maps the local git structure to the folder
+ * 		structure required to become importable by GTNexus platform. This requires
+ * 		correct folder names and bundling javascript file into zip files when necessary.
+ * 4) 	Zips up correctly mapped file structure into a zip file, ready to import
+ * 		into GTNexus system
  * 
  * @author Andrew Reynolds
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
 public class PlatformModuleBuilder {
-	
+
 	/**
-	 * 
+	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * @param args
-	 *            0 - Name of customer folder 1 - Name of platform module folder
+	 *            0 - Name of customer folder 
+	 *            1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
 		if (args.length != 2) {
-			System.err.println("Incorrect parameters. Program requires two parameters");
+			System.err
+					.println("Incorrect parameters. Program requires two parameters");
 			return;
 		}
-		String customer = args[0];
-		String pmFolder = args[1];
-		PlatformModuleBuilder pmb = new PlatformModuleBuilder(customer,
-				pmFolder);
+		PlatformModuleBuilder pmb = new PlatformModuleBuilder(args[0], args[1]);
+		pmb.build();
 	}
 
+	
+	private String customer, module, root;
+	
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
 	 * ready to be imported onto GTNexus system
 	 * 
 	 * @param customer
 	 *            Name of customer folder
-	 * @param platform
+	 * @param module
 	 *            Name of platform module folder
 	 */
-	public PlatformModuleBuilder(String customer, String platform) {
-		// Find @!import and import allocated scripts
-		System.out.println("Gathering imports...");
-		// runImportFind( customer , platform );
-		this.runImportFind(customer, platform);
-		// Zip up the folder -> args[1]
-		String root = "customer/" + customer + "/" + platform;
-		// Zips up File structure - now ready to import
-		// Ensure design xml files correctly indicate
-		// custom object design scripts
-		this.xmlDesignCustomObjectScriptMatcher(customer, platform);
-		// Maps Git repo to importable file structure
-		this.map(root);
-		// Zips up platform module folder
-		this.zip(root);
+	public PlatformModuleBuilder(String customer, String module) {
+		this.customer = customer;
+		this.module = module;
+		this.root = CUSTOMER + File.separator + customer 
+				+ File.separator + module;
+		
 	}
 
-	/**
-	 * Zips up platform module folder
-	 * 
-	 * @param root
-	 *            Path of platform module folder to zip
-	 */
-	private void zip(String root) {
-		new ZipUtility(root);
+	public void build() {
+		runImportFind();
+		xmlDesignCustomObjectScriptMatcher(customer, module);
+		map(root);
+		ZipUtility zu = new ZipUtility(root);
+		try {
+			zu.zipDirectory();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -95,7 +98,8 @@ public class PlatformModuleBuilder {
 	 */
 	private void xmlDesignCustomObjectScriptMatcher(String customer,
 			String platform) {
-		CoDesignXML.iter(customer, platform);
+		CoDesignXML coDes = new CoDesignXML();
+		coDes.iter(customer, platform);
 	}
 
 	/**
@@ -106,8 +110,9 @@ public class PlatformModuleBuilder {
 	 * @param folder
 	 *            Name of platform module folder
 	 */
-	private void runImportFind(String customer, String folder) {
-		String path = "customer/" + customer + "/" + folder;
-		ImportScanner.search(path);
+	private void runImportFind() {
+		System.out.println("Gathering imports...");
+		ImportScanner iScanner = new ImportScanner();
+		iScanner.search(root);
 	}
 }
