@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+
 /**
  * Zips up a folder
  * 
@@ -38,10 +40,9 @@ public class ZipUtility {
 	 *            - the directory that is going to be packed
 	 * @throws IOException
 	 */
-	public void zipDirectory() throws IOException {
+	public void zipDirectory() throws PMBuilderException {
 		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
-			throw new IOException("No such directory: "
-					+ fileToZip.getAbsolutePath());
+			throw new PMBuilderException("No such directory" + fileToZip.getAbsolutePath());
 		}
 		System.out.println("Zipping up directory -> " + fileToZip.getAbsolutePath());
 		String outputFile = fileToZip.getAbsolutePath() + ZIP_EXTENSION;
@@ -50,7 +51,7 @@ public class ZipUtility {
 			zipFiles(fileToZip, zos);
 			zos.closeEntry();
 		} catch (IOException e) {
-			throw new IOException("Exception when recursively zipping "
+			throw new PMBuilderException("Exception when recursively zipping "
 					+ fileToZip.getAbsolutePath(), e);
 		}
 	}
