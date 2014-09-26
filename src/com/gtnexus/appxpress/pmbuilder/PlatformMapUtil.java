@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+
 /**
  * Take pulled Git repository and map to a file structure that can be imported
  * onto Platform
@@ -38,16 +40,13 @@ public class PlatformMapUtil {
 	 *            folder to map
 	 */
 	public static void map(String src) {
-		try {
-			File root = new File(src);
-			if (!root.exists()) {
-				System.out.println("Cannot find " + src);
-			}
-			prepareImport(src);
-			createBundles(src);
-		} catch (Exception e) {
-			System.err.println("Cannot find file");
+		File root = new File(src);
+		if (!root.exists()) {
+			System.out.println("Cannot find " + src);
+			return;
 		}
+		prepareImport(src);
+		createBundles(src);
 	}
 
 	/**
@@ -158,7 +157,7 @@ public class PlatformMapUtil {
 			ZipUtility zu = new ZipUtility(name + File.separator + bundleFolder);
 			try {
 				zu.zipDirectory();
-			} catch (IOException e) {
+			} catch (PMBuilderException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -206,7 +205,7 @@ public class PlatformMapUtil {
 				ZipUtility zu = new ZipUtility(name + File.separator + zipName);
 				try {
 					zu.zipDirectory();
-				} catch (IOException e) {
+				} catch (PMBuilderException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -342,7 +341,7 @@ public class PlatformMapUtil {
 			ZipUtility zu = new ZipUtility(name + File.separator + s);
 			try {
 				zu.zipDirectory();
-			} catch (IOException e) {
+			} catch (PMBuilderException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
