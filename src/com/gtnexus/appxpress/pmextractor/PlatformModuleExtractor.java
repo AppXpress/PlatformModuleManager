@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * 
+ * @author jdonovan
+ *
+ */
 public class PlatformModuleExtractor {
 
 	/**
