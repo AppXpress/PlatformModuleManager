@@ -19,21 +19,11 @@ public class PMBProperties {
     public File getPropertiesFile() {
         return propertiesFile;
     }
-
     public String getPropertiesPath() {
         return propertiesFile.getAbsolutePath();
     }
-
-    public void setPropertiesFile(File propertiesFile) {
-        this.propertiesFile = propertiesFile;
-    }
-
     public Properties getProperties() {
         return properties;
-    }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
     }
 
 }
