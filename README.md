@@ -1,5 +1,7 @@
 Using pmbuilder and pmextractor
 ============
+__*NOTE*:This README is outdated.__
+
 
 Bash script pmbuilder utilizes command line arguments and a jar executable to
 take a specifically structured platform module located in a remote git repository
