@@ -74,7 +74,7 @@ public class CoDesignXML {
 			if (sub.list().length == 1) {	//TODO how does this make any sense?
 											//are .js file name garunteed to be 
 											//one char?...I don't think so...
-				ModifyXMLDOM.modify(xmlName, s, true);
+				ModifyXMLDOM.modify(xmlName, s, true); //if more than one we bundle that is the logic there.
 			} else {
 				ModifyXMLDOM.modify(xmlName, s, false);
 			}

@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
  * Modifies an xml file to include a specific tag, that being scriptingFeature
  * 
  * @author Andrew Reynolds
+ * @Author john donovan
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
@@ -94,8 +95,7 @@ public class ModifyXMLDOM {
 	 *            XML document object to search through
 	 */
 	private static boolean checkTag(Document doc) {
-		NodeList scriptingFeature = doc
-				.getElementsByTagName(SCRIPTING_FEATURE);
+		NodeList scriptingFeature = doc.getElementsByTagName(SCRIPTING_FEATURE);
 		if (scriptingFeature.getLength() == 0) {
 			return false;
 		} else {
@@ -115,8 +115,7 @@ public class ModifyXMLDOM {
 	private static void updateTagJs(Document doc, String co) {
 		NodeList scriptingTag = doc.getElementsByTagName(SCRIPTING_FEATURE);
 		Element elm = (Element) scriptingTag.item(0);
-		Node name = elm.getElementsByTagName(MIME_TYPE).item(0)
-				.getFirstChild();
+		Node name = elm.getElementsByTagName(MIME_TYPE).item(0).getFirstChild();
 		name.setNodeValue(TEXT_JS);
 		String jsName = SCRIPT_DESIGN + $ + co + JS_EXTENSION;
 		name = elm.getElementsByTagName(FILENAME).item(0).getFirstChild();
@@ -136,8 +135,7 @@ public class ModifyXMLDOM {
 	private static void updateTagZip(Document doc, String co) {
 		NodeList scriptingTag = doc.getElementsByTagName(SCRIPTING_FEATURE);
 		Element elm = (Element) scriptingTag.item(0);
-		Node name = elm.getElementsByTagName(MIME_TYPE).item(0)
-				.getFirstChild();
+		Node name = elm.getElementsByTagName(MIME_TYPE).item(0).getFirstChild();
 		name.setNodeValue(APPLICATION_ZIP);
 		String zipName = SCRIPT_DESIGN + $ + co + ZIP_EXTENSION;
 		name = elm.getElementsByTagName(FILENAME).item(0).getFirstChild();
@@ -150,47 +148,49 @@ public class ModifyXMLDOM {
 	 * 
 	 * @param doc
 	 *            XML document object
-	 * @param jsFile
+	 * @param isJsFile
 	 *            true if indicating a js file false if indicating a zip file
-	 * @param co
+	 * @param customObjectName
 	 *            Name of custom object
 	 */
-	private static void addScriptingTag(Document doc, String co, boolean jsFile) {
-		Element scripting = doc.createElement(SCRIPTING_FEATURE);
-		Element enabled = doc.createElement("enabled");
-		enabled.appendChild(doc.createTextNode("true"));
-		scripting.appendChild(enabled);
-		Element mime = doc.createElement(MIME_TYPE);
-		String type;
-		mime.appendChild(doc.createTextNode(getMimeType(jsFile)));
-		scripting.appendChild(mime);
-		Element desc = doc.createElement(DESCRIPTION);
-		if (jsFile) {
-			type = GENERIC_FILE_JS;
-		} else {
-			type = GENERIC_FILE_ZIP;
-		}
-		desc.appendChild(doc.createTextNode(type));
-		scripting.appendChild(desc);
-		Element fn = doc.createElement(FILENAME);
-		if (jsFile) {
-			type = SCRIPT_DESIGN + $ + co + JS_EXTENSION;
-		} else {
-			type = SCRIPT_DESIGN + $ + co + ZIP_EXTENSION;
-		}
-		fn.appendChild(doc.createTextNode(type));
-		scripting.appendChild(fn);
-		Element fme = doc.createElement(FIELD_MASKING_ENABLED);
-		fme.appendChild(doc.createTextNode("true"));
-		scripting.appendChild(fme);
-		try {
-			NodeList dom = doc.getElementsByTagName(XML_DESIGN_TAG);
-			dom.item(0).appendChild(scripting);
-		} catch (NullPointerException e) {
-			System.err.println("Cannot find tag " + XML_DESIGN_TAG);
+	private static void addScriptingTag(Document doc, String customObjectName,
+			boolean isJsFile) {
+		NodeList dom = doc.getElementsByTagName(XML_DESIGN_TAG);
+		Node xmlDesignTag = null;
+		if (dom != null && (xmlDesignTag = dom.item(0)) != null) {
+			xmlDesignTag.appendChild(generateScriptingTag(doc,
+					customObjectName, isJsFile));
 		}
 	}
-	
+
+	/**
+	 * @param doc
+	 * @param customObjectName
+	 * @param isJsFile
+	 */
+	private static Node generateScriptingTag(Document doc,
+			String customObjectName, boolean isJsFile) {
+		final String _true = "true";
+		final String _enabled = "enabled";
+		Element scripting = doc.createElement(SCRIPTING_FEATURE);
+		Element enabled = doc.createElement(_enabled);
+		enabled.appendChild(doc.createTextNode(_true));
+		scripting.appendChild(enabled);
+		Element mime = doc.createElement(MIME_TYPE);
+		mime.appendChild(doc.createTextNode(getMimeType(isJsFile)));
+		scripting.appendChild(mime);
+		Element description = doc.createElement(DESCRIPTION);
+		description.appendChild(doc.createTextNode(getDescriptionType(isJsFile)));
+		scripting.appendChild(description);
+		Element filename = doc.createElement(FILENAME);
+		filename.appendChild(doc.createTextNode(getFileType(isJsFile, customObjectName)));
+		scripting.appendChild(filename);
+		Element fieldMaskingEnabled = doc.createElement(FIELD_MASKING_ENABLED);
+		fieldMaskingEnabled.appendChild(doc.createTextNode("true"));
+		scripting.appendChild(fieldMaskingEnabled);
+		return scripting;
+	}
+
 	private static String getMimeType(boolean isJsFile) {
 		if (isJsFile) {
 			return TEXT_JS;
@@ -199,7 +199,21 @@ public class ModifyXMLDOM {
 		}
 	}
 	
-	private String getDescription(boolean isJsFile) {
-		return null;
+	private static String getDescriptionType(boolean isJsFile) {
+		if(isJsFile) {
+			return GENERIC_FILE_JS;
+		} else {
+			return GENERIC_FILE_ZIP;
+		}
 	}
+	
+	private static String getFileType(boolean isJsFile, String customObjectName) {
+		final String fileTypeTemplate = SCRIPT_DESIGN + $ + customObjectName + "%s";
+		if(isJsFile) {
+			return String.format(fileTypeTemplate, JS_EXTENSION);
+		} else {
+			return String.format(fileTypeTemplate, ZIP_EXTENSION);
+		}
+	}
+
 }
