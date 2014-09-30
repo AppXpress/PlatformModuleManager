@@ -21,18 +21,14 @@ import java.util.Properties;
  */
 public class DirectoryHelper {
 
-    private static final String USER_HOME = "user.home";
+    public static final String USER_HOME = "user.home";
     private static final String dirTemplate = "%s" + File.separator + APPXRESS_FOLDER + File.separator + "%s";
     private String homeDir;
     private String propertiesFilePath;
     private PMBProperties pmbProperties;
 
-
-    private Map<String, Object> dirMap;
-
     public DirectoryHelper() {
         homeDir = System.getProperty(USER_HOME);
-        dirMap = new HashMap<>();
     }
 
     private String getPropertiesFilePath() {
