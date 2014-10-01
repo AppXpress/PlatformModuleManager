@@ -30,4 +30,30 @@ public enum ExtractorOption {
     public Class<?> getType() {
         return type;
     }
+
+    public String getMessage() {
+        if (type.equals(Integer.class)) {
+            return ("Please enter the number of " + name
+                    + "(s): ");
+        } else if (type.equals(String.class)) {
+            return ("Please enter " + name + ": ");
+        } else if (type.equals(Boolean.class)) {
+            return ("Do you want " + name + "? [y/n]: ");
+        } else {
+            return ""; //TODO this should throw an exception?
+        }
+    }
+
+    public boolean isValid(String val) {
+        if(val == null || val.length() == 0) {
+            return false;
+        }
+        if (type.equals(Integer.class)) {
+            return val.matches("\\d+"); //TODO test this regex
+        } else if (type.equals(Boolean.class)) {
+            return val.equalsIgnoreCase("Y") || val.equalsIgnoreCase("N");
+        } else {
+            return false;
+        }
+    }
 }

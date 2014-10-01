@@ -1,17 +1,10 @@
 package com.gtnexus.appxpress.pmextractor;
 
+import com.gtnexus.appxpress.Asker;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 /**
  * Consolidates stored properties file from User, with flags passed from CLI.
@@ -22,6 +15,7 @@ public class ArgsAndPropertiesConsolidator {
 
     private String[] userArgs;
     private Properties properties;
+    private Asker asker; //lazy initialized
 
     /**
      * @param userArgs   Arguments passed from the CLI.
@@ -31,7 +25,24 @@ public class ArgsAndPropertiesConsolidator {
                                          Properties properties) {
         this.userArgs = userArgs;
         this.properties = properties;
+        this.asker = new Asker(System.in, System.out);
     }
+
+    /**
+     * @param userArgs    Arguments passed from the CLI.
+     * @param properties  Properties file read from user's AppXpress directory.
+     * @param inputStream The input stream that this consolidator should read from.
+     * @param printStream The printStream that this consolidator should write to.
+     */
+    public ArgsAndPropertiesConsolidator(String userArgs[],
+                                         Properties properties,
+                                         InputStream inputStream,
+                                         PrintStream printStream) {
+        this.userArgs = userArgs;
+        this.properties = properties;
+        this.asker = new Asker(inputStream, printStream);
+    }
+
 
     /**
      * @return the map of consolidated ExtractorOptions and their values.
@@ -42,55 +53,52 @@ public class ArgsAndPropertiesConsolidator {
         final Map<ExtractorOption, String> optMap = new EnumMap<>(
                 ExtractorOption.class);
         final Iterator<ExtractorOption> iter = options.iterator();
-        final Scanner scanner = new Scanner(System.in);
         String input = null;
         int i = 0;
         while (iter.hasNext()) {
             ExtractorOption currentOpt = iter.next();
-            String propVal = properties.getProperty(currentOpt.toString());
-            if (userArgs.length > i) {
-                input = userArgs[i];
-            }
-            if (input != null && !input.isEmpty()) {
-                optMap.put(currentOpt, input);
-                properties.put(currentOpt.toString(), input);
-            } else if (propVal != null && !propVal.isEmpty()) {
-                optMap.put(currentOpt, propVal);
-            } else {
-                String optValFromUser = getParameterFromUser(currentOpt,
-                        scanner);
-                optMap.put(currentOpt, optValFromUser);
-                properties.put(currentOpt.toString(), optValFromUser);
-            }
+            String val = consolidateSingle(currentOpt, i);
+            properties.put(currentOpt.toString(), val);
+            optMap.put(currentOpt, val);
             i++;
         }
-        scanner.close();
         return optMap;
     }
 
+    private String consolidateSingle(ExtractorOption option, int index) {
+        String input = null;
+        String propVal = properties.getProperty(option.toString());
+        if (userArgs.length > index) {
+            input = userArgs[index];
+        }
+        if (input != null && !input.isEmpty()) {
+            return input;
+        } else if (propVal != null && !propVal.isEmpty()) {
+            return propVal;
+        } else {
+            return getParameterFromUser(option);
+        }
+    }
+
     /**
-     * @param option  The ExtractorOption to be query the user for.
-     * @param scanner The Scanner used to read in user input.
+     * @param option The ExtractorOption to be query the user for.
      * @return The value entered by the user.
      */
-    private String getParameterFromUser(ExtractorOption option, Scanner scanner) {
-        final Class<?> type = option.getType();
-        if (type.equals(Integer.class)) {
-            System.out.print("Please enter the number of " + option.toString()
-                    + "(s): ");
-        } else if (type.equals(String.class)) {
-            System.out.print("Do you want " + option.toString() + "? [y/n]: ");
-        } else if (type.equals(Boolean.class)) {
-            System.out.print("Please enter " + option.toString() + ": ");
+    private String getParameterFromUser(ExtractorOption option) {
+        String val = asker.ask(option.getMessage());
+        while (!option.isValid(val)) {
+            val = asker.ask("Invalid input. Please try again.");
         }
-        return scanner.next();
+        return val;
     }
 
     public void presentSaveOption(String propPath) throws PMExtractorException {
         File settingsFile = new File(propPath);
-        final Scanner scanner = new Scanner(System.in);
-        System.out.print("Save settings? [y/n]: ");
-        if ("y".equalsIgnoreCase(scanner.next())) {
+        String answer = asker.ask("Save settings? [y/n]: ");
+        while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
+            answer = asker.ask("Ivalid input. Please try again.");
+        }
+        if (answer.equalsIgnoreCase("Y")) {
             // Save the settings file
             try (FileOutputStream settingsOutputStream = new FileOutputStream(
                     settingsFile)) {
@@ -99,7 +107,5 @@ public class ArgsAndPropertiesConsolidator {
                 throw new PMExtractorException("Failed to write properties file!", e);
             }
         }
-        scanner.close();
     }
-
 }
