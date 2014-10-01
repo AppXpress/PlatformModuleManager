@@ -15,7 +15,7 @@ public class ArgsAndPropertiesConsolidator {
 
     private String[] userArgs;
     private Properties properties;
-    private Asker asker; //lazy initialized
+    private Asker asker;
 
     /**
      * @param userArgs   Arguments passed from the CLI.
