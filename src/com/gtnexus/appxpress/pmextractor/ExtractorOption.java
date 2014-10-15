@@ -32,7 +32,7 @@ public enum ExtractorOption {
     }
 
     public String getMessage() {
-        if (type.equals(Integer.class)) {
+         if (type.equals(Integer.class)) {
             return ("Please enter the number of " + name
                     + "(s): ");
         } else if (type.equals(String.class)) {
@@ -47,6 +47,9 @@ public enum ExtractorOption {
     public boolean isValid(String val) {
         if(val == null || val.length() == 0) {
             return false;
+        }
+        if(type.equals(String.class)) {
+            return true;
         }
         if (type.equals(Integer.class)) {
             return val.matches("\\d+"); //TODO test this regex
