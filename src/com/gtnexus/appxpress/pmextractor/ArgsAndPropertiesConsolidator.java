@@ -8,6 +8,10 @@ import java.util.*;
 
 /**
  * Consolidates stored properties file from User, with flags passed from CLI.
+ * <p>
+ * Flags passed from the CLI take precedence over what is stored in the
+ * properties file. If neither is present for a mandatory ExtractorOption,
+ * then the user is prompted for input.
  *
  * @author jjdonov
  */
@@ -65,6 +69,13 @@ public class ArgsAndPropertiesConsolidator {
         return optMap;
     }
 
+    /**
+     * Performs the consolidation for a single ExtractorOption.
+     *
+     * @param option
+     * @param index
+     * @return
+     */
     private String consolidateSingle(ExtractorOption option, int index) {
         String input = null;
         String propVal = properties.getProperty(option.toString());
@@ -75,8 +86,10 @@ public class ArgsAndPropertiesConsolidator {
             return input;
         } else if (propVal != null && !propVal.isEmpty()) {
             return propVal;
-        } else {
+        } else if (option.isMandatory()) {
             return getParameterFromUser(option);
+        } else {
+            return option.getDefaultValue();
         }
     }
 
@@ -92,11 +105,16 @@ public class ArgsAndPropertiesConsolidator {
         return val;
     }
 
+    /**
+     * @param propPath the path to the Properties file to be written to
+     * @throws PMExtractorException when there is an IOException when writing to the
+     *                              properties file at the propPath.
+     */
     public void presentSaveOption(String propPath) throws PMExtractorException {
         File settingsFile = new File(propPath);
         String answer = asker.ask("Save settings? [y/n]: ");
         while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
-            answer = asker.ask("Ivalid input. Please try again.");
+            answer = asker.ask("Invalid input. Please try again.");
         }
         if (answer.equalsIgnoreCase("Y")) {
             // Save the settings file

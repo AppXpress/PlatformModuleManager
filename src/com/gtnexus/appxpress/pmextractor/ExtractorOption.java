@@ -4,22 +4,27 @@ package com.gtnexus.appxpress.pmextractor;
  * Enumeration of options that can be stored in the Properties file or read in from the CLI.
  */
 public enum ExtractorOption {
-    PLATFORM_ZIP("platformZip", String.class), LOCAL_DIR("localDir",
-            String.class), CUSTOMER("customer", String.class), PLATFORM(
-            "platform", String.class), OVERWRITE_SCRIPTS(
-            "overwriteScripts", Boolean.class), OVERWRITE_FEF(
-            "overwriteFed", Boolean.class);
+    PLATFORM_ZIP("platformZip", String.class, true, null),
+    LOCAL_DIR("localDir",String.class, true, null),
+    CUSTOMER("customer", String.class, true, null),
+    PLATFORM("platform", String.class, true, null),
+    OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, false, "N"),
+    OVERWRITE_FEF("overwriteFed", Boolean.class, false, "N");
 
     private final String name;
     private final Class<?> type;
+    private final boolean isMandatory;
+    private final String defaultValue;
 
     /**
      * @param name The name of this ExtractorOption.
      * @param type The ExtractorOption type.
      */
-    private ExtractorOption(String name, Class<?> type) {
+    private ExtractorOption(String name, Class<?> type, boolean isMandatory, String defaulValue) {
         this.name = name;
         this.type = type;
+        this.isMandatory = isMandatory;
+        this.defaultValue = defaulValue;
     }
 
     @Override
@@ -32,7 +37,7 @@ public enum ExtractorOption {
     }
 
     public String getMessage() {
-         if (type.equals(Integer.class)) {
+        if (type.equals(Integer.class)) {
             return ("Please enter the number of " + name
                     + "(s): ");
         } else if (type.equals(String.class)) {
@@ -44,11 +49,38 @@ public enum ExtractorOption {
         }
     }
 
+    public boolean isMandatory() {
+        return isMandatory;
+    }
+
+    /**
+     * @return the default value for non-mandatory options.
+     * @throws java.lang.UnsupportedOperationException if this method is called
+     *                                                 on a mandatory option.
+     */
+    public String getDefaultValue() {
+        if (this.isMandatory) {
+            throw new UnsupportedOperationException(this.name + " " +
+                    "is a mandatory field, and must come from " +
+                    "user args or properties. There is no default value.");
+        }
+        return defaultValue;
+    }
+
+    //TODO this can be improved to make sure string input has actual meaning
+
+    /**
+     * Checks to see if the val supplies is a valid argument according
+     * to this option's type.
+     *
+     * @param val
+     * @return
+     */
     public boolean isValid(String val) {
-        if(val == null || val.length() == 0) {
+        if (val == null || val.length() == 0) {
             return false;
         }
-        if(type.equals(String.class)) {
+        if (type.equals(String.class)) {
             return true;
         }
         if (type.equals(Integer.class)) {

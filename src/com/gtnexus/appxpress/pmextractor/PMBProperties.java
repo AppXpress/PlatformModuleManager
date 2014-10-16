@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Properties;
 
 /**
+ * Simple wrapper around a File and Property objects.
+ *
  * Created by jjdonov on 9/29/14.
  */
 public class PMBProperties {

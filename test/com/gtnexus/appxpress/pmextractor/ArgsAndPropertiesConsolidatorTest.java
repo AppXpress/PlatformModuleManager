@@ -1,9 +1,11 @@
 package com.gtnexus.appxpress.pmextractor;
 
+import com.gtnexus.appxpress.NullOutputStream;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Properties;
@@ -23,7 +25,7 @@ public class ArgsAndPropertiesConsolidatorTest {
                          "arg_overwriteScripts", "arg_overwriteFEF"};
         Properties properties = new Properties();
         ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(args, properties,
-                inputStreamFrom(args), System.out);
+                inputStreamFrom(args), new PrintStream(new NullOutputStream()));
         Map<ExtractorOption, String> consolidated = consolidator.consolidate();
         for(ExtractorOption option : EnumSet.allOf(ExtractorOption.class)) {
             assertTrue(consolidated.get(option).startsWith("arg_"));
@@ -39,7 +41,7 @@ public class ArgsAndPropertiesConsolidatorTest {
         properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
         properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
         ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(args, properties,
-                inputStreamFrom(), System.out);
+                inputStreamFrom(), new PrintStream(new NullOutputStream()));
         Map<ExtractorOption, String> consolidated = consolidator.consolidate();
         for(ExtractorOption option : EnumSet.allOf(ExtractorOption.class)) {
             if(option.equals(ExtractorOption.LOCAL_DIR) ||
@@ -61,12 +63,30 @@ public class ArgsAndPropertiesConsolidatorTest {
         //properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
         properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
         ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(args, properties,
-                inputStreamFrom("some_local_dir", "Y"), System.out);
+                inputStreamFrom("some_local_dir", "Y"), new PrintStream(new NullOutputStream()));
         Map<ExtractorOption, String> consolidated = consolidator.consolidate();
         assertTrue(consolidated.get(ExtractorOption.LOCAL_DIR).equals("some_local_dir"));
-        assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("Y"));
     }
 
+    @Test
+    public void testDefaultValForOptional() {
+        String[] args = {"arg_prop_name", null, //"arg_local_dir",
+                "arg_customer", null, //"arg_platform",
+                "arg_overwriteScripts", null}; //arg_overwriteFEF:boolean
+        Properties properties = new Properties();
+        //properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
+        properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
+        ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(args, properties,
+                inputStreamFrom("some_local_dir", "Y"), new PrintStream(new NullOutputStream()));
+        Map<ExtractorOption, String> consolidated = consolidator.consolidate();
+        assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("N"));
+    }
+
+    /**
+     * Creates an InputStream from strings, to fake i/o.
+     * @param strings
+     * @return
+     */
     private InputStream inputStreamFrom(String... strings) {
         String separator = System.getProperty("line.separator");
         StringBuilder sb = new StringBuilder();
