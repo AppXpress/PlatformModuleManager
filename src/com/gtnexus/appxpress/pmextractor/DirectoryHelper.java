@@ -2,16 +2,13 @@ package com.gtnexus.appxpress.pmextractor;
 
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
-import static com.gtnexus.appxpress.AppXpressConstants.APPXRESS_FOLDER;
-import static com.gtnexus.appxpress.AppXpressConstants.SETTINGS_FILENAME;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
+
+import static com.gtnexus.appxpress.AppXpressConstants.APPXRESS_FOLDER;
+import static com.gtnexus.appxpress.AppXpressConstants.SETTINGS_FILENAME;
 
 /**
  * Helper class used by PlatformModuleExtractor. Ensures the existence of necessary directories and files.
@@ -39,12 +36,21 @@ public class DirectoryHelper {
         }
     }
 
+    /**
+     * Ensures AppXPress Directories and associated files exist on the system.
+     *
+     * @throws PMExtractorException
+     */
     public void ensureAppXpress() throws PMExtractorException {
         ensureAppXPressDirectoryExists();
         pmbProperties = getAndEnsurePropertiesExist();
     }
 
-    private File ensureAppXPressDirectoryExists() throws PMExtractorException {
+    /**
+     * @throws PMExtractorException if the AppXpress directory does not exist
+     *                              and cannot be created.
+     */
+    private void ensureAppXPressDirectoryExists() throws PMExtractorException {
         File appXpressDirectory = new File(homeDir + File.separator
                 + APPXRESS_FOLDER);
         if (!appXpressDirectory.isDirectory() && !appXpressDirectory.mkdirs()) {
@@ -52,9 +58,12 @@ public class DirectoryHelper {
                     + "and could not be created: "
                     + appXpressDirectory.getAbsolutePath());
         }
-        return appXpressDirectory;
     }
 
+    /**
+     * @return the properties file if one exists, else a newly created one.
+     * @throws PMExtractorException if the properties file does not exist and a new one cannot be created.
+     */
     private PMBProperties getAndEnsurePropertiesExist() throws PMExtractorException {
         File propertiesFile = new File(getPropertiesFilePath());
         if (!propertiesFile.exists()) {
@@ -74,10 +83,9 @@ public class DirectoryHelper {
     }
 
     private PMBProperties readProperties(File propertiesFile) throws PMExtractorException {
-        Properties properties = null;
+        Properties properties = new Properties();
         try (FileInputStream propInputStream = new FileInputStream(propertiesFile)) {
             properties.load(propInputStream);
-            propInputStream.close();
         } catch (IOException e) {
             throw new PMExtractorException("Exception while loading properties file.", e);
         }
@@ -85,8 +93,13 @@ public class DirectoryHelper {
     }
 
 
-    public PMBProperties getPmbProperties() throws PMExtractorException{
-        if(pmbProperties == null) {
+    /**
+     *
+     * @return the properties file
+     * @throws PMExtractorException
+     */
+    public PMBProperties getPmbProperties() throws PMExtractorException {
+        if (pmbProperties == null) {
             throw new PMExtractorException("ensureAppXpress() must be called before getPmbProperties");
         }
         return pmbProperties;

@@ -1,8 +1,5 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
-import static com.gtnexus.appxpress.AppXpressConstants.LIB;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
+import static com.gtnexus.appxpress.AppXpressConstants.LIB;
 
 /**
  * Parses a file for !import statements

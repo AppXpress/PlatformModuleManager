@@ -1,15 +1,14 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import com.gtnexus.appxpress.pmextractor.ArgsAndPropertiesConsolidator;
-import com.gtnexus.appxpress.pmextractor.ExtractorOption;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Properties;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by jjdonov on 9/29/14.
@@ -27,7 +26,7 @@ public class ArgsAndPropertiesConsolidatorTest {
                 inputStreamFrom(args), System.out);
         Map<ExtractorOption, String> consolidated = consolidator.consolidate();
         for(ExtractorOption option : EnumSet.allOf(ExtractorOption.class)) {
-            Assert.assertTrue(consolidated.get(option).startsWith("arg_"));
+            assertTrue(consolidated.get(option).startsWith("arg_"));
         }
     }
 
@@ -45,9 +44,9 @@ public class ArgsAndPropertiesConsolidatorTest {
         for(ExtractorOption option : EnumSet.allOf(ExtractorOption.class)) {
             if(option.equals(ExtractorOption.LOCAL_DIR) ||
                     option.equals(ExtractorOption.PLATFORM)) {
-                Assert.assertTrue(consolidated.get(option).startsWith("prop_"));
+                assertTrue(consolidated.get(option).startsWith("prop_"));
             } else {
-                Assert.assertTrue(consolidated.get(option) + " does not start with arg_.",
+                assertTrue(consolidated.get(option) + " does not start with arg_.",
                         consolidated.get(option).startsWith("arg_"));
             }
         }
@@ -64,8 +63,8 @@ public class ArgsAndPropertiesConsolidatorTest {
         ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(args, properties,
                 inputStreamFrom("some_local_dir", "Y"), System.out);
         Map<ExtractorOption, String> consolidated = consolidator.consolidate();
-        Assert.assertTrue(consolidated.get(ExtractorOption.LOCAL_DIR).equals("some_local_dir"));
-        Assert.assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("Y"));
+        assertTrue(consolidated.get(ExtractorOption.LOCAL_DIR).equals("some_local_dir"));
+        assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("Y"));
     }
 
     private InputStream inputStreamFrom(String... strings) {

@@ -1,9 +1,8 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import java.io.File;
-import java.io.IOException;
-
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+
+import java.io.File;
 
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
 

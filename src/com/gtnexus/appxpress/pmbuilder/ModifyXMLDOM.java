@@ -1,13 +1,10 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTING_FEATURE;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
-import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
-
-import java.io.File;
-import java.io.IOException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,12 +15,10 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.IOException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import static com.gtnexus.appxpress.AppXpressConstants.*;
 
 /**
  * Modifies an xml file to include a specific tag, that being scriptingFeature

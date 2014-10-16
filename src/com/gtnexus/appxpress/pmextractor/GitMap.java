@@ -1,32 +1,17 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
-import static com.gtnexus.appxpress.AppXpressConstants.DESIGNS;
-import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
-import static com.gtnexus.appxpress.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
-import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
+import static com.gtnexus.appxpress.AppXpressConstants.*;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Accomplishes the following steps 1) Validates passed in parameters to ensure
@@ -37,7 +22,7 @@ import net.lingala.zip4j.exception.ZipException;
  * 
  * @author Andrew Reynolds
  * @author Eric Hu
- * @Author John Donovan
+ * @author John Donovan
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
@@ -135,9 +120,7 @@ public class GitMap {
 	 * Custom Link xml files are going to be replaced with the new custom link
 	 * files from the exported module. This method rids the CustomLinkD1 folder
 	 * of outdated custom links files.
-	 * 
-	 * @param gitPath
-	 *            path of platform module in local dir
+	 *
 	 */
 	private void clearCustomLinksXML() {
 		String gitPath = buildCustomerPath();

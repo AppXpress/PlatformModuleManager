@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import com.gtnexus.appxpress.pmextractor.DirectoryHelper;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 import org.junit.Test;
 

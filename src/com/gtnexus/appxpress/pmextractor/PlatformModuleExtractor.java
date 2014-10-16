@@ -4,7 +4,6 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * 
