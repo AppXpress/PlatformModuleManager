@@ -13,16 +13,17 @@ import java.util.Map;
 public class PlatformModuleExtractor {
 
 	/**
-	 * Takes 4-6 args ->
+	 * Takes 4-6 arguments -->
 	 *
-	 * @args[0] Exported Platform Module Name
-	 * @args[1] Relative Path of GIT staging folder
-	 * @args[2] Customer of Platform Module
-	 * @args[3] Platform Module that is being exported
+	 *@param args
+	 * [0] Exported Platform Module Name
+	 * [1] Relative Path of GIT staging folder
+	 * [2] Customer of Platform Module
+	 * [3] Platform Module that is being exported
 	 * 
 	 *          Optional args
-	 * @args[4] If Y -> overwriteScripts = true
-	 * @args[5] If Y -> overwriteFEF = true
+	 * [4] If Y -> overwriteScripts = true
+	 * [5] If Y -> overwriteFEF = true
 	 */
 	public static void main(String args[]) throws IOException {
         PlatformModuleExtractor extractor = new PlatformModuleExtractor(args);
@@ -43,7 +44,7 @@ public class PlatformModuleExtractor {
             ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(
                     userArgs, pmbProperties.getProperties());
             Map<ExtractorOption, String> optMap = consolidator.consolidate();
-            GitMap tool = new GitMap(optMap);
+            GitMap tool = GitMap.createMapper(optMap);
             tool.doMapping();
             consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
         } catch (PMExtractorException e) {

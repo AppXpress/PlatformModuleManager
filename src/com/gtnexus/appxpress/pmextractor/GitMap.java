@@ -7,6 +7,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -28,16 +29,29 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
  */
 public class GitMap {
 
-	private String exportedPlatform;
-	private String localDir;
-	private String customer;
-	private String platform;
-	private boolean overwriteScripts = false;
-	private boolean overwriteFef = false;
-	public ArrayList<String> overwrittenScripts;
+	private final String platformZip;
+	private final String localDir;
+	private final String customer;
+	private final String platform;
+	private final boolean overwriteScripts;
+	private final boolean overwriteFef;
+	private final List<String> overwrittenScripts;
 
+	
+	public static GitMap createMapper(Map<ExtractorOption, String> optionMap) {
+		//Preconditions would be good here.
+		if(optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
+			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
+			if (!platformZip.endsWith(ZIP_EXTENSION)) {
+				platformZip = platformZip + ZIP_EXTENSION;
+				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
+			}
+		}
+		return new GitMap(optionMap);
+	}
+	
 	public GitMap(Map<ExtractorOption, String> optionMap) {
-		this.exportedPlatform = optionMap.get(ExtractorOption.PLATFORM_ZIP);
+		this.platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 		this.localDir = optionMap.get(ExtractorOption.LOCAL_DIR);
 		this.customer = optionMap.get(ExtractorOption.CUSTOMER);
 		this.platform = optionMap.get(ExtractorOption.PLATFORM);
@@ -45,6 +59,7 @@ public class GitMap {
 				.get(ExtractorOption.OVERWRITE_SCRIPTS).equalsIgnoreCase("y");
 		this.overwriteFef = optionMap.get(ExtractorOption.OVERWRITE_FEF)
 				.equalsIgnoreCase("y");
+		this.overwrittenScripts = new ArrayList<>();
 	}
 
 	/**
@@ -63,10 +78,10 @@ public class GitMap {
 		clearCustomLinksXML();
 		mapCoDesign(PLATFORM_MODULE_UNZIP_NAME);
 		mapFolders(PLATFORM_MODULE_UNZIP_NAME, buildCustomerPath());
-		if (!this.validateFolders(exportedPlatform, localDir)) {
+		if (!validateFolders(platformZip, localDir)) { //TODO should this be put further up?
 			throw new IllegalArgumentException(
 					"One of the following paths is invalid:\n\t" + localDir
-					+ "\n\t" + exportedPlatform);
+					+ "\n\t" + platformZip);
 		}
 		if (overwriteScripts) {
 			printOWS();
@@ -74,9 +89,6 @@ public class GitMap {
 	}
 
 	private void cleanup() {
-		if (!exportedPlatform.endsWith(ZIP_EXTENSION)) {
-			exportedPlatform = exportedPlatform + ZIP_EXTENSION;
-		}
 		if (new File(PLATFORM_MODULE_UNZIP_NAME).exists()) {
 			emptyDir(PLATFORM_MODULE_UNZIP_NAME);
 		}
@@ -266,15 +278,15 @@ public class GitMap {
 	/**
 	 * Moves file location src to file location cop
 	 * 
-	 * @param src
+	 * @param source
 	 *            File location
-	 * @param cop
+	 * @param destination
 	 *            File location
 	 */
-	private void mapCopy(String src, String cop) {
+	private void mapCopy(String source, String destination) {
 		try {
-			File toCopy = new File(src);
-			File toOver = new File(cop);
+			File toCopy = new File(source);
+			File toOver = new File(destination);
 			FileInputStream fis = new FileInputStream(toCopy);
 			FileOutputStream fos = new FileOutputStream(toOver);
 			byte[] bytesRead = new byte[512];

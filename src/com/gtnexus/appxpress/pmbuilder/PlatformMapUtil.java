@@ -247,7 +247,7 @@ public class PlatformMapUtil {
 	 */
 	private static String createBundleFolder(String parentName) {
 		File folder = new File(parentName);
-		String[] extractName = parentName.split(File.separator);
+		String[] extractName = parentName.split(File.separatorChar=='\\' ? "\\\\" : File.separator);
 		String newFolderName = extractName[extractName.length - 1];
 		newFolderName = newFolderName.concat(BUNDLE);
 		newFolderName = newFolderName.substring(0, 1).toUpperCase()
