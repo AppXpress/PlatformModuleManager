@@ -57,7 +57,6 @@ public class ArgsAndPropertiesConsolidator {
         final Map<ExtractorOption, String> optMap = new EnumMap<>(
                 ExtractorOption.class);
         final Iterator<ExtractorOption> iter = options.iterator();
-        String input = null;
         int i = 0;
         while (iter.hasNext()) {
             ExtractorOption currentOpt = iter.next();
