@@ -68,7 +68,12 @@ public class GitMap {
 	public void doMapping() {
 		// Ensure path exists - GIT repo is set up correctly
 		if (!validateAndEnsurePathExists(localDir, customer, platform)) {
-			System.out.println("ERROR: Paths are not set up properly!");
+			System.err.println("ERROR: Paths are not set up properly!");
+			return;
+		}
+		if (!isFolder(localDir) || !exists(platformZip)) {
+			System.err.println("ERROR: One of the following paths is invalid:\n\t"
+					+ localDir + "\n\t" + platformZip);
 			return;
 		}
 		cleanup();
@@ -78,11 +83,6 @@ public class GitMap {
 		clearCustomLinksXML();
 		mapCoDesign(PLATFORM_MODULE_UNZIP_NAME);
 		mapFolders(PLATFORM_MODULE_UNZIP_NAME, buildCustomerPath());
-		if (!validateFolders(platformZip, localDir)) { //TODO should this be put further up?
-			throw new IllegalArgumentException(
-					"One of the following paths is invalid:\n\t" + localDir
-					+ "\n\t" + platformZip);
-		}
 		if (overwriteScripts) {
 			printOWS();
 		}
@@ -94,27 +94,20 @@ public class GitMap {
 		}
 	}
 
-	/**
-	 * Test to ensure local directory and exported zip folder exist
-	 * 
-	 * @param export
-	 *            Exported folder name
-	 * @param localDir
-	 *            Local git directory
-	 * @return true if both folders exists false otherwise
-	 */
-	private boolean validateFolders(String export, String localDir) {
-		return validateFolder(export) && validateFolder(localDir);
+	
+	private boolean exists(String path) {
+		File f = new File(path);
+		return f.exists();
 	}
-
+	
 	/**
 	 * Test to ensure folder at arbitrary path exists
 	 * 
 	 * @param path
 	 * @return true if exists at path and is a directory
 	 */
-	private boolean validateFolder(String path) {
-		final String errorMsg = "Cannot find Exported Folder [%s]";
+	private boolean isFolder(String path) {
+		final String errorMsg = "Cannot find  folder [%s]";
 		File f = new File(path);
 		if (!f.exists() || !f.isDirectory()) {
 			System.err.println(String.format(errorMsg, f.getAbsoluteFile()));
