@@ -25,15 +25,12 @@ public class DirectoryHelper {
     private PMBProperties pmbProperties;
 
     public DirectoryHelper() {
-        homeDir = System.getProperty(USER_HOME);
+        this.homeDir = System.getProperty(USER_HOME);
+        this.propertiesFilePath = String.format(dirTemplate, homeDir, SETTINGS_FILENAME);
     }
 
     private String getPropertiesFilePath() {
-        if (propertiesFilePath == null) {
-            return propertiesFilePath = String.format(dirTemplate, homeDir, SETTINGS_FILENAME);
-        } else {
-            return propertiesFilePath;
-        }
+       return propertiesFilePath;
     }
 
     /**
