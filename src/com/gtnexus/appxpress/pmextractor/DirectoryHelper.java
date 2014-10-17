@@ -18,7 +18,7 @@ import static com.gtnexus.appxpress.AppXpressConstants.SETTINGS_FILENAME;
  */
 public class DirectoryHelper {
 
-    public static final String USER_HOME = "user.home";
+    private static final String USER_HOME = "user.home";
     private static final String dirTemplate = "%s" + File.separator + APPXRESS_FOLDER + File.separator + "%s";
     private String homeDir;
     private String propertiesFilePath;

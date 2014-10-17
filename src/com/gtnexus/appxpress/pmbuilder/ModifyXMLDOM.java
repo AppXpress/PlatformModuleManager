@@ -30,15 +30,15 @@ import static com.gtnexus.appxpress.AppXpressConstants.*;
  */
 public class ModifyXMLDOM {
 
-	static final String XML_DESIGN_TAG = "CustomObjectDesignV110";
-	static final String TEXT_JS = "text/javascript";
-	static final String APPLICATION_ZIP = "application/zip";
-	static final String FILENAME = "fileName";
-	static final String FIELD_MASKING_ENABLED = "fieldMaskingEnabled";
-	static final String MIME_TYPE = "mimeType";
-	static final String DESCRIPTION = "description";
-	static final String GENERIC_FILE_JS = "generic.js";
-	static final String GENERIC_FILE_ZIP = "generic.zip";
+	private static final String XML_DESIGN_TAG = "CustomObjectDesignV110";
+	private static final String TEXT_JS = "text/javascript";
+	private static final String APPLICATION_ZIP = "application/zip";
+	private static final String FILENAME = "fileName";
+	private static final String FIELD_MASKING_ENABLED = "fieldMaskingEnabled";
+	private static final String MIME_TYPE = "mimeType";
+	private static final String DESCRIPTION = "description";
+	private static final String GENERIC_FILE_JS = "generic.js";
+	private static final String GENERIC_FILE_ZIP = "generic.zip";
 
 	/**
 	 * @param path
