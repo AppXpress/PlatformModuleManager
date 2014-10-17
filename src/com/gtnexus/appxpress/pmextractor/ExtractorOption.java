@@ -9,7 +9,7 @@ public enum ExtractorOption {
     CUSTOMER("customer", String.class, true, null),
     PLATFORM("platform", String.class, true, null),
     OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, false, "N"),
-    OVERWRITE_FEF("overwriteFed", Boolean.class, false, "N");
+    OVERWRITE_FEF("overwriteFef", Boolean.class, false, "N");
 
     private final String name;
     private final Class<?> type;
