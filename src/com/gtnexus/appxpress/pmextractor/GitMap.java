@@ -15,11 +15,16 @@ import static com.gtnexus.appxpress.AppXpressConstants.*;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
- * Accomplishes the following steps 1) Validates passed in parameters to ensure
- * the files exists and are accessible 2) Unzips the exported platform module 3)
- * Strips the platform module of $ 4) Backs up the current local directory 5)
- * Overwrites the current directory with the exported platform module by mapping
- * the exported platform module into the local directory
+ * Accomplishes the following steps
+ * <ol>
+ * <li>Validates passed in parameters to ensure the files exists and are
+ * accessible</li>
+ * <li>Unzips the exported platform module</li>
+ * <li>Strips the platform module of $</li>
+ * <li>Backs up the current local directory</li>
+ * <li>Overwrites the current directory with the exported platform module by
+ * mapping the exported platform module into the local directory</li>
+ * </ol>
  * 
  * @author Andrew Reynolds
  * @author Eric Hu
@@ -37,10 +42,9 @@ public class GitMap {
 	private final boolean overwriteFef;
 	private final List<String> overwrittenScripts;
 
-	
 	public static GitMap createMapper(Map<ExtractorOption, String> optionMap) {
-		//Preconditions would be good here.
-		if(optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
+		// Preconditions would be good here.
+		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 			if (!platformZip.endsWith(ZIP_EXTENSION)) {
 				platformZip = platformZip + ZIP_EXTENSION;
@@ -49,7 +53,7 @@ public class GitMap {
 		}
 		return new GitMap(optionMap);
 	}
-	
+
 	public GitMap(Map<ExtractorOption, String> optionMap) {
 		this.platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 		this.localDir = optionMap.get(ExtractorOption.LOCAL_DIR);
@@ -72,19 +76,20 @@ public class GitMap {
 			return;
 		}
 		if (!isFolder(localDir) || !exists(platformZip)) {
-			System.err.println("ERROR: One of the following paths is invalid:\n\t"
-					+ localDir + "\n\t" + platformZip);
+			System.err
+					.println("ERROR: One of the following paths is invalid:\n\t"
+							+ localDir + "\n\t" + platformZip);
 			return;
 		}
 		cleanup();
-		unzipLocalDir();
+		unzipPlatformZip();
 		makeHumanReadable(PLATFORM_MODULE_UNZIP_NAME);
 		backup();
 		clearCustomLinksXML();
 		mapCoDesign(PLATFORM_MODULE_UNZIP_NAME);
 		mapFolders(PLATFORM_MODULE_UNZIP_NAME, buildCustomerPath());
 		if (overwriteScripts) {
-			printOWS();
+			printOverwrittenScripts();
 		}
 	}
 
@@ -94,12 +99,11 @@ public class GitMap {
 		}
 	}
 
-	
 	private boolean exists(String path) {
 		File f = new File(path);
 		return f.exists();
 	}
-	
+
 	/**
 	 * Test to ensure folder at arbitrary path exists
 	 * 
@@ -117,8 +121,8 @@ public class GitMap {
 	}
 
 	private String buildCustomerPath() {
-		return localDir + File.separator + CUSTOMER + File.separator
-				+ customer + File.separator + platform;
+		return localDir + File.separator + CUSTOMER + File.separator + customer
+				+ File.separator + platform;
 	}
 
 	/**
@@ -231,7 +235,7 @@ public class GitMap {
 	/**
 	 * In the exported unzipped platform module, move around the custom object
 	 * design scripts so they can be smoothly mapped 1=1 into git directory.
-	 * This method moves there location and removes $ from their names
+	 * This method moves their location and removes $ from their names
 	 * 
 	 * @param path
 	 *            Path of Unzipped Exported platform module
@@ -308,13 +312,14 @@ public class GitMap {
 	 * @return true if file structure exists false if file structure does not
 	 *         exist
 	 */
-	private boolean validateAndEnsurePathExists(String folder, String sub, String subCo) {
+	private boolean validateAndEnsurePathExists(String folder, String sub,
+			String subCo) {
 		File path = new File(folder + File.separator + "customer"
 				+ File.separator + sub);
 		if (!path.isDirectory()) {
 			System.err
-			.println("Cannot find specific customer in customer folder ["
-					+ path.getAbsolutePath() + "]");
+					.println("Cannot find specific customer in customer folder ["
+							+ path.getAbsolutePath() + "]");
 			return false;
 		}
 		path = new File(path.getPath() + File.separator + subCo);
@@ -325,34 +330,16 @@ public class GitMap {
 	}
 
 	/**
-	 * Unused method -> template if the jar were to have a propeties file
-	 */
-	@SuppressWarnings("unused")
-	private void setProperties() {
-		try {
-			ClassLoader loader = Thread.currentThread().getContextClassLoader();
-			InputStream stream = loader
-					.getResourceAsStream("exportor.properties");
-			Properties properties = new Properties();
-			properties.load(stream);
-		} catch (Exception e) {
-			// System.out.println("Properties thingy does not work now");
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Prints the scripts that were overwritten so the user can quickly noticed
 	 * if unwanted actions were performed on local git dir
 	 */
-	private void printOWS() {
+	private void printOverwrittenScripts() {
 		final StringBuilder sb = new StringBuilder();
 		System.out.print("You over wrote these scripts -> ");
 		for (String script : overwrittenScripts) {
 			sb.append(script).append(", ");
 		}
-		System.out.println(sb.substring(0, sb.length() -2));
+		System.out.println(sb.substring(0, sb.length() - 2));
 	}
 
 	/**
@@ -387,7 +374,7 @@ public class GitMap {
 		if (!f.exists()) {
 			System.err.println("Cannot find folder -> " + folderName);
 			return;
-		} 
+		}
 		if (f.isDirectory()) {
 			for (String s : f.list()) {
 				makeHumanReadable(folderName + File.separator + s);
@@ -422,11 +409,11 @@ public class GitMap {
 				for (String iter : sourceFile.list()) {
 					File sub = new File(sourceFile + File.separator + iter);
 					if (sub.isDirectory()) {
-						copyDirectory(source + File.separator + iter, destination
-								+ File.separator + iter);
+						copyDirectory(source + File.separator + iter,
+								destination + File.separator + iter);
 					} else
-						Files.copy(sub.toPath(), new File(destination + File.separator
-								+ iter).toPath());
+						Files.copy(sub.toPath(), new File(destination
+								+ File.separator + iter).toPath());
 				}
 			} else {
 				Files.copy(sourceFile.toPath(), destinationFile.toPath());
@@ -464,6 +451,26 @@ public class GitMap {
 			if (f.exists()) {
 				String destination = PLATFORM_MODULE_UNZIP_NAME;
 				String source = localDir;
+				unzip(source, destination);
+				recurseUnzip(destination);
+			} else {
+				System.out.println("Cannot find folder!");
+			}
+		} catch (Exception e) {
+			System.err.println("Error in UnzipExport.run");
+		}
+	}
+	
+	
+	/**
+	 * Unzips file 'folder' into PlatModX
+	 */
+	private void unzipPlatformZip() {
+		try {
+			File f = new File(platformZip);
+			if (f.exists()) {
+				String destination = PLATFORM_MODULE_UNZIP_NAME;
+				String source = platformZip;
 				unzip(source, destination);
 				recurseUnzip(destination);
 			} else {
