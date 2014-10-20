@@ -13,7 +13,7 @@ public interface AppXpressConstants {
 	public static final String CUSTOM_OBJECT_MODULE = "CustomObjectModule";
 	public static final String CUSTOM_UI = "customUi";
 	public static final String CUSTOMER = "customer";
-	public static final String DESIGNS = "CUSTOM_OBJECT_MODULE";
+	public static final String DESIGNS = "designs";
 	public static final String DESIGN_ = "Design_";
 	public static final String IMPORT_FLAG = "!import";
 	public static final String JS_EXTENSION = ".js";

@@ -1,18 +1,31 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
+import static com.gtnexus.appxpress.AppXpressConstants.$;
+import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
+import static com.gtnexus.appxpress.AppXpressConstants.DESIGNS;
+import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
+import static com.gtnexus.appxpress.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
+import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
+import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
+import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import static com.gtnexus.appxpress.AppXpressConstants.*;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 
 /**
  * Accomplishes the following steps
@@ -86,7 +99,7 @@ public class GitMap {
 		makeHumanReadable(PLATFORM_MODULE_UNZIP_NAME);
 		backup();
 		clearCustomLinksXML();
-		mapCoDesign(PLATFORM_MODULE_UNZIP_NAME);
+		mapCustomObjectDesign(PLATFORM_MODULE_UNZIP_NAME);
 		mapFolders(PLATFORM_MODULE_UNZIP_NAME, buildCustomerPath());
 		if (overwriteScripts) {
 			printOverwrittenScripts();
@@ -240,7 +253,7 @@ public class GitMap {
 	 * @param path
 	 *            Path of Unzipped Exported platform module
 	 */
-	private void mapCoDesign(String path) {
+	private void mapCustomObjectDesign(String path) {
 		path = path + File.separator + CUSTOM_OBJECT_MODULE + File.separator
 				+ DESIGNS + File.separator + SCRIPTS;
 		File scripts = new File(path);
@@ -268,7 +281,8 @@ public class GitMap {
 				}
 			}
 		} else {
-			System.err.println("Cannot find script folder.");
+			System.out.println("Cannot find script folder: " + scripts.getAbsolutePath());
+			System.out.println("\tAssuming this module contains no custom objects.");
 		}
 	}
 
@@ -439,25 +453,6 @@ public class GitMap {
 		} else {
 			// System.out.println("Cleaning..." + folder.delete());
 			folder.delete();
-		}
-	}
-
-	/**
-	 * Unzips file 'folder' into PlatModX
-	 */
-	private void unzipLocalDir() {
-		try {
-			File f = new File(localDir);
-			if (f.exists()) {
-				String destination = PLATFORM_MODULE_UNZIP_NAME;
-				String source = localDir;
-				unzip(source, destination);
-				recurseUnzip(destination);
-			} else {
-				System.out.println("Cannot find folder!");
-			}
-		} catch (Exception e) {
-			System.err.println("Error in UnzipExport.run");
 		}
 	}
 	
