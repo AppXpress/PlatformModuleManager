@@ -4,32 +4,53 @@ package com.gtnexus.appxpress.pmextractor;
  * Enumeration of options that can be stored in the Properties file or read in from the CLI.
  */
 public enum ExtractorOption {
-    PLATFORM_ZIP("platformZip", String.class, true, null),
-    LOCAL_DIR("localDir",String.class, true, null),
-    CUSTOMER("customer", String.class, true, null),
-    PLATFORM("platform", String.class, true, null),
-    OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, false, "N"),
-    OVERWRITE_FEF("overwriteFef", Boolean.class, false, "N");
+	
+	HELP("help", String.class, "", false, false, null),
+    PLATFORM_ZIP("platformZip", String.class, "", 
+    		true, true, null),
+    LOCAL_DIR("localDir",String.class, "", 
+    		true, true, null),
+    CUSTOMER("customer", String.class, "", 
+    		true, true, null),
+    PLATFORM("platform", String.class, "", 
+    		true, true, null),
+    OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, "", 
+    		true, false, "N"),
+    OVERWRITE_FEF("overwriteFef", Boolean.class, "", 
+    		true, false, "N");
 
     private final String name;
     private final Class<?> type;
+    private final boolean hasArg;
     private final boolean isMandatory;
     private final String defaultValue;
+    private final String description;
 
     /**
+     * 
      * @param name The name of this ExtractorOption.
      * @param type The ExtractorOption type.
+     * @param description
+     * @param isMandatory
+     * @param defaulValue
      */
-    private ExtractorOption(String name, Class<?> type, boolean isMandatory, String defaulValue) {
-        this.name = name;
-        this.type = type;
-        this.isMandatory = isMandatory;
-        this.defaultValue = defaulValue;
-    }
+	private ExtractorOption(String name, Class<?> type, String description,
+			boolean hasArg, boolean isMandatory, String defaulValue) {
+		this.name = name;
+		this.type = type;
+		this.hasArg = hasArg;
+		this.description = description;
+		this.isMandatory = isMandatory;
+		this.defaultValue = defaulValue;
+	}
 
     @Override
     public String toString() {
         return name;
+    }
+    
+    public String getName() {
+    	return name;
     }
 
     public Class<?> getType() {
@@ -47,6 +68,14 @@ public enum ExtractorOption {
         } else {
             return ""; //TODO this should throw an exception?
         }
+    }
+    
+    public String getDescription() {
+    	return description;
+    }
+    
+    public boolean hasArg() {
+    	return hasArg;
     }
 
     public boolean isMandatory() {
