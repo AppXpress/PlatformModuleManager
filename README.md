@@ -187,7 +187,7 @@ The following options can be set to run with `pmextractor`
 
 ```
 
-## PM Builder's & PM Extractor's Property File
+## `pmbuilder` and `pmextractor's` Properties File
 
 Both scripts allow for quick reuse by supplying a property file. The extractor's
 property file can store exported folder name, local directory name, customer name,
