@@ -2,17 +2,15 @@ package com.gtnexus.appxpress.pmextractor;
 
 import java.io.IOException;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
+import com.gtnexus.appxpress.CLIOption;
+import com.gtnexus.appxpress.CommandLineInterfaceParser;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -40,69 +38,43 @@ public class PlatformModuleExtractor {
         try {
         	extractor.run();
         } catch (PMExtractorException e) {
-        	
+        	System.err.println("Failure when running pmextractor.");
         }
 	}
 
     private String[] userArgs;
-    private Options options;
-    private final Set<ExtractorOption> extractorOptions;
 
     public PlatformModuleExtractor(String[] userArgs){
         this.userArgs = userArgs;
-    	this.options = new Options();
-    	this.extractorOptions = EnumSet
-                .allOf(ExtractorOption.class);
-    	for(ExtractorOption opt : extractorOptions) {
-    		options.addOption(Option.builder(opt.getName())
-        			.type(opt.getType())
-        			.desc(opt.getDescription())
-        			.hasArg(opt.hasArg())
-        			.required(false)
-        			.build());
-    	}
     }
 
+    /**
+	 * 
+	 * @throws PMExtractorException
+	 *             if CommandLine is not parsable, or if extraction cannot be
+	 *             performed.
+	 */
     public void run() throws PMExtractorException {
-    	CommandLine cmd = getCommandLineInput(userArgs);
-    	if(cmd.hasOption(ExtractorOption.HELP.toString())) {
-    		HelpFormatter formatter = new HelpFormatter();
-    		formatter.printHelp("pmextractor", options);
-    		System.exit(0);
+    	CommandLineInterfaceParser cli = new CommandLineInterfaceParser(userArgs, 
+    			new HashSet<CLIOption>(EnumSet.allOf(ExtractorOption.class)));
+    	cli.parseCommandLine();
+    	if(cli.hasOption(ExtractorOption.HELP)) {
+    		cli.displayHelpAndExit();
+    	} else {
+            performExtraction(cli.getOptionValues());
     	}
-        DirectoryHelper dHelper = new DirectoryHelper();
+    }
+    
+    private void performExtraction(String[] optVals) throws PMExtractorException{
+    	DirectoryHelper dHelper = new DirectoryHelper();
         dHelper.ensureAppXpress();
         PMBProperties pmbProperties = dHelper.getPmbProperties();
         ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(
-        		getOptionValues(cmd), pmbProperties.getProperties());
+        		optVals, pmbProperties.getProperties());
         Map<ExtractorOption, String> optMap = consolidator.consolidate();
         GitMap tool = GitMap.createMapper(optMap);
         tool.doMapping();
         consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
-    }
-    
-    private String[] getOptionValues(CommandLine cmd)  {
-		int i = 0;
-		String[] argVals = new String[extractorOptions.size()];
-		for(ExtractorOption opt : extractorOptions) {
-			if(cmd.hasOption(opt.getName())) {
-				argVals[i] = cmd.getOptionValue(opt.getName());
-			}
-			i++;
-		}
-		return argVals;
-    }
-    
-    
-    private CommandLine getCommandLineInput(String[] args)throws PMExtractorException{
-		CommandLineParser parser = new DefaultParser();
-		CommandLine cmd = null;
-		try {
-			cmd = parser.parse(options, args);
-		} catch (ParseException e) {
-			throw new PMExtractorException("Exception when parsing args from command line!");
-		}
-		return cmd;
     }
     
 }

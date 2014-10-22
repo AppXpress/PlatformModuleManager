@@ -1,22 +1,24 @@
 package com.gtnexus.appxpress.pmextractor;
 
+import com.gtnexus.appxpress.CLIOption;
+
 /**
  * Enumeration of options that can be stored in the Properties file or read in from the CLI.
  */
-public enum ExtractorOption {
+public enum ExtractorOption implements CLIOption{
 	
-	HELP("help", String.class, "", false, false, null),
-    PLATFORM_ZIP("platformZip", String.class, "", 
+	HELP("help", String.class, "Display usage for this tool", false, false, null),
+    PLATFORM_ZIP("platformZip", String.class, "Exported Platform Module Name", 
     		true, true, null),
-    LOCAL_DIR("localDir",String.class, "", 
+    LOCAL_DIR("localDir",String.class, "Relative Path of GIT staging folder", 
     		true, true, null),
-    CUSTOMER("customer", String.class, "", 
+    CUSTOMER("customer", String.class, "Customer of Platform Module", 
     		true, true, null),
-    PLATFORM("platform", String.class, "", 
+    PLATFORM("platform", String.class, "Platform Module that is being exported", 
     		true, true, null),
-    OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, "", 
+    OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", 
     		true, false, "N"),
-    OVERWRITE_FEF("overwriteFef", Boolean.class, "", 
+    OVERWRITE_FEF("overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", 
     		true, false, "N");
 
     private final String name;
