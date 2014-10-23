@@ -33,7 +33,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 		Map<ExtractorOption, String> args = Collections.emptyMap();
 		Properties properties = new Properties();
 		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
-				args, optSet, properties, inputStreamFrom(""), new PrintStream(new NullOutputStream()));
+				args, optSet, properties, inputStreamFrom(), new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
 		for (ExtractorOption option : EnumSet.allOf(ExtractorOption.class)) {
 			assertTrue(consolidated.get(option).startsWith("arg_"));

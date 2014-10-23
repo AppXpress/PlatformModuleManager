@@ -71,9 +71,11 @@ public class ArgsAndPropertiesConsolidator<T extends CLIOption> {
 	public Map<T, String> consolidate() {
 		final Map<T, String> optMap = Collections.emptyMap();
 		for (T opt : optSet) {
-			String val = consolidateSingle(opt);
-			properties.put(opt.getName(), val);
-			optMap.put(opt, val);
+			if(!opt.shouldBeOmitted()) {
+				String val = consolidateSingle(opt);
+				properties.put(opt.getName(), val);
+				optMap.put(opt, val);
+			}
 		}
 		return optMap;
 	}

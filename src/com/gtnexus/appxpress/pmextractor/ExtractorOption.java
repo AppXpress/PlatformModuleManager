@@ -83,6 +83,10 @@ public enum ExtractorOption implements CLIOption{
     public boolean isAppXpressMandatory() {
         return isMandatory;
     }
+    
+    public boolean shouldBeOmitted() {
+    	return !isMandatory && defaultValue == null;
+    }
 
     /**
      * @return the default value for non-mandatory options.
@@ -91,8 +95,8 @@ public enum ExtractorOption implements CLIOption{
      */
     public String getDefaultValue() {
         if (this.isMandatory) {
-            throw new UnsupportedOperationException(this.name + " " +
-                    "is a mandatory field, and must come from " +
+            throw new UnsupportedOperationException(this.name +
+                    " is a mandatory field, and must come from " +
                     "user args or properties. There is no default value.");
         }
         return defaultValue;
