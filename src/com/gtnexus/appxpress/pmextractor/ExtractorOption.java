@@ -80,7 +80,7 @@ public enum ExtractorOption implements CLIOption{
     	return hasArg;
     }
 
-    public boolean isMandatory() {
+    public boolean isAppXpressMandatory() {
         return isMandatory;
     }
 

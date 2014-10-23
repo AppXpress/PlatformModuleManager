@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
@@ -18,10 +20,10 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  * @author jdonovan
  *
  */
-public class CommandLineInterfaceParser {
+public class CommandLineInterfaceParser <T extends CLIOption> {
 
 	private final String[] userArgs;
-	private final Set<CLIOption> cliOptionSet;
+	private final Set<T> cliOptionSet;
 	private final Options options;
 	private CommandLine cmd;
 
@@ -34,7 +36,7 @@ public class CommandLineInterfaceParser {
 	 *            the option set defining what can be passed to this tool
 	 */
 	public CommandLineInterfaceParser(String[] userArgs,
-			Set<CLIOption> cliOptionSet) {
+			Set<T> cliOptionSet) {
 		this.userArgs = userArgs;
 		this.cliOptionSet = cliOptionSet;
 		this.options = new Options();
@@ -89,18 +91,24 @@ public class CommandLineInterfaceParser {
 		return cmd.hasOption(opt.getName());
 	}
 
-	
-	public String[] getOptionValues() {
-		int i = 0;
-		String[] argVals = new String[cliOptionSet.size()];
-		for (CLIOption opt : cliOptionSet) {
-			if (cmd.hasOption(opt.getName())) {
-				argVals[i] = cmd.getOptionValue(opt.getName());
-			}
-			i++;
+
+	public Map<T, String> getOptionsMap() {
+		Map<T, String> optMap = Collections.emptyMap();
+		if (cmd == null) {
+			return optMap;
 		}
-		return argVals;
+		for(T opt : cliOptionSet) {
+			if(cmd.hasOption(opt.getName())) {
+				optMap.put(opt, cmd.getOptionValue(opt.getName()));
+			}
+		}
+		return optMap;
 	}
+	
+	public Set<T> getCliOptionSet() {
+		return cliOptionSet;
+	}
+
 
 	/**
 	 * Displays the usage information and exits.

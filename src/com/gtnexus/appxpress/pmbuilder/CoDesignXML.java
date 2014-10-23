@@ -1,10 +1,12 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
+import static com.gtnexus.appxpress.AppXpressConstants.DESIGN_;
+import static com.gtnexus.appxpress.AppXpressConstants.XML_EXTENSION;
 
 import java.io.File;
 
-import static com.gtnexus.appxpress.AppXpressConstants.*;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Ensures that custom object designs xml match up with their scripting

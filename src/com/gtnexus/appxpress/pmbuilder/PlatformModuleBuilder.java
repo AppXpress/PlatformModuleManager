@@ -1,10 +1,10 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
 
 import java.io.File;
 
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * This executable does the following things in order with the end goal to

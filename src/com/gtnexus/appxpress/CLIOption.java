@@ -10,4 +10,9 @@ public interface CLIOption {
     public String getDescription();
     public boolean hasArg();
     
+    public String getMessage();
+    public boolean isAppXpressMandatory();
+    public boolean isValid(String val);
+    public String getDefaultValue();
+    
 }

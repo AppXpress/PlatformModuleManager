@@ -2,14 +2,8 @@ package com.gtnexus.appxpress.pmextractor;
 
 import java.io.IOException;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.HelpFormatter;
-
-import com.gtnexus.appxpress.CLIOption;
 import com.gtnexus.appxpress.CommandLineInterfaceParser;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
@@ -48,33 +42,36 @@ public class PlatformModuleExtractor {
         this.userArgs = userArgs;
     }
 
-    /**
+	/**
 	 * 
 	 * @throws PMExtractorException
 	 *             if CommandLine is not parsable, or if extraction cannot be
 	 *             performed.
 	 */
-    public void run() throws PMExtractorException {
-    	CommandLineInterfaceParser cli = new CommandLineInterfaceParser(userArgs, 
-    			new HashSet<CLIOption>(EnumSet.allOf(ExtractorOption.class)));
-    	cli.parseCommandLine();
-    	if(cli.hasOption(ExtractorOption.HELP)) {
-    		cli.displayHelpAndExit();
-    	} else {
-            performExtraction(cli.getOptionValues());
-    	}
-    }
-    
-    private void performExtraction(String[] optVals) throws PMExtractorException{
-    	DirectoryHelper dHelper = new DirectoryHelper();
-        dHelper.ensureAppXpress();
-        PMBProperties pmbProperties = dHelper.getPmbProperties();
-        ArgsAndPropertiesConsolidator consolidator = new ArgsAndPropertiesConsolidator(
-        		optVals, pmbProperties.getProperties());
-        Map<ExtractorOption, String> optMap = consolidator.consolidate();
-        GitMap tool = GitMap.createMapper(optMap);
-        tool.doMapping();
-        consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
-    }
+	public void run() throws PMExtractorException {
+		CommandLineInterfaceParser<ExtractorOption> cli = new CommandLineInterfaceParser<>(
+				userArgs, EnumSet.allOf(ExtractorOption.class));
+		cli.parseCommandLine();
+		if (cli.hasOption(ExtractorOption.HELP)) {
+			cli.displayHelpAndExit();
+		} else {
+			performExtraction(cli);
+		}
+	}
+
+	private void performExtraction(
+			CommandLineInterfaceParser<ExtractorOption> cli)
+			throws PMExtractorException {
+		DirectoryHelper dHelper = new DirectoryHelper();
+		dHelper.ensureAppXpress();
+		PMBProperties pmbProperties = dHelper.getPmbProperties();
+		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
+				cli.getOptionsMap(), cli.getCliOptionSet(),
+				pmbProperties.getProperties());
+		Map<ExtractorOption, String> optMap = consolidator.consolidate();
+		GitMap tool = GitMap.createMapper(optMap);
+		tool.doMapping();
+		consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
+	}
     
 }

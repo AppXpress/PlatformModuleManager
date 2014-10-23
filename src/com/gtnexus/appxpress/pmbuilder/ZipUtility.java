@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Zips up a folder
