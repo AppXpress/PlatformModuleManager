@@ -23,7 +23,7 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  *
  * @author jjdonov
  */
-public class ArgsAndPropertiesConsolidator <T extends CLIOption>  {
+public class ArgsAndPropertiesConsolidator<T extends CLIOption> {
 
 	private final Map<T, String> userArgs;
 	private final Set<T> optSet;
@@ -31,8 +31,10 @@ public class ArgsAndPropertiesConsolidator <T extends CLIOption>  {
 	private final Asker asker;
 
 	/**
+	 * 
 	 * @param userArgs
 	 *            Arguments passed from the CLI.
+	 * @param optSet
 	 * @param properties
 	 *            Properties file read from user's AppXpress directory.
 	 */
@@ -55,8 +57,8 @@ public class ArgsAndPropertiesConsolidator <T extends CLIOption>  {
 	 *            The printStream that this consolidator should write to.
 	 */
 	public ArgsAndPropertiesConsolidator(Map<T, String> userArgs,
-			Properties properties, Set<T> optSet,
-			InputStream inputStream, PrintStream printStream) {
+			Set<T> optSet, Properties properties, InputStream inputStream,
+			PrintStream printStream) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
 		this.properties = properties;
@@ -68,23 +70,24 @@ public class ArgsAndPropertiesConsolidator <T extends CLIOption>  {
 	 */
 	public Map<T, String> consolidate() {
 		final Map<T, String> optMap = Collections.emptyMap();
-    	for(T opt : optSet) {
-    		String val = consolidateSingle(opt);
-    		properties.put(opt.getName(), val);
-    		optMap.put(opt, val);
-    	}
-    	return optMap;
+		for (T opt : optSet) {
+			String val = consolidateSingle(opt);
+			properties.put(opt.getName(), val);
+			optMap.put(opt, val);
+		}
+		return optMap;
 	}
-	
+
 	/**
 	 * 
-	 * @param option the option we are consolidating
+	 * @param option
+	 *            the option we are consolidating
 	 * @return the consolidated result
 	 */
 	private String consolidateSingle(CLIOption option) {
 		String input = null;
 		String propVal = properties.getProperty(option.getName());
-		if(userArgs.containsKey(option)) {
+		if (userArgs.containsKey(option)) {
 			input = userArgs.get(option);
 		}
 		if (input != null && !input.isEmpty()) {

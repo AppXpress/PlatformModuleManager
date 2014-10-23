@@ -1,11 +1,12 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
-import org.junit.Test;
+import static junit.framework.TestCase.fail;
 
 import java.io.File;
 
-import static junit.framework.TestCase.fail;
+import org.junit.Test;
+
+import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 
 /**
