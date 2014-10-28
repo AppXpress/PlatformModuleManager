@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -69,7 +69,7 @@ public class ArgsAndPropertiesConsolidator<T extends CLIOption> {
 	 * @return the map of consolidated ExtractorOptions and their values.
 	 */
 	public Map<T, String> consolidate() {
-		final Map<T, String> optMap = Collections.emptyMap();
+		final Map<T, String> optMap = new HashMap<>();
 		for (T opt : optSet) {
 			if(!opt.shouldBeOmitted()) {
 				String val = consolidateSingle(opt);

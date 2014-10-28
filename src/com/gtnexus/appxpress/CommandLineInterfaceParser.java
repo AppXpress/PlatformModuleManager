@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -93,10 +94,10 @@ public class CommandLineInterfaceParser <T extends CLIOption> {
 
 
 	public Map<T, String> getOptionsMap() {
-		Map<T, String> optMap = Collections.emptyMap();
 		if (cmd == null) {
-			return optMap;
+			return Collections.emptyMap();
 		}
+		Map<T, String> optMap = new HashMap<>();
 		for(T opt : cliOptionSet) {
 			if(cmd.hasOption(opt.getName())) {
 				optMap.put(opt, cmd.getOptionValue(opt.getName()));
