@@ -10,16 +10,28 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * This executable does the following things in order with the end goal to
  * create an importable .zip file.
  * 
- * 1) Scans the js scripts in the platform module for the <b>!import symbol</b>.
- * If found, automatically imports indicated scripts from lib folder into
- * correct folder. 2) Makes sure each of the custom object design xml's contain
+ * <ol>
+ * <li>
+ * 1) Scans the javascripts in the platform module for the <b>!import symbol</b>.
+ * If found, automatically imports indicated scripts from lib/ into
+ * correct folder.
+ * </li>
+ * <li>
+ * 2) Makes sure each of the custom object design xml's contain
  * the correct scriptingFeature tag, therefore ensuring that the platform
- * module's scripts will import correctly. 3) Maps the local git structure to
+ * module's scripts will import correctly.</li>
+ * <li>
+ * 3) Maps the local git structure to
  * the folder structure required to become importable by GTNexus platform. This
  * requires correct folder names and bundling javascript file into zip files
- * when necessary. 4) Zips up correctly mapped file structure into a zip file,
+ * when necessary.
+ * </li>
+ * <li>
+ * 4) Zips up correctly mapped file structure into a zip file,
  * ready to import into GTNexus system
- * 
+ * </li>
+ * </ol>
+ *
  * @author Andrew Reynolds
  * @author john donovan
  * @version 1.0
@@ -31,7 +43,8 @@ public class PlatformModuleBuilder {
 	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * 
 	 * @param args
-	 *            0 - Name of customer folder 1 - Name of platform module folder
+	 *            0 - Name of customer folder 
+	 *            1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
 		if (args.length != 2) {
@@ -85,8 +98,9 @@ public class PlatformModuleBuilder {
 	 */
 	private void runImportFind() {
 		System.out.println("Gathering imports...");
-		ImportScanner iScanner = new ImportScanner();
-		iScanner.search(root);
+		File rootFile = new File(root);
+		ImportScanner iScanner = new ImportScanner(rootFile);
+		iScanner.scanAndImport();
 	}
 
 	/**

@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import com.gtnexus.appxpress.AppXpressOption;
 import com.gtnexus.appxpress.Asker;
-import com.gtnexus.appxpress.CLIOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -23,7 +23,7 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  *
  * @author jjdonov
  */
-public class ArgsAndPropertiesConsolidator<T extends CLIOption> {
+public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 
 	private final Map<T, String> userArgs;
 	private final Set<T> optSet;
@@ -86,7 +86,7 @@ public class ArgsAndPropertiesConsolidator<T extends CLIOption> {
 	 *            the option we are consolidating
 	 * @return the consolidated result
 	 */
-	private String consolidateSingle(CLIOption option) {
+	private String consolidateSingle(AppXpressOption option) {
 		String input = null;
 		String propVal = properties.getProperty(option.getName());
 		if (userArgs.containsKey(option)) {
@@ -108,7 +108,7 @@ public class ArgsAndPropertiesConsolidator<T extends CLIOption> {
 	 *            The ExtractorOption to be query the user for.
 	 * @return The value entered by the user.
 	 */
-	private String getParameterFromUser(CLIOption option) {
+	private String getParameterFromUser(AppXpressOption option) {
 		String val = asker.ask(option.getMessage());
 		while (!option.isValid(val)) {
 			val = asker.ask("Invalid input. Please try again.");

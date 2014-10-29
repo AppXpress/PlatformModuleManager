@@ -6,10 +6,13 @@ import static com.gtnexus.appxpress.AppXpressConstants.LIB;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,9 +26,11 @@ import java.util.regex.Pattern;
  */
 public class ImportScanner {
 
-	private ArrayList<String> importFiles;
+	private final File root;
+	private final String libPath = LIB + File.separator + "%s";
 
-	public ImportScanner() {
+	public ImportScanner(final File root) {
+		this.root = root;
 	}
 
 	// TODO For IDE, compare imported scripts functions with functions in
@@ -38,25 +43,42 @@ public class ImportScanner {
 	 * @param filePath
 	 *            File path to recursively search
 	 */
-	public void search(String filePath) {
-		File topFolder = new File(filePath);
-		if (!topFolder.isDirectory()) {
-			throw new IllegalArgumentException(filePath
+	public void scanAndImport() {
+		if (!root.isDirectory()) {
+			throw new IllegalArgumentException(root.getAbsolutePath()
 					+ " is invalid. filePath "
 					+ "must be a valid path to a directory");
 		}
-		for (File file : topFolder.listFiles()) {
-			if (file.isDirectory()) {
-				search(file.getAbsolutePath());
-			} else if (isForImport(file)) {
-				for (String s : parseDoc(file)) {
-					importFile(s, filePath);
-				}
-			}
-		}
+		traverse(root);
 	}
 
-	private boolean isForImport(File file) {
+	/**
+	 * Recursively traverses
+	 * 
+	 * @param f
+	 */
+	private void traverse(final File f) {
+		Set<File> filesToImport = new HashSet<>();
+		for (File file : f.listFiles()) {
+			if (file.isDirectory()) {
+				traverse(file);
+			} else if (couldHaveImports(file)) {
+				filesToImport.addAll(parseDoc(file));
+			}
+		}
+		importFiles(filesToImport, f);
+	}
+
+	/**
+	 * Checks file by extension to determine if this file should be scanned for
+	 * !import statements.
+	 * 
+	 * @param file
+	 *            The file to be checked
+	 * @return True if this file should be scanned, else false.
+	 */
+	private boolean couldHaveImports(final File file) {
+		// TODO we should maintain a whitelist, not a blacklist.
 		final List<String> invalidExtensions = Arrays.asList("zip", "xml",
 				"xsd", "xlf");
 		String[] splitName = file.getName().split("\\.");
@@ -68,26 +90,42 @@ public class ImportScanner {
 	}
 
 	/**
-	 * Imports file 'file' from lib folder into location
+	 * Copies the set of files to a given destination
 	 * 
-	 * @param file
-	 *            Name of file to import - file found in /lib
-	 * @param location
-	 *            Name of current location to import lib file
+	 * @param filesToImport
+	 * @param destinationDirectory
 	 */
-	private void importFile(String file, String location) {
-		File source = new File(LIB + File.separator + file);
-		if (!source.exists()) {
-			System.out.println("Failed to import " + source.getName()
-					+ " - File not Found");
-			return;
-		}
-		File destination = new File(location + File.separator + file);
-		try {
-			if (!destination.exists()) {
-				Files.copy(source.toPath(), destination.toPath());
+	private void importFiles(final Set<File> filesToImport,
+			final File destinationDirectory) {
+		for (File libFile : filesToImport) {
+			if (!libFile.exists()) {
+				System.err.println("A script in "
+						+ destinationDirectory.getAbsolutePath()
+						+ " includes an import directive for "
+						+ libFile.getName()
+						+ ". No such file can be found in the lib.");
+				continue;
 			}
+			importFile(libFile, destinationDirectory);
+		}
+	}
+
+	/**
+	 * Copies single file to the destination. {@link #importFiles(Set, File)}
+	 * 
+	 * @param source
+	 *            The source file, to be copied.
+	 * @param destinationDir
+	 *            The destination directory where the file will be copied to.
+	 */
+	private void importFile(final File source, final File destinationDir) {
+		Path sourcePath = source.toPath();
+		Path destinationPath = destinationDir.toPath().resolve(
+				sourcePath.getFileName());
+		try {
+			Files.copy(sourcePath, destinationPath);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -100,42 +138,41 @@ public class ImportScanner {
 	 * @param f
 	 *            File to parse
 	 */
-	private ArrayList<String> parseDoc(File f) {
-		importFiles = new ArrayList<String>();
+	private Set<File> parseDoc(final File f) {
+		final Set<File> fileNames = new HashSet<>();
+		final Pattern startOfBlockComment = Pattern.compile("/[\\*].*");
+		final Pattern endOfBlockComment = Pattern.compile(".*[\\*]/");
+		final Pattern singleLineComment = Pattern.compile("//.*");
 		try {
-			Scanner scan = new Scanner(f);
-			String readline;
-			boolean commentStart = false;
+			final Scanner scan = new Scanner(f);
+			String line;
+			boolean lineIsInBlock = false;
 			while (scan.hasNextLine()) {
-				readline = scan.nextLine();
-				Pattern startBlock = Pattern.compile("/[\\*].*");
-				Pattern singleLine = Pattern.compile("//.*");
-				Pattern endBlock = Pattern.compile(".*[\\*]/");
-				Matcher m1 = startBlock.matcher(readline);
-				Matcher m2 = singleLine.matcher(readline);
-				Matcher m3 = endBlock.matcher(readline);
-				if (m1.find()) {
-					commentStart = true;
+				//TODO this logic is foobar. Clean this up!
+				line = scan.nextLine();
+				Matcher startCommentMatcher = startOfBlockComment.matcher(line);
+				Matcher endCommentMatcher = endOfBlockComment.matcher(line);
+				Matcher singleLineCommentMatcher = singleLineComment
+						.matcher(line);
+				if (startCommentMatcher.find()) {
+					lineIsInBlock = true;
 				}
-				if (commentStart || m2.find()) {
-					scanLine(readline);
+				if (lineIsInBlock || singleLineCommentMatcher.find()) {
+					fileNames.addAll(scanLine(line));
 				}
-				if (m3.find()) {
-					commentStart = false;
+				if (endCommentMatcher.find()) {
+					lineIsInBlock = false;
 				}
-				// On first line not blank that is not a comment, stop looking
-				// for import statement
-				if (!(commentStart || m2.find() || !readline.equals(""))) {
+				if (!(lineIsInBlock || singleLineCommentMatcher.find() || !line
+						.equals(""))) {
 					break;
 				}
-				// TODO importFiles is always an empty list. Thus, no files will
-				// ever be imported @see search()
 			}
 			scan.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return importFiles;
+		return fileNames;
 	}
 
 	/**
@@ -146,19 +183,28 @@ public class ImportScanner {
 	 * @param line
 	 *            Line of a file
 	 */
-	private void scanLine(String line) {
+	private Set<File> scanLine(String line) {
+		if (line == null || line.isEmpty()) {
+			return Collections.emptySet();
+		}
+		final Set<File> libFiles = new HashSet<>();
 		line = line.replaceAll(",", " ");
 		if (line.contains(IMPORT_FLAG)) {
-			String[] words = line.split(" ");
-			boolean rdyImport = false;
-			for (int i = 0; i < words.length; i++) {
-				if (rdyImport) {
-					importFiles.add(words[i]);
+			final String[] fileNames = line.split("//w+");
+			boolean importFlagFound = false;
+			for (String fileName : fileNames) {
+				if (importFlagFound && !fileName.isEmpty()) {
+					libFiles.add(new File(libFilePathFor(fileName)));
 				}
-				if (words[i].contains(IMPORT_FLAG)) {
-					rdyImport = true;
+				if (fileName.equals(IMPORT_FLAG)) {
+					importFlagFound = true;
 				}
 			}
 		}
+		return libFiles;
+	}
+
+	private String libFilePathFor(final String fileName) {
+		return String.format(libPath, fileName);
 	}
 }

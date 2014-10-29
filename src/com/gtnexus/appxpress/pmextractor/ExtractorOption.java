@@ -1,11 +1,11 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import com.gtnexus.appxpress.CLIOption;
+import com.gtnexus.appxpress.AppXpressOption;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in from the CLI.
  */
-public enum ExtractorOption implements CLIOption{
+public enum ExtractorOption implements AppXpressOption {
 	
 	HELP("help", String.class, "Display usage for this tool", false, false, null),
     PLATFORM_ZIP("platformZip", String.class, "Exported Platform Module Name", 
@@ -102,8 +102,6 @@ public enum ExtractorOption implements CLIOption{
         return defaultValue;
     }
 
-    //TODO this can be improved to make sure string input has actual meaning
-
     /**
      * Checks to see if the val supplies is a valid argument according
      * to this option's type.
@@ -112,6 +110,7 @@ public enum ExtractorOption implements CLIOption{
      * @return
      */
     public boolean isValid(String val) {
+    	//TODO this can be improved to make sure string input has actual meaning
         if (val == null || val.length() == 0) {
             return false;
         }
