@@ -33,6 +33,7 @@ import org.xml.sax.SAXException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
+@Deprecated
 public class ModifyXMLDOM {
 
 	private static final String XML_DESIGN_TAG = "CustomObjectDesignV110";
@@ -50,11 +51,11 @@ public class ModifyXMLDOM {
 	 *            path of xml file
 	 * @param co
 	 *            custom object name
-	 * @param js
+	 * @param isJS
 	 *            true if scriptingFeature should indicate a js file false if
 	 *            scriptingFeature should indicate a zip file
 	 */
-	public static void modify(String path, String co, boolean js) {
+	public static void modify(String path, String co, boolean isJS) {
 		File xmlFile = new File(path);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -62,14 +63,14 @@ public class ModifyXMLDOM {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(xmlFile);
 			doc.getDocumentElement().normalize();
-			if (checkTag(doc)) {
-				if (js) {
+			if (hasScriptingTag(doc)) {
+				if (isJS) {
 					updateTagJs(doc, co);
 				} else {
 					updateTagZip(doc, co);
 				}
 			} else {
-				addScriptingTag(doc, co, js);
+				addScriptingTag(doc, co, isJS);
 			}
 			// write the updated document to file or console
 			doc.getDocumentElement().normalize();
@@ -81,8 +82,8 @@ public class ModifyXMLDOM {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
 			System.out.println("XML file updated successfully");
-		} catch (SAXException | ParserConfigurationException | IOException
-				| TransformerException e1) {
+		} catch (SAXException | ParserConfigurationException 
+				| IOException | TransformerException e1) {
 			System.err.println("Cannot find file - > " + xmlFile);
 		}
 	}
@@ -94,7 +95,7 @@ public class ModifyXMLDOM {
 	 * @param doc
 	 *            XML document object to search through
 	 */
-	private static boolean checkTag(Document doc) {
+	private static boolean hasScriptingTag(Document doc) {
 		NodeList scriptingFeature = doc.getElementsByTagName(SCRIPTING_FEATURE);
 		if (scriptingFeature.getLength() == 0) {
 			return false;

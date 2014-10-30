@@ -115,7 +115,7 @@ public class PlatformModuleBuilder {
 	 */
 	private void xmlDesignCustomObjectScriptMatcher(String customer,
 			String platform) throws PMBuilderException {
-		CoDesignXML coDes = new CoDesignXML(root);
+		CustomObjectDesignXML coDes = new CustomObjectDesignXML(root);
 		coDes.iter();
 	}
 
