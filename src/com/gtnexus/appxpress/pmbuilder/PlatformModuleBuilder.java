@@ -12,24 +12,20 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * 
  * <ol>
  * <li>
- * 1) Scans the javascripts in the platform module for the <b>!import symbol</b>.
- * If found, automatically imports indicated scripts from lib/ into
- * correct folder.
- * </li>
+ * 1) Scans the javascripts in the platform module for the <b>!import
+ * symbol</b>. If found, automatically imports indicated scripts from lib/ into
+ * correct folder.</li>
  * <li>
- * 2) Makes sure each of the custom object design xml's contain
- * the correct scriptingFeature tag, therefore ensuring that the platform
- * module's scripts will import correctly.</li>
+ * 2) Makes sure each of the custom object design xml's contain the correct
+ * scriptingFeature tag, therefore ensuring that the platform module's scripts
+ * will import correctly.</li>
  * <li>
- * 3) Maps the local git structure to
- * the folder structure required to become importable by GTNexus platform. This
- * requires correct folder names and bundling javascript file into zip files
- * when necessary.
- * </li>
+ * 3) Maps the local git structure to the folder structure required to become
+ * importable by GTNexus platform. This requires correct folder names and
+ * bundling javascript file into zip files when necessary.</li>
  * <li>
- * 4) Zips up correctly mapped file structure into a zip file,
- * ready to import into GTNexus system
- * </li>
+ * 4) Zips up correctly mapped file structure into a zip file, ready to import
+ * into GTNexus system</li>
  * </ol>
  *
  * @author Andrew Reynolds
@@ -43,8 +39,7 @@ public class PlatformModuleBuilder {
 	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * 
 	 * @param args
-	 *            0 - Name of customer folder 
-	 *            1 - Name of platform module folder
+	 *            0 - Name of customer folder 1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
 		if (args.length != 2) {
@@ -87,7 +82,7 @@ public class PlatformModuleBuilder {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Iterates through folder customer/customer/folder
 	 * 
@@ -115,8 +110,9 @@ public class PlatformModuleBuilder {
 	 */
 	private void xmlDesignCustomObjectScriptMatcher(String customer,
 			String platform) throws PMBuilderException {
-		CustomObjectDesignXML coDes = new CustomObjectDesignXML(root);
-		coDes.iter();
+		File rootFile = new File(root);
+		CustomObjectDesignXML coDes = new CustomObjectDesignXML(rootFile);
+		coDes.ensureSoundDesign();
 	}
 
 	/**
@@ -129,6 +125,5 @@ public class PlatformModuleBuilder {
 	private void map(String root) {
 		PlatformMapUtil.map(root);
 	}
-
 
 }
