@@ -1,21 +1,13 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
-import static com.gtnexus.appxpress.AppXpressConstants.TYPE_EXTENSION_D1;
-import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import static com.gtnexus.appxpress.AppXpressConstants.*;
 
 /**
  * Take pulled Git repository and map to a file structure that can be imported
