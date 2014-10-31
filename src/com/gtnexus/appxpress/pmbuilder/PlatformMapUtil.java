@@ -31,6 +31,7 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
+@Deprecated
 public class PlatformMapUtil {
 
 	/**

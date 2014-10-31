@@ -27,6 +27,8 @@ import java.util.Map;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
+import com.gtnexus.appxpress.Mapper;
+
 /**
  * Accomplishes the following steps
  * <ol>
@@ -45,7 +47,7 @@ import net.lingala.zip4j.exception.ZipException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class GitMap {
+public class GitMap implements Mapper {
 
 	private final String platformZip;
 	private final String localDir;

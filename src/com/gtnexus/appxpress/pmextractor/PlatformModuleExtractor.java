@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.Map;
 
 import com.gtnexus.appxpress.CommandLineInterfaceParser;
+import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -69,7 +70,7 @@ public class PlatformModuleExtractor {
 				cli.getOptionsMap(), cli.getCliOptionSet(),
 				pmbProperties.getProperties());
 		Map<ExtractorOption, String> optMap = consolidator.consolidate();
-		GitMap tool = GitMap.createMapper(optMap);
+		Mapper tool = GitMap.createMapper(optMap);
 		tool.doMapping();
 		consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
 	}
