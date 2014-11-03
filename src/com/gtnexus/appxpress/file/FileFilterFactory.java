@@ -37,4 +37,13 @@ public class FileFilterFactory {
 		};
 	}
 	
+	public static FileFilter endsWith(final String string) {
+		return new FileFilter() {
+			@Override
+			public boolean accept(File f) {
+				return f.getName().endsWith(string); 
+			}
+		};
+	}
+	
 }

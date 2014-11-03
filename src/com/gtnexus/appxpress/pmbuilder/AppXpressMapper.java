@@ -11,9 +11,10 @@ import static com.gtnexus.appxpress.AppXpressConstants.TYPE_EXTENSION_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FilterChain;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Replacement for PlatfromMapUtil.
@@ -34,9 +36,11 @@ import com.gtnexus.appxpress.file.FilterChain;
 public class AppXpressMapper implements Mapper {
 
 	private final File root;
+	private final ZipUtility zu;
 
 	public AppXpressMapper(File root) {
 		this.root = root;
+		this.zu = new ZipUtility();
 	}
 
 	/**
@@ -50,7 +54,6 @@ public class AppXpressMapper implements Mapper {
 		}
 		prepareFoldersForImport();
 		createBundles(root);
-
 	}
 
 	private void prepareFoldersForImport() {
@@ -126,7 +129,7 @@ public class AppXpressMapper implements Mapper {
 	 */
 	private void renameFile(File file, String newName) {
 		try {
-			Files.move(file.toPath(), file.toPath().resolve(newName));
+			Files.move(file.toPath(), file.toPath().resolveSibling(newName));
 		} catch (IOException e) {
 			System.err.println("Exception when trying to rename "
 					+ file.getName());
@@ -171,7 +174,6 @@ public class AppXpressMapper implements Mapper {
 		} else if (dir.getName().endsWith("customUi")) {
 			handleFef(dir);
 		}
-		// jsbogie
 		List<File> jsFiles = new LinkedList<>();
 		for (File f : dir.listFiles()) {
 			if (isFileType(f, "js")) {
@@ -181,14 +183,24 @@ public class AppXpressMapper implements Mapper {
 			}
 		}
 		if (jsFiles.size() > 1) {
-			// create bundle folder
 			File bundleFolder = createBundleFolder(dir);
-			// move .js Files there
-			
-			// ZipDir
-			// empty this dir
+			try {
+				moveFiles(jsFiles, bundleFolder);
+				zu.zipDirectory(bundleFolder);
+			} catch (PMBuilderException | IOException e) {
+				e.printStackTrace();
+			}
+			//TODO empty this dir
 		}
 
+	}
+
+	private void moveFiles(List<File> files, File destination)
+			throws IOException {
+		for (File file : files) {
+			Path p = destination.toPath().resolve(file.getName());
+			Files.move(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
+		}
 	}
 
 	private File createBundleFolder(File parent) {
@@ -233,22 +245,23 @@ public class AppXpressMapper implements Mapper {
 
 	private void handleSingleCODScript(File dir) {
 		if (dir.list().length == 1) {
-
+			
 		} else if (dir.list().length > 1) {
 
 		}
 	}
 
 	private void handleFef(File dir) {
-		for (File file : dir.listFiles(new FilenameFilter() {
-
-			@Override
-			public boolean accept(File current, String fileName) {
-				return !fileName.endsWith(ZIP_EXTENSION);
+		final FilterChain filter = new FilterChain(
+				FileFilterFactory.directoriesOnly(),
+				FileFilterFactory.endsWith(ZIP_EXTENSION));
+		for (File file : dir.listFiles(filter)) {
+			try {
+				zu.zipDirectory(file);
+			} catch (PMBuilderException e) {
+				System.err.println(e.getMessage());
 			}
-
-		})) {
-			// zip dir and then delete
+			// TODO get rid of folder, no longer needed.
 		}
 	}
 

@@ -29,10 +29,13 @@ public class ZipUtility {
 	 * @param pathToZip
 	 *            File to zip up
 	 */
+	@Deprecated
 	public ZipUtility(String pathToZip) {
 		fileToZip = new File(pathToZip);
 	}
-
+	
+	public ZipUtility(){}
+	
 	/**
 	 * Packs the given directory.
 	 * 
@@ -40,6 +43,31 @@ public class ZipUtility {
 	 *            - the directory that is going to be packed
 	 * @throws IOException
 	 */
+	public void zipDirectory(File directory) throws PMBuilderException {
+		if (!directory.exists() || !directory.isDirectory()) {
+			throw new PMBuilderException("No such directory" + directory.getAbsolutePath());
+		}
+		System.out.println("Zipping up directory -> " + directory.getAbsolutePath());
+		String outputFile = directory.getAbsolutePath() + ZIP_EXTENSION;
+		try (FileOutputStream fos = new FileOutputStream(outputFile);
+				ZipOutputStream zos = new ZipOutputStream(fos)) {
+			zipFiles(directory, zos);
+			zos.closeEntry();
+		} catch (IOException e) {
+			throw new PMBuilderException("Exception when recursively zipping "
+					+ directory.getAbsolutePath(), e);
+		}
+	}
+	
+	
+	/**
+	 * Packs the given directory.
+	 * 
+	 * @param directoryPath
+	 *            - the directory that is going to be packed
+	 * @throws IOException
+	 */
+	@Deprecated
 	public void zipDirectory() throws PMBuilderException {
 		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
 			throw new PMBuilderException("No such directory" + fileToZip.getAbsolutePath());
