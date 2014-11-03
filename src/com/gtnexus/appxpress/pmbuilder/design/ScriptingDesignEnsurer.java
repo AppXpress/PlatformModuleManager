@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.design;
 
 import java.io.File;
 import java.io.IOException;

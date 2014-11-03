@@ -69,7 +69,7 @@ public class PlatformMapUtil {
 		if (p.endsWith(CUSTOM_LINK_D1)) {
 			renameFile(p, CUSTOM_LINK_D1);
 		} else if (p.endsWith(TYPE_EXTENSION_D1)) {
-			renameFile(p, $+TYPE_EXTENSION_D1);
+			renameFile(p, $ + TYPE_EXTENSION_D1);
 		} else if (p.endsWith(CUSTOM_OBJECT_MODULE)) {
 			fixCOModule(p);
 		} else if (p.endsWith(CUSTOM_UI)) {
@@ -77,7 +77,9 @@ public class PlatformMapUtil {
 			for (String bundle : customUi.list()) {
 				File design = new File(p + File.separator + bundle);
 				for (String d : design.list()) {
-					renameFile(p + File.separator + bundle + File.separator + d, $ + d);
+					renameFile(
+							p + File.separator + bundle + File.separator + d, $
+									+ d);
 				}
 			}
 		}
@@ -179,8 +181,8 @@ public class PlatformMapUtil {
 			if (fileCount == 1) {
 				String rename = SCRIPT_DESIGN + $ + coFolder.getName() + ".js";
 				File coJs = coFolder.listFiles()[0];
-				boolean a = coJs.renameTo(new File(f.getAbsolutePath() + File.separator
-						+ rename));
+				boolean a = coJs.renameTo(new File(f.getAbsolutePath()
+						+ File.separator + rename));
 				if (!a) {
 					System.err.println("Error with script design files");
 				}
@@ -190,8 +192,8 @@ public class PlatformMapUtil {
 			// Object]
 			if (fileCount > 1) {
 				String zipName = SCRIPT_DESIGN + $ + foldername;
-				boolean reNameFolder = coFolder.renameTo(new File(name + File.separator
-						+ zipName));
+				boolean reNameFolder = coFolder.renameTo(new File(name
+						+ File.separator + zipName));
 				if (!reNameFolder) {
 					System.err.println("Error renaming folder");
 				}
@@ -248,7 +250,8 @@ public class PlatformMapUtil {
 	 */
 	private static String createBundleFolder(String parentName) {
 		File folder = new File(parentName);
-		String[] extractName = parentName.split(File.separatorChar=='\\' ? "\\\\" : File.separator);
+		String[] extractName = parentName
+				.split(File.separatorChar == '\\' ? "\\\\" : File.separator);
 		String newFolderName = extractName[extractName.length - 1];
 		newFolderName = newFolderName.concat(BUNDLE);
 		newFolderName = newFolderName.substring(0, 1).toUpperCase()
@@ -273,7 +276,8 @@ public class PlatformMapUtil {
 	private static void moveFiles(String fileName, String folderPath,
 			String subFolder) {
 		File original = new File(folderPath + File.separator + fileName);
-		File newFile = new File(folderPath + File.separator + subFolder + File.separator + fileName);
+		File newFile = new File(folderPath + File.separator + subFolder
+				+ File.separator + fileName);
 		boolean move = original.renameTo(newFile);
 		if (!move) {
 			System.err.println("Did not work");
@@ -351,7 +355,7 @@ public class PlatformMapUtil {
 	 */
 	private static void fixCOModule(String path) {
 		// Go into designs
-		String designPath = path + File.separator +"designs";
+		String designPath = path + File.separator + "designs";
 		File designsFolder = new File(designPath);
 		// Fixes xml files
 		if (designsFolder.exists()) {
@@ -365,16 +369,17 @@ public class PlatformMapUtil {
 		File scriptFolder = new File(scriptPath);
 		if (!scriptFolder.exists()) {
 			System.err
-			.println("Cannot find CustomObjectModule/designs/scripts folder");
+					.println("Cannot find CustomObjectModule/designs/scripts folder");
 		} else {
 			for (String s : scriptFolder.list()) {
 				File f = new File(scriptPath + File.separator + s);
 				if (f.isDirectory()) {
 					for (String y : f.list()) {
 						if (!y.contains("_$")) {
-							String rep = y.replace(SCRIPT_DESIGN,
-									SCRIPT_DESIGN + $);
-							renameFile(scriptPath + File.separator + s + File.separator + y, rep);
+							String rep = y.replace(SCRIPT_DESIGN, SCRIPT_DESIGN
+									+ $);
+							renameFile(scriptPath + File.separator + s
+									+ File.separator + y, rep);
 						}
 					}
 				}

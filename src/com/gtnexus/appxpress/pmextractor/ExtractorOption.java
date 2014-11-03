@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import com.gtnexus.appxpress.AppXpressOption;
+import com.gtnexus.appxpress.cli.AppXpressOption;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in from the CLI.

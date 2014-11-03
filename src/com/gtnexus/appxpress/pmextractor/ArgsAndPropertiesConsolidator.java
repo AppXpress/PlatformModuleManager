@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import com.gtnexus.appxpress.AppXpressOption;
-import com.gtnexus.appxpress.Asker;
+import com.gtnexus.appxpress.cli.AppXpressOption;
+import com.gtnexus.appxpress.cli.Asker;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**

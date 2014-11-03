@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.cli;
 
 import java.util.Collections;
 import java.util.HashMap;

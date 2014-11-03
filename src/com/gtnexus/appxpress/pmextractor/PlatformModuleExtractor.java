@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Map;
 
-import com.gtnexus.appxpress.CommandLineInterfaceParser;
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.cli.CommandLineInterfaceParser;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**

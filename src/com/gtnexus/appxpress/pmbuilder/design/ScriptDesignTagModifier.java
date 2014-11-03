@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.design;
 
 
 public interface ScriptDesignTagModifier {

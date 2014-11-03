@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.design;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTING_FEATURE;

@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmbuilder;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
+import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
@@ -14,10 +15,22 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.file.FileFilterFactory;
+import com.gtnexus.appxpress.file.FilterChain;
 
+/**
+ * Replacement for PlatfromMapUtil.
+ * 
+ * Takes a git repository and maps to a file structure that can be imported onto
+ * the platform.
+ * 
+ * @author jdonovan
+ *
+ */
 public class AppXpressMapper implements Mapper {
 
 	private final File root;
@@ -26,6 +39,9 @@ public class AppXpressMapper implements Mapper {
 		this.root = root;
 	}
 
+	/**
+	 * Performs the directory mappings (renaming, moving, etc.)
+	 */
 	public void doMapping() {
 		if (root == null || !root.isDirectory()) {
 			System.err.println("Module root cannot be found, or is empty. "
@@ -53,16 +69,61 @@ public class AppXpressMapper implements Mapper {
 		}
 	}
 
+	/**
+	 * Prepends a String to the the names of a list of a files.
+	 * 
+	 * @param files
+	 *            The list of files who's name will be altered.
+	 * @param prepend
+	 *            The String to prepend to each file name.
+	 */
 	private void prependToName(List<File> files, String prepend) {
 		for (File file : files) {
 			prependToName(file, prepend);
 		}
 	}
 
+	/**
+	 * Prepends a String to the front of a single file.
+	 * 
+	 * @param file
+	 *            The file whose name will be altered.
+	 * @param prepend
+	 *            The String to prepend to the file's name.
+	 */
 	private void prependToName(File file, String prepend) {
 		renameFile(file, prepend + file.getName());
 	}
 
+	/**
+	 * Renames a set of files by replacing a matched string with some
+	 * replacement.
+	 * 
+	 * @param files
+	 *            The set of file's whose names will be altered if they match
+	 *            the replacement string.
+	 * @param toReplace
+	 *            The string that will be replaced if found in any file names.
+	 * @param replacement
+	 *            The string that will replace the found string in the file
+	 *            name.
+	 */
+	private void renameSetOfFiles(List<File> files, String toReplace,
+			String replacement) {
+		for (File file : files) {
+			String fileName = file.getName();
+			renameFile(file, fileName.replace(toReplace, replacement));
+		}
+	}
+
+	/**
+	 * Rename a single file
+	 * 
+	 * @param file
+	 *            The file whose name will be altered.
+	 * @param newName
+	 *            The files new name.
+	 */
 	private void renameFile(File file, String newName) {
 		try {
 			Files.move(file.toPath(), file.toPath().resolve(newName));
@@ -72,16 +133,8 @@ public class AppXpressMapper implements Mapper {
 		}
 	}
 
-	private void renameSetOfFiles(List<File> files, String toReplace,
-			String replacement) {
-		for (File file : files) {
-			String fileName = file.getName();
-			renameFile(file, fileName.replace(toReplace, replacement));
-		}
-	}
-
-	// TODO refactor me! But I am better than before :)
 	private void fixCustomObjectModule(File directory) {
+		// TODO refactor me! But I am better than before :)
 		File designFolder = new File(directory.getAbsolutePath()
 				+ File.separator + "designs");
 		if (designFolder.exists()) {
@@ -117,13 +170,51 @@ public class AppXpressMapper implements Mapper {
 			handleCustomObjectDesignScripts(dir);
 		} else if (dir.getName().endsWith("customUi")) {
 			handleFef(dir);
-		} else {
-			// jsbogie
-			
 		}
+		// jsbogie
+		List<File> jsFiles = new LinkedList<>();
+		for (File f : dir.listFiles()) {
+			if (isFileType(f, "js")) {
+				jsFiles.add(f);
+			} else if (f.isDirectory()) {
+				searchForPotentialBundles(dir);
+			}
+		}
+		if (jsFiles.size() > 1) {
+			// create bundle folder
+			File bundleFolder = createBundleFolder(dir);
+			// move .js Files there
+			
+			// ZipDir
+			// empty this dir
+		}
+
 	}
-	
+
+	private File createBundleFolder(File parent) {
+		String bundleFolderName = initCap(parent.getName() + BUNDLE);
+		File bundle = new File(parent, bundleFolderName);
+		bundle.mkdir();
+		return bundle;
+	}
+
+	/**
+	 * Capitalize the first letter in a string.
+	 * 
+	 * @param string
+	 * @return
+	 */
+	private String initCap(String string) {
+		return string.substring(0, 1).toUpperCase().concat(string.substring(1));
+	}
+
 	private boolean isFileType(File file, String mimeType) {
+		// can we rely on mime types? I would like to see what happens
+		// there are a few different types for .zip, and .js still cannot
+		// be clearly identified by mime type.
+		// perhaps build mime type table and then fall back on file extension
+		//
+
 		return false;
 	}
 

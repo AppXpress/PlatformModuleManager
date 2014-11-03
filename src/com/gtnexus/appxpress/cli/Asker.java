@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.cli;
 
 import java.io.InputStream;
 import java.io.PrintStream;
