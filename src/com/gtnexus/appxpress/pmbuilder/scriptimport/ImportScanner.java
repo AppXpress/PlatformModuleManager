@@ -69,7 +69,10 @@ public class ImportScanner {
 	 *            Line of a file
 	 */
 	public Set<File> scanLine(String line) {
-		if (line == null || line.isEmpty()) {
+		if(line == null) {
+			throw new NullPointerException("Cannot scan null line");
+		}
+		if (line.isEmpty()) {
 			return Collections.emptySet();
 		}
 		final Set<File> libFiles = new HashSet<>();
@@ -88,7 +91,7 @@ public class ImportScanner {
 		}
 		return libFiles;
 	}
-
+	
 	private String libFilePathFor(final String fileName) {
 		return String.format(libPath, fileName);
 	}

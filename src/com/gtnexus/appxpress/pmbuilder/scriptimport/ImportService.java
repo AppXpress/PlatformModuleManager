@@ -20,14 +20,14 @@ import com.gtnexus.appxpress.file.FileService;
  */
 public class ImportService {
 
-	private final File root;
+	private final ImportFile root;
 	private final ImportScanner importScanner;
 	private final FileService fs;
 	private final Precondition<File> precondition;
 	
 
 	public ImportService(final File root) {
-		this.root = root;
+		this.root = (ImportFile)root;
 		this.importScanner = new ImportScanner();
 		this.fs = new FileService();
 		this.precondition = new Precondition<File>() {
@@ -62,39 +62,16 @@ public class ImportService {
 	 * 
 	 * @param f
 	 */
-	private void traverse(final File f) {
+	private void traverse(final ImportFile f) {
 		Set<File> filesToImport = new HashSet<>();
-		for (File file : f.listFiles()) {
+		for (ImportFile file : f.listFiles()) {
 			if (file.isDirectory()) {
 				traverse(file);
-			} else if (couldHaveImports(file)) {
+			} else if (file.couldHaveImports()) {
 				filesToImport.addAll(importScanner.parseDoc(file));
 			}
 		}
 		importFiles(filesToImport, f);
-	}
-
-	/**
-	 * Checks file by extension to determine if this file should be scanned for
-	 * !import statements.
-	 * 
-	 * @param file
-	 *            The file to be checked
-	 * @return True if this file should be scanned, else false.
-	 */
-	private boolean couldHaveImports(final File file) {
-		if (file == null || file.isDirectory()) {
-			return false;
-		}
-		// TODO we should maintain a whitelist, not a blacklist.
-		final List<String> invalidExtensions = Arrays.asList("zip", "xml",
-				"xsd", "xlf");
-		String[] splitName = file.getName().split("\\.");
-		if (splitName.length > 1
-				&& !invalidExtensions.contains(splitName[splitName.length - 1])) {
-			return true;
-		}
-		return false;
 	}
 
 	/**

@@ -6,9 +6,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.gtnexus.appxpress.Precondition;
 
+/**
+ * 
+ * @author jdonovan
+ *
+ */
 public class FileService {
 
 	/**
@@ -19,8 +26,8 @@ public class FileService {
 	 * @param prepend
 	 *            The String to prepend to the file's name.
 	 */
-	public void prependToName(File file, String prepend) {
-		renameFile(file, prepend + file.getName());
+	public Path prependToName(File file, String prepend) {
+		return renameFile(file, prepend + file.getName());
 	}
 
 	/**
@@ -31,10 +38,12 @@ public class FileService {
 	 * @param prepend
 	 *            The String to prepend to each file name.
 	 */
-	public void prependToName(Collection<File> files, String prepend) {
+	public List<Path> prependToName(Collection<File> files, String prepend) {
+		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
-			prependToName(file, prepend);
+			paths.add(prependToName(file, prepend));
 		}
+		return paths;
 	}
 
 	/**
@@ -45,13 +54,16 @@ public class FileService {
 	 * @param newName
 	 *            The files new name.
 	 */
-	public void renameFile(File file, String newName) {
+	public Path renameFile(File file, String newName) {
+		Path path = null;
 		try {
-			Files.move(file.toPath(), file.toPath().resolveSibling(newName));
+			path = Files.move(file.toPath(), 
+					file.toPath().resolveSibling(newName));
 		} catch (IOException e) {
 			System.err.println("Exception when trying to rename "
 					+ file.getName());
 		}
+		return path;
 	}
 
 	/**
@@ -67,30 +79,58 @@ public class FileService {
 	 *            The string that will replace the found string in the file
 	 *            name.
 	 */
-	public void renameSetOfFiles(Collection<File> files, String toReplace,
+	public List<Path> renameSetOfFiles(Collection<File> files, String toReplace,
 			String replacement) {
+		if (files == null) {
+			throw new NullPointerException(
+					"Files cannot be null.");
+		}
+		if(toReplace == null || replacement == null) {
+			throw new NullPointerException("Replacement Strings cannot be null.");
+		}
+		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
 			String fileName = file.getName();
-			renameFile(file, fileName.replace(toReplace, replacement));
+			Path result = renameFile(file, fileName.replace(toReplace, replacement));
+			paths.add(result);
 		}
+		return paths;
 	}
 
-	public void moveFiles(final Collection<File> files, final File destination)
+	public List<Path> moveFiles(final Collection<File> files, final File destination)
 			throws IOException {
+		if (files == null || destination == null) {
+			throw new NullPointerException(
+					"files and destination cannot be null.");
+		}
+		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
 			Path p = destination.toPath().resolve(file.getName());
-			Files.move(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
+			Path result = Files.move(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
+			paths.add(result);
 		}
+		return paths;
 	}
 
-	public void copyFiles(final Collection<File> files, final File destination,
-			Precondition<File> precondition) throws IOException {
+	public List<Path> copyFiles(final Collection<File> files,
+			final File destination, Precondition<File> precondition)
+			throws IOException {
+		if (files == null || destination == null) {
+			throw new NullPointerException(
+					"files and destination cannot be null.");
+		}
+		if (precondition == null) {
+			// TODO
+		}
+		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
-			if(precondition.isMet(file)) {
+			if (precondition.isMet(file)) {
 				Path p = destination.toPath().resolve(file.getName());
-				Files.copy(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(file.toPath(), p,
+						StandardCopyOption.REPLACE_EXISTING);
 			}
 		}
+		return paths;
 	}
 
 	public boolean isFileType(final File file, final String mimeType) {
@@ -102,13 +142,17 @@ public class FileService {
 		return false;
 	}
 
-	public void emptyDir(final File file) {
+	public boolean emptyDir(final File file) {
+		if(file == null) {
+			throw new NullPointerException("Cannot empty null directory.");
+		}
+		Boolean result = true;
 		if (file.isDirectory()) {
 			for (File f : file.listFiles()) {
-				emptyDir(f);
+				result = result && emptyDir(f);
 			}
 		}
-		file.delete();
+		return (file.delete() && result);
 	}
 
 }
