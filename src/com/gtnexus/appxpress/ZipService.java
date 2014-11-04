@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress;
 
 import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
 

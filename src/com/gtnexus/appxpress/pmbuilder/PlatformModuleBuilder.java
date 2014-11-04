@@ -7,6 +7,8 @@ import java.io.File;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
+import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
+import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -58,6 +60,7 @@ public class PlatformModuleBuilder {
 	private final File rootFile;
 	private final Preparation prep;
 	private final Bundler bundler;
+	
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
 	 * ready to be imported onto GTNexus system
@@ -86,7 +89,5 @@ public class PlatformModuleBuilder {
 			System.out.println(e.getMessage());
 		}
 	}
-
-
 
 }

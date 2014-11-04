@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.scriptimport;
 
 import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
 import static com.gtnexus.appxpress.AppXpressConstants.LIB;

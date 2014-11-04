@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder.bundle;
+package com.gtnexus.appxpress.pmbuilder.bundle.scripts;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
@@ -13,10 +13,11 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.gtnexus.appxpress.ZipService;
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.ChainedAnd;
-import com.gtnexus.appxpress.pmbuilder.ZipService;
+import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 public class ScriptBundler implements Bundler {

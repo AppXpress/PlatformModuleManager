@@ -1,7 +1,8 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.bundle.platform;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.ZipService;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 

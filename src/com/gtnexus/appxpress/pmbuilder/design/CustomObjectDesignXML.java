@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.design;
 
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
 
@@ -6,7 +6,6 @@ import java.io.File;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.gtnexus.appxpress.pmbuilder.design.ScriptingDesignEnsurer;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
