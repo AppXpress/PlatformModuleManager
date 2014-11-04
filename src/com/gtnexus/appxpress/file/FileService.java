@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
+import java.util.Collection;
+
+import com.gtnexus.appxpress.Precondition;
 
 public class FileService {
 
@@ -20,21 +22,21 @@ public class FileService {
 	public void prependToName(File file, String prepend) {
 		renameFile(file, prepend + file.getName());
 	}
-	
+
 	/**
-	 * Prepends a String to the the names of a list of a files.
+	 * Prepends a String to the the names of a collection of a files.
 	 * 
 	 * @param files
 	 *            The list of files who's name will be altered.
 	 * @param prepend
 	 *            The String to prepend to each file name.
 	 */
-	public void prependToName(List<File> files, String prepend) {
+	public void prependToName(Collection<File> files, String prepend) {
 		for (File file : files) {
 			prependToName(file, prepend);
 		}
 	}
-	
+
 	/**
 	 * Rename a single file
 	 * 
@@ -51,7 +53,7 @@ public class FileService {
 					+ file.getName());
 		}
 	}
-	
+
 	/**
 	 * Renames a set of files by replacing a matched string with some
 	 * replacement.
@@ -65,22 +67,32 @@ public class FileService {
 	 *            The string that will replace the found string in the file
 	 *            name.
 	 */
-	public void renameSetOfFiles(List<File> files, String toReplace,
+	public void renameSetOfFiles(Collection<File> files, String toReplace,
 			String replacement) {
 		for (File file : files) {
 			String fileName = file.getName();
 			renameFile(file, fileName.replace(toReplace, replacement));
 		}
 	}
-	
-	public void moveFiles(final List<File> files, final File destination)
+
+	public void moveFiles(final Collection<File> files, final File destination)
 			throws IOException {
 		for (File file : files) {
 			Path p = destination.toPath().resolve(file.getName());
 			Files.move(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
 		}
 	}
-	
+
+	public void copyFiles(final Collection<File> files, final File destination,
+			Precondition<File> precondition) throws IOException {
+		for (File file : files) {
+			if(precondition.isMet(file)) {
+				Path p = destination.toPath().resolve(file.getName());
+				Files.copy(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+	}
+
 	public boolean isFileType(final File file, final String mimeType) {
 		// can we rely on mime types? I would like to see what happens
 		// there are a few different types for .zip, and .js still cannot
@@ -89,7 +101,7 @@ public class FileService {
 		//
 		return false;
 	}
-	
+
 	public void emptyDir(final File file) {
 		if (file.isDirectory()) {
 			for (File f : file.listFiles()) {
@@ -98,5 +110,5 @@ public class FileService {
 		}
 		file.delete();
 	}
-	
+
 }

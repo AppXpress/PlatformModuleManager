@@ -1,23 +1,14 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
-import static com.gtnexus.appxpress.AppXpressConstants.LIB;
-
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import com.gtnexus.appxpress.file.FileFilterFactory;
-import com.gtnexus.appxpress.file.ChainedAnd;
+import com.gtnexus.appxpress.Precondition;
+import com.gtnexus.appxpress.file.FileService;
 
 /**
  * Parses a file for !import statements
@@ -30,10 +21,22 @@ import com.gtnexus.appxpress.file.ChainedAnd;
 public class ImportService {
 
 	private final File root;
-	private final String libPath = LIB + File.separator + "%s";
+	private final ImportScanner importScanner;
+	private final FileService fs;
+	private final Precondition<File> precondition;
+	
 
 	public ImportService(final File root) {
 		this.root = root;
+		this.importScanner = new ImportScanner();
+		this.fs = new FileService();
+		this.precondition = new Precondition<File>() {
+			@Override
+			public boolean isMet(File f) {
+				return f != null;
+			}
+		};
+		
 	}
 
 	// TODO For IDE, compare imported scripts functions with functions in
@@ -66,7 +69,7 @@ public class ImportService {
 			if (file.isDirectory()) {
 				traverse(file);
 			} else if (couldHaveImports(file)) {
-				filesToImport.addAll(parseDoc(file));
+				filesToImport.addAll(importScanner.parseDoc(file));
 			}
 		}
 		importFiles(filesToImport, f);
@@ -81,7 +84,7 @@ public class ImportService {
 	 * @return True if this file should be scanned, else false.
 	 */
 	private boolean couldHaveImports(final File file) {
-		if(file == null || file.isDirectory()) {
+		if (file == null || file.isDirectory()) {
 			return false;
 		}
 		// TODO we should maintain a whitelist, not a blacklist.
@@ -103,114 +106,11 @@ public class ImportService {
 	 */
 	private void importFiles(final Set<File> filesToImport,
 			final File destinationDirectory) {
-		for (File libFile : filesToImport) {
-			if (!libFile.exists()) {
-				System.err.println("A script in "
-						+ destinationDirectory.getAbsolutePath()
-						+ " includes an import directive for "
-						+ libFile.getName()
-						+ ". No such file can be found in the lib.");
-				continue;
-			}
-			importFile(libFile, destinationDirectory);
-		}
-	}
-
-	/**
-	 * Copies single file to the destination. {@link #importFiles(Set, File)}
-	 * 
-	 * @param source
-	 *            The source file, to be copied.
-	 * @param destinationDir
-	 *            The destination directory where the file will be copied to.
-	 */
-	private void importFile(final File source, final File destinationDir) {
-		Path sourcePath = source.toPath();
-		Path destinationPath = destinationDir.toPath().resolve(
-				sourcePath.getFileName());
 		try {
-			Files.copy(sourcePath, destinationPath);
+			fs.copyFiles(filesToImport, destinationDirectory, precondition);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Unable to import files!");
 		}
 	}
 
-	/**
-	 * Look through top comment and try to find !import statements File name
-	 * directly after !import statement will be attempted to be imported into
-	 * the current folder
-	 * 
-	 * @param f
-	 *            File to parse
-	 */
-	private Set<File> parseDoc(final File f) {
-		final Set<File> fileNames = new HashSet<>();
-		final Pattern startOfBlockComment = Pattern.compile("/[\\*].*");
-		final Pattern endOfBlockComment = Pattern.compile(".*[\\*]/");
-		final Pattern singleLineComment = Pattern.compile("//.*");
-		try {
-			final Scanner scan = new Scanner(f);
-			String line;
-			boolean lineIsInBlock = false;
-			while (scan.hasNextLine()) {
-				//TODO this logic is foobar. Clean this up!
-				line = scan.nextLine();
-				Matcher startCommentMatcher = startOfBlockComment.matcher(line);
-				Matcher endCommentMatcher = endOfBlockComment.matcher(line);
-				Matcher singleLineCommentMatcher = singleLineComment
-						.matcher(line);
-				if (startCommentMatcher.find()) {
-					lineIsInBlock = true;
-				}
-				if (lineIsInBlock || singleLineCommentMatcher.find()) {
-					fileNames.addAll(scanLine(line));
-				}
-				if (endCommentMatcher.find()) {
-					lineIsInBlock = false;
-				}
-				if (!(lineIsInBlock || singleLineCommentMatcher.find() || 
-						!line.equals(""))) {
-					break;
-				}
-			}
-			scan.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return fileNames;
-	}
-
-	/**
-	 * Looks through a line for the !import statement. If !import is found, adds
-	 * the following word, which should be a name of a js script located in lib
-	 * folder, and adds it to importFiles
-	 * 
-	 * @param line
-	 *            Line of a file
-	 */
-	private Set<File> scanLine(String line) {
-		if (line == null || line.isEmpty()) {
-			return Collections.emptySet();
-		}
-		final Set<File> libFiles = new HashSet<>();
-		line = line.replaceAll(",", " ");
-		if (line.contains(IMPORT_FLAG)) {
-			final String[] fileNames = line.split("//w+");
-			boolean importFlagFound = false;
-			for (String fileName : fileNames) {
-				if (importFlagFound && !fileName.isEmpty()) {
-					libFiles.add(new File(libFilePathFor(fileName)));
-				}
-				if (fileName.equals(IMPORT_FLAG)) {
-					importFlagFound = true;
-				}
-			}
-		}
-		return libFiles;
-	}
-
-	private String libFilePathFor(final String fileName) {
-		return String.format(libPath, fileName);
-	}
 }
