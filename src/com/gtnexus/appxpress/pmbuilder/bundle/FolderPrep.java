@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FileService;
-import com.gtnexus.appxpress.file.FilterChain;
+import com.gtnexus.appxpress.file.ChainedAnd;
 
 public class FolderPrep implements Preparation {
 	
@@ -58,7 +58,7 @@ public class FolderPrep implements Preparation {
 		File scriptFolder = new File(directory.getAbsolutePath()
 				+ File.separator + SCRIPTS);
 		if (scriptFolder.exists()) {
-			File[] files = scriptFolder.listFiles(new FilterChain(
+			File[] files = scriptFolder.listFiles(new ChainedAnd(
 					FileFilterFactory.directoriesOnly(), 
 					FileFilterFactory.FileNameDoesNotContain("_$")));
 			fs.renameSetOfFiles(Arrays.asList(files), 

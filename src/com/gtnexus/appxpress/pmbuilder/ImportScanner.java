@@ -16,6 +16,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.gtnexus.appxpress.file.FileFilterFactory;
+import com.gtnexus.appxpress.file.ChainedAnd;
+
 /**
  * Parses a file for !import statements
  * 
@@ -78,6 +81,9 @@ public class ImportScanner {
 	 * @return True if this file should be scanned, else false.
 	 */
 	private boolean couldHaveImports(final File file) {
+		if(file == null || file.isDirectory()) {
+			return false;
+		}
 		// TODO we should maintain a whitelist, not a blacklist.
 		final List<String> invalidExtensions = Arrays.asList("zip", "xml",
 				"xsd", "xlf");
@@ -163,8 +169,8 @@ public class ImportScanner {
 				if (endCommentMatcher.find()) {
 					lineIsInBlock = false;
 				}
-				if (!(lineIsInBlock || singleLineCommentMatcher.find() || !line
-						.equals(""))) {
+				if (!(lineIsInBlock || singleLineCommentMatcher.find() || 
+						!line.equals(""))) {
 					break;
 				}
 			}

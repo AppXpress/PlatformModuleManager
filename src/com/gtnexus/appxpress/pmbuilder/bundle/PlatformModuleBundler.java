@@ -15,7 +15,7 @@ import java.util.List;
 
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FileService;
-import com.gtnexus.appxpress.file.FilterChain;
+import com.gtnexus.appxpress.file.ChainedAnd;
 import com.gtnexus.appxpress.pmbuilder.ZipService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
@@ -102,7 +102,7 @@ public class PlatformModuleBundler implements Bundler {
 	 * @param dir
 	 */
 	private void handleFef(final File dir) {
-		final FilterChain filter = new FilterChain(
+		final ChainedAnd filter = new ChainedAnd(
 				FileFilterFactory.directoriesOnly(),
 				FileFilterFactory.doesNotEndWith(ZIP_EXTENSION));
 		for (File file : dir.listFiles(filter)) {

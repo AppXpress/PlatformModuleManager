@@ -7,33 +7,27 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FilterChain implements FileFilter {
-	
-	private List<FileFilter> filters;
-	
-	public FilterChain() {
+public class ChainedAnd extends FileFilterChain {
+
+	public ChainedAnd() {
 		filters = new LinkedList<>();
 	}
-	
-	public FilterChain(FileFilter filter) {
-		this();
+
+	public ChainedAnd(FileFilter filter) {
+		super();
 		add(filter);
 	}
-	
-	public FilterChain(List<FileFilter>  filters) {
-		this();
+
+	public ChainedAnd(List<FileFilter> filters) {
+		super();
 		filters.addAll(filters);
 	}
-	
-	public FilterChain(FileFilter... filters) {
-		this();
+
+	public ChainedAnd(FileFilter... filters) {
+		super();
 		this.filters.addAll(Arrays.asList(filters));
 	}
 	
-	public void add(FileFilter filter) {
-		filters.add(filter);
-	}
-
 	@Override
 	public boolean accept(File file) {
 		Iterator<FileFilter> i = filters.iterator();

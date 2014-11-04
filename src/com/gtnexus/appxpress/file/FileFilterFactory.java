@@ -55,4 +55,24 @@ public class FileFilterFactory {
 		};
 	}
 	
+	public static FileFilter chainedORs(final FileFilter...fileFilters) {
+		if(fileFilters == null) {
+			
+		}
+		if(fileFilters.length < 1) {
+			
+		}
+		return new FileFilter() {
+			@Override
+			public boolean accept(File f) {
+				for(FileFilter filter : fileFilters) {
+					if(filter.accept(f)) {
+						return true;
+					}
+				}
+				return false;
+			}
+		};
+	}
+	
 }
