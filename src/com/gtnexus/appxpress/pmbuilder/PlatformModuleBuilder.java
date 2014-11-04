@@ -4,6 +4,7 @@ import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -52,6 +53,7 @@ public class PlatformModuleBuilder {
 	}
 
 	private String customer, module, root;
+	private File rootFile;
 
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
@@ -67,15 +69,16 @@ public class PlatformModuleBuilder {
 		this.module = module;
 		this.root = CUSTOMER + File.separator + customer + File.separator
 				+ module;
+		this.rootFile = new File(root);
 	}
 
 	public void build() {
 		try {
 			runImportFind();
-			xmlDesignCustomObjectScriptMatcher(customer, module);
-			map(root);
-			ZipService zu = new ZipService(root);
-			zu.zipDirectory();
+			xmlDesignCustomObjectScriptMatcher();
+			map();
+			ZipService zs = new ZipService();
+			zs.zipDirectory(rootFile);
 		} catch (PMBuilderException e) {
 			System.out.println("Failure when building module for [customer: "
 					+ customer + " module: " + module + "]");
@@ -93,7 +96,6 @@ public class PlatformModuleBuilder {
 	 */
 	private void runImportFind() {
 		System.out.println("Gathering imports...");
-		File rootFile = new File(root);
 		ImportService iScanner = new ImportService(rootFile);
 		iScanner.scanAndImport();
 	}
@@ -102,15 +104,8 @@ public class PlatformModuleBuilder {
 	 * Searches through the custom object module folder and ensures that each
 	 * custom object design xml file corresponds to the correct number of custom
 	 * object scripts
-	 * 
-	 * @param customer
-	 *            Name of customer folder
-	 * @param platform
-	 *            Name of platform module folder
 	 */
-	private void xmlDesignCustomObjectScriptMatcher(String customer,
-			String platform) throws PMBuilderException {
-		File rootFile = new File(root);
+	private void xmlDesignCustomObjectScriptMatcher() throws PMBuilderException {
 		CustomObjectDesignXML coDes = new CustomObjectDesignXML(rootFile);
 		coDes.ensureSoundDesign();
 	}
@@ -122,8 +117,9 @@ public class PlatformModuleBuilder {
 	 * @param root
 	 *            File path of platform module
 	 */
-	private void map(String root) {
-		PlatformMapUtil.map(root);
+	private void map() {
+		Mapper mapper = new AppXpressMapper(rootFile);
+		mapper.doMapping();
 	}
 
 }

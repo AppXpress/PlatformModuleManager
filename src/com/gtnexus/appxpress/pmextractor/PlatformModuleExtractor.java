@@ -31,7 +31,7 @@ public class PlatformModuleExtractor {
 	public static void main(String args[]) throws IOException {
         PlatformModuleExtractor extractor = new PlatformModuleExtractor(args);
         try {
-        	extractor.run();
+        	extractor.extract();
         } catch (PMExtractorException e) {
         	System.err.println("Failure when running pmextractor.");
         }
@@ -49,7 +49,7 @@ public class PlatformModuleExtractor {
 	 *             if CommandLine is not parsable, or if extraction cannot be
 	 *             performed.
 	 */
-	public void run() throws PMExtractorException {
+	public void extract() throws PMExtractorException {
 		CommandLineInterfaceParser<ExtractorOption> cli = new CommandLineInterfaceParser<>(
 				userArgs, EnumSet.allOf(ExtractorOption.class));
 		cli.parseCommandLine();
