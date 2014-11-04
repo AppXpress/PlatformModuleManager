@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FilterChain implements FileFilter {
 	
-	List<FileFilter> filters;
+	private List<FileFilter> filters;
 	
 	public FilterChain() {
 		filters = new LinkedList<>();

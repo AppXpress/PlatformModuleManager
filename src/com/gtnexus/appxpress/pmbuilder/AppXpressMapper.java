@@ -4,6 +4,8 @@ import java.io.File;
 
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
+import com.gtnexus.appxpress.pmbuilder.bundle.FolderPrep;
+import com.gtnexus.appxpress.pmbuilder.bundle.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
 
 /**
@@ -23,8 +25,8 @@ public class AppXpressMapper implements Mapper {
 
 	public AppXpressMapper(File root) {
 		this.root = root;
-		this.bundler = null;
-		this.prep = null;
+		this.bundler = new PlatformModuleBundler();
+		this.prep = new FolderPrep();
 	}
 
 	/**
