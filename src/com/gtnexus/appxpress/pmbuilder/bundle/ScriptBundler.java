@@ -19,12 +19,12 @@ import com.gtnexus.appxpress.file.ChainedAnd;
 import com.gtnexus.appxpress.pmbuilder.ZipService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
-public class PlatformModuleBundler implements Bundler {
+public class ScriptBundler implements Bundler {
 
 	private final ZipService zu;
 	private final FileService fs;
 	
-	public PlatformModuleBundler() {
+	public ScriptBundler() {
 		this.zu = new ZipService();
 		this.fs = new FileService();
 	}

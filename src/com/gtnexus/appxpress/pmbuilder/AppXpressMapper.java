@@ -5,8 +5,9 @@ import java.io.File;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.FolderPrep;
-import com.gtnexus.appxpress.pmbuilder.bundle.PlatformModuleBundler;
+import com.gtnexus.appxpress.pmbuilder.bundle.ScriptBundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Replacement for PlatfromMapUtil.
@@ -25,7 +26,7 @@ public class AppXpressMapper implements Mapper {
 
 	public AppXpressMapper(File root) {
 		this.root = root;
-		this.bundler = new PlatformModuleBundler();
+		this.bundler = new ScriptBundler();
 		this.prep = new FolderPrep();
 	}
 
@@ -38,8 +39,13 @@ public class AppXpressMapper implements Mapper {
 					+ "No mapping can be performed.");
 			return;
 		}
-		prep.prepare(root);
-		bundler.bundle(root);
+		try {
+			prep.prepare(root);
+			bundler.bundle(root);
+		} catch (PMBuilderException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

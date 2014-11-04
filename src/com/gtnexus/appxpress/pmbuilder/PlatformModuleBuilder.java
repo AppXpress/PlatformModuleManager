@@ -5,6 +5,8 @@ import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
 import java.io.File;
 
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
+import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -52,9 +54,10 @@ public class PlatformModuleBuilder {
 		pmb.build();
 	}
 
-	private String customer, module, root;
-	private File rootFile;
-
+	private final String customer, module;
+	private final File rootFile;
+	private final Preparation prep;
+	private final Bundler bundler;
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
 	 * ready to be imported onto GTNexus system
@@ -64,21 +67,19 @@ public class PlatformModuleBuilder {
 	 * @param module
 	 *            Name of platform module folder
 	 */
-	public PlatformModuleBuilder(String customer, String module) {
+	public PlatformModuleBuilder(final String customer, final String module) {
 		this.customer = customer;
 		this.module = module;
-		this.root = CUSTOMER + File.separator + customer + File.separator
-				+ module;
-		this.rootFile = new File(root);
+		this.rootFile = new File(CUSTOMER + File.separator + customer
+				+ File.separator + module);
+		this.prep = new BuildPrep();
+		this.bundler = new PlatformModuleBundler();
 	}
 
 	public void build() {
 		try {
-			runImportFind();
-			xmlDesignCustomObjectScriptMatcher();
-			map();
-			ZipService zs = new ZipService();
-			zs.zipDirectory(rootFile);
+			prep.prepare(rootFile);
+			bundler.bundle(rootFile);
 		} catch (PMBuilderException e) {
 			System.out.println("Failure when building module for [customer: "
 					+ customer + " module: " + module + "]");
@@ -86,40 +87,6 @@ public class PlatformModuleBuilder {
 		}
 	}
 
-	/**
-	 * Iterates through folder customer/customer/folder
-	 * 
-	 * @param customer
-	 *            Name of customer folder
-	 * @param folder
-	 *            Name of platform module folder
-	 */
-	private void runImportFind() {
-		System.out.println("Gathering imports...");
-		ImportService iScanner = new ImportService(rootFile);
-		iScanner.scanAndImport();
-	}
 
-	/**
-	 * Searches through the custom object module folder and ensures that each
-	 * custom object design xml file corresponds to the correct number of custom
-	 * object scripts
-	 */
-	private void xmlDesignCustomObjectScriptMatcher() throws PMBuilderException {
-		CustomObjectDesignXML coDes = new CustomObjectDesignXML(rootFile);
-		coDes.ensureSoundDesign();
-	}
-
-	/**
-	 * Maps pulled platform module to a file structure that can be imported onto
-	 * GTNexus system
-	 * 
-	 * @param root
-	 *            File path of platform module
-	 */
-	private void map() {
-		Mapper mapper = new AppXpressMapper(rootFile);
-		mapper.doMapping();
-	}
 
 }
