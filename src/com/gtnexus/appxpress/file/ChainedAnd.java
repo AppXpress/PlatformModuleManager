@@ -2,30 +2,25 @@ package com.gtnexus.appxpress.file;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ChainedAnd extends FileFilterChain {
 
 	public ChainedAnd() {
-		filters = new LinkedList<>();
+		super();
 	}
 
 	public ChainedAnd(FileFilter filter) {
-		super();
-		add(filter);
+		super(filter);
 	}
 
 	public ChainedAnd(List<FileFilter> filters) {
-		super();
-		filters.addAll(filters);
+		super(filters);
 	}
 
 	public ChainedAnd(FileFilter... filters) {
-		super();
-		this.filters.addAll(Arrays.asList(filters));
+		super(filters);
 	}
 	
 	@Override

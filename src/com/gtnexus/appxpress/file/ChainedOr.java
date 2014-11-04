@@ -13,18 +13,15 @@ public class ChainedOr extends FileFilterChain {
 	}
 
 	public ChainedOr(FileFilter filter) {
-		super();
-		add(filter);
+		super(filter);
 	}
 
 	public ChainedOr(List<FileFilter> filters) {
-		super();
-		filters.addAll(filters);
+		super(filters);
 	}
 
 	public ChainedOr(FileFilter... filters) {
-		super();
-		this.filters.addAll(Arrays.asList(filters));
+		super(filters);
 	}
 	
 	@Override

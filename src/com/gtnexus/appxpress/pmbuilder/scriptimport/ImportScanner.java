@@ -89,7 +89,7 @@ public class ImportScanner {
 		return libFiles;
 	}
 
-	public String libFilePathFor(final String fileName) {
+	private String libFilePathFor(final String fileName) {
 		return String.format(libPath, fileName);
 	}
 }

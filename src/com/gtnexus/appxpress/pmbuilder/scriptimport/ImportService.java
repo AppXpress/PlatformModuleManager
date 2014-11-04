@@ -36,7 +36,6 @@ public class ImportService {
 				return f != null;
 			}
 		};
-		
 	}
 
 	// TODO For IDE, compare imported scripts functions with functions in
