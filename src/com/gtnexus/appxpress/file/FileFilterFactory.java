@@ -46,4 +46,13 @@ public class FileFilterFactory {
 		};
 	}
 	
+	public static FileFilter doesNotEndWith(final String string) {
+		return new FileFilter() {
+			@Override
+			public boolean accept(File f) {
+				return !f.getName().endsWith(string); 
+			}
+		};
+	}
+	
 }
