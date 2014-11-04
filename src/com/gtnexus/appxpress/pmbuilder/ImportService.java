@@ -27,12 +27,12 @@ import com.gtnexus.appxpress.file.ChainedAnd;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class ImportScanner {
+public class ImportService {
 
 	private final File root;
 	private final String libPath = LIB + File.separator + "%s";
 
-	public ImportScanner(final File root) {
+	public ImportService(final File root) {
 		this.root = root;
 	}
 

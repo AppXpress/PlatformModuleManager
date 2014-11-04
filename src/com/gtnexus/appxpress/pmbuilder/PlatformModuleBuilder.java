@@ -94,7 +94,7 @@ public class PlatformModuleBuilder {
 	private void runImportFind() {
 		System.out.println("Gathering imports...");
 		File rootFile = new File(root);
-		ImportScanner iScanner = new ImportScanner(rootFile);
+		ImportService iScanner = new ImportService(rootFile);
 		iScanner.scanAndImport();
 	}
 
