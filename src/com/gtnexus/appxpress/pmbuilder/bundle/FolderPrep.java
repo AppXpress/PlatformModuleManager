@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.bundle;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;

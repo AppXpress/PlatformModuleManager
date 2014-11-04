@@ -3,6 +3,8 @@ package com.gtnexus.appxpress.pmbuilder;
 import java.io.File;
 
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
+import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
 
 /**
  * Replacement for PlatfromMapUtil.

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.pmbuilder.bundle;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FilterChain;
+import com.gtnexus.appxpress.pmbuilder.ZipUtility;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 public class PlatformModuleBundler implements Bundler {
