@@ -11,8 +11,8 @@ import static com.gtnexus.appxpress.AppXpressConstants.TYPE_EXTENSION_D1;
 import java.io.File;
 import java.util.Arrays;
 
-import com.gtnexus.appxpress.FileService;
 import com.gtnexus.appxpress.file.FileFilterFactory;
+import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.FilterChain;
 
 public class FolderPrep implements Preparation {

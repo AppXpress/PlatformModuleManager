@@ -10,12 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.gtnexus.appxpress.FileService;
 import com.gtnexus.appxpress.file.FileFilterFactory;
+import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.FilterChain;
 import com.gtnexus.appxpress.pmbuilder.ZipUtility;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;

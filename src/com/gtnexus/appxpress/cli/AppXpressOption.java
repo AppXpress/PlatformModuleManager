@@ -10,13 +10,9 @@ package com.gtnexus.appxpress.cli;
 public interface AppXpressOption extends CLIOption {
 
 	public String getMessage();
-
 	public boolean isAppXpressMandatory();
-
 	public boolean shouldBeOmitted();
-
 	public boolean isValid(String val);
-
 	public String getDefaultValue();
 
 }

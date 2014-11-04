@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.file;
 
 import java.io.File;
 import java.io.IOException;
