@@ -16,16 +16,16 @@ import java.util.List;
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.FilterChain;
-import com.gtnexus.appxpress.pmbuilder.ZipUtility;
+import com.gtnexus.appxpress.pmbuilder.ZipService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 public class PlatformModuleBundler implements Bundler {
 
-	private final ZipUtility zu;
+	private final ZipService zu;
 	private final FileService fs;
 	
 	public PlatformModuleBundler() {
-		this.zu = new ZipUtility();
+		this.zu = new ZipService();
 		this.fs = new FileService();
 	}
 	

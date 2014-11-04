@@ -19,7 +19,7 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class ZipUtility {
+public class ZipService {
 
 	private File fileToZip;
 
@@ -30,11 +30,11 @@ public class ZipUtility {
 	 *            File to zip up
 	 */
 	@Deprecated
-	public ZipUtility(String pathToZip) {
+	public ZipService(String pathToZip) {
 		fileToZip = new File(pathToZip);
 	}
 	
-	public ZipUtility(){}
+	public ZipService(){}
 	
 	/**
 	 * Packs the given directory.

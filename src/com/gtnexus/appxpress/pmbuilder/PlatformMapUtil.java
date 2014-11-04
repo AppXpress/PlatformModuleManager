@@ -149,7 +149,7 @@ public class PlatformMapUtil {
 			// Zip up bundle folder
 			System.out.println(" " + name + File.separator + bundleFolder);
 			// Zip up new bundle folder
-			ZipUtility zu = new ZipUtility(name + File.separator + bundleFolder);
+			ZipService zu = new ZipService(name + File.separator + bundleFolder);
 			try {
 				zu.zipDirectory();
 			} catch (PMBuilderException e) {
@@ -197,7 +197,7 @@ public class PlatformMapUtil {
 				if (!reNameFolder) {
 					System.err.println("Error renaming folder");
 				}
-				ZipUtility zu = new ZipUtility(name + File.separator + zipName);
+				ZipService zu = new ZipService(name + File.separator + zipName);
 				try {
 					zu.zipDirectory();
 				} catch (PMBuilderException e) {
@@ -335,7 +335,7 @@ public class PlatformMapUtil {
 			}
 			System.out.println("s--- " + s);
 			// Zip up fef bundle folder
-			ZipUtility zu = new ZipUtility(name + File.separator + s);
+			ZipService zu = new ZipService(name + File.separator + s);
 			try {
 				zu.zipDirectory();
 			} catch (PMBuilderException e) {

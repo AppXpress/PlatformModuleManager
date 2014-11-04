@@ -74,7 +74,7 @@ public class PlatformModuleBuilder {
 			runImportFind();
 			xmlDesignCustomObjectScriptMatcher(customer, module);
 			map(root);
-			ZipUtility zu = new ZipUtility(root);
+			ZipService zu = new ZipService(root);
 			zu.zipDirectory();
 		} catch (PMBuilderException e) {
 			System.out.println("Failure when building module for [customer: "
