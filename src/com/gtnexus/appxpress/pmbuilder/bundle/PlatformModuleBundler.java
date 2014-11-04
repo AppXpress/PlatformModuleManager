@@ -14,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.gtnexus.appxpress.FileService;
 import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FilterChain;
 import com.gtnexus.appxpress.pmbuilder.ZipUtility;
@@ -22,9 +23,11 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 public class PlatformModuleBundler implements Bundler {
 
 	private final ZipUtility zu;
+	private final FileService fs;
 	
 	public PlatformModuleBundler() {
 		this.zu = new ZipUtility();
+		this.fs = new FileService();
 	}
 	
 	@Override
@@ -35,7 +38,9 @@ public class PlatformModuleBundler implements Bundler {
 	}
 	
 	private void searchForPotentialBundles(final File dir) {
-		if(wasSpecialCase(dir)) return;
+		if (wasSpecialCase(dir)) {
+			return;
+		}
 		bundleGenerically(dir);
 	}
 	
@@ -56,7 +61,7 @@ public class PlatformModuleBundler implements Bundler {
 	private void bundleGenerically(File dir) {
 		final List<File> jsFiles = new LinkedList<>();
 		for (File f : dir.listFiles()) {
-			if (isFileType(f, "js")) {
+			if (fs.isFileType(f, "js")) {
 				jsFiles.add(f);
 			} else if (f.isDirectory()) {
 				searchForPotentialBundles(dir);
@@ -65,7 +70,7 @@ public class PlatformModuleBundler implements Bundler {
 		if (jsFiles.size() > 1) {
 			final File bundleFolder = createBundleFolder(dir);
 			try {
-				moveFiles(jsFiles, bundleFolder);
+				fs.moveFiles(jsFiles, bundleFolder);
 				zu.zipDirectory(bundleFolder);
 			} catch (PMBuilderException | IOException e) {
 				e.printStackTrace();
@@ -127,7 +132,7 @@ public class PlatformModuleBundler implements Bundler {
 		} else if (dir.list().length > 1) {
 			bundleCODScript(dir);
 		}
-		emptyDir(dir);
+		fs.emptyDir(dir);
 	}
 	
 	private void bundleCODScript(final File dir) {
@@ -152,29 +157,4 @@ public class PlatformModuleBundler implements Bundler {
 		}
 	}
 	
-	private void moveFiles(final List<File> files, final File destination)
-			throws IOException {
-		for (File file : files) {
-			Path p = destination.toPath().resolve(file.getName());
-			Files.move(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
-		}
-	}
-	
-	private boolean isFileType(final File file, final String mimeType) {
-		// can we rely on mime types? I would like to see what happens
-		// there are a few different types for .zip, and .js still cannot
-		// be clearly identified by mime type.
-		// perhaps build mime type table and then fall back on file extension
-		//
-		return false;
-	}
-	
-	private void emptyDir(final File file) {
-		if (file.isDirectory()) {
-			for (File f : file.listFiles()) {
-				emptyDir(f);
-			}
-		}
-		file.delete();
-	}
 }

@@ -36,7 +36,6 @@ public class AppXpressMapper implements Mapper {
 					+ "No mapping can be performed.");
 			return;
 		}
-		//prepareFoldersForImport();
 		prep.prepare(root);
 		bundler.bundle(root);
 	}
