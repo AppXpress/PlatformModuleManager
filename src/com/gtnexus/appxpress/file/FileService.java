@@ -132,6 +132,15 @@ public class FileService {
 		}
 		return paths;
 	}
+	
+	public Path copyDirectory(File sourceDir, File destination) throws IOException {
+		return copyDirectory(sourceDir.toPath(), destination.toPath());
+	}
+	
+	public Path copyDirectory(Path source, Path destination) throws IOException {
+		CopyDirVisitor visitor = new CopyDirVisitor(source, destination);
+		return Files.walkFileTree(source, visitor);
+	}
 
 	public boolean isFileType(final File file, final String mimeType) {
 		// can we rely on mime types? I would like to see what happens

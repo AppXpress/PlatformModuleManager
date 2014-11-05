@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -33,9 +36,10 @@ public class ZipService {
 	public ZipService(String pathToZip) {
 		fileToZip = new File(pathToZip);
 	}
-	
-	public ZipService(){}
-	
+
+	public ZipService() {
+	}
+
 	/**
 	 * Packs the given directory.
 	 * 
@@ -45,9 +49,11 @@ public class ZipService {
 	 */
 	public void zipDirectory(File directory) throws PMBuilderException {
 		if (!directory.exists() || !directory.isDirectory()) {
-			throw new PMBuilderException("No such directory" + directory.getAbsolutePath());
+			throw new PMBuilderException("No such directory"
+					+ directory.getAbsolutePath());
 		}
-		System.out.println("Zipping up directory -> " + directory.getAbsolutePath());
+		System.out.println("Zipping up directory -> "
+				+ directory.getAbsolutePath());
 		String outputFile = directory.getAbsolutePath() + ZIP_EXTENSION;
 		try (FileOutputStream fos = new FileOutputStream(outputFile);
 				ZipOutputStream zos = new ZipOutputStream(fos)) {
@@ -58,8 +64,7 @@ public class ZipService {
 					+ directory.getAbsolutePath(), e);
 		}
 	}
-	
-	
+
 	/**
 	 * Packs the given directory.
 	 * 
@@ -70,9 +75,11 @@ public class ZipService {
 	@Deprecated
 	public void zipDirectory() throws PMBuilderException {
 		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
-			throw new PMBuilderException("No such directory" + fileToZip.getAbsolutePath());
+			throw new PMBuilderException("No such directory"
+					+ fileToZip.getAbsolutePath());
 		}
-		System.out.println("Zipping up directory -> " + fileToZip.getAbsolutePath());
+		System.out.println("Zipping up directory -> "
+				+ fileToZip.getAbsolutePath());
 		String outputFile = fileToZip.getAbsolutePath() + ZIP_EXTENSION;
 		try (FileOutputStream fos = new FileOutputStream(outputFile);
 				ZipOutputStream zos = new ZipOutputStream(fos)) {
@@ -94,8 +101,8 @@ public class ZipService {
 	 * @throws IOException
 	 */
 	private void zipFiles(File root, ZipOutputStream zos) throws IOException {
-		for(File file : root.listFiles()) {
-			if(file.isDirectory()) {
+		for (File file : root.listFiles()) {
+			if (file.isDirectory()) {
 				zipFiles(file, zos);
 			} else {
 				ZipEntry entry = new ZipEntry(file.getName());
@@ -103,10 +110,48 @@ public class ZipService {
 				FileInputStream fis = new FileInputStream(file);
 				byte[] block = new byte[1024];
 				int bytesRead = 0;
-				while((bytesRead = fis.read(block)) > 0) {
+				while ((bytesRead = fis.read(block)) > 0) {
 					zos.write(block, 0, bytesRead);
 				}
 				fis.close();
+			}
+		}
+	}
+	
+	public void unzip(File source, File destination, boolean recurse) {
+		unzip(source, destination);
+		if(recurse) {
+			recurseUnzip(destination);
+		}
+	}
+
+	public void unzip(File source, File destination) {
+		try {
+			ZipFile zip = new ZipFile(source);
+			zip.extractAll(destination.getAbsolutePath());
+		} catch (ZipException e) {
+			System.err.println("Error in unzip");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Recursively iterated through file structure folder and unzips and
+	 * contained zip files
+	 * 
+	 * @param path
+	 *            Destination of file structure to iterate over
+	 */
+	private void recurseUnzip(File f) {
+		if (f.isDirectory()) {
+			for (File item : f.listFiles()) {
+				recurseUnzip(item);
+			}
+		} else {
+			if (f.getName().endsWith(ZIP_EXTENSION)) {
+				String cleanedPath = f.getName().replace(ZIP_EXTENSION, "");
+				unzip(f, new File(cleanedPath));
+				f.delete();
 			}
 		}
 	}

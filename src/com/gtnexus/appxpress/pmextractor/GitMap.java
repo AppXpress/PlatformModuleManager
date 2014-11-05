@@ -24,10 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.ZipService;
+import com.gtnexus.appxpress.file.FileService;
 
 /**
  * Accomplishes the following steps
@@ -56,6 +55,10 @@ public class GitMap implements Mapper {
 	private final boolean overwriteScripts;
 	private final boolean overwriteFef;
 	private final List<String> overwrittenScripts;
+	private final FileService fs;
+	private final ZipService zs;
+
+	File unzippedFile = new File(PLATFORM_MODULE_UNZIP_NAME);
 
 	public static GitMap createMapper(Map<ExtractorOption, String> optionMap) {
 		// Preconditions would be good here.
@@ -79,6 +82,8 @@ public class GitMap implements Mapper {
 		this.overwriteFef = optionMap.get(ExtractorOption.OVERWRITE_FEF)
 				.equalsIgnoreCase("y");
 		this.overwrittenScripts = new ArrayList<>();
+		this.fs = new FileService();
+		this.zs = new ZipService();
 	}
 
 	/**
@@ -86,6 +91,7 @@ public class GitMap implements Mapper {
 	 */
 	public void doMapping() {
 		// Ensure path exists - GIT repo is set up correctly
+		// can handle this with preconditions?
 		if (!validateAndEnsurePathExists(localDir, customer, platform)) {
 			System.err.println("ERROR: Paths are not set up properly!");
 			return;
@@ -97,11 +103,11 @@ public class GitMap implements Mapper {
 			return;
 		}
 		cleanup();
-		unzipPlatformZip();
-		makeHumanReadable(PLATFORM_MODULE_UNZIP_NAME);
+		unzipPlatformZip(); // TODO if we fail here go ahead and quit.
+		makeHumanReadable(unzippedFile);
 		backup();
 		clearCustomLinksXML();
-		mapCustomObjectDesign(PLATFORM_MODULE_UNZIP_NAME);
+		mapCustomObjectDesign();
 		mapFolders(PLATFORM_MODULE_UNZIP_NAME, buildCustomerPath());
 		if (overwriteScripts) {
 			printOverwrittenScripts();
@@ -109,8 +115,8 @@ public class GitMap implements Mapper {
 	}
 
 	private void cleanup() {
-		if (new File(PLATFORM_MODULE_UNZIP_NAME).exists()) {
-			emptyDir(PLATFORM_MODULE_UNZIP_NAME);
+		if (unzippedFile.exists()) {
+			fs.emptyDir(unzippedFile); // TODO i dont think we wanna delete it
 		}
 	}
 
@@ -141,6 +147,22 @@ public class GitMap implements Mapper {
 	}
 
 	/**
+	 * Unzips file 'folder' into PlatModX
+	 */
+	private void unzipPlatformZip() {
+		try {
+			File source = new File(platformZip);
+			if (source.exists()) {
+				zs.unzip(source, unzippedFile);
+			} else {
+				System.out.println("Cannot find folder!");
+			}
+		} catch (Exception e) {
+			System.err.println("Error in UnzipExport.run");
+		}
+	}
+
+	/**
 	 * Custom Link xml files are going to be replaced with the new custom link
 	 * files from the exported module. This method rids the CustomLinkD1 folder
 	 * of outdated custom links files.
@@ -151,9 +173,7 @@ public class GitMap implements Mapper {
 		String fullPath = gitPath + File.separator + CUSTOM_LINK_D1;
 		File dir = new File(fullPath);
 		if (dir.exists()) {
-			for (File x : dir.listFiles()) {
-				x.delete();
-			}
+			fs.emptyDir(dir); // TODO we shouldnt whipe out the top level dir
 		}
 	}
 
@@ -255,36 +275,34 @@ public class GitMap implements Mapper {
 	 * @param path
 	 *            Path of Unzipped Exported platform module
 	 */
-	private void mapCustomObjectDesign(String path) {
-		path = path + File.separator + CUSTOM_OBJECT_MODULE + File.separator
-				+ DESIGNS + File.separator + SCRIPTS;
-		File scripts = new File(path);
-		if (scripts.exists()) {
-			for (String s : scripts.list()) {
-				File co = new File(path + File.separator + s);
-				if (co.isDirectory()) {
-					co.renameTo(new File(path + File.separator
-							+ s.replace(SCRIPT_DESIGN + $, "")));
-				} else {
-					String dn = s.replace(SCRIPT_DESIGN + $, "");
-					String dnr = dn.replace(JS_EXTENSION, "");
-					File dir = new File(path + File.separator + dnr);
-					dir.mkdir();
-					File change = new File(path + File.separator
-							+ dir.getName() + File.separator + s);
-					try {
-						Files.move(co.toPath(), change.toPath(),
-								REPLACE_EXISTING);
-					} catch (IOException e) {
-						e.printStackTrace();
+	private void mapCustomObjectDesign() {
+		Path scriptsPath = unzippedFile.toPath().resolve(CUSTOM_OBJECT_MODULE)
+				.resolve(DESIGNS).resolve(SCRIPTS);
+		if (!Files.exists(scriptsPath)) {
+			System.out.println("Cannot find script folder: "
+					+ scriptsPath.toString());
+			System.out
+					.println("\tAssuming this module contains no custom objects.");
+			return;
+		}
+		File scripts = scriptsPath.toFile();
+		for (File co : scripts.listFiles()) {
+			if (co.isDirectory()) {
+				fs.renameFile(co, co.getName().replace(SCRIPT_DESIGN + $, ""));
+			} else {
+				String dirName = co.getName().replace(SCRIPT_DESIGN + $, "")
+						.replace(JS_EXTENSION, "");
+				Path p = unzippedFile.toPath().resolve(dirName);
+				try {
+					if (!Files.exists(p)) {
+						Files.createDirectory(p);
 					}
-					System.out.println(change);
-					System.out.println(co.renameTo(change));
+					Path destination = p.resolve(co.getName());
+					Files.move(co.toPath(), destination, REPLACE_EXISTING);
+				} catch (IOException e) {
+					System.err.println("Failed to map custom object design: " + co.getName());
 				}
 			}
-		} else {
-			System.out.println("Cannot find script folder: " + scripts.getAbsolutePath());
-			System.out.println("\tAssuming this module contains no custom objects.");
 		}
 	}
 
@@ -365,16 +383,9 @@ public class GitMap implements Mapper {
 		String path = buildCustomerPath();
 		String backup = "PM_Git_Backup" + File.separator + platform;
 		File bkpFile = new File(backup);
-		if (bkpFile.exists()) {
-			emptyDir(backup);
-			(bkpFile).delete();
-		} else {
-			File nb = new File("PM_Git_Backup");
-			nb.mkdir();
-		}
 		try {
-			copyDirectory(path, backup);
-		} catch (Exception e) {
+			fs.copyDirectory(new File(path), bkpFile);
+		} catch (IOException e) {
 			System.err.println("error backing up -> " + e);
 		}
 	}
@@ -385,135 +396,19 @@ public class GitMap implements Mapper {
 	 * @param folderName
 	 *            Location of file structure
 	 */
-	private void makeHumanReadable(String folderName) {
-		File f = new File(folderName);
+	private void makeHumanReadable(File f) {
 		if (!f.exists()) {
-			System.err.println("Cannot find folder -> " + folderName);
+			System.err.println("Cannot find folder -> " + f.getName());
 			return;
 		}
 		if (f.isDirectory()) {
-			for (String s : f.list()) {
-				makeHumanReadable(folderName + File.separator + s);
+			for (File s : f.listFiles()) {
+				makeHumanReadable(s);
 			}
 		}
 		if (f.getName().contains($)) {
-			String rename = f.getName().replace($, "");
-			Path p = f.toPath();
-			try {
-				Files.move(p, p.resolveSibling(rename));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			fs.renameFile(f, f.getName().replace($, ""));
 		}
 	}
 
-	/**
-	 * Copies a file structure into anther
-	 * 
-	 * @param source
-	 *            File structure to copy from
-	 * @param destination
-	 *            File structure to copy to
-	 */
-	public void copyDirectory(String source, String destination) {
-		File sourceFile = new File(source);
-		File destinationFile = new File(destination);
-		try {
-			Files.copy(sourceFile.toPath(), destinationFile.toPath());
-			if (sourceFile.isDirectory()) {
-				destinationFile.mkdir();
-				for (String iter : sourceFile.list()) {
-					File sub = new File(sourceFile + File.separator + iter);
-					if (sub.isDirectory()) {
-						copyDirectory(source + File.separator + iter,
-								destination + File.separator + iter);
-					} else
-						Files.copy(sub.toPath(), new File(destination
-								+ File.separator + iter).toPath());
-				}
-			} else {
-				Files.copy(sourceFile.toPath(), destinationFile.toPath());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Performs a recursive remove on directory name
-	 * 
-	 * @param path
-	 *            Directory that is to be cleared
-	 */
-	public void emptyDir(String path) {
-		File folder = new File(path);
-		if (folder.isDirectory()) {
-			for (String s : folder.list()) {
-				emptyDir(path + File.separator + s);
-			}
-			folder.delete();
-		} else {
-			// System.out.println("Cleaning..." + folder.delete());
-			folder.delete();
-		}
-	}
-	
-	
-	/**
-	 * Unzips file 'folder' into PlatModX
-	 */
-	private void unzipPlatformZip() {
-		try {
-			File f = new File(platformZip);
-			if (f.exists()) {
-				String destination = PLATFORM_MODULE_UNZIP_NAME;
-				String source = platformZip;
-				unzip(source, destination);
-				recurseUnzip(destination);
-			} else {
-				System.out.println("Cannot find folder!");
-			}
-		} catch (Exception e) {
-			System.err.println("Error in UnzipExport.run");
-		}
-	}
-
-	/**
-	 * Unzips src into dest
-	 * 
-	 * @param source
-	 *            Zip file
-	 * @param destination
-	 *            Destination for zip file
-	 */
-	public void unzip(String source, String destination) {
-		try {
-			ZipFile zip = new ZipFile(source);
-			zip.extractAll(destination);
-		} catch (ZipException e) {
-			System.err.println("Error in unzip");
-		}
-	}
-
-	/**
-	 * Recursively iterated through file structure folder and unzips and
-	 * contained zip files
-	 * 
-	 * @param path
-	 *            Destination of file structure to iterate over
-	 */
-	private void recurseUnzip(String path) {
-		File filePointer = new File(path);
-		if (filePointer.isDirectory()) {
-			for (String item : filePointer.list()) {
-				recurseUnzip(filePointer + File.separator + item);
-			}
-		} else {
-			if (path.endsWith(ZIP_EXTENSION)) {
-				String cleanedPath = path.replace(ZIP_EXTENSION, "");
-				unzip(path, cleanedPath);
-				filePointer.delete();
-			}
-		}
-	}
 }
