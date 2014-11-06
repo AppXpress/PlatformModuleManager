@@ -4,11 +4,11 @@ import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * This executable does the following things in order with the end goal to
@@ -57,7 +57,7 @@ public class PlatformModuleBuilder {
 
 	private final String customer, module;
 	private final File rootFile;
-	private final Preparation prep;
+	private final Preparation<File> prep;
 	private final Bundler bundler;
 	
 	/**
@@ -82,7 +82,7 @@ public class PlatformModuleBuilder {
 		try {
 			prep.prepare(rootFile);
 			bundler.bundle(rootFile);
-		} catch (PMBuilderException e) {
+		} catch (AppXpressException e) {
 			System.out.println("Failure when building module for [customer: "
 					+ customer + " module: " + module + "]");
 			System.out.println(e.getMessage());

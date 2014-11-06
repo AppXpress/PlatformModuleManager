@@ -2,12 +2,12 @@ package com.gtnexus.appxpress.pmbuilder;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.FolderPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.ScriptBundler;
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Replacement for PlatfromMapUtil.
@@ -22,7 +22,7 @@ public class AppXpressMapper implements Mapper {
 
 	private final File root;
 	private final Bundler bundler;
-	private final Preparation prep;
+	private final Preparation<File> prep;
 
 	public AppXpressMapper(File root) {
 		this.root = root;
@@ -42,7 +42,7 @@ public class AppXpressMapper implements Mapper {
 		try {
 			prep.prepare(root);
 			bundler.bundle(root);
-		} catch (PMBuilderException e) {
+		} catch (AppXpressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

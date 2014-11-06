@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
@@ -80,7 +81,7 @@ public class GitMapper implements Mapper {
 			if (vo.isOverwriteScripts()) {
 				printOverwrittenScripts();
 			}
-		} catch (PMBuilderException e) {
+		} catch (AppXpressException e) {
 
 		}
 	}
