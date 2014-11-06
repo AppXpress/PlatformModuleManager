@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor;
+package com.gtnexus.appxpress.pmextractor.cli;
 
 import com.gtnexus.appxpress.cli.AppXpressOption;
 

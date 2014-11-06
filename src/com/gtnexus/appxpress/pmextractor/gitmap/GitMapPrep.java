@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor;
+package com.gtnexus.appxpress.pmextractor.gitmap;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;

@@ -15,6 +15,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.gtnexus.appxpress.NullOutputStream;
+import com.gtnexus.appxpress.pmextractor.cli.ArgsAndPropertiesConsolidator;
+import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
  * Created by jjdonov on 9/29/14.

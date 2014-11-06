@@ -1,9 +1,11 @@
-package com.gtnexus.appxpress.pmextractor;
+package com.gtnexus.appxpress.pmextractor.gitmap;
 
 import static com.gtnexus.appxpress.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
 
 import java.io.File;
 import java.util.Map;
+
+import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 public class GitMapVO {
 

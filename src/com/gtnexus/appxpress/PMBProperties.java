@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor;
+package com.gtnexus.appxpress;
 
 import java.io.File;
 import java.util.Properties;

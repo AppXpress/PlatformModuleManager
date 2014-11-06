@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor;
+package com.gtnexus.appxpress.pmextractor.cli;
 
 import java.io.File;
 import java.io.FileOutputStream;

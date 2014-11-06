@@ -5,8 +5,12 @@ import java.util.EnumSet;
 import java.util.Map;
 
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.PMBProperties;
 import com.gtnexus.appxpress.cli.CommandLineInterfaceParser;
+import com.gtnexus.appxpress.pmextractor.cli.ArgsAndPropertiesConsolidator;
+import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
+import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
 
 /**
  * 
@@ -70,7 +74,7 @@ public class PlatformModuleExtractor {
 				cli.getOptionsMap(), cli.getCliOptionSet(),
 				pmbProperties.getProperties());
 		Map<ExtractorOption, String> optMap = consolidator.consolidate();
-		Mapper tool = GitMap.createMapper(optMap);
+		Mapper tool = GitMapper.createMapper(optMap);
 		tool.doMapping();
 		consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
 	}

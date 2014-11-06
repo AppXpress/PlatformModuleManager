@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor;
+package com.gtnexus.appxpress.pmextractor.gitmap;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
@@ -29,6 +29,7 @@ import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.ZipService;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
  * Accomplishes the following steps
@@ -48,14 +49,14 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class GitMap implements Mapper {
+public class GitMapper implements Mapper {
 
 	private final GitMapVO vo;
 	private final List<String> overwrittenScripts;
 	private final Preparation<GitMapVO> prep;
 	private final FileService fs;
 
-	public static GitMap createMapper(Map<ExtractorOption, String> optionMap) {
+	public static GitMapper createMapper(Map<ExtractorOption, String> optionMap) {
 		// Preconditions would be good here.
 		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
@@ -64,10 +65,10 @@ public class GitMap implements Mapper {
 				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
 			}
 		}
-		return new GitMap(new GitMapVO(optionMap));
+		return new GitMapper(new GitMapVO(optionMap));
 	}
 
-	public GitMap(GitMapVO vo) {
+	public GitMapper(GitMapVO vo) {
 		this.vo = vo;
 		this.overwrittenScripts = new ArrayList<>();
 		this.prep = new GitMapPrep();
