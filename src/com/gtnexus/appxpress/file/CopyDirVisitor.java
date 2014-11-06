@@ -10,8 +10,8 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class CopyDirVisitor extends SimpleFileVisitor<Path> {
 
-	private final Path source;
-	private final Path destination;
+	protected final Path source;
+	protected final Path destination;
 	private final StandardCopyOption replace = StandardCopyOption.REPLACE_EXISTING;
 
 	public CopyDirVisitor(final Path source, final Path destination) {
