@@ -12,7 +12,15 @@ import com.gtnexus.appxpress.ZipService;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
-public class GitMapPrep implements Precondition<GitMapVO>, Preparation<GitMapVO> {
+/**
+ * Performs all prep work for GitMap, including cleaning directories,
+ * unzipping the platform, and creating a backup.
+ * 
+ * @author jdonovan
+ *
+ */
+public class GitMapPrep implements Precondition<GitMapVO>,
+		Preparation<GitMapVO> {
 
 	private final FileService fs;
 	private final ZipService zs;
@@ -36,11 +44,11 @@ public class GitMapPrep implements Precondition<GitMapVO>, Preparation<GitMapVO>
 
 	private void cleanup(File unzipDestination) {
 		if (unzipDestination.exists()) {
-			fs.emptyDir(unzipDestination);  // TODO i dont think we wanna delete
+			fs.emptyDir(unzipDestination); // TODO i dont think we wanna delete
 											// it
 		}
 	}
-	
+
 	/**
 	 * Custom Link xml files are going to be replaced with the new custom link
 	 * files from the exported module. This method rids the CustomLinkD1 folder
@@ -111,11 +119,11 @@ public class GitMapPrep implements Precondition<GitMapVO>, Preparation<GitMapVO>
 							+ vo.getLocalDir().getAbsolutePath()
 							+ "\n\t"
 							+ vo.getPlatformZip().getAbsolutePath());
-			return false ;
+			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Validates the path composed of parameters
 	 * 

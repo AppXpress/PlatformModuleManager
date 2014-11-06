@@ -102,6 +102,15 @@ public class GitMap implements Mapper {
 	private void mapFolders(String export, String destination) {
 		File platform = new File(export);
 		File destinationCompanyFolder = new File(destination);
+		
+		for(File child : platform.listFiles()) {
+			if(child.isDirectory()) {
+				
+			} else {
+				
+			}
+		}
+		
 		for (String platformChildName : platform.list()) {
 			File platformChild = new File(export + File.separator
 					+ platformChildName);
@@ -122,9 +131,11 @@ public class GitMap implements Mapper {
 	 */
 	private void mapFoldersDir(String export, String destination,
 			File destinationCompanyFolder, String platformChildName) {
-		boolean gitContains = dirDoesContain(destinationCompanyFolder,
-				platformChildName);
-		if (gitContains) {
+		File  pc =  destinationCompanyFolder
+				.toPath()
+				.resolve(platformChildName)
+				.toFile();
+		if (pc.exists()) {
 			if (vo.isOverwriteFef() || !platformChildName.equals(CUSTOM_UI)) {
 				mapFolders(export + File.separator + platformChildName,
 						destination + File.separator + platformChildName);
@@ -166,15 +177,6 @@ public class GitMap implements Mapper {
 			mapCopy(export + File.separator + platformChildName, destination
 					+ File.separator + platformChildName);
 		}
-	}
-
-	private boolean dirDoesContain(File dir, String subDirName) {
-		for (String g : dir.list()) {
-			if (g.equals(subDirName)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private boolean isPreExistingJsFile(File f) {

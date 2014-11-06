@@ -12,9 +12,9 @@ import java.io.File;
 import java.util.Arrays;
 
 import com.gtnexus.appxpress.Preparation;
-import com.gtnexus.appxpress.file.ChainedAnd;
-import com.gtnexus.appxpress.file.FileFilterFactory;
 import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.file.filter.ChainedAnd;
+import com.gtnexus.appxpress.file.filter.FileFilterFactory;
 
 public class FolderPrep implements Preparation<File> {
 	
