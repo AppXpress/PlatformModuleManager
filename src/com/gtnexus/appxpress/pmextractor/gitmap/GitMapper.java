@@ -22,20 +22,11 @@ import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
- * Accomplishes the following steps
- * <ol>
- * <li>Validates passed in parameters to ensure the files exists and are
- * accessible</li>
- * <li>Unzips the exported platform module</li>
- * <li>Strips the platform module of $</li>
- * <li>Backs up the current local directory</li>
- * <li>Overwrites the current directory with the exported platform module by
- * mapping the exported platform module into the local directory</li>
- * </ol>
+ * Relies on Preparation, then takes extracted platform and maps
+ * it to the existing Git directories.
  * 
  * @author Andrew Reynolds
  * @author Eric Hu
@@ -51,7 +42,6 @@ public class GitMapper implements Mapper {
 	private final FileService fs;
 
 	public static GitMapper createMapper(Map<ExtractorOption, String> optionMap) {
-		// Preconditions would be good here.
 		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 			if (!platformZip.endsWith(ZIP_EXTENSION)) {
