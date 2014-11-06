@@ -3,7 +3,6 @@ package com.gtnexus.appxpress.pmextractor;
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
 import static com.gtnexus.appxpress.AppXpressConstants.DESIGNS;
@@ -21,12 +20,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.ZipService;
 import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Accomplishes the following steps
@@ -48,17 +50,10 @@ import com.gtnexus.appxpress.file.FileService;
  */
 public class GitMap implements Mapper {
 
-	private final String platformZip;
-	private final String localDir;
-	private final String customer;
-	private final String platform;
-	private final boolean overwriteScripts;
-	private final boolean overwriteFef;
+	private final GitMapVO vo;
 	private final List<String> overwrittenScripts;
+	private final Preparation<GitMapVO> prep;
 	private final FileService fs;
-	private final ZipService zs;
-
-	File unzippedFile = new File(PLATFORM_MODULE_UNZIP_NAME);
 
 	public static GitMap createMapper(Map<ExtractorOption, String> optionMap) {
 		// Preconditions would be good here.
@@ -69,111 +64,30 @@ public class GitMap implements Mapper {
 				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
 			}
 		}
-		return new GitMap(optionMap);
+		return new GitMap(new GitMapVO(optionMap));
 	}
 
-	public GitMap(Map<ExtractorOption, String> optionMap) {
-		this.platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
-		this.localDir = optionMap.get(ExtractorOption.LOCAL_DIR);
-		this.customer = optionMap.get(ExtractorOption.CUSTOMER);
-		this.platform = optionMap.get(ExtractorOption.PLATFORM);
-		this.overwriteScripts = optionMap
-				.get(ExtractorOption.OVERWRITE_SCRIPTS).equalsIgnoreCase("y");
-		this.overwriteFef = optionMap.get(ExtractorOption.OVERWRITE_FEF)
-				.equalsIgnoreCase("y");
+	public GitMap(GitMapVO vo) {
+		this.vo = vo;
 		this.overwrittenScripts = new ArrayList<>();
+		this.prep = new GitMapPrep();
 		this.fs = new FileService();
-		this.zs = new ZipService();
 	}
 
 	/**
 	 * Performs the appropriate actions for module extraction
 	 */
+	@Override
 	public void doMapping() {
-		// Ensure path exists - GIT repo is set up correctly
-		// can handle this with preconditions?
-		if (!validateAndEnsurePathExists(localDir, customer, platform)) {
-			System.err.println("ERROR: Paths are not set up properly!");
-			return;
-		}
-		if (!isFolder(localDir) || !exists(platformZip)) {
-			System.err
-					.println("ERROR: One of the following paths is invalid:\n\t"
-							+ localDir + "\n\t" + platformZip);
-			return;
-		}
-		cleanup();
-		unzipPlatformZip(); // TODO if we fail here go ahead and quit.
-		makeHumanReadable(unzippedFile);
-		backup();
-		clearCustomLinksXML();
-		mapCustomObjectDesign();
-		mapFolders(PLATFORM_MODULE_UNZIP_NAME, buildCustomerPath());
-		if (overwriteScripts) {
-			printOverwrittenScripts();
-		}
-	}
-
-	private void cleanup() {
-		if (unzippedFile.exists()) {
-			fs.emptyDir(unzippedFile); // TODO i dont think we wanna delete it
-		}
-	}
-
-	private boolean exists(String path) {
-		File f = new File(path);
-		return f.exists();
-	}
-
-	/**
-	 * Test to ensure folder at arbitrary path exists
-	 * 
-	 * @param path
-	 * @return true if exists at path and is a directory
-	 */
-	private boolean isFolder(String path) {
-		final String errorMsg = "Cannot find  folder [%s]";
-		File f = new File(path);
-		if (!f.exists() || !f.isDirectory()) {
-			System.err.println(String.format(errorMsg, f.getAbsoluteFile()));
-			return false;
-		}
-		return true;
-	}
-
-	private String buildCustomerPath() {
-		return localDir + File.separator + CUSTOMER + File.separator + customer
-				+ File.separator + platform;
-	}
-
-	/**
-	 * Unzips file 'folder' into PlatModX
-	 */
-	private void unzipPlatformZip() {
 		try {
-			File source = new File(platformZip);
-			if (source.exists()) {
-				zs.unzip(source, unzippedFile);
-			} else {
-				System.out.println("Cannot find folder!");
+			prep.prepare(vo);
+			mapCustomObjectDesign();
+			mapFolders(PLATFORM_MODULE_UNZIP_NAME, vo.getPlatformDir().getName());
+			if (vo.isOverwriteScripts()) {
+				printOverwrittenScripts();
 			}
-		} catch (Exception e) {
-			System.err.println("Error in UnzipExport.run");
-		}
-	}
+		} catch (PMBuilderException e) {
 
-	/**
-	 * Custom Link xml files are going to be replaced with the new custom link
-	 * files from the exported module. This method rids the CustomLinkD1 folder
-	 * of outdated custom links files.
-	 *
-	 */
-	private void clearCustomLinksXML() {
-		String gitPath = buildCustomerPath();
-		String fullPath = gitPath + File.separator + CUSTOM_LINK_D1;
-		File dir = new File(fullPath);
-		if (dir.exists()) {
-			fs.emptyDir(dir); // TODO we shouldnt whipe out the top level dir
 		}
 	}
 
@@ -211,7 +125,7 @@ public class GitMap implements Mapper {
 		boolean gitContains = dirDoesContain(destinationCompanyFolder,
 				platformChildName);
 		if (gitContains) {
-			if (overwriteFef || !platformChildName.equals(CUSTOM_UI)) {
+			if (vo.isOverwriteFef() || !platformChildName.equals(CUSTOM_UI)) {
 				mapFolders(export + File.separator + platformChildName,
 						destination + File.separator + platformChildName);
 			}
@@ -237,7 +151,7 @@ public class GitMap implements Mapper {
 	private void mapFoldersFile(String export, String destination,
 			String platformChildName) {
 		File f = new File(destination + File.separator + platformChildName);
-		if (overwriteScripts) {
+		if (vo.isOverwriteScripts()) {
 			if (isPreExistingJsFile(f)) {
 				System.out.println(f.getName());
 				overwrittenScripts.add(f.getName());
@@ -276,8 +190,9 @@ public class GitMap implements Mapper {
 	 *            Path of Unzipped Exported platform module
 	 */
 	private void mapCustomObjectDesign() {
-		Path scriptsPath = unzippedFile.toPath().resolve(CUSTOM_OBJECT_MODULE)
-				.resolve(DESIGNS).resolve(SCRIPTS);
+		Path scriptsPath = vo.getUnzipDir().toPath()
+				.resolve(CUSTOM_OBJECT_MODULE).resolve(DESIGNS)
+				.resolve(SCRIPTS);
 		if (!Files.exists(scriptsPath)) {
 			System.out.println("Cannot find script folder: "
 					+ scriptsPath.toString());
@@ -292,7 +207,7 @@ public class GitMap implements Mapper {
 			} else {
 				String dirName = co.getName().replace(SCRIPT_DESIGN + $, "")
 						.replace(JS_EXTENSION, "");
-				Path p = unzippedFile.toPath().resolve(dirName);
+				Path p = vo.getUnzipDir().toPath().resolve(dirName);
 				try {
 					if (!Files.exists(p)) {
 						Files.createDirectory(p);
@@ -300,7 +215,8 @@ public class GitMap implements Mapper {
 					Path destination = p.resolve(co.getName());
 					Files.move(co.toPath(), destination, REPLACE_EXISTING);
 				} catch (IOException e) {
-					System.err.println("Failed to map custom object design: " + co.getName());
+					System.err.println("Failed to map custom object design: "
+							+ co.getName());
 				}
 			}
 		}
@@ -335,35 +251,6 @@ public class GitMap implements Mapper {
 	}
 
 	/**
-	 * Validates the path composed of parameters
-	 * 
-	 * @param folder
-	 *            Highest folder
-	 * @param sub
-	 *            Second highest folder
-	 * @param subCo
-	 *            Lowest subfolder
-	 * @return true if file structure exists false if file structure does not
-	 *         exist
-	 */
-	private boolean validateAndEnsurePathExists(String folder, String sub,
-			String subCo) {
-		File path = new File(folder + File.separator + "customer"
-				+ File.separator + sub);
-		if (!path.isDirectory()) {
-			System.err
-					.println("Cannot find specific customer in customer folder ["
-							+ path.getAbsolutePath() + "]");
-			return false;
-		}
-		path = new File(path.getPath() + File.separator + subCo);
-		if (!path.exists()) {
-			path.mkdir();
-		}
-		return true;
-	}
-
-	/**
 	 * Prints the scripts that were overwritten so the user can quickly noticed
 	 * if unwanted actions were performed on local git dir
 	 */
@@ -374,41 +261,6 @@ public class GitMap implements Mapper {
 			sb.append(script).append(", ");
 		}
 		System.out.println(sb.substring(0, sb.length() - 2));
-	}
-
-	/**
-	 * Backs up folder/customer/cust/plat into a folder called PM_Git_Backup
-	 */
-	private void backup() {
-		String path = buildCustomerPath();
-		String backup = "PM_Git_Backup" + File.separator + platform;
-		File bkpFile = new File(backup);
-		try {
-			fs.copyDirectory(new File(path), bkpFile);
-		} catch (IOException e) {
-			System.err.println("error backing up -> " + e);
-		}
-	}
-
-	/**
-	 * Cleans folder structure of $ signs
-	 * 
-	 * @param folderName
-	 *            Location of file structure
-	 */
-	private void makeHumanReadable(File f) {
-		if (!f.exists()) {
-			System.err.println("Cannot find folder -> " + f.getName());
-			return;
-		}
-		if (f.isDirectory()) {
-			for (File s : f.listFiles()) {
-				makeHumanReadable(s);
-			}
-		}
-		if (f.getName().contains($)) {
-			fs.renameFile(f, f.getName().replace($, ""));
-		}
 	}
 
 }

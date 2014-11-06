@@ -3,8 +3,8 @@ package com.gtnexus.appxpress.pmbuilder;
 import java.io.File;
 
 import com.gtnexus.appxpress.Mapper;
+import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
-import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.FolderPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.ScriptBundler;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;

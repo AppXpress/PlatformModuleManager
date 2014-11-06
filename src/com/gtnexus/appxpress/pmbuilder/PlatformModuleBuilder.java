@@ -4,8 +4,8 @@ import static com.gtnexus.appxpress.AppXpressConstants.CUSTOMER;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
-import com.gtnexus.appxpress.pmbuilder.bundle.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
