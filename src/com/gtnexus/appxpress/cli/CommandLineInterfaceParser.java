@@ -21,7 +21,7 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  * @author jdonovan
  *
  */
-public class CommandLineInterfaceParser <T extends CLIOption> {
+public class CommandLineInterfaceParser<T extends CLIOption> {
 
 	private final String[] userArgs;
 	private final Set<T> cliOptionSet;
@@ -36,15 +36,21 @@ public class CommandLineInterfaceParser <T extends CLIOption> {
 	 * @param cliOptionSet
 	 *            the option set defining what can be passed to this tool
 	 */
-	public CommandLineInterfaceParser(String[] userArgs,
-			Set<T> cliOptionSet) {
+	public CommandLineInterfaceParser(String[] userArgs, Set<T> cliOptionSet) {
+		if (userArgs == null || cliOptionSet == null) {
+			throw new NullPointerException(
+					"Cannot parse null args, or null option set.");
+		}
 		this.userArgs = userArgs;
 		this.cliOptionSet = cliOptionSet;
 		this.options = new Options();
 		for (CLIOption opt : cliOptionSet) {
-			options.addOption(Option.builder(opt.getName()).type(opt.getType())
-					.desc(opt.getDescription()).hasArg(opt.hasArg())
-					.required(false).build());
+			options.addOption(Option.builder(opt.getName())
+					.type(opt.getType())
+					.desc(opt.getDescription())
+					.hasArg(opt.hasArg())
+					.required(false)
+					.build());
 		}
 	}
 
@@ -74,7 +80,8 @@ public class CommandLineInterfaceParser <T extends CLIOption> {
 			cmd = parser.parse(options, userArgs);
 		} catch (ParseException e) {
 			throw new PMExtractorException(
-					"Exception when parsing args from command line!");
+					"Failed to parse args from command line!\n"
+							+ e.getMessage());
 		}
 	}
 
@@ -92,24 +99,22 @@ public class CommandLineInterfaceParser <T extends CLIOption> {
 		return cmd.hasOption(opt.getName());
 	}
 
-
 	public Map<T, String> getOptionsMap() {
-		if (cmd == null) {
+		if (cmd == null || cmd.getOptions().length == 0) {
 			return Collections.emptyMap();
 		}
 		Map<T, String> optMap = new HashMap<>();
-		for(T opt : cliOptionSet) {
-			if(cmd.hasOption(opt.getName())) {
+		for (T opt : cliOptionSet) {
+			if (cmd.hasOption(opt.getName())) {
 				optMap.put(opt, cmd.getOptionValue(opt.getName()));
 			}
 		}
 		return optMap;
 	}
-	
+
 	public Set<T> getCliOptionSet() {
 		return cliOptionSet;
 	}
-
 
 	/**
 	 * Displays the usage information and exits.
