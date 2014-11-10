@@ -1,5 +1,8 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.gtnexus.appxpress.cli.AppXpressOption;
 
 /**
@@ -124,5 +127,11 @@ public enum ExtractorOption implements AppXpressOption {
         } else {
             return false;
         }
+    }
+    
+    
+    public void all() {
+    	Class<ExtractorOption> c = (Class<ExtractorOption>) this.getClass();
+    	List<ExtractorOption> list = Arrays.asList(c.getEnumConstants());
     }
 }
