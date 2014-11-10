@@ -23,9 +23,12 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  */
 public class CommandLineInterfaceParser<T extends CLIOption> {
 
+	private final String appName;
 	private final String[] userArgs;
 	private final Set<T> cliOptionSet;
 	private final Options options;
+	private String helpHeader;
+	private String helpFooter;
 	private CommandLine cmd;
 
 	/**
@@ -36,11 +39,12 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 	 * @param cliOptionSet
 	 *            the option set defining what can be passed to this tool
 	 */
-	public CommandLineInterfaceParser(String[] userArgs, Set<T> cliOptionSet) {
+	public CommandLineInterfaceParser(String appName, String[] userArgs, Set<T> cliOptionSet) {
 		if (userArgs == null || cliOptionSet == null) {
 			throw new NullPointerException(
 					"Cannot parse null args, or null option set.");
 		}
+		this.appName = appName;
 		this.userArgs = userArgs;
 		this.cliOptionSet = cliOptionSet;
 		this.options = new Options();
@@ -121,8 +125,24 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 	 */
 	public void displayHelpAndExit() {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("pmextractor", options);
+		formatter.printHelp(appName, helpHeader, options, helpFooter);
 		System.exit(0);
+	}
+
+	public String getHelpHeader() {
+		return helpHeader;
+	}
+
+	public void setHelpHeader(String helpHeader) {
+		this.helpHeader = helpHeader;
+	}
+
+	public String getHelpFooter() {
+		return helpFooter;
+	}
+
+	public void setHelpFooter(String helpFooter) {
+		this.helpFooter = helpFooter;
 	}
 
 }

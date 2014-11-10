@@ -14,20 +14,31 @@ public class CommandLineInterfaceParserTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testNullArgs() {
-		new CommandLineInterfaceParser<>(null, null);
+		new CommandLineInterfaceParser<>(null, null, null);
 	}
-	
+
 	@Test
 	public void testHasOption() throws PMExtractorException {
-		String[] ha = {"-Dummy"};
+		String[] ha = { "-Dummy" };
 		Set<DummyOption> optSet = new HashSet<>();
 		CLIOption opt = new DummyOption();
 		optSet.add(new DummyOption());
 		CommandLineInterfaceParser<DummyOption> cli = new CommandLineInterfaceParser<>(
-				ha , optSet);
+				"ParserTest", ha, optSet);
 		assertFalse(cli.hasOption(opt));
 		cli.parseCommandLine();
 		assertTrue(cli.hasOption(opt));
+	}
+
+	@Test
+	public void testPrintHelp() throws PMExtractorException {
+		String[] ha = { "-Dummy" };
+		Set<DummyOption> optSet = new HashSet<>();
+		optSet.add(new DummyOption());
+		CommandLineInterfaceParser<DummyOption> cli = new CommandLineInterfaceParser<>(
+				"ParserTest", ha, optSet);
+		cli.parseCommandLine();
+		cli.displayHelpAndExit();
 	}
 
 }

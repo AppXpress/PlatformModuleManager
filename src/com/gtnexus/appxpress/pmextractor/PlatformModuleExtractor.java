@@ -41,6 +41,7 @@ public class PlatformModuleExtractor {
         }
 	}
 
+	private static final String name = "pmextractor";
     private String[] userArgs;
 
     public PlatformModuleExtractor(String[] userArgs){
@@ -55,7 +56,7 @@ public class PlatformModuleExtractor {
 	 */
 	public void extract() throws PMExtractorException {
 		CommandLineInterfaceParser<ExtractorOption> cli = new CommandLineInterfaceParser<>(
-				userArgs, EnumSet.allOf(ExtractorOption.class));
+				name, userArgs, EnumSet.allOf(ExtractorOption.class));
 		cli.parseCommandLine();
 		if (cli.hasOption(ExtractorOption.HELP)) {
 			cli.displayHelpAndExit();
