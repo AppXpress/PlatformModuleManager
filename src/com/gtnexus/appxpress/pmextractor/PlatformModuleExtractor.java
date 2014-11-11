@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Map;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.PMBProperties;
 import com.gtnexus.appxpress.cli.CommandLineInterfaceParser;
@@ -22,31 +23,29 @@ public class PlatformModuleExtractor {
 	/**
 	 * Takes 4-6 arguments -->
 	 *
-	 *@param args
-	 * [0] Exported Platform Module Name
-	 * [1] Relative Path of GIT staging folder
-	 * [2] Customer of Platform Module
-	 * [3] Platform Module that is being exported
+	 * @param args
+	 *            [0] Exported Platform Module Name [1] Relative Path of GIT
+	 *            staging folder [2] Customer of Platform Module [3] Platform
+	 *            Module that is being exported
 	 * 
-	 *          Optional args
-	 * [4] If Y -> overwriteScripts = true
-	 * [5] If Y -> overwriteFEF = true
+	 *            Optional args [4] If Y -> overwriteScripts = true [5] If Y ->
+	 *            overwriteFEF = true
 	 */
 	public static void main(String args[]) throws IOException {
-        PlatformModuleExtractor extractor = new PlatformModuleExtractor(args);
-        try {
-        	extractor.extract();
-        } catch (PMExtractorException e) {
-        	System.err.println("Failure when running pmextractor.");
-        }
+		PlatformModuleExtractor extractor = new PlatformModuleExtractor(args);
+		try {
+			extractor.extract();
+		} catch (PMExtractorException e) {
+			System.err.println("Failure when running pmextractor.");
+		}
 	}
 
 	private static final String name = "pmextractor";
-    private String[] userArgs;
+	private String[] userArgs;
 
-    public PlatformModuleExtractor(String[] userArgs){
-        this.userArgs = userArgs;
-    }
+	public PlatformModuleExtractor(String[] userArgs) {
+		this.userArgs = userArgs;
+	}
 
 	/**
 	 * 
@@ -76,8 +75,13 @@ public class PlatformModuleExtractor {
 				pmbProperties.getProperties());
 		Map<ExtractorOption, String> optMap = consolidator.consolidate();
 		Mapper tool = GitMapper.createMapper(optMap);
-		tool.doMapping();
+		try {
+			tool.doMapping();
+		} catch (AppXpressException e) {
+			throw new PMExtractorException(
+					"Error when mapping to git structure.", e);
+		}
 		consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
 	}
-    
+
 }

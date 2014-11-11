@@ -2,6 +2,7 @@ package com.gtnexus.appxpress.pmbuilder.bundle.platform;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.pmbuilder.AppXpressMapper;
@@ -15,9 +16,14 @@ public class BuildPrep implements Preparation<File> {
 	public void prepare(File rootFile) throws PMBuilderException {
 		runImportFind(rootFile);
 		xmlDesignCustomObjectScriptMatcher(rootFile);
-		map(rootFile);
+		try {
+			map(rootFile);
+		} catch (AppXpressException e) {
+			throw new PMBuilderException(
+					"Exception when mapping file structure.", e);
+		}
 	}
-	
+
 	/**
 	 * Iterates through folder customer/customer/folder
 	 * 
@@ -37,7 +43,8 @@ public class BuildPrep implements Preparation<File> {
 	 * custom object design xml file corresponds to the correct number of custom
 	 * object scripts
 	 */
-	private void xmlDesignCustomObjectScriptMatcher(File rootFile) throws PMBuilderException {
+	private void xmlDesignCustomObjectScriptMatcher(File rootFile)
+			throws PMBuilderException {
 		CustomObjectDesignXML coDes = new CustomObjectDesignXML(rootFile);
 		coDes.ensureSoundDesign();
 	}
@@ -49,7 +56,7 @@ public class BuildPrep implements Preparation<File> {
 	 * @param root
 	 *            File path of platform module
 	 */
-	private void map(File rootFile) {
+	private void map(File rootFile) throws AppXpressException {
 		Mapper mapper = new AppXpressMapper(rootFile);
 		mapper.doMapping();
 	}

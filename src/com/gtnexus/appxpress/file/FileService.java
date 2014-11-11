@@ -120,7 +120,7 @@ public class FileService {
 					"files and destination cannot be null.");
 		}
 		if (precondition == null) {
-			// TODO
+			precondition = new Precondition.EmptyCondition<>();
 		}
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
