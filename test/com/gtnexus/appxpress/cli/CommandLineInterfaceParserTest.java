@@ -30,15 +30,4 @@ public class CommandLineInterfaceParserTest {
 		assertTrue(cli.hasOption(opt));
 	}
 
-	@Test
-	public void testPrintHelp() throws PMExtractorException {
-		String[] ha = { "-Dummy" };
-		Set<DummyOption> optSet = new HashSet<>();
-		optSet.add(new DummyOption());
-		CommandLineInterfaceParser<DummyOption> cli = new CommandLineInterfaceParser<>(
-				"ParserTest", ha, optSet);
-		cli.parseCommandLine();
-		cli.displayHelpAndExit();
-	}
-
 }

@@ -61,7 +61,7 @@ public class FolderPrep implements Preparation<File> {
 		if (scriptFolder.exists()) {
 			File[] files = scriptFolder.listFiles(new ChainedAnd(
 					FileFilterFactory.directoriesOnly(), 
-					FileFilterFactory.FileNameDoesNotContain("_$")));
+					FileFilterFactory.fileNameDoesNotContain("_$")));
 			fs.renameSetOfFiles(Arrays.asList(files), 
 					SCRIPT_DESIGN, SCRIPT_DESIGN + $);
 		}

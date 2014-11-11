@@ -5,11 +5,11 @@ import java.io.FileFilter;
 
 public class FileFilterFactory {
 
-	public static FileFilter FileNameContains(final String string) {
+	public static FileFilter fileNameContains(final String string) {
 		return containsFilter(true, string);
 	}
 
-	public static FileFilter FileNameDoesNotContain(final String string) {
+	public static FileFilter fileNameDoesNotContain(final String string) {
 		return containsFilter(false, string);
 	}
 
@@ -51,26 +51,6 @@ public class FileFilterFactory {
 			@Override
 			public boolean accept(File f) {
 				return !f.getName().endsWith(string); 
-			}
-		};
-	}
-	
-	public static FileFilter chainedORs(final FileFilter...fileFilters) {
-		if(fileFilters == null) {
-			
-		}
-		if(fileFilters.length < 1) {
-			
-		}
-		return new FileFilter() {
-			@Override
-			public boolean accept(File f) {
-				for(FileFilter filter : fileFilters) {
-					if(filter.accept(f)) {
-						return true;
-					}
-				}
-				return false;
 			}
 		};
 	}
