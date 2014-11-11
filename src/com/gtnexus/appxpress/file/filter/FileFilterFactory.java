@@ -15,7 +15,6 @@ public class FileFilterFactory {
 
 	private static FileFilter containsFilter(final boolean contains,
 			final String string) {
-		
 		return new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {

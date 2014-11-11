@@ -25,6 +25,7 @@ public class ChainedOr extends FileFilterChain {
 	
 	@Override
 	public boolean accept(File file) {
+		if(filters.size() == 0) return true;
 		Iterator<FileFilter> i = filters.iterator();
 		while(i.hasNext()) {
 			if(i.next().accept(file)) {

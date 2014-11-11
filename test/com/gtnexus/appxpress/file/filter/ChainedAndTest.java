@@ -25,5 +25,15 @@ public class ChainedAndTest {
 		assertEquals(1, result.length);
 		assertEquals("File2", result[0].getName());
 	}
+	
+	@Test
+	public void testEmptyChain() throws IOException {
+		tmp.newFile("File");
+		tmp.newFile("File2");
+		tmp.newFile("file3");
+		File root = tmp.getRoot();
+		File[] result = root.listFiles(new ChainedAnd());
+		assertEquals(3, result.length);
+	}
 
 }
