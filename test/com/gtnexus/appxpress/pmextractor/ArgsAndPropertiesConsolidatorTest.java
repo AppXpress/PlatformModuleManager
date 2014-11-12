@@ -25,7 +25,7 @@ import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 public class ArgsAndPropertiesConsolidatorTest {
 
 	private static Set<ExtractorOption> optSet;
-	private static Map<ExtractorOption, String> mandatoryFieldsAndVals;
+	private Map<ExtractorOption, String> mandatoryFieldsAndVals;
 	private static Set<ExtractorOption> allNonOmmitable;
 
 	@BeforeClass
