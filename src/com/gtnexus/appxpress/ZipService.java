@@ -38,6 +38,7 @@ public class ZipService {
 	}
 
 	public ZipService() {
+		// nothing to do
 	}
 
 	/**
@@ -117,10 +118,10 @@ public class ZipService {
 			}
 		}
 	}
-	
+
 	public void unzip(File source, File destination, boolean recurse) {
 		unzip(source, destination);
-		if(recurse) {
+		if (recurse) {
 			recurseUnzip(destination);
 		}
 	}

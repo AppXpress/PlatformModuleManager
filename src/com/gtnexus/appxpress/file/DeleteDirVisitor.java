@@ -28,7 +28,7 @@ public class DeleteDirVisitor extends SimpleFileVisitor<Path> {
 	public FileVisitResult postVisitDirectory(Path dir, IOException e)
 			throws IOException {
 		if(!dir.equals(root) || deleteRoot) {
-			Files.delete(root);
+			Files.delete(dir);
 		}
 		return FileVisitResult.CONTINUE;
 	}
