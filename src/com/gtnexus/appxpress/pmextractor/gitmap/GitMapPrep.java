@@ -91,7 +91,12 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 			}
 		}
 		if (f.getName().contains($)) {
-			fs.renameFile(f, f.getName().replace($, ""));
+			try {
+				fs.renameFile(f, f.getName().replace($, ""));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

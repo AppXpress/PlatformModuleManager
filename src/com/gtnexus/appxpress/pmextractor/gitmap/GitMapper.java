@@ -118,7 +118,12 @@ public class GitMapper implements Mapper {
 		File scripts = scriptsPath.toFile();
 		for (File co : scripts.listFiles()) {
 			if (co.isDirectory()) {
-				fs.renameFile(co, co.getName().replace(SCRIPT_DESIGN + $, ""));
+				try {
+					fs.renameFile(co, co.getName().replace(SCRIPT_DESIGN + $, ""));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				String dirName = co.getName().replace(SCRIPT_DESIGN + $, "")
 						.replace(JS_EXTENSION, "");

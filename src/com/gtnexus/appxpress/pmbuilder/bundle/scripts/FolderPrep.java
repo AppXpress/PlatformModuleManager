@@ -9,6 +9,7 @@ import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
 import static com.gtnexus.appxpress.AppXpressConstants.TYPE_EXTENSION_D1;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import com.gtnexus.appxpress.Preparation;
@@ -30,11 +31,16 @@ public class FolderPrep implements Preparation<File> {
 	@Override
 	public void prepare(File root) {
 		for (File dir : root.listFiles(FileFilterFactory.directoriesOnly())) {
-			route(dir);
+				try {
+					route(dir);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
 	
-	private void route(File dir) {
+	private void route(File dir) throws IOException {
 		//TODO can we do better than this?
 		String directoryName = dir.getName();
 		if (directoryName.endsWith(CUSTOM_LINK_D1)) {
@@ -52,12 +58,12 @@ public class FolderPrep implements Preparation<File> {
 	 * 
 	 * @param directory
 	 */
-	private void fixCustomObjectModule(File directory) {
+	private void fixCustomObjectModule(File directory) throws IOException {
 		// TODO refactor me! But I am better than before :)
 		File designFolder = new File(directory.getAbsolutePath()
 				+ File.separator + "designs");
 		if (designFolder.exists()) {
-			fs.renameSetOfFiles(Arrays.asList(designFolder.listFiles()),
+			fs.renameFile(Arrays.asList(designFolder.listFiles()),
 					"Design_", "Design_$");
 		}
 		File scriptFolder = new File(directory.getAbsolutePath()
@@ -66,7 +72,7 @@ public class FolderPrep implements Preparation<File> {
 			File[] files = scriptFolder.listFiles(new ChainedAnd(
 					FileFilterFactory.directoriesOnly(), 
 					FileFilterFactory.fileNameDoesNotContain("_$")));
-			fs.renameSetOfFiles(Arrays.asList(files), 
+			fs.renameFile(Arrays.asList(files), 
 					SCRIPT_DESIGN, SCRIPT_DESIGN + $);
 		}
 		File xsdFolder = new File(directory.getAbsoluteFile() + File.separator
