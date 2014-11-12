@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Wrapper class to internalize some logic around what file's may contain
+ * import directives.
+ * 
  * @author jdonovan
  *
  */

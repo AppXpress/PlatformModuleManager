@@ -22,16 +22,20 @@ public class ImportService {
 	private final ImportScanner importScanner;
 	private final FileService fs;
 	private final Precondition<File> precondition;
-	
 
 	public ImportService(final File root) {
-		this.root = (ImportFile)root;
+		this.root = (ImportFile) root;
 		this.importScanner = new ImportScanner();
 		this.fs = new FileService();
 		this.precondition = new Precondition<File>() {
+			/**
+			 * This precondition is here as a guard. Some File objects are
+			 * created via manual appending of path Strings. This ensures we do
+			 * not try to copy an object that does not exist.
+			 */
 			@Override
 			public boolean isMet(File f) {
-				return f != null;
+				return f != null && f.exists();
 			}
 		};
 	}

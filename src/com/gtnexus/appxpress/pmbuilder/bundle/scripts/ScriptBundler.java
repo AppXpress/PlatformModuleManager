@@ -24,26 +24,26 @@ public class ScriptBundler implements Bundler {
 
 	private final ZipService zu;
 	private final FileService fs;
-	
+
 	public ScriptBundler() {
 		this.zu = new ZipService();
 		this.fs = new FileService();
 	}
-	
+
 	@Override
 	public void bundle(final File directory) {
 		for (File f : directory.listFiles(FileFilterFactory.directoriesOnly())) {
 			searchForPotentialBundles(f);
 		}
 	}
-	
+
 	private void searchForPotentialBundles(final File dir) {
 		if (wasSpecialCase(dir)) {
 			return;
 		}
 		bundleGenerically(dir);
 	}
-	
+
 	private boolean wasSpecialCase(final File dir) {
 		final String platformIndependent = dir.getAbsolutePath()
 				+ File.separator + "designs" + File.separator + "scripts";
@@ -57,7 +57,7 @@ public class ScriptBundler implements Bundler {
 		}
 		return isSpecial;
 	}
-	
+
 	private void bundleGenerically(File dir) {
 		final List<File> jsFiles = new LinkedList<>();
 		for (File f : dir.listFiles()) {
@@ -72,20 +72,20 @@ public class ScriptBundler implements Bundler {
 			try {
 				fs.moveFiles(jsFiles, bundleFolder);
 				zu.zipDirectory(bundleFolder);
+				fs.emptyDir(dir);
 			} catch (PMBuilderException | IOException e) {
 				e.printStackTrace();
 			}
-			// TODO empty this dir
 		}
 	}
-	
+
 	private File createBundleFolder(final File parent) {
 		final String bundleFolderName = initCap(parent.getName() + BUNDLE);
 		final File bundle = new File(parent, bundleFolderName);
 		bundle.mkdir();
 		return bundle;
 	}
-	
+
 	/**
 	 * Capitalize the first letter in a string.
 	 * 
@@ -95,10 +95,10 @@ public class ScriptBundler implements Bundler {
 	private String initCap(final String string) {
 		return string.substring(0, 1).toUpperCase().concat(string.substring(1));
 	}
-	
+
 	/**
-	 * Handle's special logic for handling 
-	 * the directory for the Front End Framework
+	 * Handle's special logic for handling the directory for the Front End
+	 * Framework
 	 * 
 	 * @param dir
 	 */
@@ -109,13 +109,13 @@ public class ScriptBundler implements Bundler {
 		for (File file : dir.listFiles(filter)) {
 			try {
 				zu.zipDirectory(file);
-			} catch (PMBuilderException e) {
+				fs.emptyDir(file, true);
+			} catch (PMBuilderException | IOException e) {
 				System.err.println(e.getMessage());
 			}
-			// TODO get rid of folder, no longer needed.
 		}
 	}
-	
+
 	/**
 	 * @param dir
 	 *            The CustomObject/designs/scripts directory.
@@ -127,34 +127,30 @@ public class ScriptBundler implements Bundler {
 	}
 
 	private void handleSingleCODScript(final File dir) {
-		if (dir.list().length == 1) {
-			moveUpAndRename(dir);
-		} else if (dir.list().length > 1) {
-			bundleCODScript(dir);
-		}
-		fs.emptyDir(dir);
-	}
-	
-	private void bundleCODScript(final File dir) {
-		String rename = SCRIPT_DESIGN + $ + dir.getName();
-		Path newPath = dir.toPath().resolveSibling(rename);
 		try {
-			Files.move(dir.toPath(), newPath);
-		} catch (IOException e) {
-			// TODO
-		}
-	}
-
-	private void moveUpAndRename(final File dir) {
-		String newName = SCRIPT_DESIGN + $ + dir.getName() + JS_EXTENSION;
-		Path newPath = dir.toPath().resolveSibling(newName);
-		File loneFile = dir.listFiles()[0];
-		try {
-			Files.move(loneFile.toPath(), newPath);
+			if (dir.list().length == 1) {
+				moveUpAndRename(dir);
+			} else if (dir.list().length > 1) {
+				bundleCODScript(dir);
+			}
+			fs.emptyDir(dir);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+	private void bundleCODScript(final File dir) throws IOException {
+		String rename = SCRIPT_DESIGN + $ + dir.getName();
+		Path newPath = dir.toPath().resolveSibling(rename);
+		Files.move(dir.toPath(), newPath);
+	}
+
+	private void moveUpAndRename(final File dir) throws IOException {
+		String newName = SCRIPT_DESIGN + $ + dir.getName() + JS_EXTENSION;
+		Path newPath = dir.toPath().resolveSibling(newName);
+		File loneFile = dir.listFiles()[0];
+		Files.move(loneFile.toPath(), newPath);
+	}
+
 }

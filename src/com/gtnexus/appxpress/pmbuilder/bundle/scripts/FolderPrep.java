@@ -30,18 +30,22 @@ public class FolderPrep implements Preparation<File> {
 	@Override
 	public void prepare(File root) {
 		for (File dir : root.listFiles(FileFilterFactory.directoriesOnly())) {
-			// TODO this is whack yo. directly ported from original
-			String directoryName = dir.getName();
-			if (directoryName.endsWith(CUSTOM_LINK_D1)) {
-				fs.renameFile(dir, CUSTOM_LINK_D1);
-			} else if (directoryName.endsWith(TYPE_EXTENSION_D1)) {
-				fs.renameFile(dir, $ + TYPE_EXTENSION_D1);
-			} else if (directoryName.endsWith(CUSTOM_UI)) {
-				fs.prependToName(Arrays.asList(dir.listFiles()), $);
-			} else if (directoryName.endsWith(CUSTOM_OBJECT_MODULE)) {
-				fixCustomObjectModule(dir);
-			} 
+			route(dir);
 		}
+	}
+	
+	private void route(File dir) {
+		//TODO can we do better than this?
+		String directoryName = dir.getName();
+		if (directoryName.endsWith(CUSTOM_LINK_D1)) {
+			fs.renameFile(dir, CUSTOM_LINK_D1);
+		} else if (directoryName.endsWith(TYPE_EXTENSION_D1)) {
+			fs.renameFile(dir, $ + TYPE_EXTENSION_D1);
+		} else if (directoryName.endsWith(CUSTOM_UI)) {
+			fs.prependToName(Arrays.asList(dir.listFiles()), $);
+		} else if (directoryName.endsWith(CUSTOM_OBJECT_MODULE)) {
+			fixCustomObjectModule(dir);
+		} 
 	}
 	
 	/**

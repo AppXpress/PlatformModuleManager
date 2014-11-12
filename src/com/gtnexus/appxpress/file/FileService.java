@@ -12,7 +12,7 @@ import java.util.List;
 import com.gtnexus.appxpress.Precondition;
 
 /**
- * 
+ * Service class to handle File IO procedures common to app.
  * @author jdonovan
  *
  */
@@ -143,6 +143,7 @@ public class FileService {
 	}
 
 	public boolean isFileType(final File file, final String mimeType) {
+		//TODO
 		// can we rely on mime types? I would like to see what happens
 		// there are a few different types for .zip, and .js still cannot
 		// be clearly identified by mime type.
@@ -150,18 +151,14 @@ public class FileService {
 		//
 		return false;
 	}
-
-	public boolean emptyDir(final File file) {
-		if(file == null) {
-			throw new NullPointerException("Cannot empty null directory.");
-		}
-		Boolean result = true;
-		if (file.isDirectory()) {
-			for (File f : file.listFiles()) {
-				result = result && emptyDir(f);
-			}
-		}
-		return (file.delete() && result);
+	
+	public void emptyDir(final File root) throws IOException {
+		emptyDir(root, false);
+	}
+	
+	public void emptyDir(final File root, boolean deleteRoot) throws IOException {
+		DeleteDirVisitor visitor = new DeleteDirVisitor(root.toPath(), deleteRoot);
+		Files.walkFileTree(root.toPath(), visitor);
 	}
 
 }

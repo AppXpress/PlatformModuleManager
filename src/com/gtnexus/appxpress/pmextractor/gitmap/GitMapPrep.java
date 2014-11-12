@@ -44,8 +44,11 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 
 	private void cleanup(File unzipDestination) {
 		if (unzipDestination.exists()) {
-			fs.emptyDir(unzipDestination); // TODO i dont think we wanna delete
-											// it
+			try {
+				fs.emptyDir(unzipDestination); 
+			} catch(IOException e) {
+				//TODO
+			}
 		}
 	}
 
@@ -57,9 +60,7 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	 */
 	private void clearCustomLinksXML(File customerPath) {
 		File dir = customerPath.toPath().resolve(CUSTOM_LINK_D1).toFile();
-		if (dir.exists()) {
-			fs.emptyDir(dir); // TODO we shouldnt whipe out the top level dir
-		}
+		cleanup(dir);
 	}
 
 	/**

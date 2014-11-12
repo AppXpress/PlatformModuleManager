@@ -12,7 +12,6 @@ public class DummyOption implements CLIOption{
 
 	@Override
 	public Class<?> getType() {
-		// TODO Auto-generated method stub
 		return Object.class;
 	}
 

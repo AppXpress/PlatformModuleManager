@@ -33,19 +33,14 @@ public class AppXpressMapper implements Mapper {
 	/**
 	 * Performs the directory mappings (renaming, moving, etc.)
 	 */
-	public void doMapping() {
+	public void doMapping() throws AppXpressException {
 		if (root == null || !root.isDirectory()) {
 			System.err.println("Module root cannot be found, or is empty. "
 					+ "No mapping can be performed.");
 			return;
 		}
-		try {
-			prep.prepare(root);
-			bundler.bundle(root);
-		} catch (AppXpressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		prep.prepare(root);
+		bundler.bundle(root);
 	}
-	
+
 }
