@@ -14,9 +14,9 @@ public class BuildPrep implements Preparation<File> {
 
 	@Override
 	public void prepare(File rootFile) throws PMBuilderException {
-		runImportFind(rootFile);
-		xmlDesignCustomObjectScriptMatcher(rootFile);
 		try {
+			runImportFind(rootFile);
+			xmlDesignCustomObjectScriptMatcher(rootFile);
 			map(rootFile);
 		} catch (AppXpressException e) {
 			throw new PMBuilderException(
@@ -31,8 +31,9 @@ public class BuildPrep implements Preparation<File> {
 	 *            Name of customer folder
 	 * @param folder
 	 *            Name of platform module folder
+	 * @throws AppXpressException
 	 */
-	private void runImportFind(File rootFile) {
+	private void runImportFind(File rootFile) throws AppXpressException {
 		System.out.println("Gathering imports...");
 		ImportService iScanner = new ImportService(rootFile);
 		iScanner.scanAndImport();

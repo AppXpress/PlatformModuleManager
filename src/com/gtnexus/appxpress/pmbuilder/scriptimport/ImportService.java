@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Precondition;
 import com.gtnexus.appxpress.file.FileService;
 
@@ -49,10 +50,11 @@ public class ImportService {
 	 * 
 	 * @param filePath
 	 *            File path to recursively search
+	 * @throws AppXpressException 
 	 */
-	public void scanAndImport() {
+	public void scanAndImport() throws AppXpressException {
 		if (!root.isDirectory()) {
-			throw new IllegalArgumentException(root.getAbsolutePath()
+			throw new AppXpressException(root.getAbsolutePath()
 					+ " is invalid. filePath "
 					+ "must be a valid path to a directory");
 		}
