@@ -62,7 +62,14 @@ public class ImportFile extends File {
 	
 	@Override
 	public ImportFile[] listFiles() {
-		return (ImportFile[])super.listFiles();
+		String[] ss = list();
+		if (ss == null) return null;
+		int n = ss.length;
+		ImportFile[] fs = new ImportFile[n];
+		for (int i = 0; i < n; i++) {
+			fs[i]  = new ImportFile(this, ss[i]);
+		}
+		return fs;
 	}
 
 }
