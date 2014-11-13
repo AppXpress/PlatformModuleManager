@@ -77,7 +77,10 @@ public class PlatformModuleBuilder {
 		this.prep = new BuildPrep();
 		this.bundler = new PlatformModuleBundler();
 	}
-
+	
+	/**
+	 * Builds the platform module.
+	 */
 	public void build() {
 		try {
 			prep.prepare(rootFile);

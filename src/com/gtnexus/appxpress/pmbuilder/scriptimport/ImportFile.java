@@ -37,6 +37,10 @@ public class ImportFile extends File {
 	public ImportFile(URI uri) {
 		super(uri);
 	}
+	
+	public ImportFile(File f) {
+		super(f.toURI());
+	}
 
 	/**
 	 * Checks file by extension to determine if this file should be scanned for

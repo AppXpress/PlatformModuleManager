@@ -24,7 +24,7 @@ public class ImportService {
 	private final Precondition<File> precondition;
 
 	public ImportService(final File root) {
-		this.root = (ImportFile) root;
+		this.root = new ImportFile(root);
 		this.importScanner = new ImportScanner();
 		this.fs = new FileService();
 		this.precondition = new Precondition<File>() {
