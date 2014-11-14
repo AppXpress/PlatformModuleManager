@@ -43,7 +43,8 @@ public class PlatformModuleBuilder {
 	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * 
 	 * @param args
-	 *            0 - Name of customer folder 1 - Name of platform module folder
+	 *            0 - Name of customer folder 
+	 *            1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
 		if (args.length != 2) {
