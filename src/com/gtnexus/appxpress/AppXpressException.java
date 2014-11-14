@@ -28,4 +28,16 @@ public class AppXpressException extends Exception {
 		super(arg0);
 	}
 
+	public String getAppXpressMessage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getMessage());
+		Throwable t = getCause();
+		while( t != null) {
+			sb.append("\n");
+			sb.append(t.getMessage());
+			t = t.getCause();
+		}
+		return sb.toString().trim();
+	}
+	
 }

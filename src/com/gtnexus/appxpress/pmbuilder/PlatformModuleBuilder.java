@@ -85,10 +85,11 @@ public class PlatformModuleBuilder {
 		try {
 			prep.prepare(rootFile);
 			bundler.bundle(rootFile);
+			System.out.println("Success!");
 		} catch (AppXpressException e) {
 			System.out.println("Failure when building module for [customer: "
 					+ customer + " module: " + module + "]");
-			System.out.println(e.getMessage());
+			System.out.println(e.getAppXpressMessage());
 		}
 	}
 

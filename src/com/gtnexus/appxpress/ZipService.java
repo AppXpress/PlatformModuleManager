@@ -58,7 +58,7 @@ public class ZipService {
 		String outputFile = directory.getAbsolutePath() + ZIP_EXTENSION;
 		try (FileOutputStream fos = new FileOutputStream(outputFile);
 				ZipOutputStream zos = new ZipOutputStream(fos)) {
-			zipFiles(directory, zos);
+			zipFiles(directory,directory, zos);
 			zos.closeEntry();
 		} catch (IOException e) {
 			throw new PMBuilderException("Exception when recursively zipping "
@@ -75,40 +75,40 @@ public class ZipService {
 	 */
 	@Deprecated
 	public void zipDirectory() throws PMBuilderException {
-		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
-			throw new PMBuilderException("No such directory"
-					+ fileToZip.getAbsolutePath());
-		}
-		System.out.println("Zipping up directory -> "
-				+ fileToZip.getAbsolutePath());
-		String outputFile = fileToZip.getAbsolutePath() + ZIP_EXTENSION;
-		try (FileOutputStream fos = new FileOutputStream(outputFile);
-				ZipOutputStream zos = new ZipOutputStream(fos)) {
-			zipFiles(fileToZip, zos);
-			zos.closeEntry();
-		} catch (IOException e) {
-			throw new PMBuilderException("Exception when recursively zipping "
-					+ fileToZip.getAbsolutePath(), e);
-		}
+//		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
+//			throw new PMBuilderException("No such directory"
+//					+ fileToZip.getAbsolutePath());
+//		}
+//		System.out.println("Zipping up directory -> "
+//				+ fileToZip.getAbsolutePath());
+//		String outputFile = fileToZip.getAbsolutePath() + ZIP_EXTENSION;
+//		try (FileOutputStream fos = new FileOutputStream(outputFile);
+//				ZipOutputStream zos = new ZipOutputStream(fos)) {
+//			zipFiles(fileToZip, zos);
+//			zos.closeEntry();
+//		} catch (IOException e) {
+//			throw new PMBuilderException("Exception when recursively zipping "
+//					+ fileToZip.getAbsolutePath(), e);
+//		}
 	}
 
 	/**
 	 * Recursively pack directory contents.
 	 * 
-	 * @param root
+	 * @param file
 	 *            - current directory path that is visited recursively
 	 * @param zos
 	 *            - ZIP output stream reference to add elements to
 	 * @throws IOException
 	 */
-	private void zipFiles(File root, ZipOutputStream zos) throws IOException {
-		for (File file : root.listFiles()) {
-			if (file.isDirectory()) {
-				zipFiles(file, zos);
+	private void zipFiles(File root, File file, ZipOutputStream zos) throws IOException {
+		for (File f : file.listFiles()) {
+			if (f.isDirectory()) {
+				zipFiles(root, f, zos);
 			} else {
-				ZipEntry entry = new ZipEntry(file.getName());
+				ZipEntry entry = new ZipEntry(zipName(root, f));
 				zos.putNextEntry(entry);
-				FileInputStream fis = new FileInputStream(file);
+				FileInputStream fis = new FileInputStream(f);
 				byte[] block = new byte[1024];
 				int bytesRead = 0;
 				while ((bytesRead = fis.read(block)) > 0) {
@@ -117,6 +117,10 @@ public class ZipService {
 				fis.close();
 			}
 		}
+	}
+	
+	private String zipName(File root, File file) throws IOException {
+		return file.getCanonicalPath().substring(root.getCanonicalPath().length() + 1, file.getCanonicalPath().length());
 	}
 
 	public void unzip(File source, File destination, boolean recurse) {
