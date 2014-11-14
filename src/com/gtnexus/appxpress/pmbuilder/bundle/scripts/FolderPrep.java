@@ -2,6 +2,7 @@ package com.gtnexus.appxpress.pmbuilder.bundle.scripts;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
+import static com.gtnexus.appxpress.AppXpressConstants.DESIGN_;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
@@ -12,15 +13,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.gtnexus.appxpress.Precondition;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.filter.ChainedAnd;
 import com.gtnexus.appxpress.file.filter.FileFilterFactory;
 
 public class FolderPrep implements Preparation<File> {
-	
+
 	private final FileService fs;
-	
+
 	public FolderPrep() {
 		fs = new FileService();
 	}
@@ -31,17 +33,17 @@ public class FolderPrep implements Preparation<File> {
 	@Override
 	public void prepare(File root) {
 		for (File dir : root.listFiles(FileFilterFactory.directoriesOnly())) {
-				try {
-					route(dir);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			try {
+				route(dir);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	private void route(File dir) throws IOException {
-		//TODO can we do better than this?
+		// TODO can we do better than this?
 		String directoryName = dir.getName();
 		if (directoryName.endsWith(CUSTOM_LINK_D1)) {
 			fs.renameFile(dir, CUSTOM_LINK_D1);
@@ -51,9 +53,9 @@ public class FolderPrep implements Preparation<File> {
 			fs.prependToName(Arrays.asList(dir.listFiles()), $);
 		} else if (directoryName.endsWith(CUSTOM_OBJECT_MODULE)) {
 			fixCustomObjectModule(dir);
-		} 
+		}
 	}
-	
+
 	/**
 	 * 
 	 * @param directory
@@ -63,23 +65,43 @@ public class FolderPrep implements Preparation<File> {
 		File designFolder = new File(directory.getAbsolutePath()
 				+ File.separator + "designs");
 		if (designFolder.exists()) {
-			fs.renameFile(Arrays.asList(designFolder.listFiles()),
-					"Design_", "Design_$");
+			renameWhenNecessary(designFolder.listFiles(), DESIGN_, DESIGN_ + $);
 		}
 		File scriptFolder = new File(directory.getAbsolutePath()
 				+ File.separator + SCRIPTS);
 		if (scriptFolder.exists()) {
 			File[] files = scriptFolder.listFiles(new ChainedAnd(
-					FileFilterFactory.directoriesOnly(), 
-					FileFilterFactory.fileNameDoesNotContain("_$")));
-			fs.renameFile(Arrays.asList(files), 
-					SCRIPT_DESIGN, SCRIPT_DESIGN + $);
+					FileFilterFactory.directoriesOnly(), FileFilterFactory
+							.fileNameDoesNotContain("_$")));
+			fs.renameFile(Arrays.asList(files), SCRIPT_DESIGN, SCRIPT_DESIGN
+					+ $);
 		}
 		File xsdFolder = new File(directory.getAbsoluteFile() + File.separator
 				+ "xsd");
 		if (xsdFolder.exists()) {
-			fs.prependToName(Arrays.asList(xsdFolder.listFiles()), $);
+			prependWhenNecessary(xsdFolder.listFiles(), $);
 		}
+	}
+
+	private void renameWhenNecessary(final File[] files, final String toReplace,
+			final String replacement) throws IOException {
+		Precondition<File> precondition = doesNotStartWith(replacement);
+		fs.renameFile(Arrays.asList(files), toReplace, replacement, precondition);
+	}
+	
+	private void prependWhenNecessary(final File[] files, final String prepend) throws IOException {
+		Precondition<File> precondition = doesNotStartWith(prepend);
+		fs.prependToName(Arrays.asList(files), prepend, precondition);
+	}
+
+	private Precondition<File> doesNotStartWith(final String string) {
+		return new Precondition<File>() {
+
+			@Override
+			public boolean isMet(File f) {
+				return !f.getName().startsWith(string);
+			}
+		};
 	}
 
 }

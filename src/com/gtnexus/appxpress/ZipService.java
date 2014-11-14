@@ -4,8 +4,10 @@ import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -24,25 +26,38 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  */
 public class ZipService {
 
-	private File fileToZip;
-
-	/**
-	 * Zips up folder depicted by path folder
-	 * 
-	 * @param pathToZip
-	 *            File to zip up
-	 */
-	@Deprecated
-	public ZipService(String pathToZip) {
-		fileToZip = new File(pathToZip);
-	}
-
 	public ZipService() {
 		// nothing to do
 	}
 
+	public void zipFiles(Collection<File> files, String absPathToDestinationZip)
+			throws PMBuilderException {
+		try (FileOutputStream fos = new FileOutputStream(
+				absPathToDestinationZip);
+				ZipOutputStream zos = new ZipOutputStream(fos)) {
+			for (File f : files) {
+				zipSingle(zos, f);
+			}
+		} catch (IOException e) {
+			throw new PMBuilderException(
+					"Error when zipping collection of files", e);
+		}
+	}
+
+	private void zipSingle(ZipOutputStream zos, File f) throws IOException {
+		try(FileInputStream fis = new FileInputStream(f)) {
+			ZipEntry entry = new ZipEntry(f.getName());
+			zos.putNextEntry(entry);
+			byte[] block = new byte[1024];
+			int bytesRead = 0;
+			while ((bytesRead = fis.read(block)) > 0) {
+				zos.write(block, 0, bytesRead);
+			}
+		}
+	}
+
 	/**
-	 * Packs the given directory.
+	 * Packs the given directory into a a zip file named after the directory.
 	 * 
 	 * @param directoryPath
 	 *            - the directory that is going to be packed
@@ -53,43 +68,33 @@ public class ZipService {
 			throw new PMBuilderException("No such directory"
 					+ directory.getAbsolutePath());
 		}
-		System.out.println("Zipping up directory -> "
-				+ directory.getAbsolutePath());
-		String outputFile = directory.getAbsolutePath() + ZIP_EXTENSION;
-		try (FileOutputStream fos = new FileOutputStream(outputFile);
-				ZipOutputStream zos = new ZipOutputStream(fos)) {
-			zipFiles(directory,directory, zos);
-			zos.closeEntry();
-		} catch (IOException e) {
-			throw new PMBuilderException("Exception when recursively zipping "
-					+ directory.getAbsolutePath(), e);
-		}
+		String outputZip = directory.getAbsolutePath() + ZIP_EXTENSION;
+		zipDirectory(directory, outputZip);
 	}
 
 	/**
-	 * Packs the given directory.
+	 * Packs the given directory into a a zip file named after the directory.
 	 * 
 	 * @param directoryPath
 	 *            - the directory that is going to be packed
 	 * @throws IOException
 	 */
-	@Deprecated
-	public void zipDirectory() throws PMBuilderException {
-//		if (!fileToZip.exists() || !fileToZip.isDirectory()) {
-//			throw new PMBuilderException("No such directory"
-//					+ fileToZip.getAbsolutePath());
-//		}
-//		System.out.println("Zipping up directory -> "
-//				+ fileToZip.getAbsolutePath());
-//		String outputFile = fileToZip.getAbsolutePath() + ZIP_EXTENSION;
-//		try (FileOutputStream fos = new FileOutputStream(outputFile);
-//				ZipOutputStream zos = new ZipOutputStream(fos)) {
-//			zipFiles(fileToZip, zos);
-//			zos.closeEntry();
-//		} catch (IOException e) {
-//			throw new PMBuilderException("Exception when recursively zipping "
-//					+ fileToZip.getAbsolutePath(), e);
-//		}
+	public void zipDirectory(File directory, String outputZip)
+			throws PMBuilderException {
+		if (!directory.exists() || !directory.isDirectory()) {
+			throw new PMBuilderException("No such directory"
+					+ directory.getAbsolutePath());
+		}
+		System.out.println("Zipping up directory -> "
+				+ directory.getAbsolutePath());
+		try (FileOutputStream fos = new FileOutputStream(outputZip);
+				ZipOutputStream zos = new ZipOutputStream(fos)) {
+			zipDirFiles(directory, directory, zos);
+			zos.closeEntry();
+		} catch (IOException e) {
+			throw new PMBuilderException("Exception when recursively zipping "
+					+ directory.getAbsolutePath(), e);
+		}
 	}
 
 	/**
@@ -101,10 +106,11 @@ public class ZipService {
 	 *            - ZIP output stream reference to add elements to
 	 * @throws IOException
 	 */
-	private void zipFiles(File root, File file, ZipOutputStream zos) throws IOException {
+	private void zipDirFiles(File root, File file, ZipOutputStream zos)
+			throws IOException {
 		for (File f : file.listFiles()) {
 			if (f.isDirectory()) {
-				zipFiles(root, f, zos);
+				zipDirFiles(root, f, zos);
 			} else {
 				ZipEntry entry = new ZipEntry(zipName(root, f));
 				zos.putNextEntry(entry);
@@ -118,9 +124,11 @@ public class ZipService {
 			}
 		}
 	}
-	
+
 	private String zipName(File root, File file) throws IOException {
-		return file.getCanonicalPath().substring(root.getCanonicalPath().length() + 1, file.getCanonicalPath().length());
+		return file.getCanonicalPath().substring(
+				root.getCanonicalPath().length() + 1,
+				file.getCanonicalPath().length());
 	}
 
 	public void unzip(File source, File destination, boolean recurse) {

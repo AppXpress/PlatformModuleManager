@@ -31,6 +31,11 @@ public class FileService {
 		return renameFile(file, prepend + file.getName());
 	}
 
+	public Path prependToName(File file, String prepend,
+			Precondition<File> precondition) throws IOException {
+		return renameFile(file, prepend + file.getName(), precondition);
+	}
+
 	/**
 	 * Prepends a String to the the names of a collection of a files.
 	 * 
@@ -41,9 +46,24 @@ public class FileService {
 	 */
 	public List<Path> prependToName(Collection<File> files, String prepend)
 			throws IOException {
+		return prependToName(files, prepend, new Precondition.EmptyCondition<File>());
+	}
+	
+	/**
+	 * Prepends a String to the the names of a collection of a files.
+	 * 
+	 * @param files
+	 *            The list of files who's name will be altered.
+	 * @param prepend
+	 *            The String to prepend to each file name.
+	 * @precondition
+	 * 			The condition that must be met before string is prepended to file name
+	 */
+	public List<Path> prependToName(Collection<File> files, String prepend, Precondition<File> precondition)
+			throws IOException {
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
-			paths.add(prependToName(file, prepend));
+			paths.add(prependToName(file, prepend, precondition));
 		}
 		return paths;
 	}
@@ -59,7 +79,25 @@ public class FileService {
 	 *             if the renaming operation fails.
 	 */
 	public Path renameFile(File file, String newName) throws IOException {
-		Path path = null;
+		return renameFile(file, newName,
+				new Precondition.EmptyCondition<File>());
+	}
+
+	/**
+	 * Rename a single file
+	 * 
+	 * @param file
+	 *            The file whose name will be altered.
+	 * @param newName
+	 *            The files new name.
+	 * @throws IOException
+	 *             if the renaming operation fails.
+	 */
+	public Path renameFile(File file, String newName,
+			Precondition<File> precondition) throws IOException {
+		Path path = file.toPath();
+		if (!precondition.isMet(file))
+			return path;
 		try {
 			path = Files.move(file.toPath(),
 					file.toPath().resolveSibling(newName));
@@ -85,6 +123,29 @@ public class FileService {
 	 */
 	public List<Path> renameFile(Collection<File> files, String toReplace,
 			String replacement) throws IOException {
+		return renameFile(files, toReplace, replacement,
+				new Precondition.EmptyCondition<File>());
+	}
+
+	/**
+	 * Renames a set of files by replacing a matched string with some
+	 * replacement as long as some precondition is met for each file.
+	 * 
+	 * @param files
+	 *            The set of file's whose names will be altered if they match
+	 *            the replacement string.
+	 * @param toReplace
+	 *            The string that will be replaced if found in any file names.
+	 * @param replacement
+	 *            The string that will replace the found string in the file
+	 *            name.
+	 * @param precondition
+	 *            The precondition that must be met in order for file to be
+	 *            renamed.
+	 */
+	public List<Path> renameFile(Collection<File> files, String toReplace,
+			String replacement, Precondition<File> precondition)
+			throws IOException {
 		if (files == null) {
 			throw new NullPointerException("Files cannot be null.");
 		}
@@ -96,7 +157,7 @@ public class FileService {
 		for (File file : files) {
 			String fileName = file.getName();
 			Path result = renameFile(file,
-					fileName.replace(toReplace, replacement));
+					fileName.replace(toReplace, replacement), precondition);
 			paths.add(result);
 		}
 		return paths;
@@ -121,7 +182,7 @@ public class FileService {
 		}
 		if (!destination.isDirectory()) {
 			throw new IllegalArgumentException(
-					"Detination must be a directory.");
+					"Destination must be a directory.");
 		}
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {

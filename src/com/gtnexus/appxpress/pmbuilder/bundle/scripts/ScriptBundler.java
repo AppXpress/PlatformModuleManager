@@ -73,32 +73,13 @@ public class ScriptBundler implements Bundler {
 			}
 		}
 		if (jsFiles.size() > 1) {
-			final File bundleFolder = createBundleFolder(dir);
 			try {
-				fs.moveFiles(jsFiles, bundleFolder);
-				zu.zipDirectory(bundleFolder);
-				fs.emptyDir(dir);
+				zu.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
+				fs.emptyDir(dir, true);
 			} catch (PMBuilderException | IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	private File createBundleFolder(final File parent) {
-		final String bundleFolderName = initCap(parent.getName() + BUNDLE);
-		final File bundle = new File(parent, bundleFolderName);
-		bundle.mkdir();
-		return bundle;
-	}
-
-	/**
-	 * Capitalize the first letter in a string.
-	 * 
-	 * @param string
-	 * @return
-	 */
-	private String initCap(final String string) {
-		return string.substring(0, 1).toUpperCase().concat(string.substring(1));
 	}
 
 	/**

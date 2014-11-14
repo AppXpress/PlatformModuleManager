@@ -1,6 +1,9 @@
 package com.gtnexus.appxpress.pmbuilder.design;
 
+import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
+import static com.gtnexus.appxpress.AppXpressConstants.DESIGN_;
+import static com.gtnexus.appxpress.AppXpressConstants.XML_EXTENSION;
 
 import java.io.File;
 
@@ -84,9 +87,9 @@ public class CustomObjectDesignXML {
 	 * 
 	 * @param ensurer
 	 */
-	private void checkEachScriptAndDesign(ScriptingDesignEnsurer ensurer) {
+	private void checkEachScriptAndDesign(ScriptingDesignEnsurer ensurer) throws PMBuilderException {
 		final String correspondingXMLPathTemplate = designDirectory
-				.getAbsolutePath() + File.separator + "%s";
+				.getAbsolutePath() + File.separator + DESIGN_ + $ + "%s" + XML_EXTENSION;
 		for (File script : scriptDirectory.listFiles()) {
 			File correspondingXML = new File(String.format(
 					correspondingXMLPathTemplate, script.getName()));

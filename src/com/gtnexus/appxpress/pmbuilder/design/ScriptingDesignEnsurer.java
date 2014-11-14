@@ -16,6 +16,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+
 public class ScriptingDesignEnsurer {
 
 	private final DocumentBuilder builder;
@@ -25,16 +27,23 @@ public class ScriptingDesignEnsurer {
 		builder = factory.newDocumentBuilder();
 	}
 
-	public void ensure(File xml, File customObject, boolean js) {
+	public void ensure(File xml, File customObject, boolean js)
+			throws PMBuilderException {
 		if (xml == null || customObject == null) {
-
+			throw new NullPointerException(
+					"Cannot ensure design for null xml or null custom object");
+		}
+		if (!xml.exists()) {
+			throw new PMBuilderException("Xml file " + xml.getAbsolutePath()
+					+ " does not exist. Cannot ensure design for script "
+					+ customObject.getAbsolutePath() + " .");
 		}
 		Document xmlDoc;
 		ScriptDesignTagModifierFactory factory = new ScriptDesignTagModifierFactory();
 		try {
 			xmlDoc = builder.parse(xml);
-			factory.newTagModifierFor(xmlDoc,
-					customObject, false).modifyAsNeeded();
+			factory.newTagModifierFor(xmlDoc, customObject, false)
+					.modifyAsNeeded();
 			xmlDoc.getDocumentElement().normalize();
 			TransformerFactory transformerFactory = TransformerFactory
 					.newInstance();
@@ -43,12 +52,9 @@ public class ScriptingDesignEnsurer {
 			StreamResult result = new StreamResult(xml);
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
-		} catch (SAXException | IOException e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (SAXException | IOException | TransformerException e) {
+			throw new PMBuilderException("Exception when transforming xml!", e);
+		} 
 	}
 
 }
