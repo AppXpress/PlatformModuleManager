@@ -192,14 +192,8 @@ public class FileService {
 	 * @param mimeType
 	 * @return
 	 */
-	public boolean isFileType(final File file, final String mimeType) {
-		// TODO can we rely on mime types?
-		/*
-		 * I would like to see what happens there are a few different types for
-		 * .zip, and .js still cannot be clearly identified by mime type.
-		 * perhaps build mime type table and then fall back on file extension
-		 */
-		return false;
+	public boolean isFileType(final File file, final String extension) {
+		return file.getName().endsWith(extension);
 	}
 
 	/**

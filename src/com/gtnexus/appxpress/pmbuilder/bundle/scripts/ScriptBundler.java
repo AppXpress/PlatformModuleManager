@@ -20,6 +20,11 @@ import com.gtnexus.appxpress.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
+/**
+ * 
+ * @author jdonovan
+ *
+ */
 public class ScriptBundler implements Bundler {
 
 	private final ZipService zu;
@@ -64,7 +69,7 @@ public class ScriptBundler implements Bundler {
 			if (fs.isFileType(f, "js")) {
 				jsFiles.add(f);
 			} else if (f.isDirectory()) {
-				searchForPotentialBundles(dir);
+				searchForPotentialBundles(f);
 			}
 		}
 		if (jsFiles.size() > 1) {
