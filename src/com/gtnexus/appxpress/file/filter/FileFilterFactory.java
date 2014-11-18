@@ -36,6 +36,27 @@ public class FileFilterFactory {
 		};
 	}
 	
+	public static FileFilter fileNameStartsWith(final String string) {
+		return startsWithFilter(true, string);
+	}
+	
+	public static FileFilter fileNameDoesNotStartsWith(final String string) {
+		return startsWithFilter(false, string);
+	}
+	
+	private static FileFilter startsWithFilter(final boolean starts, final String string) {
+		return new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				if(starts) {
+					return file.getName().startsWith(string);
+				} else {
+					return !file.getName().startsWith(string);
+				}
+			}
+		};
+	}
+	
 	public static FileFilter endsWith(final String string) {
 		return new FileFilter() {
 			@Override
