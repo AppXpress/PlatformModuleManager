@@ -24,52 +24,52 @@ folders. The lib folder contains reusable javascript files.
 ```
 ├── platform/
 │  ├── customer/
-│  │   ├── aCustomer/
-│  │   │   ├── commonScript
-│  │   │   ├── CustomObjectModule
-│  │   │   │   ├── designs
-│  │   │   │   ├── xsd
-│  │   │   ├── PlatformLocalization
-│  │   │   ├── TypeExtension
+│  │  ├── aCustomer/
+│  │  │   ├── aModule
+│  │  │   │   ├── commonScript
+│  │  │   │   ├── CustomObjectModule
+│  │  │   │   │   ├── designs
+│  │  │   │   │   ├── xsd
+│  │  │   │   ├── PlatformLocalization
+│  │  │   │   ├── TypeExtension
 │  ├── lib/
 ```
 
-## Building Jar from Eclipse
+## Getting Started
+Pick up the latest release here.
 
-Both of the jar executables, ``pmbuilder`Util` and ``pmextractor`Util`, are built
-with *JRE 1.7*. If your current java version is not 1.7, you might run into
-some problems running the the jars. Check your java -version by entering in
-the following command ->
+### Installing
+After downloading the latest release, `pmbuilder` and `pmextractor` need to be added to your path, or put in a directory that is in already on your path.
+
+e.g.:
+
+```bash
+mv pmbuilder ~/bin
+mv pmextractor ~/bin
+```
+
+The scripts also require that a `$APPXPRESS_HOME` environment variable be declared. This variable should point to the parent directory of pmbuilder.jar
+
+e.g:
+```bash
+echo "APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
+```
+
+### Building the .jar
+
+If your current java version is not 1.7, you might run into
+some problems running the the jars. You can always check your java version by
+running the following:
 
 ```bash
 $ java -version
 ```
 
-If it is not 1.7, it is safest to build your own jar using the source code found
-in the src/PM_Builder and src/PM_extractor folders respectively. Steps to build
-a jar in eclipse follow.
+If your versions is below 1.7, it is safest to build your own jar using the source code found
+in the src/PM_Builder and src/PM_extractor folders respectively. Steps to build a jar in eclipse follow.
 
-* Open a new java project by going to File->Java Project
+#### Building From Eclipse
 
-* Drag the source code found in src/PM_Builder/src into the src folder of your new project
-
-* Right click on your project name , go into Build Path->Configure Build Path and navigate to
-the libraries tab
-
-* Add the jar that is found in the src/Libraries folder in this Git Repository, called zip4j_1.3.2.jar
-
-* Press ok
-
-* Now, right click again on your project name, click on export then under java click on **runnable jar file**
-
-* For the `pmbuilder`, make the launch config **PlatformModuleBuilder** and export it with the name `pmbuilder`Util.
-
-* For the `pmextractor`, make the launch config **GitMap** and export it with the name `pmextractor`Util.
-
-* Underneath the location and the launch config you will see three radio buttons. Make sure the middle one, *Packaged
-required libraries into generated JAR*, is selected.
-
-* Place each new jar with its corresponding bash script and it should run fine.
 
 ## Running `pmbuilder`
 
