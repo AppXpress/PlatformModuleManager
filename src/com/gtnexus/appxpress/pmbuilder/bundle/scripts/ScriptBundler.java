@@ -2,7 +2,10 @@ package com.gtnexus.appxpress.pmbuilder.bundle.scripts;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.BUNDLE;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
+import static com.gtnexus.appxpress.AppXpressConstants.DESIGNS;
 import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
+import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
 import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
 
@@ -13,12 +16,12 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.ZipService;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.filter.ChainedAnd;
 import com.gtnexus.appxpress.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * 
@@ -27,16 +30,16 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  */
 public class ScriptBundler implements Bundler {
 
-	private final ZipService zu;
+	private final ZipService zs;
 	private final FileService fs;
 
 	public ScriptBundler() {
-		this.zu = new ZipService();
+		this.zs = new ZipService();
 		this.fs = new FileService();
 	}
 
 	@Override
-	public void bundle(final File directory) {
+	public void bundle(final File directory) throws AppXpressException {
 		for (File f : directory.listFiles(FileFilterFactory.directoriesOnly())) {
 			searchForPotentialBundles(f);
 		}
@@ -50,13 +53,12 @@ public class ScriptBundler implements Bundler {
 	}
 
 	private boolean wasSpecialCase(final File dir) {
-		final String platformIndependent = /*dir.getAbsolutePath()
-				+ File.separator +*/ "designs" + File.separator + "scripts";
+		final String platformIndependent = DESIGNS + File.separator + SCRIPTS;
 		boolean isSpecial = false;
 		if (dir.getAbsolutePath().toLowerCase().contains(platformIndependent.toLowerCase())) {
 			handleCustomObjectDesignScripts(dir);
 			isSpecial = true;
-		} else if (dir.getName().endsWith("customUi")) {
+		} else if (dir.getName().endsWith(CUSTOM_UI)) {
 			handleFef(dir);
 			isSpecial = true;
 		}
@@ -66,7 +68,7 @@ public class ScriptBundler implements Bundler {
 	private void bundleGenerically(File dir) {
 		final List<File> jsFiles = new LinkedList<>();
 		for (File f : dir.listFiles()) {
-			if (fs.isFileType(f, "js")) {
+			if (fs.isFileType(f, JS_EXTENSION)) {
 				jsFiles.add(f);
 			} else if (f.isDirectory()) {
 				searchForPotentialBundles(f);
@@ -74,9 +76,9 @@ public class ScriptBundler implements Bundler {
 		}
 		if (jsFiles.size() > 1) {
 			try {
-				zu.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
+				zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
 				fs.emptyDir(dir, true);
-			} catch (PMBuilderException | IOException e) {
+			} catch (AppXpressException | IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -94,9 +96,9 @@ public class ScriptBundler implements Bundler {
 				FileFilterFactory.doesNotEndWith(ZIP_EXTENSION));
 		for (File file : dir.listFiles(filter)) {
 			try {
-				zu.zipDirectory(file);
+				zs.zipDirectory(file);
 				fs.emptyDir(file, true);
-			} catch (PMBuilderException | IOException e) {
+			} catch (AppXpressException | IOException e) {
 				System.err.println(e.getMessage());
 			}
 		}
@@ -114,31 +116,32 @@ public class ScriptBundler implements Bundler {
 	}
 
 	private void handleSingleCODScript(final File dir) {
+		Path p = dir.toPath();
 		try {
 			if (dir.list().length == 1) {
 				moveUpAndRename(dir);
 			} else if (dir.list().length > 1) {
-				bundleCODScript(dir);
-				fs.emptyDir(dir, true);
+				p = bundleCODScript(dir);
+				zs.zipDirectory(p.toFile());
 			}
-//			fs.emptyDir(dir);
-		} catch (IOException e) {
+			fs.emptyDir(p, true);
+		} catch (AppXpressException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	private void bundleCODScript(final File dir) throws IOException {
+	private Path bundleCODScript(final File dir) throws IOException {
 		String rename = SCRIPT_DESIGN + $ + dir.getName();
 		Path newPath = dir.toPath().resolveSibling(rename);
-		Files.move(dir.toPath(), newPath);
+		return Files.move(dir.toPath(), newPath);
 	}
 
-	private void moveUpAndRename(final File dir) throws IOException {
+	private Path moveUpAndRename(final File dir) throws IOException {
 		String newName = SCRIPT_DESIGN + $ + dir.getName() + JS_EXTENSION;
 		Path newPath = dir.toPath().resolveSibling(newName);
 		File loneFile = dir.listFiles()[0];
-		Files.move(loneFile.toPath(), newPath);
+		return Files.move(loneFile.toPath(), newPath);
 	}
 
 }

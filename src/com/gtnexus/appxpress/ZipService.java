@@ -13,7 +13,6 @@ import java.util.zip.ZipOutputStream;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
  * Zips up a folder
@@ -30,7 +29,7 @@ public class ZipService {
 	}
 
 	public void zipFiles(Collection<File> files, String absPathToDestinationZip)
-			throws PMBuilderException {
+			throws AppXpressException {
 		try (FileOutputStream fos = new FileOutputStream(
 				absPathToDestinationZip);
 				ZipOutputStream zos = new ZipOutputStream(fos)) {
@@ -38,7 +37,7 @@ public class ZipService {
 				zipSingle(zos, f);
 			}
 		} catch (IOException e) {
-			throw new PMBuilderException(
+			throw new AppXpressException(
 					"Error when zipping collection of files", e);
 		}
 	}
@@ -62,9 +61,9 @@ public class ZipService {
 	 *            - the directory that is going to be packed
 	 * @throws IOException
 	 */
-	public void zipDirectory(File directory) throws PMBuilderException {
+	public void zipDirectory(File directory) throws AppXpressException {
 		if (!directory.exists() || !directory.isDirectory()) {
-			throw new PMBuilderException("No such directory"
+			throw new AppXpressException("No such directory"
 					+ directory.getAbsolutePath());
 		}
 		String outputZip = directory.getAbsolutePath() + ZIP_EXTENSION;
@@ -79,9 +78,9 @@ public class ZipService {
 	 * @throws IOException
 	 */
 	public void zipDirectory(File directory, String outputZip)
-			throws PMBuilderException {
+			throws AppXpressException {
 		if (!directory.exists() || !directory.isDirectory()) {
-			throw new PMBuilderException("No such directory"
+			throw new AppXpressException("No such directory"
 					+ directory.getAbsolutePath());
 		}
 		System.out.println("Zipping up directory -> "
@@ -91,7 +90,7 @@ public class ZipService {
 			zipDirFiles(directory, directory, zos);
 			zos.closeEntry();
 		} catch (IOException e) {
-			throw new PMBuilderException("Exception when recursively zipping "
+			throw new AppXpressException("Exception when recursively zipping "
 					+ directory.getAbsolutePath(), e);
 		}
 	}

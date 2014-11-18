@@ -2,10 +2,10 @@ package com.gtnexus.appxpress.pmbuilder.bundle;
 
 import java.io.File;
 
-import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import com.gtnexus.appxpress.AppXpressException;
 
 public interface Bundler {
 
-	public void bundle(File directory) throws PMBuilderException;
+	public void bundle(File directory) throws AppXpressException;
 	
 }
