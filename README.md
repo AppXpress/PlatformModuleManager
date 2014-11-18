@@ -8,12 +8,10 @@ __*NOTE*:This README is a work in progress.__
 
 ### Use Case
 
-``pmbuilder`` consumes  command line arguments  to
-take a specifically structured platform module and zip it up into a correctly formatted importable zip file.
-(located in a (local/remote) git repository).
+``pmbuilder`` consumes a specifically structured platform module, and zips it up into a correctly formatted importable zip file.
 
 ``pmextractor`` takes an exported zip file and merges it with your
-current local working directory. ``pmextractor`` performs the opposite function
+current local git working directory. ``pmextractor`` performs the opposite function
 as ``pmbuilder``, and maps the exported module to a human readable file structure.
 
 ### Directory Overview and Git Structure
@@ -33,6 +31,7 @@ folders. The lib folder contains reusable javascript files.
 │  │   │   │   ├── xsd
 │  │   │   ├── PlatformLocalization
 │  │   │   ├── TypeExtension
+│  ├── lib/
 ```
 
 ## Building Jar from Eclipse

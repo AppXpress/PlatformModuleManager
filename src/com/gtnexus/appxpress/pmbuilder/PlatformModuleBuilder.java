@@ -51,23 +51,15 @@ public class PlatformModuleBuilder {
 	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * 
 	 * @param args
-	 *            0 - Name of customer folder 1 - Name of platform module folder
+	 *            0 - Name of customer folder 
+	 *            1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
-		/*
-		 * if (args.length != 2) { System.err
-		 * .println("Incorrect parameters. Program requires two parameters");
-		 * return; } PlatformModuleBuilder pmb = new
-		 * PlatformModuleBuilder(args[0], args[1]);
-		 */
 		PlatformModuleBuilder pmb = new PlatformModuleBuilder(args);
 		pmb.build();
 	}
 
 	private final String[] args;
-	/*
-	 * private final String customer, module; private final File rootFile;
-	 */
 	private final Preparation<File> prep;
 	private final Bundler bundler;
 
@@ -87,20 +79,16 @@ public class PlatformModuleBuilder {
 	}
 
 	public void build() {
-		CommandLineInterfaceParser<BuilderOption> cli = new CommandLineInterfaceParser<>(
-				NAME, args, EnumSet.allOf(BuilderOption.class));
-		if (cli.hasOption(BuilderOption.HELP)) {
-			cli.displayHelpAndExit();
-		}
 		try {
+			CommandLineInterfaceParser<BuilderOption> cli = new CommandLineInterfaceParser<>(
+					NAME, args, EnumSet.allOf(BuilderOption.class));
+			cli.parseCommandLine();
+			if (cli.hasOption(BuilderOption.HELP)) {
+				cli.displayHelpAndExit();
+			}
 			performBuild(cli);
 		} catch (AppXpressException e) {
 			System.out.println("Failure when building module");
-			// TODO
-			/*
-			 * System.out.println("Failure when building module for [customer: "
-			 * + customer + " module: " + module + "]");
-			 */
 			System.out.println(e.getAppXpressMessage());
 		}
 	}
@@ -121,7 +109,6 @@ public class PlatformModuleBuilder {
 		prep.prepare(vo.getRootFile());
 		bundler.bundle(vo.getRootFile());
 		System.out.println("Success!");
-
 	}
 
 }
