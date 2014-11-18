@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Precondition;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.ZipService;
@@ -16,8 +17,8 @@ import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
- * Performs all prep work for GitMap, including cleaning directories,
- * unzipping the platform, and creating a backup.
+ * Performs all prep work for GitMap, including cleaning directories, unzipping
+ * the platform, and creating a backup.
  * 
  * @author jdonovan
  *
@@ -45,12 +46,13 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 		clearCustomLinksXML(vo.getCustomerDir());
 	}
 
-	private void cleanup(File unzipDestination) {
+	private void cleanup(File unzipDestination) throws PMBuilderException {
 		if (unzipDestination.exists()) {
 			try {
-				fs.emptyDir(unzipDestination); 
-			} catch(IOException e) {
-				//TODO
+				fs.emptyDir(unzipDestination);
+			} catch (IOException e) {
+				throw new PMBuilderException(
+						"Exception when cleaning unzipDestination", e);
 			}
 		}
 	}
@@ -61,7 +63,8 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	 * of outdated custom links files.
 	 *
 	 */
-	private void clearCustomLinksXML(File customerPath) {
+	private void clearCustomLinksXML(File customerPath)
+			throws PMBuilderException {
 		File dir = customerPath.toPath().resolve(CUSTOM_LINK_D1).toFile();
 		cleanup(dir);
 	}
@@ -69,9 +72,17 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	/**
 	 * Unzips file 'folder' into PlatModX
 	 */
-	private void unzipPlatformZip(File platformZip, File unzipDestination) {
+	private void unzipPlatformZip(File platformZip, File unzipDestination)
+			throws PMBuilderException {
 		if (platformZip.exists()) {
-			zs.unzip(platformZip, unzipDestination);
+			try {
+				zs.unzip(platformZip, unzipDestination);
+			} catch (AppXpressException e) {
+				throw new PMBuilderException(
+						"Exception when unzipping platformZip: " + platformZip,
+						e);
+			}
+
 		} else {
 			System.out.println("Cannot find zipped folder!");
 		}
@@ -82,8 +93,9 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	 * 
 	 * @param folderName
 	 *            Location of file structure
+	 * @throws PMBuilderException
 	 */
-	private void makeHumanReadable(File f) {
+	private void makeHumanReadable(File f) throws PMBuilderException {
 		if (!f.exists()) {
 			System.err.println("Cannot find folder -> " + f.getName());
 			return;
@@ -97,8 +109,7 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 			try {
 				fs.renameFile(f, f.getName().replace($, ""));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new PMBuilderException("Exception when renaming " + f, e);
 			}
 		}
 	}
@@ -108,9 +119,10 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	 */
 	private void backup(Path customerPath, String platform) {
 		AppXpressDirResolver resolver = new AppXpressDirResolver();
-		Path bkpPath = resolver.resolveAppXpressDir().resolve("PM_Git_Backup").resolve(platform);
+		Path bkpPath = resolver.resolveAppXpressDir().resolve("PM_Git_Backup")
+				.resolve(platform);
 		try {
-			if(Files.exists(bkpPath)) {
+			if (Files.exists(bkpPath)) {
 				fs.emptyDir(bkpPath);
 			}
 			fs.copyDirectory(customerPath, bkpPath);

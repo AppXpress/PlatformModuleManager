@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Precondition;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
@@ -31,13 +32,13 @@ public class FolderPrep implements Preparation<File> {
 	 * Renames directories, and handle's special cases for specific directories.
 	 */
 	@Override
-	public void prepare(File root) {
+	public void prepare(File root) throws AppXpressException {
 		for (File dir : root.listFiles(FileFilterFactory.directoriesOnly())) {
 			try {
 				route(dir);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new AppXpressException("Exception when preparing "
+						+ dir.toString() + ".", e);
 			}
 		}
 	}
@@ -83,13 +84,16 @@ public class FolderPrep implements Preparation<File> {
 		}
 	}
 
-	private void renameWhenNecessary(final File[] files, final String toReplace,
-			final String replacement) throws IOException {
+	private void renameWhenNecessary(final File[] files,
+			final String toReplace, final String replacement)
+			throws IOException {
 		Precondition<File> precondition = doesNotStartWith(replacement);
-		fs.renameFile(Arrays.asList(files), toReplace, replacement, precondition);
+		fs.renameFile(Arrays.asList(files), toReplace, replacement,
+				precondition);
 	}
-	
-	private void prependWhenNecessary(final File[] files, final String prepend) throws IOException {
+
+	private void prependWhenNecessary(final File[] files, final String prepend)
+			throws IOException {
 		Precondition<File> precondition = doesNotStartWith(prepend);
 		fs.prependToName(Arrays.asList(files), prepend, precondition);
 	}

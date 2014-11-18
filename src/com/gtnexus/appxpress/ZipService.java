@@ -129,20 +129,19 @@ public class ZipService {
 				file.getCanonicalPath().length());
 	}
 
-	public void unzip(File source, File destination, boolean recurse) {
+	public void unzip(File source, File destination, boolean recurse) throws AppXpressException {
 		unzip(source, destination);
 		if (recurse) {
 			recurseUnzip(destination);
 		}
 	}
 
-	public void unzip(File source, File destination) {
+	public void unzip(File source, File destination) throws AppXpressException{
 		try {
 			ZipFile zip = new ZipFile(source);
 			zip.extractAll(destination.getAbsolutePath());
 		} catch (ZipException e) {
-			System.err.println("Error in unzip");
-			e.printStackTrace();
+			throw new AppXpressException("Exception when unzipping", e);
 		}
 	}
 
@@ -153,7 +152,7 @@ public class ZipService {
 	 * @param path
 	 *            Destination of file structure to iterate over
 	 */
-	private void recurseUnzip(File f) {
+	private void recurseUnzip(File f) throws AppXpressException {
 		if (f.isDirectory()) {
 			for (File item : f.listFiles()) {
 				recurseUnzip(item);

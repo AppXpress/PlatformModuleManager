@@ -23,6 +23,7 @@ import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
+import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
  * Relies on Preparation, then takes extracted platform and maps it to the
@@ -63,7 +64,7 @@ public class GitMapper implements Mapper {
 	 * Performs the appropriate actions for module extraction
 	 */
 	@Override
-	public void doMapping() {
+	public void doMapping() throws AppXpressException {
 		try {
 			prep.prepare(vo);
 			mapCustomObjectDesign();
@@ -73,8 +74,8 @@ public class GitMapper implements Mapper {
 				printOverwrittenScripts();
 			}
 		} catch (AppXpressException e) {
-			System.out.println("Exception when performing mapping!");
-			System.out.println(e.getMessage());
+			throw new AppXpressException("Exception when performing mapping!",
+					e);
 		}
 	}
 
@@ -85,16 +86,18 @@ public class GitMapper implements Mapper {
 	 *            Folder where unzipped exported platform module is
 	 * @param destinationPlatform
 	 *            Folder where platform module is in local git directory
+	 * @throws PMExtractorException
 	 */
-	private void mapFolders(File exportedPlatform, File destinationPlatform) {
+	private void mapFolders(File exportedPlatform, File destinationPlatform)
+			throws PMExtractorException {
 		GitMapVisitor visitor = new GitMapVisitor(vo,
 				exportedPlatform.toPath(), destinationPlatform.toPath());
 		try {
 			Files.walkFileTree(exportedPlatform.toPath(), visitor);
 			overwrittenScripts = visitor.getOverwrittenScripts();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new PMExtractorException(
+					"Exception when mapping the exportedPlatform", e);
 		}
 	}
 
@@ -105,8 +108,9 @@ public class GitMapper implements Mapper {
 	 * 
 	 * @param path
 	 *            Path of Unzipped Exported platform module
+	 * @throws AppXpressException
 	 */
-	private void mapCustomObjectDesign() {
+	private void mapCustomObjectDesign() throws AppXpressException {
 		Path scriptsPath = vo.getUnzipDir().toPath()
 				.resolve(CUSTOM_OBJECT_MODULE).resolve(DESIGNS)
 				.resolve(SCRIPTS);
@@ -124,8 +128,8 @@ public class GitMapper implements Mapper {
 					fs.renameFile(co,
 							co.getName().replace(SCRIPT_DESIGN + $, ""));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new AppXpressException(
+							"Exception when renaming script!", e);
 				}
 			} else {
 				String dirName = co.getName().replace(SCRIPT_DESIGN + $, "")

@@ -22,6 +22,7 @@ import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.file.filter.ChainedAnd;
 import com.gtnexus.appxpress.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
+import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
  * 
@@ -55,12 +56,20 @@ public class ScriptBundler implements Bundler {
 	private boolean wasSpecialCase(final File dir) {
 		final String platformIndependent = DESIGNS + File.separator + SCRIPTS;
 		boolean isSpecial = false;
-		if (dir.getAbsolutePath().toLowerCase().contains(platformIndependent.toLowerCase())) {
-			handleCustomObjectDesignScripts(dir);
-			isSpecial = true;
-		} else if (dir.getName().endsWith(CUSTOM_UI)) {
-			handleFef(dir);
-			isSpecial = true;
+		try {
+			if (dir.getAbsolutePath().toLowerCase()
+					.contains(platformIndependent.toLowerCase())) {
+				handleCustomObjectDesignScripts(dir);
+				isSpecial = true;
+			} else if (dir.getName().endsWith(CUSTOM_UI)) {
+				handleFef(dir);
+				isSpecial = true;
+			}
+		} catch (PMExtractorException e) {
+			System.err.println("Unable to handle special case. Caused by: ");
+			System.err.println(e.getMessage());
+			System.out.println("Defaulting to standard bundling.");
+			isSpecial = false;
 		}
 		return isSpecial;
 	}
@@ -76,7 +85,8 @@ public class ScriptBundler implements Bundler {
 		}
 		if (jsFiles.size() > 1) {
 			try {
-				zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
+				zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE
+						+ ZIP_EXTENSION);
 				fs.emptyDir(dir, true);
 			} catch (AppXpressException | IOException e) {
 				e.printStackTrace();
@@ -89,8 +99,9 @@ public class ScriptBundler implements Bundler {
 	 * Framework
 	 * 
 	 * @param dir
+	 * @throws PMExtractorException
 	 */
-	private void handleFef(final File dir) {
+	private void handleFef(final File dir) throws PMExtractorException {
 		final ChainedAnd filter = new ChainedAnd(
 				FileFilterFactory.directoriesOnly(),
 				FileFilterFactory.doesNotEndWith(ZIP_EXTENSION));
@@ -99,7 +110,7 @@ public class ScriptBundler implements Bundler {
 				zs.zipDirectory(file);
 				fs.emptyDir(file, true);
 			} catch (AppXpressException | IOException e) {
-				System.err.println(e.getMessage());
+				throw new PMExtractorException("Could not handle FEF", e);
 			}
 		}
 	}
@@ -107,15 +118,17 @@ public class ScriptBundler implements Bundler {
 	/**
 	 * @param dir
 	 *            The CustomObject/designs/scripts directory.
+	 * @throws PMExtractorException
 	 */
-	private void handleCustomObjectDesignScripts(final File dir) {
-		System.out.println("> Handling cod");
+	private void handleCustomObjectDesignScripts(final File dir)
+			throws PMExtractorException {
 		for (File subDir : dir.listFiles(FileFilterFactory.directoriesOnly())) {
 			handleSingleCODScript(subDir);
 		}
 	}
 
-	private void handleSingleCODScript(final File dir) {
+	private void handleSingleCODScript(final File dir)
+			throws PMExtractorException {
 		Path p = dir.toPath();
 		try {
 			if (dir.list().length == 1) {
@@ -126,8 +139,9 @@ public class ScriptBundler implements Bundler {
 			}
 			fs.emptyDir(p, true);
 		} catch (AppXpressException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new PMExtractorException(
+					"Couldn't handle single custom object design script "
+							+ dir.toString(), e);
 		}
 	}
 
