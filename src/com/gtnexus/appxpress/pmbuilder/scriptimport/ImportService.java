@@ -75,7 +75,9 @@ public class ImportService {
 				filesToImport.addAll(importScanner.parseDoc(file));
 			}
 		}
-		importFiles(filesToImport, f);
+		if(filesToImport.size() > 0) {
+			importFiles(filesToImport, f);
+		}
 	}
 
 	/**
@@ -86,6 +88,7 @@ public class ImportService {
 	 */
 	private void importFiles(final Set<File> filesToImport,
 			final File destinationDirectory) {
+		System.out.println(filesToImport.size() + " imports directives found. Importing now.");
 		try {
 			fs.copyFiles(filesToImport, destinationDirectory, precondition);
 		} catch (IOException e) {

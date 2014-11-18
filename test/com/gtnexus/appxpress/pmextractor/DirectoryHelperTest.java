@@ -6,7 +6,8 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
+import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.DirectoryHelper;
 
 
 /**
@@ -14,10 +15,10 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  */
 public class DirectoryHelperTest {
 
-    @Test(expected = PMExtractorException.class)
-    public void testWithoutEnsuring() throws PMExtractorException {
+    @Test(expected = AppXpressException.class)
+    public void testWithoutEnsuring() throws AppXpressException {
         DirectoryHelper directoryHelper = new DirectoryHelper();
-        directoryHelper.getPmbProperties();
+        directoryHelper.getPmProperties();
     }
 
     @Test
@@ -25,11 +26,11 @@ public class DirectoryHelperTest {
         DirectoryHelper directoryHelper = new DirectoryHelper();
         try {
             directoryHelper.ensureAppXpress();
-            File propFile = directoryHelper.getPmbProperties().getPropertiesFile();
+            File propFile = directoryHelper.getPmProperties().getPropertiesFile();
             if(propFile == null || !propFile.exists()) {
                 fail("Property file does not exist");
             }
-        } catch (PMExtractorException e) {
+        } catch (AppXpressException e) {
             fail("Exception when ensuring\n" + e.getMessage());
         }
     }

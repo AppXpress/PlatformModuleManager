@@ -1,6 +1,8 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
 import com.gtnexus.appxpress.cli.AppXpressOption;
+import com.gtnexus.appxpress.cli.OptionMessageProvider;
+import com.gtnexus.appxpress.cli.ValidityProvider;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in
@@ -8,17 +10,13 @@ import com.gtnexus.appxpress.cli.AppXpressOption;
  */
 public enum ExtractorOption implements AppXpressOption {
 
-	HELP("help", String.class, "Display usage for this tool", false, false,
-			null), PLATFORM_ZIP("platformZip", String.class,
-			"Exported Platform Module Name", true, true, null), LOCAL_DIR(
-			"localDir", String.class, "Relative Path of GIT staging folder",
-			true, true, null), CUSTOMER("customer", String.class,
-			"Customer of Platform Module", true, true, null), PLATFORM(
-			"platform", String.class, "Platform Module that is being exported",
-			true, true, null), OVERWRITE_SCRIPTS("overwriteScripts",
-			Boolean.class, "If Y -> overwriteScripts = true", true, false, "N"), OVERWRITE_FEF(
-			"overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true,
-			false, "N");
+	HELP("help", String.class, "Display usage for this tool", false, false, null), 
+	PLATFORM_ZIP("platformZip", String.class,"Exported Platform Module Name", true, true, null), 
+	LOCAL_DIR("localDir", String.class, "Relative Path of GIT staging folder",true, true, null), 
+	CUSTOMER("customer", String.class, "Customer of Platform Module", true, true, null), 
+	PLATFORM("platform", String.class, "Platform Module that is being exported", true, true, null), 
+	OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", true, false, "N"), 
+	OVERWRITE_FEF("overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true, false, "N");
 
 	private final String name;
 	private final Class<?> type;
@@ -26,6 +24,8 @@ public enum ExtractorOption implements AppXpressOption {
 	private final boolean isMandatory;
 	private final String defaultValue;
 	private final String description;
+	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
+	private static final ValidityProvider validityProvider = new ValidityProvider();
 
 	/**
 	 * 
@@ -61,15 +61,7 @@ public enum ExtractorOption implements AppXpressOption {
 	}
 
 	public String getMessage() {
-		if (type.equals(Integer.class)) {
-			return ("Please enter the number of " + name + "(s): ");
-		} else if (type.equals(String.class)) {
-			return ("Please enter " + name + ": ");
-		} else if (type.equals(Boolean.class)) {
-			return ("Do you want " + name + "? [y/n]: ");
-		}
-		throw new RuntimeException("ExtractorOption type" + type.toString()
-				+ " is unsupported");
+		return msgProvider.getMessage(type, name);
 	}
 
 	public String getDescription() {
@@ -110,21 +102,7 @@ public enum ExtractorOption implements AppXpressOption {
 	 * @return
 	 */
 	public boolean isValid(String val) {
-		// TODO this can be improved to make sure string input has actual
-		// meaning
-		if (val == null || val.length() == 0) {
-			return false;
-		}
-		if (type.equals(String.class)) {
-			return true;
-		}
-		if (type.equals(Integer.class)) {
-			return val.matches("\\d+"); // TODO test this regex
-		} else if (type.equals(Boolean.class)) {
-			return val.equalsIgnoreCase("Y") || val.equalsIgnoreCase("N");
-		} else {
-			return false;
-		}
+		return validityProvider.isValid(val, type);
 	}
 
 }

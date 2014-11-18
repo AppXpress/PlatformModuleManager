@@ -46,9 +46,10 @@ public class FileService {
 	 */
 	public List<Path> prependToName(Collection<File> files, String prepend)
 			throws IOException {
-		return prependToName(files, prepend, new Precondition.EmptyCondition<File>());
+		return prependToName(files, prepend,
+				new Precondition.EmptyCondition<File>());
 	}
-	
+
 	/**
 	 * Prepends a String to the the names of a collection of a files.
 	 * 
@@ -56,11 +57,11 @@ public class FileService {
 	 *            The list of files who's name will be altered.
 	 * @param prepend
 	 *            The String to prepend to each file name.
-	 * @precondition
-	 * 			The condition that must be met before string is prepended to file name
+	 * @precondition The condition that must be met before string is prepended
+	 *               to file name
 	 */
-	public List<Path> prependToName(Collection<File> files, String prepend, Precondition<File> precondition)
-			throws IOException {
+	public List<Path> prependToName(Collection<File> files, String prepend,
+			Precondition<File> precondition) throws IOException {
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
 			paths.add(prependToName(file, prepend, precondition));
@@ -243,6 +244,18 @@ public class FileService {
 	 * @throws IOException
 	 */
 	public Path copyDirectory(Path source, Path destination) throws IOException {
+		if (!Files.exists(source)) {
+			throw new IOException("Cannot copy directory tree from source: "
+					+ source.toString() + " to destination: "
+					+ destination.toString()
+					+ ". Source directory does not exist.");
+		}
+		if(destination.startsWith(source)) {
+			throw new IllegalArgumentException("Cannot copy directory structure into subdirectory of itself.");
+		}
+		if(!Files.exists(destination)) {
+			Files.createDirectories(destination);
+		}
 		CopyDirVisitor visitor = new CopyDirVisitor(source, destination);
 		return Files.walkFileTree(source, visitor);
 	}
@@ -265,6 +278,11 @@ public class FileService {
 	public void emptyDir(final File root) throws IOException {
 		emptyDir(root, false);
 	}
+	
+	public void emptyDir(final Path root) throws IOException {
+		emptyDir(root, false);
+	}
+	
 
 	/**
 	 * 
@@ -274,9 +292,14 @@ public class FileService {
 	 */
 	public void emptyDir(final File root, boolean deleteRoot)
 			throws IOException {
-		DeleteDirVisitor visitor = new DeleteDirVisitor(root.toPath(),
+		emptyDir(root.toPath(), deleteRoot);
+	}
+	
+	public void emptyDir(final Path root, boolean deleteRoot)
+			throws IOException {
+		DeleteDirVisitor visitor = new DeleteDirVisitor(root,
 				deleteRoot);
-		Files.walkFileTree(root.toPath(), visitor);
+		Files.walkFileTree(root, visitor);
 	}
 
 }

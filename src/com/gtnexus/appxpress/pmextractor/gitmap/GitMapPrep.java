@@ -5,7 +5,10 @@ import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.Precondition;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.ZipService;
@@ -38,7 +41,7 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 		cleanup(vo.getUnzipDir());
 		unzipPlatformZip(vo.getPlatformZip(), vo.getUnzipDir());
 		makeHumanReadable(vo.getUnzipDir());
-		backup(vo.getCustomerDir(), vo.getPlatform());
+		backup(vo.getCustomerDir().toPath(), vo.getPlatform());
 		clearCustomLinksXML(vo.getCustomerDir());
 	}
 
@@ -103,11 +106,14 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	/**
 	 * Backs up folder/customer/cust/plat into a folder called PM_Git_Backup
 	 */
-	private void backup(File customerPath, String platform) {
-		String backup = "PM_Git_Backup" + File.separator + platform;
-		File bkpFile = new File(backup);
+	private void backup(Path customerPath, String platform) {
+		AppXpressDirResolver resolver = new AppXpressDirResolver();
+		Path bkpPath = resolver.resolveAppXpressDir().resolve("PM_Git_Backup").resolve(platform);
 		try {
-			fs.copyDirectory(customerPath, bkpFile);
+			if(Files.exists(bkpPath)) {
+				fs.emptyDir(bkpPath);
+			}
+			fs.copyDirectory(customerPath, bkpPath);
 		} catch (IOException e) {
 			System.err.println("error backing up -> " + e);
 		}

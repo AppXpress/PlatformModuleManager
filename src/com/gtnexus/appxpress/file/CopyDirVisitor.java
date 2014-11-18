@@ -40,7 +40,8 @@ public class CopyDirVisitor extends SimpleFileVisitor<Path> {
 	@Override
 	public FileVisitResult visitFile(final Path file,
 			final BasicFileAttributes attrs) throws IOException {
-		Files.copy(file, destination.resolve(source.relativize(file)), replace);
+		Path target = destination.resolve(source.relativize(file));
+		Files.copy(file, target , replace);
 		return FileVisitResult.CONTINUE;
 	}
 

@@ -50,10 +50,10 @@ public class ScriptBundler implements Bundler {
 	}
 
 	private boolean wasSpecialCase(final File dir) {
-		final String platformIndependent = dir.getAbsolutePath()
-				+ File.separator + "designs" + File.separator + "scripts";
+		final String platformIndependent = /*dir.getAbsolutePath()
+				+ File.separator +*/ "designs" + File.separator + "scripts";
 		boolean isSpecial = false;
-		if (dir.getAbsolutePath().toLowerCase().contains(platformIndependent)) {
+		if (dir.getAbsolutePath().toLowerCase().contains(platformIndependent.toLowerCase())) {
 			handleCustomObjectDesignScripts(dir);
 			isSpecial = true;
 		} else if (dir.getName().endsWith("customUi")) {
@@ -107,6 +107,7 @@ public class ScriptBundler implements Bundler {
 	 *            The CustomObject/designs/scripts directory.
 	 */
 	private void handleCustomObjectDesignScripts(final File dir) {
+		System.out.println("> Handling cod");
 		for (File subDir : dir.listFiles(FileFilterFactory.directoriesOnly())) {
 			handleSingleCODScript(subDir);
 		}
@@ -118,8 +119,9 @@ public class ScriptBundler implements Bundler {
 				moveUpAndRename(dir);
 			} else if (dir.list().length > 1) {
 				bundleCODScript(dir);
+				fs.emptyDir(dir, true);
 			}
-			fs.emptyDir(dir);
+//			fs.emptyDir(dir);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

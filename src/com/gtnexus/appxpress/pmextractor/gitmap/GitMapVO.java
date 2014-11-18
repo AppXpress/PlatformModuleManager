@@ -9,15 +9,15 @@ import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 public class GitMapVO {
 
-	private File platformZip;
-	private File localDir;
-	private String customer;
-	private String platform;
-	private File customerDir;
-	private File platformDir;
-	private File unzipDir;
-	private boolean overwriteScripts;
-	private boolean overwriteFef;
+	private final File platformZip;
+	private final File localDir;
+	private final String customer;
+	private final String platform;
+	private final File customerDir;
+	private final File platformDir;
+	private final File unzipDir;
+	private final boolean overwriteScripts;
+	private final boolean overwriteFef;
 	
 
 	public GitMapVO(Map<ExtractorOption, String> optionMap) {

@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress;
 
+import java.io.File;
+
 /**
  * Constants used across the PlatformModuleBuilder tool set.
  * <b>PLEASE KEEP IN ALPHABETICAL ORDER</b>
@@ -26,4 +28,5 @@ public interface AppXpressConstants {
 	public static final String TYPE_EXTENSION_D1 = "TypeExtensionD1";
 	public static final String XML_EXTENSION = ".xml";
 	public static final String ZIP_EXTENSION = ".zip";
+	public static final String dirTemplate = "%s" + File.separator + APPXRESS_FOLDER;
 }

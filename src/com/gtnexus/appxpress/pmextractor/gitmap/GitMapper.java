@@ -25,8 +25,8 @@ import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
- * Relies on Preparation, then takes extracted platform and maps
- * it to the existing Git directories.
+ * Relies on Preparation, then takes extracted platform and maps it to the
+ * existing Git directories.
  * 
  * @author Andrew Reynolds
  * @author Eric Hu
@@ -67,12 +67,14 @@ public class GitMapper implements Mapper {
 		try {
 			prep.prepare(vo);
 			mapCustomObjectDesign();
-			mapFolders(new File(PLATFORM_MODULE_UNZIP_NAME), vo.getPlatformDir());
-			if (vo.isOverwriteScripts()) {
+			mapFolders(new File(PLATFORM_MODULE_UNZIP_NAME),
+					vo.getPlatformDir());
+			if (vo.isOverwriteScripts() && overwrittenScripts.size() > 0) {
 				printOverwrittenScripts();
 			}
 		} catch (AppXpressException e) {
-
+			System.out.println("Exception when performing mapping!");
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -119,7 +121,8 @@ public class GitMapper implements Mapper {
 		for (File co : scripts.listFiles()) {
 			if (co.isDirectory()) {
 				try {
-					fs.renameFile(co, co.getName().replace(SCRIPT_DESIGN + $, ""));
+					fs.renameFile(co,
+							co.getName().replace(SCRIPT_DESIGN + $, ""));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -150,9 +153,12 @@ public class GitMapper implements Mapper {
 		final StringBuilder sb = new StringBuilder();
 		System.out.print("You over wrote these scripts -> ");
 		for (Path script : overwrittenScripts) {
-			sb.append(script.toString()).append(",\n");
+			if (sb.length() > 0) {
+				sb.append("\n");
+			}
+			sb.append(script.toString());
 		}
-		System.out.println(sb.substring(0, sb.length() - 2));
+		System.out.println(sb.toString());
 	}
 
 }

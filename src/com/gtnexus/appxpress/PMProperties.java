@@ -8,12 +8,12 @@ import java.util.Properties;
  *
  * Created by jjdonov on 9/29/14.
  */
-public class PMBProperties {
+public class PMProperties {
 
     private File propertiesFile;
     private Properties properties;
 
-    public PMBProperties(Properties properties, File propertiesFile) {
+    public PMProperties(Properties properties, File propertiesFile) {
         this.properties = properties;
         this.propertiesFile = propertiesFile;
     }
