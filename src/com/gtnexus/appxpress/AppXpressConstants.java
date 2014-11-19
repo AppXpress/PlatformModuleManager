@@ -21,10 +21,10 @@ public interface AppXpressConstants {
 	public static final String JS_EXTENSION = ".js";
 	public static final String LIB = "lib";
 	public static final String PLATFORM_MODULE_UNZIP_NAME = "PlatModX";
+	public static final String PROPERTIES_EXTENSION = ".properties";
 	public static final String SCRIPTS = "scripts";
 	public static final String SCRIPT_DESIGN = "ScriptDesign_";
 	public static final String SCRIPTING_FEATURE = "scriptingFeature";
-	public static final String SETTINGS_FILENAME = "settings.properties";
 	public static final String TYPE_EXTENSION_D1 = "TypeExtensionD1";
 	public static final String XML_EXTENSION = ".xml";
 	public static final String ZIP_EXTENSION = ".zip";

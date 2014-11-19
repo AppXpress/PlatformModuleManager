@@ -175,7 +175,7 @@ public class ZipService {
 			}
 		} else {
 			if (f.getName().endsWith(ZIP_EXTENSION)) {
-				String cleanedPath = f.getName().replace(ZIP_EXTENSION, "");
+				String cleanedPath = f.getAbsolutePath().replace(ZIP_EXTENSION, "");
 				unzip(f, new File(cleanedPath));
 				f.delete();
 			}

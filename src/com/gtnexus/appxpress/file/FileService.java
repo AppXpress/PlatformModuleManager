@@ -246,8 +246,7 @@ public class FileService {
 	public Path copyDirectory(Path source, Path destination) throws IOException {
 		if (!Files.exists(source)) {
 			throw new IOException("Cannot copy directory tree from source: "
-					+ source.toString() + " to destination: "
-					+ destination.toString()
+					+ source.toString()
 					+ ". Source directory does not exist.");
 		}
 		if(destination.startsWith(source)) {

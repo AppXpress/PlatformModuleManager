@@ -13,17 +13,18 @@ import com.gtnexus.appxpress.DirectoryHelper;
 /**
  * Created by jjdonov on 9/29/14.
  */
+@Deprecated
 public class DirectoryHelperTest {
 
     @Test(expected = AppXpressException.class)
     public void testWithoutEnsuring() throws AppXpressException {
-        DirectoryHelper directoryHelper = new DirectoryHelper();
+        DirectoryHelper directoryHelper = new DirectoryHelper("test");
         directoryHelper.getPmProperties();
     }
 
     @Test
     public void testWithHomeDirectory() {
-        DirectoryHelper directoryHelper = new DirectoryHelper();
+        DirectoryHelper directoryHelper = new DirectoryHelper("test");
         try {
             directoryHelper.ensureAppXpress();
             File propFile = directoryHelper.getPmProperties().getPropertiesFile();

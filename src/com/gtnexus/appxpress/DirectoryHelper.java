@@ -1,7 +1,5 @@
 package com.gtnexus.appxpress;
 
-import static com.gtnexus.appxpress.AppXpressConstants.SETTINGS_FILENAME;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,9 +18,9 @@ public class DirectoryHelper {
     private PMProperties pmbProperties;
     private final AppXpressDirResolver resolver;
 
-    public DirectoryHelper() {
+    public DirectoryHelper(final String settingsFileName) {
     	this.resolver = new AppXpressDirResolver();
-        this.propertiesFilePath = resolver.resolveAppXpressDir().resolve(SETTINGS_FILENAME).toString();
+        this.propertiesFilePath = resolver.resolveAppXpressDir().resolve(settingsFileName).toString();
     }
 
     private String getPropertiesFilePath() {

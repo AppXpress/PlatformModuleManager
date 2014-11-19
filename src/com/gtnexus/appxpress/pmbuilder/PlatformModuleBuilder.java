@@ -13,6 +13,9 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.appxpress.pmextractor.cli.ArgsAndPropertiesConsolidator;
 
+import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
+
+
 /**
  * This executable does the following things in order with the end goal to
  * create an importable .zip file.
@@ -91,7 +94,7 @@ public class PlatformModuleBuilder {
 	 */
 	private void performBuild(CommandLineInterfaceParser<BuilderOption> cli)
 			throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper();
+		DirectoryHelper dHelper = new DirectoryHelper(NAME + PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmProperties = dHelper.getPmProperties();
 		ArgsAndPropertiesConsolidator<BuilderOption> consolidator = new ArgsAndPropertiesConsolidator<>(
@@ -104,6 +107,7 @@ public class PlatformModuleBuilder {
 		prep.prepare(vo);
 		bundler.bundle(vo.getWorkingDir());
 		System.out.println("Success!");
+		consolidator.presentSaveOption(pmProperties.getPropertiesPath());
 	}
 
 }

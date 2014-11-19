@@ -74,7 +74,7 @@ public class ScriptBundler implements Bundler {
 		return isSpecial;
 	}
 
-	private void bundleGenerically(File dir) {
+	private void bundleGenerically(final File dir) {
 		final List<File> jsFiles = new LinkedList<>();
 		for (File f : dir.listFiles()) {
 			if (fs.isFileType(f, JS_EXTENSION)) {
@@ -89,7 +89,9 @@ public class ScriptBundler implements Bundler {
 						+ ZIP_EXTENSION);
 				fs.emptyDir(dir, true);
 			} catch (AppXpressException | IOException e) {
-				e.printStackTrace();
+				//TODO
+				System.err.println("Failed to bundle directory " + dir.toString() + " generically.");
+				System.err.println(e.getMessage());
 			}
 		}
 	}

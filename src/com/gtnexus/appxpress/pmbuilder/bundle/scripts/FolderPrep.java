@@ -47,7 +47,7 @@ public class FolderPrep implements Preparation<File> {
 		// TODO can we do better than this?
 		String directoryName = dir.getName();
 		if (directoryName.endsWith(CUSTOM_LINK_D1)) {
-			fs.renameFile(dir, CUSTOM_LINK_D1);
+			fs.renameFile(dir,  $ + CUSTOM_LINK_D1);
 		} else if (directoryName.endsWith(TYPE_EXTENSION_D1)) {
 			fs.renameFile(dir, $ + TYPE_EXTENSION_D1);
 		} else if (directoryName.endsWith(CUSTOM_UI)) {

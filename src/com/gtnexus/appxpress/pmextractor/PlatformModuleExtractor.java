@@ -14,6 +14,8 @@ import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
 
+import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
+
 /**
  * 
  * @author jdonovan
@@ -73,7 +75,7 @@ public class PlatformModuleExtractor {
 	private void performExtraction(
 			CommandLineInterfaceParser<ExtractorOption> cli)
 			throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper();
+		DirectoryHelper dHelper = new DirectoryHelper(NAME + PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmbProperties = dHelper.getPmProperties();
 		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(

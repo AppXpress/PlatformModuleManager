@@ -76,7 +76,7 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 			throws PMBuilderException {
 		if (platformZip.exists()) {
 			try {
-				zs.unzip(platformZip, unzipDestination);
+				zs.unzip(platformZip, unzipDestination, true);
 			} catch (AppXpressException e) {
 				throw new PMBuilderException(
 						"Exception when unzipping platformZip: " + platformZip,
@@ -104,12 +104,27 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 			for (File s : f.listFiles()) {
 				makeHumanReadable(s);
 			}
+			checkIfBundle(f);
 		}
 		if (f.getName().contains($)) {
 			try {
 				fs.renameFile(f, f.getName().replace($, ""));
 			} catch (IOException e) {
 				throw new PMBuilderException("Exception when renaming " + f, e);
+			}
+		}
+	}
+
+	private void checkIfBundle(File f) throws PMBuilderException {
+		String fName = f.getName();
+		if (fName.endsWith("Bundle")) {
+			int terminal = fName.length() - "Bundle".length();
+			fName = fName.substring(0, terminal);
+			try {
+				fs.renameFile(f, fName);
+			} catch (IOException e) {
+				throw new PMBuilderException(
+						"Failed to rename bundle " + fName, e);
 			}
 		}
 	}
