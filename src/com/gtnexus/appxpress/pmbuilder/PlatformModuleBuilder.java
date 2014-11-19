@@ -1,15 +1,12 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import java.io.File;
 import java.util.EnumSet;
 import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.DirectoryHelper;
 import com.gtnexus.appxpress.PMProperties;
-import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.cli.CommandLineInterfaceParser;
-import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
@@ -60,8 +57,6 @@ public class PlatformModuleBuilder {
 	}
 
 	private final String[] args;
-	private final Preparation<File> prep;
-	private final Bundler bundler;
 
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
@@ -74,8 +69,6 @@ public class PlatformModuleBuilder {
 	 */
 	public PlatformModuleBuilder(String[] args) {
 		this.args = args;
-		this.prep = new BuildPrep();
-		this.bundler = new PlatformModuleBundler();
 	}
 
 	public void build() {
@@ -106,8 +99,10 @@ public class PlatformModuleBuilder {
 				pmProperties.getProperties());
 		Map<BuilderOption, String> optMap = consolidator.consolidate();
 		PMBuilderVO vo = new PMBuilderVO(optMap);
-		prep.prepare(vo.getRootFile());
-		bundler.bundle(vo.getRootFile());
+		BuildPrep prep = new BuildPrep();
+		PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
+		prep.prepare(vo);
+		bundler.bundle(vo.getWorkingDir());
 		System.out.println("Success!");
 	}
 

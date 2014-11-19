@@ -79,9 +79,24 @@ public class ZipService {
 	 */
 	public void zipDirectory(File directory, String outputZip)
 			throws AppXpressException {
+		zipDirectory(directory, new File(outputZip));
+	}
+	
+	/**
+	 * Packs the given directory into the zip file pointer.
+	 * If the outputZip does not end with .zip it is appended.
+	 * 
+	 * @param directory
+	 * @param outputZip
+	 * @throws AppXpressException
+	 */
+	public void zipDirectory(File directory, File outputZip) throws AppXpressException {
 		if (!directory.exists() || !directory.isDirectory()) {
-			throw new AppXpressException("No such directory"
+			throw new AppXpressException("No such directory "
 					+ directory.getAbsolutePath());
+		}
+		if(!outputZip.getName().endsWith(ZIP_EXTENSION)) {
+			outputZip = new File(outputZip.toString() + ZIP_EXTENSION);
 		}
 		System.out.println("Zipping up directory -> "
 				+ directory.getAbsolutePath());
@@ -94,6 +109,7 @@ public class ZipService {
 					+ directory.getAbsolutePath(), e);
 		}
 	}
+	
 
 	/**
 	 * Recursively pack directory contents.

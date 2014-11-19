@@ -1,9 +1,9 @@
 package com.gtnexus.appxpress;
 
+import static com.gtnexus.appxpress.AppXpressConstants.dirTemplate;
+
 import java.io.File;
 import java.nio.file.Path;
-
-import static com.gtnexus.appxpress.AppXpressConstants.dirTemplate;;
 
 public class AppXpressDirResolver {
 	

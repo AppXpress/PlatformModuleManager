@@ -1,27 +1,57 @@
 package com.gtnexus.appxpress.pmbuilder.bundle.platform;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
+import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.AppXpressMapper;
+import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.appxpress.pmbuilder.design.CustomObjectDesignXML;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.appxpress.pmbuilder.scriptimport.ImportService;
 
-public class BuildPrep implements Preparation<File> {
+public class BuildPrep implements Preparation<PMBuilderVO> {
+
+	private final FileService fs;
+	private final AppXpressDirResolver resolver;
+
+	public BuildPrep() {
+		this.fs = new FileService();
+		this.resolver = new AppXpressDirResolver();
+	}
 
 	@Override
-	public void prepare(File rootFile) throws PMBuilderException {
+	public void prepare(final PMBuilderVO vo) throws PMBuilderException {
 		try {
-			runImportFind(rootFile);
-			xmlDesignCustomObjectScriptMatcher(rootFile);
-			map(rootFile);
-		} catch (AppXpressException e) {
+			File tmp = createTemp(vo);
+			vo.setWorkingDir(tmp);
+			runImportFind(tmp);
+			xmlDesignCustomObjectScriptMatcher(tmp);
+			map(tmp);
+		} catch (AppXpressException | IOException e) {
 			throw new PMBuilderException(
 					"Exception when mapping file structure.", e);
 		}
+	}
+
+	private File createTemp(final PMBuilderVO vo) throws IOException {
+		Path source = vo.getRootFile().toPath();
+		Path tmpPath = resolver
+				.resolveAppXpressDir()
+				.toAbsolutePath();
+		String tmpPrefix = String.valueOf(System.currentTimeMillis());
+		Path destination = Files
+				.createTempDirectory(tmpPath, tmpPrefix);
+		File dest = destination.toFile();
+		dest.deleteOnExit();
+		fs.copyDirectory(source, destination);
+		return dest;
 	}
 
 	/**
