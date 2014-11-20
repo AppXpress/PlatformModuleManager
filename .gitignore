@@ -1,6 +1,8 @@
 /bin
-*.classpath
 *.project
 .idea/
 out/
 *.iml
+/target/
+PlatModX/
+.settings/
