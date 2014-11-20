@@ -11,7 +11,6 @@ import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
-import com.gtnexus.appxpress.pmbuilder.design.CustomObjectDesignXML;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.appxpress.pmbuilder.scriptimport.ImportService;
 
@@ -31,7 +30,7 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 			File tmp = createTemp(vo);
 			vo.setWorkingDir(tmp);
 			runImportFind(tmp);
-			xmlDesignCustomObjectScriptMatcher(tmp);
+			//xmlDesignCustomObjectScriptMatcher(tmp);
 			map(tmp);
 		} catch (AppXpressException | IOException e) {
 			throw new PMBuilderException(
@@ -66,17 +65,6 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 		System.out.println("Gathering imports...");
 		ImportService iScanner = new ImportService(rootFile);
 		iScanner.scanAndImport();
-	}
-
-	/**
-	 * Searches through the custom object module folder and ensures that each
-	 * custom object design xml file corresponds to the correct number of custom
-	 * object scripts
-	 */
-	private void xmlDesignCustomObjectScriptMatcher(File rootFile)
-			throws PMBuilderException {
-		CustomObjectDesignXML coDes = new CustomObjectDesignXML(rootFile);
-		coDes.ensureSoundDesign();
 	}
 
 	/**

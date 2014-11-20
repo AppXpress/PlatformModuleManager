@@ -154,10 +154,23 @@ public class ScriptBundler implements Bundler {
 	}
 
 	private Path moveUpAndRename(final File dir) throws IOException {
-		String newName = SCRIPT_DESIGN + $ + dir.getName() + JS_EXTENSION;
+		String newName = dir.getName();
+		newName = scriptNameForDir(dir);
 		Path newPath = dir.toPath().resolveSibling(newName);
 		File loneFile = dir.listFiles()[0];
 		return Files.move(loneFile.toPath(), newPath);
+	}
+	
+	private String scriptNameForDir(File dir) {
+		String name = dir.getName();
+		if(name.startsWith(SCRIPT_DESIGN) && name.startsWith(SCRIPT_DESIGN + $)) {
+			return name + JS_EXTENSION;
+		}
+		if(name.startsWith(SCRIPT_DESIGN) && !name.startsWith(SCRIPT_DESIGN + $)) {
+			return name.replace(SCRIPT_DESIGN, SCRIPT_DESIGN + $) + JS_EXTENSION;
+		} else {
+			return SCRIPT_DESIGN + $ + name + JS_EXTENSION;
+		}
 	}
 
 }

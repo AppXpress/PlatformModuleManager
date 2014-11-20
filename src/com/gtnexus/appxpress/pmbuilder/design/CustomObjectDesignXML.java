@@ -87,15 +87,34 @@ public class CustomObjectDesignXML {
 	 * 
 	 * @param ensurer
 	 */
-	private void checkEachScriptAndDesign(ScriptingDesignEnsurer ensurer) throws PMBuilderException {
+	private void checkEachScriptAndDesign(ScriptingDesignEnsurer ensurer)
+			throws PMBuilderException {
 		final String correspondingXMLPathTemplate = designDirectory
-				.getAbsolutePath() + File.separator + DESIGN_ + $ + "%s" + XML_EXTENSION;
+				.getAbsolutePath()
+				+ File.separator
+				+ DESIGN_
+				+ $
+				+ "%s"
+				+ XML_EXTENSION;
 		for (File script : scriptDirectory.listFiles()) {
-			File correspondingXML = new File(String.format(
-					correspondingXMLPathTemplate, script.getName()));
-			boolean scriptingFeature = script.isDirectory() && script.list().length == 1;
+			File correspondingXML = formatPathTemplate(correspondingXMLPathTemplate, script.getName());
+			boolean scriptingFeature = script.isDirectory()
+					&& script.list().length == 1;
 			ensurer.ensure(correspondingXML, script, scriptingFeature);
 		}
+	}
+
+	private File formatPathTemplate(final String template, String scriptName) {
+		int last = scriptName.lastIndexOf($);
+		if(last != -1) {
+			scriptName = scriptName.substring(last + 1, scriptName.length());
+		}
+		last = scriptName.lastIndexOf(".");
+		if(last != -1) {
+			scriptName = scriptName.substring(0, last);
+		}
+		String absolutePath = String.format(template, scriptName);
+		return new File(absolutePath);
 	}
 
 }
