@@ -134,7 +134,7 @@ public class GitMapper implements Mapper {
 			} else {
 				String dirName = co.getName().replace(SCRIPT_DESIGN + $, "")
 						.replace(JS_EXTENSION, "");
-				Path p = vo.getUnzipDir().toPath().resolve(dirName);
+				Path p = scriptsPath.resolve(dirName);
 				try {
 					if (!Files.exists(p)) {
 						Files.createDirectory(p);

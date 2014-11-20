@@ -93,7 +93,8 @@ public class CustomObjectDesignXML {
 		for (File script : scriptDirectory.listFiles()) {
 			File correspondingXML = new File(String.format(
 					correspondingXMLPathTemplate, script.getName()));
-			ensurer.ensure(correspondingXML, script, script.list().length == 1);
+			boolean scriptingFeature = script.isDirectory() && script.list().length == 1;
+			ensurer.ensure(correspondingXML, script, scriptingFeature);
 		}
 	}
 

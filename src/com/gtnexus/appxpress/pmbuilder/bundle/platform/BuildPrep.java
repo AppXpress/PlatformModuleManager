@@ -10,7 +10,6 @@ import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.Preparation;
 import com.gtnexus.appxpress.file.FileService;
-import com.gtnexus.appxpress.pmbuilder.AppXpressMapper;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.appxpress.pmbuilder.design.CustomObjectDesignXML;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
