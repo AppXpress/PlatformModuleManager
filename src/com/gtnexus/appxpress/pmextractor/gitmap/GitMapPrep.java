@@ -177,13 +177,18 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	 */
 	private boolean validateAndEnsurePathExists(GitMapVO vo) {
 		if (!vo.getCustomerDir().isDirectory()) {
-			System.err
+			System.out
 					.println("Cannot find specific customer in customer folder ["
 							+ vo.getCustomerDir().getAbsolutePath() + "]");
-			return false;
+			System.out.println("\tAssuming this is a new customer, and creating directory...");
+			File customer = vo.getCustomerDir();
+			if(!customer.mkdir()) {
+				return false;
+			}
+			
 		}
 		if (!vo.getPlatformDir().exists()) {
-			vo.getPlatformDir().mkdir();
+			return vo.getPlatformDir().mkdir();
 		}
 		return true;
 	}
