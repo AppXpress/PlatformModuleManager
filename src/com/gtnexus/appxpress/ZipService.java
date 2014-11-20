@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -13,6 +14,7 @@ import java.util.zip.ZipOutputStream;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
+import com.gtnexus.appxpress.file.FileService;
 
 /**
  * Zips up a folder
@@ -24,8 +26,10 @@ import net.lingala.zip4j.exception.ZipException;
  */
 public class ZipService {
 
+	private final FileService fs;
+
 	public ZipService() {
-		// nothing to do
+		this.fs = new FileService();
 	}
 
 	public void zipFiles(Collection<File> files, String absPathToDestinationZip)
@@ -43,7 +47,7 @@ public class ZipService {
 	}
 
 	private void zipSingle(ZipOutputStream zos, File f) throws IOException {
-		try(FileInputStream fis = new FileInputStream(f)) {
+		try (FileInputStream fis = new FileInputStream(f)) {
 			ZipEntry entry = new ZipEntry(f.getName());
 			zos.putNextEntry(entry);
 			byte[] block = new byte[1024];
@@ -81,21 +85,22 @@ public class ZipService {
 			throws AppXpressException {
 		zipDirectory(directory, new File(outputZip));
 	}
-	
+
 	/**
-	 * Packs the given directory into the zip file pointer.
-	 * If the outputZip does not end with .zip it is appended.
+	 * Packs the given directory into the zip file pointer. If the outputZip
+	 * does not end with .zip it is appended.
 	 * 
 	 * @param directory
 	 * @param outputZip
 	 * @throws AppXpressException
 	 */
-	public void zipDirectory(File directory, File outputZip) throws AppXpressException {
+	public void zipDirectory(File directory, File outputZip)
+			throws AppXpressException {
 		if (!directory.exists() || !directory.isDirectory()) {
 			throw new AppXpressException("No such directory "
 					+ directory.getAbsolutePath());
 		}
-		if(!outputZip.getName().endsWith(ZIP_EXTENSION)) {
+		if (!outputZip.getName().endsWith(ZIP_EXTENSION)) {
 			outputZip = new File(outputZip.toString() + ZIP_EXTENSION);
 		}
 		System.out.println("Zipping up directory -> "
@@ -109,7 +114,6 @@ public class ZipService {
 					+ directory.getAbsolutePath(), e);
 		}
 	}
-	
 
 	/**
 	 * Recursively pack directory contents.
@@ -145,14 +149,15 @@ public class ZipService {
 				file.getCanonicalPath().length());
 	}
 
-	public void unzip(File source, File destination, boolean recurse) throws AppXpressException {
+	public void unzip(File source, File destination, boolean recurse)
+			throws AppXpressException {
 		unzip(source, destination);
 		if (recurse) {
 			recurseUnzip(destination);
 		}
 	}
 
-	public void unzip(File source, File destination) throws AppXpressException{
+	public void unzip(File source, File destination) throws AppXpressException {
 		try {
 			ZipFile zip = new ZipFile(source);
 			zip.extractAll(destination.getAbsolutePath());
@@ -165,6 +170,9 @@ public class ZipService {
 	 * Recursively iterated through file structure folder and unzips and
 	 * contained zip files
 	 * 
+	 * In the case that afolder.zip unzips to afolder/afolder/{files} the folder
+	 * is bubbled up.
+	 * 
 	 * @param path
 	 *            Destination of file structure to iterate over
 	 */
@@ -175,10 +183,30 @@ public class ZipService {
 			}
 		} else {
 			if (f.getName().endsWith(ZIP_EXTENSION)) {
-				String cleanedPath = f.getAbsolutePath().replace(ZIP_EXTENSION, "");
-				unzip(f, new File(cleanedPath));
+				String cleanedPath = f.getAbsolutePath().replace(ZIP_EXTENSION,
+						"");
+				File destination = new File(cleanedPath);
+				unzip(f, destination);
 				f.delete();
+				bubbleWhenNecessary(destination);
 			}
+		}
+	}
+
+	private void bubbleWhenNecessary(File f) {
+		if (f.list().length != 1) {
+			return;
+		}
+		File onlyChild = f.listFiles()[0];
+		if (!onlyChild.isDirectory() || !onlyChild.getName().equals(f.getName())) {
+			return;
+		}
+		try {
+			fs.moveFiles(Arrays.asList(onlyChild.listFiles()), f);
+			onlyChild.delete();
+		} catch (IOException e) {
+			System.out.println("Unable to bubble up " + f.getAbsolutePath()
+					+ ". Continuing to unzip anyways.");
 		}
 	}
 
