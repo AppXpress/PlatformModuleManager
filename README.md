@@ -1,9 +1,11 @@
+![alt text](http://developer.gtnexus.com/sites/default/files/GTNexusDeveloperNetwork.jpg "GTNexus Developer Network")
 Using `pmbuilder` and `pmextractor`
 ============
-
 ## About
 
 `PlatformModuleBuilder` is a set of tools to make importing and exporting Modules from AppXpress easy and painless!
+
+For more information about AppXpress, [visit The Developer Network.](http://developer.gtnexus.com/)
 
 ### Use Case
 
@@ -75,19 +77,21 @@ After importing project to eclipse:
 3. Ensure that "Extract required libraries into generated JAR" is selected.
 4. Finish
 
-## Running `pmbuilder` and `pmexractor`
+## Running `pmbuilder` and `pmextractor`
 
 Running either tool is easy. For example:
 
 ```bash
 $ `pmbuilder`
 ```
-When running either tool as above, first the properties files are read.
+If this is your first time running the tool, it will create a `~/.appxpress` directory for you. Properties files for each tool are stored in this directory. Some temp files will also be stored here while the tool is running.
+
+When running either tool without and command line options, first the properties files are read.
 If any necessary values are missing you will be prompted for them. It is important
 that you are careful when running the tool like this.
 
-Command line options take precedence over the properties file. To display what options
-a tool takes pass the `-help` option.
+Command line options **always** take precedence over the properties file. To display what options
+a tool supports, pass the `-help` option.
 
 ```bash
 $ pmbuilder -help
