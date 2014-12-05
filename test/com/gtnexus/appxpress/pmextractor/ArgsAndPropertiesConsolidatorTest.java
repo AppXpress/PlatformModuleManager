@@ -68,13 +68,13 @@ public class ArgsAndPropertiesConsolidatorTest {
 		properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
 		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
 		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
-				args, optSet, properties, inputStreamFrom(), new PrintStream(
+				args, optSet, properties, inputStreamFrom("arg_customer", "arg_platform"), new PrintStream(
 						new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
 		for (ExtractorOption option : allNonOmmitable) {
-			if (option.equals(ExtractorOption.LOCAL_DIR)
-					|| option.equals(ExtractorOption.PLATFORM)) {
-				assertTrue(consolidated.get(option).startsWith("prop_"));
+			if (option.equals(ExtractorOption.LOCAL_DIR)) {
+				assertTrue("The option was " + consolidated.get(option),
+						consolidated.get(option).startsWith("prop_"));
 			} else {
 				assertTrue(consolidated.get(option)
 						+ " does not start with arg_.", 

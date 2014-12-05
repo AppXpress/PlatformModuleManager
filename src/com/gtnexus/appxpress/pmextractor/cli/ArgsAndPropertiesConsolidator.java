@@ -29,6 +29,7 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	private final Set<T> optSet;
 	private final Properties properties;
 	private final Asker asker;
+	private boolean presentSave;
 
 	/**
 	 * 
@@ -44,6 +45,7 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 		this.optSet = optSet;
 		this.properties = properties;
 		this.asker = new Asker(System.in, System.out);
+		presentSave = false;
 	}
 
 	/**
@@ -63,6 +65,7 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 		this.optSet = optSet;
 		this.properties = properties;
 		this.asker = new Asker(inputStream, printStream);
+		presentSave = false;
 	}
 
 	/**
@@ -73,8 +76,10 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 		for (T opt : optSet) {
 			if(!opt.shouldBeOmitted()) {
 				String val = consolidateSingle(opt);
-				properties.put(opt.getName(), val);
 				optMap.put(opt, val);
+				if(opt.isStoreableProperty()) {
+					properties.put(opt.getLongName(), val);
+				}
 			}
 		}
 		return optMap;
@@ -88,9 +93,15 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	 */
 	private String consolidateSingle(AppXpressOption option) {
 		String input = null;
-		String propVal = properties.getProperty(option.getName());
+		String propVal = null;
+		if(option.isStoreableProperty()) {
+			propVal = properties.getProperty(option.getLongName());
+		}
 		if (userArgs.containsKey(option)) {
 			input = userArgs.get(option);
+			if(option.isStoreableProperty()) {
+				presentSave = true;
+			}
 		}
 		if (input != null && !input.isEmpty()) {
 			return input;
@@ -123,21 +134,40 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	 *             when there is an IOException when writing to the properties
 	 *             file at the propPath.
 	 */
-	public void presentSaveOption(String propPath) throws PMExtractorException {
-		File settingsFile = new File(propPath);
+	public void presentSaveOption(final String propPath) throws PMExtractorException {
+		if(presentSave) {
+			final String answer = askSaveQuestion();
+			if (answer.equalsIgnoreCase("Y")) {
+				saveProps(propPath);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param propPath
+	 * @throws PMExtractorException
+	 */
+	private void saveProps(final String propPath) throws PMExtractorException {
+		final File settingsFile = new File(propPath);
+		try (FileOutputStream settingsOutputStream = new FileOutputStream(
+				settingsFile)) {
+			properties.store(settingsOutputStream, null);
+		} catch (IOException e) {
+			throw new PMExtractorException(
+					"Failed to write properties file!", e);
+		}
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private String askSaveQuestion() {
 		String answer = asker.ask("Save settings? [y/n]: ");
 		while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
 			answer = asker.ask("Invalid input. Please try again.");
 		}
-		if (answer.equalsIgnoreCase("Y")) {
-			// Save the settings file
-			try (FileOutputStream settingsOutputStream = new FileOutputStream(
-					settingsFile)) {
-				properties.store(settingsOutputStream, null);
-			} catch (IOException e) {
-				throw new PMExtractorException(
-						"Failed to write properties file!", e);
-			}
-		}
+		return answer;
 	}
 }

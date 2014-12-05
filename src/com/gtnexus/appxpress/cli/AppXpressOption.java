@@ -14,5 +14,6 @@ public interface AppXpressOption extends CLIOption {
 	public boolean shouldBeOmitted();
 	public boolean isValid(String val);
 	public String getDefaultValue();
+	public boolean isStoreableProperty();
 
 }

@@ -49,7 +49,8 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 		this.cliOptionSet = cliOptionSet;
 		this.options = new Options();
 		for (CLIOption opt : cliOptionSet) {
-			options.addOption(Option.builder(opt.getName())
+			options.addOption(Option.builder(opt.getFlag())
+					.longOpt(opt.getLongName())
 					.type(opt.getType())
 					.desc(opt.getDescription())
 					.hasArg(opt.hasArg())
@@ -100,7 +101,7 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 		if (cmd == null) {
 			return false;
 		}
-		return cmd.hasOption(opt.getName());
+		return cmd.hasOption(opt.getLongName()) || cmd.hasOption(opt.getFlag());
 	}
 
 	public Map<T, String> getOptionsMap() {
@@ -109,8 +110,8 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 		}
 		Map<T, String> optMap = new HashMap<>();
 		for (T opt : cliOptionSet) {
-			if (cmd.hasOption(opt.getName())) {
-				optMap.put(opt, cmd.getOptionValue(opt.getName()));
+			if (cmd.hasOption(opt.getLongName())) {
+				optMap.put(opt, cmd.getOptionValue(opt.getLongName()));
 			}
 		}
 		return optMap;

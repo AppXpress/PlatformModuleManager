@@ -10,15 +10,16 @@ import com.gtnexus.appxpress.cli.ValidityProvider;
  */
 public enum ExtractorOption implements AppXpressOption {
 
-	HELP("help", String.class, "Display usage for this tool", false, false, null), 
-	PLATFORM_ZIP("platformZip", String.class,"Exported Platform Module Name", true, true, null), 
-	LOCAL_DIR("localDir", String.class, "Relative Path of GIT staging folder",true, true, null), 
-	CUSTOMER("customer", String.class, "Customer of Platform Module", true, true, null), 
-	PLATFORM("platform", String.class, "Platform Module that is being exported", true, true, null), 
-	OVERWRITE_SCRIPTS("overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", true, false, "N"), 
-	OVERWRITE_FEF("overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true, false, "N");
+	HELP("h", "help", String.class, "Display usage for this tool", false, false, null), 
+	PLATFORM_ZIP("pz", "platformZip", String.class,"Exported Platform Module Name", true, true, null), 
+	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of GIT staging folder",true, true, null), 
+	CUSTOMER("c", "customer", String.class, "Customer of Platform Module", true, true, null), 
+	PLATFORM("p", "platform", String.class, "Platform Module that is being exported", true, true, null), 
+	OVERWRITE_SCRIPTS("os", "overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", true, false, "N"), 
+	OVERWRITE_FEF("of", "overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true, false, "N");
 
-	private final String name;
+	private final String flag;
+	private final String longName;
 	private final Class<?> type;
 	private final boolean hasArg;
 	private final boolean isMandatory;
@@ -29,7 +30,7 @@ public enum ExtractorOption implements AppXpressOption {
 
 	/**
 	 * 
-	 * @param name
+	 * @param longName
 	 *            The name of this ExtractorOption.
 	 * @param type
 	 *            The ExtractorOption type.
@@ -37,9 +38,10 @@ public enum ExtractorOption implements AppXpressOption {
 	 * @param isMandatory
 	 * @param defaulValue
 	 */
-	private ExtractorOption(String name, Class<?> type, String description,
+	private ExtractorOption(String flag, String longName, Class<?> type, String description,
 			boolean hasArg, boolean isMandatory, String defaulValue) {
-		this.name = name;
+		this.flag = flag;
+		this.longName = longName;
 		this.type = type;
 		this.hasArg = hasArg;
 		this.description = description;
@@ -49,11 +51,11 @@ public enum ExtractorOption implements AppXpressOption {
 
 	@Override
 	public String toString() {
-		return name;
+		return longName;
 	}
 
-	public String getName() {
-		return name;
+	public String getLongName() {
+		return longName;
 	}
 
 	public Class<?> getType() {
@@ -61,7 +63,7 @@ public enum ExtractorOption implements AppXpressOption {
 	}
 
 	public String getMessage() {
-		return msgProvider.getMessage(type, name);
+		return msgProvider.getMessage(type, longName);
 	}
 
 	public String getDescription() {
@@ -87,7 +89,7 @@ public enum ExtractorOption implements AppXpressOption {
 	 */
 	public String getDefaultValue() {
 		if (this.isMandatory) {
-			throw new UnsupportedOperationException(this.name
+			throw new UnsupportedOperationException(this.longName
 					+ " is a mandatory field, and must come from "
 					+ "user args or properties. There is no default value.");
 		}
@@ -103,6 +105,19 @@ public enum ExtractorOption implements AppXpressOption {
 	 */
 	public boolean isValid(String val) {
 		return validityProvider.isValid(val, type);
+	}
+
+	@Override
+	public String getFlag() {
+		return flag;
+	}
+
+	@Override
+	public boolean isStoreableProperty() {
+		if(this == LOCAL_DIR) {
+			return true;
+		}
+		return false;
 	}
 
 }
