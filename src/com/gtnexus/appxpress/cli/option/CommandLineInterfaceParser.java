@@ -1,8 +1,6 @@
-package com.gtnexus.appxpress.cli;
+package com.gtnexus.appxpress.cli.option;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumSet;
 import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
@@ -21,7 +19,7 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  * @author jdonovan
  *
  */
-public class CommandLineInterfaceParser<T extends CLIOption> {
+public class CommandLineInterfaceParser<T extends Enum<T> & CLIOption> {
 
 	private final String appName;
 	private final String[] userArgs;
@@ -31,6 +29,19 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 	private String helpFooter;
 	private CommandLine cmd;
 
+	public static <M extends Enum<M> & CLIOption> CommandLineInterfaceParser<M> createParser(
+			String appName, String[] userArgs, Class<M> optClass) {
+		Options options = new Options();
+		Set<M> cliOptSet = EnumSet.allOf(optClass);
+		for (CLIOption opt : cliOptSet) {
+			options.addOption(Option.builder(opt.getFlag())
+					.longOpt(opt.getLongName()).type(opt.getType())
+					.desc(opt.getDescription()).hasArg(opt.hasArg())
+					.required(false).build());
+		}
+		return new CommandLineInterfaceParser<M>(appName, userArgs, cliOptSet, options);
+	}
+
 	/**
 	 * 
 	 * @param userArgs
@@ -39,7 +50,8 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 	 * @param cliOptionSet
 	 *            the option set defining what can be passed to this tool
 	 */
-	public CommandLineInterfaceParser(String appName, String[] userArgs, Set<T> cliOptionSet) {
+	public CommandLineInterfaceParser(String appName, String[] userArgs,
+			Set<T> cliOptionSet, Options options) {
 		if (userArgs == null || cliOptionSet == null) {
 			throw new NullPointerException(
 					"Cannot parse null args, or null option set.");
@@ -47,16 +59,7 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 		this.appName = appName;
 		this.userArgs = userArgs;
 		this.cliOptionSet = cliOptionSet;
-		this.options = new Options();
-		for (CLIOption opt : cliOptionSet) {
-			options.addOption(Option.builder(opt.getFlag())
-					.longOpt(opt.getLongName())
-					.type(opt.getType())
-					.desc(opt.getDescription())
-					.hasArg(opt.hasArg())
-					.required(false)
-					.build());
-		}
+		this.options = options;
 	}
 
 	/**
@@ -67,7 +70,7 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 	 */
 	public CommandLine getCommandLine() throws PMExtractorException {
 		if (cmd == null) {
-			parseCommandLine();
+			parse();
 		}
 		return cmd;
 	}
@@ -79,7 +82,7 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 	 * @throws PMExtractorException
 	 *             if input is not parasable.
 	 */
-	public void parseCommandLine() throws PMExtractorException {
+	public ParsedOptions<T> parse() throws PMExtractorException {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			cmd = parser.parse(options, userArgs);
@@ -88,39 +91,19 @@ public class CommandLineInterfaceParser<T extends CLIOption> {
 					"Failed to parse args from command line!\n"
 							+ e.getMessage());
 		}
+		return ParsedOptions.createFrom(cmd, cliOptionSet);
 	}
 
-	/**
-	 * Checks to see if the user provided this CLIOption.
-	 * 
-	 * @param opt
-	 *            the CLIOption being checked for.
-	 * @return false if parsing has not yet been performed.
-	 */
-	public boolean hasOption(CLIOption opt) {
-		if (cmd == null) {
-			return false;
-		}
-		return cmd.hasOption(opt.getLongName()) || cmd.hasOption(opt.getFlag());
-	}
-
-	public Map<T, String> getOptionsMap() {
-		if (cmd == null || cmd.getOptions().length == 0) {
-			return Collections.emptyMap();
-		}
-		Map<T, String> optMap = new HashMap<>();
-		for (T opt : cliOptionSet) {
-			if (cmd.hasOption(opt.getLongName())) {
-				optMap.put(opt, cmd.getOptionValue(opt.getLongName()));
-			}
-		}
-		return optMap;
-	}
 
 	public Set<T> getCliOptionSet() {
 		return cliOptionSet;
 	}
 
+	public String getAppName() {
+		return appName;
+	}
+
+	// TODO: REFACTOR ME! THIS HAS NOTHING TO DO WITH PARSING
 	/**
 	 * Displays the usage information and exits.
 	 */

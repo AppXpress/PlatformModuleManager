@@ -16,7 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.gtnexus.appxpress.NullOutputStream;
-import com.gtnexus.appxpress.pmextractor.cli.ArgsAndPropertiesConsolidator;
+import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
@@ -49,7 +49,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 	public void testWithArgsAndNullProps() {
 		Map<ExtractorOption, String> args = mandatoryFieldsAndVals;
 		Properties properties = new Properties();
-		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
+		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom(), new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
 		for (ExtractorOption option : allNonOmmitable) {
@@ -67,7 +67,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 		Properties properties = new Properties();
 		properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
 		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
-		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
+		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom("arg_customer", "arg_platform"), new PrintStream(
 						new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
@@ -90,7 +90,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 		Map<ExtractorOption, String> args = mandatoryFieldsAndVals;
 		Properties properties = new Properties();
 		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
-		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
+		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom("some_local_dir", "Y"),
 				new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
@@ -103,7 +103,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 		Map<ExtractorOption, String> args = mandatoryFieldsAndVals;
 		Properties properties = new Properties();
 		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
-		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
+		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom("some_local_dir", "Y"),
 				new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();

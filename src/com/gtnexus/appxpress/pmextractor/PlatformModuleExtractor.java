@@ -1,20 +1,20 @@
 package com.gtnexus.appxpress.pmextractor;
 
+import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
+
 import java.io.IOException;
-import java.util.EnumSet;
 import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.DirectoryHelper;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.PMProperties;
-import com.gtnexus.appxpress.cli.CommandLineInterfaceParser;
-import com.gtnexus.appxpress.pmextractor.cli.ArgsAndPropertiesConsolidator;
+import com.gtnexus.appxpress.cli.option.CommandLineInterfaceParser;
+import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
-
-import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
 
 /**
  * 
@@ -58,14 +58,14 @@ public class PlatformModuleExtractor {
 	 *             performed.
 	 */
 	public void extract() throws PMExtractorException {
-		CommandLineInterfaceParser<ExtractorOption> cli = new CommandLineInterfaceParser<>(
-				NAME, userArgs, EnumSet.allOf(ExtractorOption.class));
-		cli.parseCommandLine();
-		if (cli.hasOption(ExtractorOption.HELP)) {
+		CommandLineInterfaceParser<ExtractorOption> cli = CommandLineInterfaceParser
+				.createParser(NAME, userArgs, ExtractorOption.class);
+		ParsedOptions<ExtractorOption> opts = cli.parse();
+		if (opts.hasOption(ExtractorOption.HELP)) {
 			cli.displayHelpAndExit();
 		}
 		try {
-			performExtraction(cli);
+			performExtraction(opts);
 		} catch (AppXpressException e) {
 			throw new PMExtractorException(
 					"Error when mapping to git structure.", e);
@@ -73,13 +73,13 @@ public class PlatformModuleExtractor {
 	}
 
 	private void performExtraction(
-			CommandLineInterfaceParser<ExtractorOption> cli)
+			ParsedOptions<ExtractorOption> opts)
 			throws AppXpressException {
 		DirectoryHelper dHelper = new DirectoryHelper(NAME + PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmbProperties = dHelper.getPmProperties();
-		ArgsAndPropertiesConsolidator<ExtractorOption> consolidator = new ArgsAndPropertiesConsolidator<>(
-				cli.getOptionsMap(), cli.getCliOptionSet(),
+		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
+				opts.getOptionsMap(), opts.getCliOptionSet(),
 				pmbProperties.getProperties());
 		Map<ExtractorOption, String> optMap = consolidator.consolidate();
 		Mapper tool = GitMapper.createMapper(optMap);

@@ -1,25 +1,15 @@
 package com.gtnexus.appxpress.cli;
 
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
-
 /**
- * Created by jjdonov on 9/30/14.
+ * 
+ * @author jdonovan
+ *
+ * @param <T>
  */
-public class Asker {
-
-	private final Scanner scanner;
-	private final PrintStream out;
-
-	public Asker(InputStream in, PrintStream out) {
-		this.scanner = new Scanner(in);
-		this.out = out;
-	}
-
-	public String ask(String message) {
-		out.println(message);
-		return scanner.next();
-	}
-
+public interface Asker<T> {
+	
+	public static final String INVALID_INPUT = "Invalid input. Please try again.";
+	
+	public T ask(String message);
+	
 }

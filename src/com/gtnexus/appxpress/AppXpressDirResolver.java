@@ -4,10 +4,12 @@ import static com.gtnexus.appxpress.AppXpressConstants.dirTemplate;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class AppXpressDirResolver {
 	
 	 private static final String USER_HOME = "user.home";
+	 private static final String CURRENT_DIR = "user.dir";
 	 private final String homeDir;
 	 private final File appXpressDir;
 	 
@@ -18,6 +20,11 @@ public class AppXpressDirResolver {
 	 
 	 public Path resolveAppXpressDir() {
 		return appXpressDir.toPath();
+	 }
+	 
+	 public Path resovleCurrentDirectory() {
+		 String cwd = System.getProperty(CURRENT_DIR);
+		 return Paths.get(cwd).toAbsolutePath(); 
 	 }
 
 }

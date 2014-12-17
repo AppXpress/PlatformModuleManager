@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
-import com.gtnexus.appxpress.cli.CLIOption;
+import com.gtnexus.appxpress.cli.option.CLIOption;
 
 
 public class DummyOption implements CLIOption{
@@ -28,6 +28,12 @@ public class DummyOption implements CLIOption{
 	@Override
 	public String getFlag() {
 		return "dummyFlag";
+	}
+
+	@Override
+	public boolean isHelpFlag() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

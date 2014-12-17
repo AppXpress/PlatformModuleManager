@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.cli;
+package com.gtnexus.appxpress.cli.option;
 
 /**
  * Extension of typical command line options interface. 

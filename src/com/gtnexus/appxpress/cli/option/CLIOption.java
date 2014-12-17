@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.cli;
+package com.gtnexus.appxpress.cli.option;
 
 
 public interface CLIOption {
@@ -8,4 +8,5 @@ public interface CLIOption {
     public Class<?> getType();
     public String getDescription();
     public boolean hasArg();
+    public boolean isHelpFlag();
 }

@@ -1,19 +1,14 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import java.util.EnumSet;
 import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.DirectoryHelper;
-import com.gtnexus.appxpress.PMProperties;
-import com.gtnexus.appxpress.cli.CommandLineInterfaceParser;
+import com.gtnexus.appxpress.context.AppXpressContext;
+import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
-import com.gtnexus.appxpress.pmextractor.cli.ArgsAndPropertiesConsolidator;
-
-import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
 
 
 /**
@@ -60,6 +55,7 @@ public class PlatformModuleBuilder {
 	}
 
 	private final String[] args;
+	private AppXpressContext<BuilderOption> context;
 
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
@@ -72,42 +68,43 @@ public class PlatformModuleBuilder {
 	 */
 	public PlatformModuleBuilder(String[] args) {
 		this.args = args;
+		
 	}
-
-	public void build() {
-		try {
-			CommandLineInterfaceParser<BuilderOption> cli = new CommandLineInterfaceParser<>(
-					NAME, args, EnumSet.allOf(BuilderOption.class));
-			cli.parseCommandLine();
-			if (cli.hasOption(BuilderOption.HELP)) {
-				cli.displayHelpAndExit();
-			}
-			performBuild(cli);
-		} catch (AppXpressException e) {
-			System.out.println("Failure when building module");
-			System.out.println(e.getAppXpressMessage());
-		}
+	
+	private void init() throws AppXpressException {
+		context = ContextFactory.creatContext(NAME, BuilderOption.class, args);
 	}
-
+	
 	/**
 	 * Builds the platform module.
 	 */
-	private void performBuild(CommandLineInterfaceParser<BuilderOption> cli)
+	private void performBuild(Map<BuilderOption, String> optMap)
 			throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper(NAME + PROPERTIES_EXTENSION);
-		dHelper.ensureAppXpress();
-		PMProperties pmProperties = dHelper.getPmProperties();
-		ArgsAndPropertiesConsolidator<BuilderOption> consolidator = new ArgsAndPropertiesConsolidator<>(
-				cli.getOptionsMap(), cli.getCliOptionSet(),
-				pmProperties.getProperties());
-		Map<BuilderOption, String> optMap = consolidator.consolidate();
+		init();
 		PMBuilderVO vo = new PMBuilderVO(optMap);
 		BuildPrep prep = new BuildPrep();
 		PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
 		prep.prepare(vo);
 		bundler.bundle(vo.getWorkingDir());
 		System.out.println("Success!");
-		consolidator.presentSaveOption(pmProperties.getPropertiesPath());
+		//consolidator.presentSaveOption(pmProperties.getPropertiesPath());
+		//move me up to build() or even further up ... 
+	}
+	
+	public void build() {
+		//init();
+		PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
+		BuildPrep prep = new BuildPrep();
+		PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
+		try {
+			prep.prepare(vo);
+			bundler.bundle(vo.getWorkingDir());
+			System.out.println("Success!");
+		} 
+		catch (AppXpressException e) {
+			e.printStackTrace();
+			context.shutdown();
+		}
 	}
 
 }

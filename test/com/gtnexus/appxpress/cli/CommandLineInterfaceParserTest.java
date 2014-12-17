@@ -6,8 +6,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.cli.Options;
 import org.junit.Test;
 
+import com.gtnexus.appxpress.cli.option.CLIOption;
+import com.gtnexus.appxpress.cli.option.CommandLineInterfaceParser;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
@@ -15,7 +18,7 @@ public class CommandLineInterfaceParserTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testNullArgs() {
-		new CommandLineInterfaceParser<>(null, null, null);
+		new CommandLineInterfaceParser<>(null, null, null, null);
 	}
 
 	@Test
@@ -25,9 +28,9 @@ public class CommandLineInterfaceParserTest {
 		CLIOption opt = new DummyOption();
 		optSet.add(new DummyOption());
 		CommandLineInterfaceParser<DummyOption> cli = new CommandLineInterfaceParser<>(
-				"ParserTest", ha, optSet);
+				"ParserTest", ha, optSet, new Options());
 		assertFalse(cli.hasOption(opt));
-		cli.parseCommandLine();
+		cli.parse();
 		assertTrue(cli.hasOption(opt));
 	}
 

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.cli;
+package com.gtnexus.appxpress.cli.option;
 
 public class OptionMessageProvider {
 	

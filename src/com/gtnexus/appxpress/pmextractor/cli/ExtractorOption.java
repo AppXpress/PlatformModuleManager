@@ -1,8 +1,8 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
-import com.gtnexus.appxpress.cli.AppXpressOption;
-import com.gtnexus.appxpress.cli.OptionMessageProvider;
 import com.gtnexus.appxpress.cli.ValidityProvider;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in
@@ -118,6 +118,11 @@ public enum ExtractorOption implements AppXpressOption {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isHelpFlag() {
+		return this.equals(HELP);
 	}
 
 }

@@ -10,8 +10,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import com.gtnexus.appxpress.cli.AppXpressOption;
 import com.gtnexus.appxpress.cli.Asker;
+import com.gtnexus.appxpress.cli.SimpleAsker;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -23,12 +24,12 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  *
  * @author jjdonov
  */
-public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
+public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 
 	private final Map<T, String> userArgs;
 	private final Set<T> optSet;
 	private final Properties properties;
-	private final Asker asker;
+	private final SimpleAsker asker;
 	private boolean presentSave;
 
 	/**
@@ -39,12 +40,12 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	 * @param properties
 	 *            Properties file read from user's AppXpress directory.
 	 */
-	public ArgsAndPropertiesConsolidator(Map<T, String> userArgs,
+	public CLIOptsAndPropConsolidator(Map<T, String> userArgs,
 			Set<T> optSet, Properties properties) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
 		this.properties = properties;
-		this.asker = new Asker(System.in, System.out);
+		this.asker = new SimpleAsker(System.in, System.out);
 		presentSave = false;
 	}
 
@@ -58,13 +59,13 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	 * @param printStream
 	 *            The printStream that this consolidator should write to.
 	 */
-	public ArgsAndPropertiesConsolidator(Map<T, String> userArgs,
+	public CLIOptsAndPropConsolidator(Map<T, String> userArgs,
 			Set<T> optSet, Properties properties, InputStream inputStream,
 			PrintStream printStream) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
 		this.properties = properties;
-		this.asker = new Asker(inputStream, printStream);
+		this.asker = new SimpleAsker(inputStream, printStream);
 		presentSave = false;
 	}
 
@@ -122,11 +123,14 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	private String getParameterFromUser(AppXpressOption option) {
 		String val = asker.ask(option.getMessage());
 		while (!option.isValid(val)) {
-			val = asker.ask("Invalid input. Please try again.");
+			val = asker.ask(Asker.INVALID_INPUT);
 		}
 		return val;
 	}
 
+	
+	//TOOD this has nothing to do with the consolidation.
+	
 	/**
 	 * @param propPath
 	 *            the path to the Properties file to be written to
@@ -166,7 +170,7 @@ public class ArgsAndPropertiesConsolidator<T extends AppXpressOption> {
 	private String askSaveQuestion() {
 		String answer = asker.ask("Save settings? [y/n]: ");
 		while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
-			answer = asker.ask("Invalid input. Please try again.");
+			answer = asker.ask(Asker.INVALID_INPUT);
 		}
 		return answer;
 	}
