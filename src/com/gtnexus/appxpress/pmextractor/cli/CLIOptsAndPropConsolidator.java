@@ -1,15 +1,13 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
+import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.PMProperties;
 import com.gtnexus.appxpress.cli.Asker;
 import com.gtnexus.appxpress.cli.SimpleAsker;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
@@ -28,7 +26,7 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 
 	private final Map<T, String> userArgs;
 	private final Set<T> optSet;
-	private final Properties properties;
+	private final PMProperties properties;
 	private final SimpleAsker asker;
 	private boolean presentSave;
 
@@ -41,7 +39,7 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 *            Properties file read from user's AppXpress directory.
 	 */
 	public CLIOptsAndPropConsolidator(Map<T, String> userArgs,
-			Set<T> optSet, Properties properties) {
+			Set<T> optSet, PMProperties properties) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
 		this.properties = properties;
@@ -60,7 +58,7 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 *            The printStream that this consolidator should write to.
 	 */
 	public CLIOptsAndPropConsolidator(Map<T, String> userArgs,
-			Set<T> optSet, Properties properties, InputStream inputStream,
+			Set<T> optSet, PMProperties properties, InputStream inputStream,
 			PrintStream printStream) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
@@ -130,7 +128,6 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 
 	
 	//TOOD this has nothing to do with the consolidation.
-	
 	/**
 	 * @param propPath
 	 *            the path to the Properties file to be written to
@@ -138,29 +135,21 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 *             when there is an IOException when writing to the properties
 	 *             file at the propPath.
 	 */
-	public void presentSaveOption(final String propPath) throws PMExtractorException {
+	public void presentSaveOption(final String propPath) throws AppXpressException {
 		if(presentSave) {
 			final String answer = askSaveQuestion();
 			if (answer.equalsIgnoreCase("Y")) {
-				saveProps(propPath);
+				saveProps();
 			}
 		}
 	}
 	
 	/**
 	 * 
-	 * @param propPath
 	 * @throws PMExtractorException
 	 */
-	private void saveProps(final String propPath) throws PMExtractorException {
-		final File settingsFile = new File(propPath);
-		try (FileOutputStream settingsOutputStream = new FileOutputStream(
-				settingsFile)) {
-			properties.store(settingsOutputStream, null);
-		} catch (IOException e) {
-			throw new PMExtractorException(
-					"Failed to write properties file!", e);
-		}
+	private void saveProps() throws AppXpressException {
+		properties.store();
 	}
 	
 	/**

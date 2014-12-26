@@ -1,15 +1,13 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import java.util.Map;
-
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
-
 
 /**
  * This executable does the following things in order with the end goal to
@@ -38,7 +36,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class PlatformModuleBuilder {
+public class PlatformModuleBuilder implements ApplicationInfo {
 
 	private static final String NAME = "pmbuilder";
 
@@ -46,16 +44,20 @@ public class PlatformModuleBuilder {
 	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * 
 	 * @param args
-	 *            0 - Name of customer folder 
-	 *            1 - Name of platform module folder
+	 *            0 - Name of customer folder 1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
-		PlatformModuleBuilder pmb = new PlatformModuleBuilder(args);
-		pmb.build();
+		ContextFactory factory = new ContextFactory();
+		try {
+			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
+			AppXpressContext<BuilderOption> context = factory.creatContext(pmb, args);
+			pmb.build(context);
+		} catch (AppXpressException e) {
+			e.getAppXpressMessage();
+		}
+		System.out.println("Success!");
 	}
 
-	private final String[] args;
-	private AppXpressContext<BuilderOption> context;
 
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
@@ -66,45 +68,45 @@ public class PlatformModuleBuilder {
 	 * @param module
 	 *            Name of platform module folder
 	 */
-	public PlatformModuleBuilder(String[] args) {
-		this.args = args;
-		
+	public PlatformModuleBuilder() {
 	}
-	
-	private void init() throws AppXpressException {
-		context = ContextFactory.creatContext(NAME, BuilderOption.class, args);
-	}
-	
-	/**
-	 * Builds the platform module.
-	 */
-	private void performBuild(Map<BuilderOption, String> optMap)
-			throws AppXpressException {
-		init();
-		PMBuilderVO vo = new PMBuilderVO(optMap);
-		BuildPrep prep = new BuildPrep();
-		PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
-		prep.prepare(vo);
-		bundler.bundle(vo.getWorkingDir());
-		System.out.println("Success!");
-		//consolidator.presentSaveOption(pmProperties.getPropertiesPath());
-		//move me up to build() or even further up ... 
-	}
-	
-	public void build() {
-		//init();
+
+	public void build(AppXpressContext<BuilderOption> context) {
 		PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
 		BuildPrep prep = new BuildPrep();
-		PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
+		PlatformModuleBundler bundler = new PlatformModuleBundler(
+				vo.getRootFile());
 		try {
 			prep.prepare(vo);
 			bundler.bundle(vo.getWorkingDir());
 			System.out.println("Success!");
-		} 
-		catch (AppXpressException e) {
+		} catch (AppXpressException e) {
 			e.printStackTrace();
-			context.shutdown();
+			context.shutdown("Aborting build.");
 		}
+	}
+
+	@Override
+	public String getAppName() {
+		return NAME;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
+		return (Class<M>) BuilderOption.class;
+	}
+
+
+	@Override
+	public String getHelpHeader() {
+		return "";
+	}
+
+
+	@Override
+	public String getHelpFooter() {
+		return "";
 	}
 
 }

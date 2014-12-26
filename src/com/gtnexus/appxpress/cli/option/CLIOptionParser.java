@@ -6,11 +6,11 @@ import java.util.Set;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -19,17 +19,14 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  * @author jdonovan
  *
  */
-public class CommandLineInterfaceParser<T extends Enum<T> & CLIOption> {
+public class CLIOptionParser<T extends Enum<T> & CLIOption> {
 
-	private final String appName;
 	private final String[] userArgs;
 	private final Set<T> cliOptionSet;
 	private final Options options;
-	private String helpHeader;
-	private String helpFooter;
 	private CommandLine cmd;
 
-	public static <M extends Enum<M> & CLIOption> CommandLineInterfaceParser<M> createParser(
+	public static <M extends Enum<M> & CLIOption> CLIOptionParser<M> createParser(
 			String appName, String[] userArgs, Class<M> optClass) {
 		Options options = new Options();
 		Set<M> cliOptSet = EnumSet.allOf(optClass);
@@ -39,7 +36,7 @@ public class CommandLineInterfaceParser<T extends Enum<T> & CLIOption> {
 					.desc(opt.getDescription()).hasArg(opt.hasArg())
 					.required(false).build());
 		}
-		return new CommandLineInterfaceParser<M>(appName, userArgs, cliOptSet, options);
+		return new CLIOptionParser<M>(userArgs, cliOptSet, options);
 	}
 
 	/**
@@ -50,29 +47,15 @@ public class CommandLineInterfaceParser<T extends Enum<T> & CLIOption> {
 	 * @param cliOptionSet
 	 *            the option set defining what can be passed to this tool
 	 */
-	public CommandLineInterfaceParser(String appName, String[] userArgs,
+	public CLIOptionParser(String[] userArgs,
 			Set<T> cliOptionSet, Options options) {
 		if (userArgs == null || cliOptionSet == null) {
 			throw new NullPointerException(
 					"Cannot parse null args, or null option set.");
 		}
-		this.appName = appName;
 		this.userArgs = userArgs;
 		this.cliOptionSet = cliOptionSet;
 		this.options = options;
-	}
-
-	/**
-	 * 
-	 * @return CommandLine created from user input and the option set.
-	 * @throws PMExtractorException
-	 *             if the CommandLine is not parsable.
-	 */
-	public CommandLine getCommandLine() throws PMExtractorException {
-		if (cmd == null) {
-			parse();
-		}
-		return cmd;
 	}
 
 	/**
@@ -82,7 +65,7 @@ public class CommandLineInterfaceParser<T extends Enum<T> & CLIOption> {
 	 * @throws PMExtractorException
 	 *             if input is not parasable.
 	 */
-	public ParsedOptions<T> parse() throws PMExtractorException {
+	public ParsedOptions<T> parse() throws AppXpressException {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			cmd = parser.parse(options, userArgs);
@@ -91,42 +74,15 @@ public class CommandLineInterfaceParser<T extends Enum<T> & CLIOption> {
 					"Failed to parse args from command line!\n"
 							+ e.getMessage());
 		}
-		return ParsedOptions.createFrom(cmd, cliOptionSet);
+		return ParsedOptions.createFrom(cmd, options, cliOptionSet);
 	}
-
 
 	public Set<T> getCliOptionSet() {
 		return cliOptionSet;
 	}
-
-	public String getAppName() {
-		return appName;
-	}
-
-	// TODO: REFACTOR ME! THIS HAS NOTHING TO DO WITH PARSING
-	/**
-	 * Displays the usage information and exits.
-	 */
-	public void displayHelpAndExit() {
-		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp(appName, helpHeader, options, helpFooter);
-		System.exit(0);
-	}
-
-	public String getHelpHeader() {
-		return helpHeader;
-	}
-
-	public void setHelpHeader(String helpHeader) {
-		this.helpHeader = helpHeader;
-	}
-
-	public String getHelpFooter() {
-		return helpFooter;
-	}
-
-	public void setHelpFooter(String helpFooter) {
-		this.helpFooter = helpFooter;
+	
+	public Options getOptions() {
+		return options;
 	}
 
 }

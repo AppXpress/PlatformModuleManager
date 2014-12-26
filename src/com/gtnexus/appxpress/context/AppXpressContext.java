@@ -2,6 +2,9 @@ package com.gtnexus.appxpress.context;
 
 import java.util.Map;
 
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.DirectoryHelper;
 import com.gtnexus.appxpress.PMProperties;
@@ -13,40 +16,78 @@ import com.gtnexus.appxpress.cli.option.AppXpressOption;
  *
  * @param <T>
  */
-public class AppXpressContext<T extends Enum<T> & AppXpressOption> {
-	
-	
-	public enum Type {
-		Extractor, Option;
-	}
-	
+public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements SimpleShutdown{
+
 	private final String appName;
+	@SuppressWarnings("unused")
 	private final Class<T> contextType;
 	private final DirectoryHelper dHelper;
+	private final Options options;
 	private final Map<T, String> optMap;
+	private final PMProperties properties;
+	private final SimpleShutdown shutdown;
+	private String helpHeader;
+	private String helpFooter; //TODO
 
-	public AppXpressContext(String appName, Class<T> contextType, DirectoryHelper dHelper, Map<T, String> optMap) {
+	public AppXpressContext(String appName, Class<T> contextType, SimpleShutdown shutdown,
+			DirectoryHelper dHelper, Options options, PMProperties properties,
+			Map<T, String> optMap) {
 		this.appName = appName;
 		this.contextType = contextType;
+		this.shutdown = shutdown;
 		this.dHelper = dHelper;
 		this.optMap = optMap;
+		this.properties = properties;
+		this.options = options;
 	}
-	
-	public void shutdown() {
-		//TODO register shutdown hook
-		System.exit(0);
-	}
-	
+
 	public Map<T, String> getOptMap() {
 		return optMap;
 	}
-	
+
 	public PMProperties getPMProperties() throws AppXpressException {
 		return dHelper.getPmProperties();
 	}
+
+
+	public String getProperty(AppXpressOption option) {
+		return properties.getProperty(option.getLongName());
+	}
 	
-	public String getAppName() {
-		return appName;
+	/**
+	 * Displays the usage information and exits.
+	 */
+	public void displayHelpAndExit() {
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp(appName, helpHeader, options, helpFooter);
+		shutdown();
+	}
+
+	public String getHelpHeader() {
+		return helpHeader;
+	}
+
+	public void setHelpHeader(String helpHeader) {
+		this.helpHeader = helpHeader;
+	}
+
+	public String getHelpFooter() {
+		return helpFooter;
+	}
+
+	public void setHelpFooter(String helpFooter) {
+		this.helpFooter = helpFooter;
+	}
+
+	@Override
+	public void shutdown() {
+		shutdown.shutdown();
+		
+	}
+
+	@Override
+	public void shutdown(String message) {
+		shutdown.shutdown(message);
 	}
 	
 }

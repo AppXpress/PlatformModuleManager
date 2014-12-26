@@ -1,34 +1,48 @@
 package com.gtnexus.appxpress.context;
 
+import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
+
 import java.util.Map;
 
+import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.DirectoryHelper;
 import com.gtnexus.appxpress.PMProperties;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
-import com.gtnexus.appxpress.cli.option.CommandLineInterfaceParser;
+import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 
 public class ContextFactory {
 
-	public static <M extends Enum<M> & AppXpressOption> AppXpressContext<M> creatContext(
-			String appName, Class<M> contextType, String[] args)
-			throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper("");
+	AppXpressDirResolver resolver;
+
+	public ContextFactory() {
+		this.resolver = new AppXpressDirResolver();
+	}
+
+	public <M extends Enum<M> & AppXpressOption> AppXpressContext<M> creatContext(
+			ApplicationInfo app, String[] args) throws AppXpressException {
+		DirectoryHelper dHelper = new DirectoryHelper(app.getAppName()
+				+ PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmProperties = dHelper.getPmProperties();
-		CommandLineInterfaceParser<M> parser = CommandLineInterfaceParser
-				.createParser(appName, args, contextType);
+		Class<M> contextType = app.getContextType();
+		CLIOptionParser<M> parser = CLIOptionParser.createParser(
+				app.getAppName(), args, contextType);
 		ParsedOptions<M> parsedOptions = parser.parse();
-		CLIOptionInterpreter<M> interpreter = InterpreterFactory.createInterpreter(contextType, parsedOptions);
+		SimpleShutdown shutdown = new SimpleShutdownImpl();
+		CLIOptionInterpreter<M> interpreter = InterpreterFactory
+				.createInterpreter(app, shutdown, parsedOptions, pmProperties);
 		Map<M, String> interpretedOptions = interpreter.interpret();
 		CLIOptsAndPropConsolidator<M> consolidator = new CLIOptsAndPropConsolidator<>(
 				interpretedOptions, parsedOptions.getCliOptionSet(),
-				pmProperties.getProperties());
+				pmProperties);
 		Map<M, String> optMap = consolidator.consolidate();
-		return new AppXpressContext<>(appName, contextType, dHelper, optMap);
+		return new AppXpressContext<>(app.getAppName(), contextType, shutdown,
+				dHelper, parser.getOptions(), pmProperties, optMap);
 	}
 
 }

@@ -9,7 +9,7 @@ import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.DirectoryHelper;
 import com.gtnexus.appxpress.Mapper;
 import com.gtnexus.appxpress.PMProperties;
-import com.gtnexus.appxpress.cli.option.CommandLineInterfaceParser;
+import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
@@ -38,7 +38,7 @@ public class PlatformModuleExtractor {
 		PlatformModuleExtractor extractor = new PlatformModuleExtractor(args);
 		try {
 			extractor.extract();
-		} catch (PMExtractorException e) {
+		} catch (AppXpressException e) {
 			System.err.println("Failure when running pmextractor.");
 			System.err.println(e.getMessage());
 		}
@@ -57,12 +57,12 @@ public class PlatformModuleExtractor {
 	 *             if CommandLine is not parsable, or if extraction cannot be
 	 *             performed.
 	 */
-	public void extract() throws PMExtractorException {
-		CommandLineInterfaceParser<ExtractorOption> cli = CommandLineInterfaceParser
-				.createParser(NAME, userArgs, ExtractorOption.class);
+	public void extract() throws AppXpressException {
+		CLIOptionParser<ExtractorOption> cli = CLIOptionParser.createParser(
+				NAME, userArgs, ExtractorOption.class);
 		ParsedOptions<ExtractorOption> opts = cli.parse();
 		if (opts.hasOption(ExtractorOption.HELP)) {
-			cli.displayHelpAndExit();
+			//cli.displayHelpAndExit();
 		}
 		try {
 			performExtraction(opts);
@@ -72,15 +72,14 @@ public class PlatformModuleExtractor {
 		}
 	}
 
-	private void performExtraction(
-			ParsedOptions<ExtractorOption> opts)
+	private void performExtraction(ParsedOptions<ExtractorOption> opts)
 			throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper(NAME + PROPERTIES_EXTENSION);
+		DirectoryHelper dHelper = new DirectoryHelper(NAME
+				+ PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmbProperties = dHelper.getPmProperties();
 		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
-				opts.getOptionsMap(), opts.getCliOptionSet(),
-				pmbProperties.getProperties());
+				opts.getOptionsMap(), opts.getCliOptionSet(), pmbProperties);
 		Map<ExtractorOption, String> optMap = consolidator.consolidate();
 		Mapper tool = GitMapper.createMapper(optMap);
 		System.out.println("Mapping...");
