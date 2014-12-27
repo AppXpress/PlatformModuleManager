@@ -136,8 +136,8 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view>&#xD;&#xA;&lt;presentation currentPage=&quot;root&quot; restore=&quot;true&quot;/>&#xD;&#xA;&lt;standbyPart/>&#xD;&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
-      <tags>active</tags>
       <tags>activeOnClose</tags>
+      <tags>active</tags>
       <menus xmi:id="_WGMo8IIiEeSJWdFDLaYAHw" elementId="org.eclipse.ui.internal.introview">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -262,7 +262,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_VsUwYIIiEeSJWdFDLaYAHw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_8huTsIIiEeSuwovnLbO0aQ" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_Vf5eAYIiEeSJWdFDLaYAHw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_KNmeMYuBEeSFHIyBx0qUdg" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_Vf5eAYIiEeSJWdFDLaYAHw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_VsVXcIIiEeSJWdFDLaYAHw" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -283,7 +283,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_VsV-gIIiEeSJWdFDLaYAHw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_8hzMMoIiEeSuwovnLbO0aQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_VfzXWIIiEeSJWdFDLaYAHw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_KNrWsouBEeSFHIyBx0qUdg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_VfzXWIIiEeSJWdFDLaYAHw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_VsV-gYIiEeSJWdFDLaYAHw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -371,6 +371,11 @@
     <bindings xmi:id="_VgkzY4IiEeSJWdFDLaYAHw" keySequence="CTRL+2 R" command="_Vf0lc4IiEeSJWdFDLaYAHw"/>
     <bindings xmi:id="_VgodxIIiEeSJWdFDLaYAHw" keySequence="CTRL+SHIFT+ARROW_DOWN" command="_Vf76PIIiEeSJWdFDLaYAHw"/>
     <bindings xmi:id="_VgodxoIiEeSJWdFDLaYAHw" keySequence="ALT+SHIFT+ARROW_LEFT" command="_Vf6sMYIiEeSJWdFDLaYAHw"/>
+    <bindings xmi:id="_5HX9EIuAEeSTj_GHzyTxwQ" keySequence="ALT+CTRL+SHIFT+M" command="_5G1xkYuAEeSTj_GHzyTxwQ"/>
+    <bindings xmi:id="_5HX9EYuAEeSTj_GHzyTxwQ" keySequence="CTRL+U" command="_5G1xkouAEeSTj_GHzyTxwQ"/>
+    <bindings xmi:id="_5HX9EouAEeSTj_GHzyTxwQ" keySequence="ALT+CTRL+SHIFT+R" command="_5G1xkIuAEeSTj_GHzyTxwQ"/>
+    <bindings xmi:id="_5HX9E4uAEeSTj_GHzyTxwQ" keySequence="CTRL+R" command="_5G1KgIuAEeSTj_GHzyTxwQ"/>
+    <bindings xmi:id="_5HYkIIuAEeSTj_GHzyTxwQ" keySequence="CTRL+J" command="_5G1xk4uAEeSTj_GHzyTxwQ"/>
   </bindingTables>
   <bindingTables xmi:id="_VgTGkYIiEeSJWdFDLaYAHw" elementId="org.eclipse.wst.sse.ui.structuredTextEditorScope" bindingContext="_Vf-9jYIiEeSJWdFDLaYAHw">
     <bindings xmi:id="_VgTGkoIiEeSJWdFDLaYAHw" keySequence="CTRL+I" command="_VfzXXoIiEeSJWdFDLaYAHw"/>
@@ -534,6 +539,7 @@
     <bindings xmi:id="_Vgq6A4IiEeSJWdFDLaYAHw" keySequence="ALT+SHIFT+H" command="_Vf7TQYIiEeSJWdFDLaYAHw"/>
     <bindings xmi:id="_VgrhEoIiEeSJWdFDLaYAHw" keySequence="ALT+CTRL+H" command="_Vfz-fYIiEeSJWdFDLaYAHw"/>
     <bindings xmi:id="_VgrhE4IiEeSJWdFDLaYAHw" keySequence="ALT+CTRL+SHIFT+ARROW_DOWN" command="_Vf6sOIIiEeSJWdFDLaYAHw"/>
+    <bindings xmi:id="_5HYkIouAEeSTj_GHzyTxwQ" keySequence="CTRL+J" command="_5G1xk4uAEeSTj_GHzyTxwQ"/>
   </bindingTables>
   <bindingTables xmi:id="_VgTtoIIiEeSJWdFDLaYAHw" elementId="org.eclipse.ui.textEditorScope" bindingContext="_Vf-9i4IiEeSJWdFDLaYAHw">
     <bindings xmi:id="_VgTtoYIiEeSJWdFDLaYAHw" keySequence="CTRL+SHIFT+NUMPAD_MULTIPLY" command="_VfzXZYIiEeSJWdFDLaYAHw"/>
@@ -580,6 +586,7 @@
     <bindings xmi:id="_Vgq6AYIiEeSJWdFDLaYAHw" keySequence="CTRL+ARROW_LEFT" command="_Vf0leIIiEeSJWdFDLaYAHw"/>
     <bindings xmi:id="_Vgq6BIIiEeSJWdFDLaYAHw" keySequence="CTRL+ARROW_RIGHT" command="_Vf6FF4IiEeSJWdFDLaYAHw"/>
     <bindings xmi:id="_VgrhEIIiEeSJWdFDLaYAHw" keySequence="CTRL+D" command="_Vf2ap4IiEeSJWdFDLaYAHw"/>
+    <bindings xmi:id="_5HYkIYuAEeSTj_GHzyTxwQ" keySequence="CTRL+J" command="_5G1xk4uAEeSTj_GHzyTxwQ"/>
   </bindingTables>
   <bindingTables xmi:id="_VgUUtIIiEeSJWdFDLaYAHw" elementId="org.eclipse.ant.ui.AntEditorScope" bindingContext="_Vf-9jIIiEeSJWdFDLaYAHw">
     <bindings xmi:id="_VgUUtYIiEeSJWdFDLaYAHw" keySequence="CTRL+SHIFT+F" command="_Vf43EYIiEeSJWdFDLaYAHw"/>
@@ -1042,6 +1049,14 @@
   <descriptors xmi:id="_VjBDYIIiEeSJWdFDLaYAHw" elementId="org.eclipse.wst.xml.ui.contentmodel.view" label="Content Model" iconURI="platform:/plugin/org.eclipse.wst.xml.ui/icons/full/view16/hierarchy.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
     <tags>View</tags>
     <tags>categoryTag:XML</tags>
+  </descriptors>
+  <descriptors xmi:id="_5J-lIIuAEeSTj_GHzyTxwQ" elementId="org.moreunit.missingtestmethodview" label="Missing Test Methods" iconURI="platform:/plugin/org.moreunit/icons/moreunitLogo.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:MoreUnit</tags>
+  </descriptors>
+  <descriptors xmi:id="_5KAaUIuAEeSTj_GHzyTxwQ" elementId="org.moreunit.missingtestsview" label="Missing Tests per Project" iconURI="platform:/plugin/org.moreunit/icons/moreunitLogo.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:MoreUnit</tags>
   </descriptors>
   <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
     <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
@@ -1953,6 +1968,11 @@
   <commands xmi:id="_Vq3-5IIiEeSJWdFDLaYAHw" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.tasks.ui.open.repositories.view" commandName="Show Task Repositories View" description="Show Task Repositories View" category="_Vfw7JYIiEeSJWdFDLaYAHw"/>
   <commands xmi:id="_Vq4l8IIiEeSJWdFDLaYAHw" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.doc.legend.show.action" commandName="Show UI Legend" description="Show Tasks UI Legend" category="_Vfw7JYIiEeSJWdFDLaYAHw"/>
   <commands xmi:id="_Vq4l8YIiEeSJWdFDLaYAHw" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.context.ui.actions.tasklist.focus" commandName="Focus on Workweek" description="Focus on Workweek" category="_Vfw7JYIiEeSJWdFDLaYAHw"/>
+  <commands xmi:id="_5G1KgIuAEeSTj_GHzyTxwQ" elementId="org.moreunit.runtestaction" commandName="Run Tests" description="Run all tests corresponding to the open class." category="_Vfw7LYIiEeSJWdFDLaYAHw"/>
+  <commands xmi:id="_5G1xkIuAEeSTj_GHzyTxwQ" elementId="org.moreunit.runtestsofselectedmemberaction" commandName="Run Tests of Selected Member" description="Run all tests corresponding to the class or method under the cursor." category="_Vfw7LYIiEeSJWdFDLaYAHw"/>
+  <commands xmi:id="_5G1xkYuAEeSTj_GHzyTxwQ" elementId="org.moreunit.mock.commands.mockDependencies" commandName="Mock Dependencies in Test Case..." category="_Vfw7LYIiEeSJWdFDLaYAHw"/>
+  <commands xmi:id="_5G1xkouAEeSTj_GHzyTxwQ" elementId="org.moreunit.createtestmethod" commandName="Create Test Method" description="Creation of a testmethod." category="_Vfw7LYIiEeSJWdFDLaYAHw"/>
+  <commands xmi:id="_5G1xk4uAEeSTj_GHzyTxwQ" elementId="org.moreunit.core.commands.jumpCommand" commandName="Jump to Test/Source" description="Jump to the test or source associated to the current file." category="_5G0jcYuAEeSTj_GHzyTxwQ"/>
   <addons xmi:id="_VfYgmIIiEeSJWdFDLaYAHw" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_VfYgmYIiEeSJWdFDLaYAHw" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_VfYgmoIiEeSJWdFDLaYAHw" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -1995,4 +2015,5 @@
   <categories xmi:id="_Vfw7LIIiEeSJWdFDLaYAHw" elementId="org.eclipse.ui.category.navigate" name="Navigate"/>
   <categories xmi:id="_Vfw7LYIiEeSJWdFDLaYAHw" elementId="org.eclipse.jdt.ui.category.source" name="Source" description="Java Source Actions"/>
   <categories xmi:id="_Vfw7LoIiEeSJWdFDLaYAHw" elementId="org.eclipse.jdt.ui.category.refactoring" name="Refactor - Java" description="Java Refactoring Actions"/>
+  <categories xmi:id="_5G0jcYuAEeSTj_GHzyTxwQ" elementId="org.moreunit.core.commands.category" name="MoreUnit"/>
 </application:Application>
