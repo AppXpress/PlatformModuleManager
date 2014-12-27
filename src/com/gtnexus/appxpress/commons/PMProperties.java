@@ -1,9 +1,11 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+
+import com.gtnexus.appxpress.AppXpressException;
 
 /**
  * Simple wrapper around a File and Property objects.

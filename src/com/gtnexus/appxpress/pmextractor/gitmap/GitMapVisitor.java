@@ -11,7 +11,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.gtnexus.appxpress.file.CopyDirVisitor;
+import com.gtnexus.appxpress.commons.file.CopyDirVisitor;
 
 public class GitMapVisitor extends CopyDirVisitor {
 

@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.Precondition;
-import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.file.FileService;
 
 /**
  * Parses a file for !import statements

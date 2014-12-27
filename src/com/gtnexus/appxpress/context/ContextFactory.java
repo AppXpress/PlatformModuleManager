@@ -6,21 +6,25 @@ import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.DirectoryHelper;
-import com.gtnexus.appxpress.PMProperties;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.commons.DirectoryHelper;
+import com.gtnexus.appxpress.commons.PMProperties;
+import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.commons.SimpleShutdownImpl;
 import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 
 public class ContextFactory {
 
-	AppXpressDirResolver resolver;
+	private final AppXpressDirResolver resolver;
+	private final InterpreterFactory interpreterFac;
 
 	public ContextFactory() {
 		this.resolver = new AppXpressDirResolver();
+		this.interpreterFac = new InterpreterFactory(resolver);
 	}
 
 	public <M extends Enum<M> & AppXpressOption> AppXpressContext<M> creatContext(
@@ -34,8 +38,8 @@ public class ContextFactory {
 				app.getAppName(), args, contextType);
 		ParsedOptions<M> parsedOptions = parser.parse();
 		SimpleShutdown shutdown = new SimpleShutdownImpl();
-		CLIOptionInterpreter<M> interpreter = InterpreterFactory
-				.createInterpreter(app, shutdown, parsedOptions, pmProperties);
+		CLIOptionInterpreter<M> interpreter = interpreterFac.createInterpreter(
+				app, shutdown, parsedOptions, pmProperties);
 		Map<M, String> interpretedOptions = interpreter.interpret();
 		CLIOptsAndPropConsolidator<M> consolidator = new CLIOptsAndPropConsolidator<>(
 				interpretedOptions, parsedOptions.getCliOptionSet(),

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.cli;
+package com.gtnexus.appxpress.cli.asker;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -17,6 +17,7 @@ public class SimpleAsker implements Asker<String> {
 		this.out = out;
 	}
 
+	@Override
 	public String ask(String message) {
 		out.println(message);
 		return scanner.next();

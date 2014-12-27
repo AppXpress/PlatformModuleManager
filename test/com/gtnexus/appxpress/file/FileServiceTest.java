@@ -15,7 +15,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.gtnexus.appxpress.Precondition;
+import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.file.FileService;
 
 public class FileServiceTest {
 	

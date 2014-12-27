@@ -6,9 +6,10 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.DirectoryHelper;
-import com.gtnexus.appxpress.PMProperties;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.commons.DirectoryHelper;
+import com.gtnexus.appxpress.commons.PMProperties;
+import com.gtnexus.appxpress.commons.SimpleShutdown;
 
 /**
  * 

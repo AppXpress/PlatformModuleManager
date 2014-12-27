@@ -1,9 +1,12 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+
+import com.gtnexus.appxpress.AppXpressDirResolver;
+import com.gtnexus.appxpress.AppXpressException;
 
 /**
  * Helper class used by PlatformModuleExtractor. Ensures the existence of necessary directories and files.

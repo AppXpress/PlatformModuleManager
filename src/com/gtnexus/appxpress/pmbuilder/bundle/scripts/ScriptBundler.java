@@ -17,10 +17,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.ZipService;
-import com.gtnexus.appxpress.file.FileService;
-import com.gtnexus.appxpress.file.filter.ChainedAnd;
-import com.gtnexus.appxpress.file.filter.FileFilterFactory;
+import com.gtnexus.appxpress.commons.ZipService;
+import com.gtnexus.appxpress.commons.file.FileService;
+import com.gtnexus.appxpress.commons.file.filter.ChainedAnd;
+import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 

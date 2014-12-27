@@ -27,6 +27,7 @@ public class AppXpressScriptDesignTagModifier implements
 		this.mimeTypeValue = mimeTypeValue;
 	}
 
+	@Override
 	public void modifyAsNeeded() {
 		updateTag(xml, customObject.getName());
 	}

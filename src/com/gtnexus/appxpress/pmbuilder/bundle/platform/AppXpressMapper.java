@@ -3,13 +3,13 @@ package com.gtnexus.appxpress.pmbuilder.bundle.platform;
 import java.io.File;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.Mapper;
-import com.gtnexus.appxpress.Preparation;
+import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.FolderPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.ScriptBundler;
 import com.gtnexus.appxpress.pmbuilder.design.CustomObjectDesignXML;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
 
 /**
  * Replacement for PlatfromMapUtil.
@@ -35,6 +35,7 @@ public class AppXpressMapper implements Mapper {
 	/**
 	 * Performs the directory mappings (renaming, moving, etc.)
 	 */
+	@Override
 	public void doMapping() throws AppXpressException {
 		if (root == null || !root.isDirectory()) {
 			System.err.println("Module root cannot be found, or is empty. "

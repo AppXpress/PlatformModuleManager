@@ -52,10 +52,10 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
 			AppXpressContext<BuilderOption> context = factory.creatContext(pmb, args);
 			pmb.build(context);
+			System.out.println("Success!");
 		} catch (AppXpressException e) {
-			e.getAppXpressMessage();
+			System.out.println(e.getAppXpressMessage());
 		}
-		System.out.println("Success!");
 	}
 
 

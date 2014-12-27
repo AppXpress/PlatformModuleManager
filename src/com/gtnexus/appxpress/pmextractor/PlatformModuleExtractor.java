@@ -6,15 +6,15 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.DirectoryHelper;
-import com.gtnexus.appxpress.Mapper;
-import com.gtnexus.appxpress.PMProperties;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.commons.DirectoryHelper;
+import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
+import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
 
 /**
  * 

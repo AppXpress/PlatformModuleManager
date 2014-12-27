@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmbuilder.cli;
 
-import com.gtnexus.appxpress.cli.ValidityProvider;
+import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 

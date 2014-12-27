@@ -10,10 +10,10 @@ import java.nio.file.Path;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.Precondition;
-import com.gtnexus.appxpress.Preparation;
-import com.gtnexus.appxpress.ZipService;
-import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.Preparation;
+import com.gtnexus.appxpress.commons.ZipService;
+import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**

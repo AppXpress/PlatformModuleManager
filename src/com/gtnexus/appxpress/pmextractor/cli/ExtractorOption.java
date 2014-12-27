@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
-import com.gtnexus.appxpress.cli.ValidityProvider;
+import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
@@ -54,30 +54,37 @@ public enum ExtractorOption implements AppXpressOption {
 		return longName;
 	}
 
+	@Override
 	public String getLongName() {
 		return longName;
 	}
 
+	@Override
 	public Class<?> getType() {
 		return type;
 	}
 
+	@Override
 	public String getMessage() {
 		return msgProvider.getMessage(type, longName);
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public boolean hasArg() {
 		return hasArg;
 	}
 
+	@Override
 	public boolean isAppXpressMandatory() {
 		return isMandatory;
 	}
 
+	@Override
 	public boolean shouldBeOmitted() {
 		return !isMandatory && defaultValue == null;
 	}
@@ -87,6 +94,7 @@ public enum ExtractorOption implements AppXpressOption {
 	 * @throws java.lang.UnsupportedOperationException
 	 *             if this method is called on a mandatory option.
 	 */
+	@Override
 	public String getDefaultValue() {
 		if (this.isMandatory) {
 			throw new UnsupportedOperationException(this.longName
@@ -103,6 +111,7 @@ public enum ExtractorOption implements AppXpressOption {
 	 * @param val
 	 * @return
 	 */
+	@Override
 	public boolean isValid(String val) {
 		return validityProvider.isValid(val, type);
 	}

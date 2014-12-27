@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.file.filter;
+package com.gtnexus.appxpress.commons.file.filter;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -33,5 +33,6 @@ public abstract class FileFilterChain implements FileFilter {
 		filters.add(filter);
 	}
 	
+	@Override
 	public abstract boolean accept(File file);
 }

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons;
 
 public interface Precondition<T> {
 	public boolean isMet(T obj);

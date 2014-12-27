@@ -1,20 +1,36 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.PrintStream;
+import java.util.Arrays;
 
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+
+import com.gtnexus.appxpress.NullOutputStream;
+import com.gtnexus.appxpress.cli.asker.BoundIntegerAsker;
 
 public class PlatformSelectorTest {
 
 	@Test
 	public void testSelect() {
-		//File mockedDir = mock(File.class);
-		fail("Not yet implemented");
+		PrintStream out = null;
+		try {
+			File[] files = new File[10];
+			for (int i = 0; i < 10; i++) {
+				files[i] = new File("File" + i);
+			}
+			BoundIntegerAsker asker = Mockito.mock(BoundIntegerAsker.class);
+			Mockito.when(asker.ask(Matchers.anyString())).thenReturn(1);
+			out = new PrintStream(new NullOutputStream());
+			PlatformSelector selector = new PlatformSelector(asker);
+			File f = selector.select(Arrays.asList(files));
+			assertEquals(files[0], f);
+		} finally {
+			out.close();
+		}
 	}
-
-	@Test
-	public void testGetSelectionFromUser() {
-		fail("Not yet implemented");
-	}
-
 }

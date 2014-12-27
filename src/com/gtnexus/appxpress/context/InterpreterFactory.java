@@ -1,27 +1,52 @@
 package com.gtnexus.appxpress.context;
 
-import com.gtnexus.appxpress.PMProperties;
+import java.io.File;
+
+import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.BuilderOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.commons.PMProperties;
+import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
+import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
+import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
+/**
+ * 
+ * @author jdonovan
+ *
+ */
 public class InterpreterFactory {
+
+	private final AppXpressDirResolver resolver;
+
+	public InterpreterFactory(AppXpressDirResolver resolver) {
+		this.resolver = resolver;
+	}
 
 	/**
 	 * 
 	 * @param contextType
-	 * @param options
-	 * @throws IllegalArgumentException if contextType is not supported.
+	 * @param optionss
+	 * @throws IllegalArgumentException
+	 *             if contextType is not supported.
 	 * @return
+	 * @throws PMBuilderException
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends Enum<T> & AppXpressOption> CLIOptionInterpreter<T> createInterpreter(ApplicationInfo app, SimpleShutdown shutdown, ParsedOptions<T> options, PMProperties properties) {
+	public <T extends Enum<T> & AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
+			ApplicationInfo app, SimpleShutdown shutdown,
+			ParsedOptions<T> options, PMProperties properties)
+			throws PMBuilderException {
 		if (app.getContextType().equals(BuilderOption.class)) {
-			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app, shutdown,
-					(ParsedOptions<BuilderOption>) options, properties);
+			Select<File> selector = new PlatformSelector(System.in, System.out);
+			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,
+					shutdown, (ParsedOptions<BuilderOption>) options,
+					properties, selector, resolver);
 		}
 		throw new IllegalArgumentException("Unsupported context type.");
 	}

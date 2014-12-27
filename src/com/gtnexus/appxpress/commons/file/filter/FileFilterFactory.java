@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.file.filter;
+package com.gtnexus.appxpress.commons.file.filter;
 
 import java.io.File;
 import java.io.FileFilter;

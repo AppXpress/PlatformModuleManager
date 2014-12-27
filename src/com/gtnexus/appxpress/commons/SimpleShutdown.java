@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.context;
+package com.gtnexus.appxpress.commons;
 
 public interface SimpleShutdown {
 	

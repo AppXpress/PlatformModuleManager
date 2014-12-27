@@ -13,6 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import com.gtnexus.appxpress.commons.file.CopyDirVisitor;
+
 public class CopyDirVisitorTest {
 	
 	@Rule

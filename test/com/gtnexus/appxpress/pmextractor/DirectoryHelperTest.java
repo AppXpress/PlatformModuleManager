@@ -7,7 +7,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.DirectoryHelper;
+import com.gtnexus.appxpress.commons.DirectoryHelper;
 
 
 /**

@@ -19,9 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.Mapper;
-import com.gtnexus.appxpress.Preparation;
-import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.commons.Preparation;
+import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 

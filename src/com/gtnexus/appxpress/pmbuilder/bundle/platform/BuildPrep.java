@@ -7,12 +7,12 @@ import java.nio.file.Path;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.Mapper;
-import com.gtnexus.appxpress.Preparation;
-import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.commons.Preparation;
+import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.appxpress.pmbuilder.scriptimport.ImportService;
+import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
 
 public class BuildPrep implements Preparation<PMBuilderVO> {
 

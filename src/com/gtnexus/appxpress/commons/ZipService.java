@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons;
 
 import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
 
@@ -14,7 +14,8 @@ import java.util.zip.ZipOutputStream;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
-import com.gtnexus.appxpress.file.FileService;
+import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.file.FileService;
 
 /**
  * Zips up a folder

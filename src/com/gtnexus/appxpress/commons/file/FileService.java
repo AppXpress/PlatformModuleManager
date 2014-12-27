@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.file;
+package com.gtnexus.appxpress.commons.file;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.gtnexus.appxpress.Precondition;
+import com.gtnexus.appxpress.commons.Precondition;
 
 /**
  * Service class to handle File IO procedures common to app.

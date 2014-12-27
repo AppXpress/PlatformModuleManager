@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.Precondition;
-import com.gtnexus.appxpress.Preparation;
-import com.gtnexus.appxpress.file.FileService;
-import com.gtnexus.appxpress.file.filter.ChainedAnd;
-import com.gtnexus.appxpress.file.filter.FileFilterFactory;
+import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.Preparation;
+import com.gtnexus.appxpress.commons.file.FileService;
+import com.gtnexus.appxpress.commons.file.filter.ChainedAnd;
+import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 
 public class FolderPrep implements Preparation<File> {
 
