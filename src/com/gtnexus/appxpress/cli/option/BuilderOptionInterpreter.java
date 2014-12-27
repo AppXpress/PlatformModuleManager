@@ -10,6 +10,7 @@ import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
@@ -47,6 +48,7 @@ public class BuilderOptionInterpreter extends
 			Collection<File> choices = ensureCriteriaIsMet(cwd);
 			File selection = selector.select(choices);
 			parsedOpts.put(BuilderOption.PLATFORM, selection.getName());
+			parsedOpts.put(BuilderOption.CUSTOMER, cwd.getFileName().toString());
 		}
 		return parsedOpts;
 	}
@@ -67,7 +69,7 @@ public class BuilderOptionInterpreter extends
 		if(!cwdP.equals(ld)) {
 			throw new PMBuilderException("The select option must be run from a cutomer folder.");
 		}
-		File[] files = dir.toFile().listFiles();
+		File[] files = dir.toFile().listFiles(FileFilterFactory.directoriesOnly());
 		if(files.length == 0) {
 			throw new PMBuilderException("Nothing to select from!");
 		}

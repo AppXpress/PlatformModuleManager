@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
@@ -31,7 +32,10 @@ public class BuilderOptionInterpreterTest {
 	@Mock
 	PlatformSelector selector;
 	
-	BuilderOptionInterpreter interpreter;
+	@Mock
+	AppXpressDirResolver resolver;
+	
+	BuilderOptionInterpreter interpreter;O
 	HashMap<BuilderOption, String> optMap = new HashMap<>();
 
 	@Before

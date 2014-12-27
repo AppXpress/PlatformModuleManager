@@ -58,6 +58,7 @@ public class PlatformSelector implements Select<File> {
 		for (File f : choices) {
 			sb.append("\n");
 			sb.append(String.format(optionTemplate, i + 1, f));
+			i++;
 		}
 		return sb.toString();
 	}
