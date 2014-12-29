@@ -1,18 +1,13 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
-
 import java.io.IOException;
-import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.cli.option.CLIOptionParser;
-import com.gtnexus.appxpress.cli.option.ParsedOptions;
-import com.gtnexus.appxpress.commons.DirectoryHelper;
-import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.context.AppXpressContext;
+import com.gtnexus.appxpress.context.ContextFactory;
+import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
-import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
 import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
 
@@ -21,7 +16,7 @@ import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
  * @author jdonovan
  *
  */
-public class PlatformModuleExtractor {
+public class PlatformModuleExtractor implements ApplicationInfo {
 
 	/**
 	 * Takes 4-6 arguments -->
@@ -35,9 +30,11 @@ public class PlatformModuleExtractor {
 	 *            overwriteFEF = true
 	 */
 	public static void main(String args[]) throws IOException {
-		PlatformModuleExtractor extractor = new PlatformModuleExtractor(args);
+		ContextFactory factory = new ContextFactory();
 		try {
-			extractor.extract();
+			PlatformModuleExtractor extractor = new PlatformModuleExtractor();
+			AppXpressContext<ExtractorOption> context = factory.creatContext(extractor, args);
+			extractor.extract(context);
 		} catch (AppXpressException e) {
 			System.err.println("Failure when running pmextractor.");
 			System.err.println(e.getMessage());
@@ -45,46 +42,35 @@ public class PlatformModuleExtractor {
 	}
 
 	private static final String NAME = "pmextractor";
-	private String[] userArgs;
 
-	public PlatformModuleExtractor(String[] userArgs) {
-		this.userArgs = userArgs;
+	public PlatformModuleExtractor() {
 	}
-
-	/**
-	 * 
-	 * @throws PMExtractorException
-	 *             if CommandLine is not parsable, or if extraction cannot be
-	 *             performed.
-	 */
-	public void extract() throws AppXpressException {
-		CLIOptionParser<ExtractorOption> cli = CLIOptionParser.createParser(
-				NAME, userArgs, ExtractorOption.class);
-		ParsedOptions<ExtractorOption> opts = cli.parse();
-		if (opts.hasOption(ExtractorOption.HELP)) {
-			//cli.displayHelpAndExit();
-		}
-		try {
-			performExtraction(opts);
-		} catch (AppXpressException e) {
-			throw new PMExtractorException(
-					"Error when mapping to git structure.", e);
-		}
-	}
-
-	private void performExtraction(ParsedOptions<ExtractorOption> opts)
-			throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper(NAME
-				+ PROPERTIES_EXTENSION);
-		dHelper.ensureAppXpress();
-		PMProperties pmbProperties = dHelper.getPmProperties();
-		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
-				opts.getOptionsMap(), opts.getCliOptionSet(), pmbProperties);
-		Map<ExtractorOption, String> optMap = consolidator.consolidate();
-		Mapper tool = GitMapper.createMapper(optMap);
-		System.out.println("Mapping...");
+	
+	public void extract(AppXpressContext<ExtractorOption> context) throws AppXpressException {
+		Mapper tool = GitMapper.createMapper(context.getOptMap());
 		tool.doMapping();
-		consolidator.presentSaveOption(pmbProperties.getPropertiesPath());
+		System.out.println("Success!");
+	}
+	
+	@Override
+	public String getAppName() {
+		return NAME;
+	}
+
+	@Override
+	public String getHelpHeader() {
+		return "";
+	}
+
+	@Override
+	public String getHelpFooter() {
+		return "";
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
+		return (Class<M>) ExtractorOption.class;
 	}
 
 }

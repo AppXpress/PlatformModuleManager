@@ -35,7 +35,7 @@ public class BuilderOptionInterpreterTest {
 	@Mock
 	AppXpressDirResolver resolver;
 	
-	BuilderOptionInterpreter interpreter;O
+	BuilderOptionInterpreter interpreter;
 	HashMap<BuilderOption, String> optMap = new HashMap<>();
 
 	@Before

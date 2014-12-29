@@ -39,7 +39,7 @@ public class PlatformSelector implements Select<File> {
 	 */
 	@Override
 	public File select(Collection<File> choices) {
-		File[] choiceArr = (File[]) choices.toArray();
+		File[] choiceArr = choices.toArray(new File[choices.size()]);
 		enusreAppropriateBounds(choiceArr);
 		String message = createMessage(choiceArr);
 		Integer selection = getSelectionFromUser(message);

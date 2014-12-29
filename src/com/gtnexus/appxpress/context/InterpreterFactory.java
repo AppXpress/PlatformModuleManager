@@ -6,6 +6,7 @@ import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.BuilderOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
+import com.gtnexus.appxpress.cli.option.ExtractorOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
@@ -14,6 +15,7 @@ import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
 import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
  * 
@@ -42,11 +44,16 @@ public class InterpreterFactory {
 			ApplicationInfo app, SimpleShutdown shutdown,
 			ParsedOptions<T> options, PMProperties properties)
 			throws PMBuilderException {
-		if (app.getContextType().equals(BuilderOption.class)) {
+		Class<T> contextType = app.getContextType();
+		if (contextType.equals(BuilderOption.class)) {
 			Select<File> selector = new PlatformSelector(System.in, System.out);
 			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,
 					shutdown, (ParsedOptions<BuilderOption>) options,
 					properties, selector, resolver);
+		} else if(contextType.equals(ExtractorOption.class)) {
+			return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app,
+					shutdown, (ParsedOptions<ExtractorOption>) options,
+					properties);
 		}
 		throw new IllegalArgumentException("Unsupported context type.");
 	}
