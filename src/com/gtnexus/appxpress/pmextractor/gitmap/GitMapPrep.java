@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
+import static com.gtnexus.appxpress.AppXpressConstants.BACKUP_FLDR;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
 
 import java.io.File;
@@ -14,6 +15,7 @@ import com.gtnexus.appxpress.commons.Precondition;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.ZipService;
 import com.gtnexus.appxpress.commons.file.FileService;
+import com.gtnexus.appxpress.context.TempResourceHolder;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -28,10 +30,12 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 
 	private final FileService fs;
 	private final ZipService zs;
+	private final TempResourceHolder tmp;
 
-	public GitMapPrep() {
+	public GitMapPrep(TempResourceHolder tmp) {
 		fs = new FileService();
 		zs = new ZipService();
+		this.tmp = tmp;
 	}
 
 	@Override
@@ -77,12 +81,12 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 		if (platformZip.exists()) {
 			try {
 				zs.unzip(platformZip, unzipDestination, true);
+				tmp.deleteOnExit(unzipDestination);
 			} catch (AppXpressException e) {
 				throw new PMBuilderException(
 						"Exception when unzipping platformZip: " + platformZip,
 						e);
 			}
-
 		} else {
 			System.out.println("Cannot find zipped folder!");
 		}
@@ -134,7 +138,7 @@ public class GitMapPrep implements Precondition<GitMapVO>,
 	 */
 	private void backup(Path customerPath, String platform) {
 		AppXpressDirResolver resolver = new AppXpressDirResolver();
-		Path bkpPath = resolver.resolveAppXpressDir().resolve("PM_Git_Backup")
+		Path bkpPath = resolver.resolveAppXpressDir().resolve(BACKUP_FLDR)
 				.resolve(platform);
 		try {
 			if (Files.exists(bkpPath)) {

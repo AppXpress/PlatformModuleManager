@@ -4,7 +4,6 @@ import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
 import static com.gtnexus.appxpress.AppXpressConstants.DESIGNS;
 import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
-import static com.gtnexus.appxpress.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
 import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
@@ -21,6 +20,7 @@ import java.util.Map;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.file.FileService;
+import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
@@ -36,12 +36,15 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  */
 public class GitMapper implements Mapper {
 
+	private final AppXpressContext<ExtractorOption> ctx;
 	private final GitMapVO vo;
 	private List<Path> overwrittenScripts;
 	private final Preparation<GitMapVO> prep;
 	private final FileService fs;
 
-	public static GitMapper createMapper(Map<ExtractorOption, String> optionMap) {
+	
+	public static GitMapper createMapper(AppXpressContext<ExtractorOption> context) {
+		Map<ExtractorOption, String> optionMap = context.getOptMap();
 		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 			if (!platformZip.endsWith(ZIP_EXTENSION)) {
@@ -49,15 +52,35 @@ public class GitMapper implements Mapper {
 				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
 			}
 		}
-		return new GitMapper(new GitMapVO(optionMap));
+		return new GitMapper(context);
 	}
-
-	public GitMapper(GitMapVO vo) {
-		this.vo = vo;
+	
+	
+//	public static GitMapper createMapper(Map<ExtractorOption, String> optionMap) {
+//		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
+//			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
+//			if (!platformZip.endsWith(ZIP_EXTENSION)) {
+//				platformZip = platformZip + ZIP_EXTENSION;
+//				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
+//			}
+//		}
+//		return new GitMapper(new GitMapVO(optionMap));
+//	}
+	
+	public GitMapper(AppXpressContext<ExtractorOption> context) {
+		this.ctx = context;
+		this.vo = new GitMapVO(context.getOptMap());
 		this.overwrittenScripts = new ArrayList<>();
-		this.prep = new GitMapPrep();
+		this.prep = new GitMapPrep(ctx);
 		this.fs = new FileService();
 	}
+
+//	public GitMapper(GitMapVO vo) {
+//		this.vo = vo;
+//		this.overwrittenScripts = new ArrayList<>();
+//		this.prep = new GitMapPrep();
+//		this.fs = new FileService();
+//	}
 
 	/**
 	 * Performs the appropriate actions for module extraction
@@ -67,7 +90,7 @@ public class GitMapper implements Mapper {
 		try {
 			prep.prepare(vo);
 			mapCustomObjectDesign();
-			mapFolders(new File(PLATFORM_MODULE_UNZIP_NAME),
+			mapFolders(vo.getUnzipDir(),
 					vo.getPlatformDir());
 			if (vo.isOverwriteScripts() && overwrittenScripts.size() > 0) {
 				printOverwrittenScripts();
@@ -131,7 +154,8 @@ public class GitMapper implements Mapper {
 							"Exception when renaming script!", e);
 				}
 			} else {
-				String dirName = co.getName().replace(SCRIPT_DESIGN + $, "")
+				String dirName = co.getName()
+						.replace(SCRIPT_DESIGN + $, "")
 						.replace(JS_EXTENSION, "");
 				Path p = scriptsPath.resolve(dirName);
 				try {

@@ -1,9 +1,9 @@
 package com.gtnexus.appxpress.cli.option;
 
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
-import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 public class ExtractorOptionInterpreter extends

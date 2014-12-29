@@ -10,11 +10,11 @@ import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.SimpleShutdownImpl;
-import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 
 public class ContextFactory {
@@ -45,7 +45,7 @@ public class ContextFactory {
 				interpretedOptions, parsedOptions.getCliOptionSet(),
 				pmProperties);
 		Map<M, String> optMap = consolidator.consolidate();
-		return new AppXpressContext<>(app.getAppName(), contextType, shutdown,
+		return new AppXpressContext<>(app, shutdown,
 				dHelper, parser.getOptions(), pmProperties, optMap);
 	}
 

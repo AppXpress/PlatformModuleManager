@@ -104,8 +104,8 @@ public class ZipService {
 		if (!outputZip.getName().endsWith(ZIP_EXTENSION)) {
 			outputZip = new File(outputZip.toString() + ZIP_EXTENSION);
 		}
-		System.out.println("Zipping up directory -> "
-				+ directory.getAbsolutePath());
+		System.out.println("Creating zip "
+				+ outputZip.getAbsolutePath());
 		try (FileOutputStream fos = new FileOutputStream(outputZip);
 				ZipOutputStream zos = new ZipOutputStream(fos)) {
 			zipDirFiles(directory, directory, zos);

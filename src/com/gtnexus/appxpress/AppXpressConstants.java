@@ -10,6 +10,7 @@ public interface AppXpressConstants {
 
 	public static final String $ = "$";
 	public static final String APPXRESS_FOLDER = ".appxpress";
+	public static final String BACKUP_FLDR = "PM_Git_Backup";
 	public static final String BUNDLE = "Bundle";
 	public static final String CUSTOM_LINK_D1 = "CustomLinkD1";
 	public static final String CUSTOM_OBJECT_MODULE = "CustomObjectModule";

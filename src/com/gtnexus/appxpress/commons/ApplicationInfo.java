@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.commons;
 
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 

@@ -9,19 +9,27 @@ import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.file.FileService;
+import com.gtnexus.appxpress.context.TempResourceHolder;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.appxpress.pmbuilder.scriptimport.ImportService;
 import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
 
+/**
+ * 
+ * @author jdonovan
+ *
+ */
 public class BuildPrep implements Preparation<PMBuilderVO> {
 
 	private final FileService fs;
 	private final AppXpressDirResolver resolver;
+	private final TempResourceHolder tmpHolder;
 
-	public BuildPrep() {
+	public BuildPrep(TempResourceHolder tmp) {
 		this.fs = new FileService();
 		this.resolver = new AppXpressDirResolver();
+		this.tmpHolder = tmp;
 	}
 
 	@Override
@@ -30,7 +38,6 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 			File tmp = createTemp(vo);
 			vo.setWorkingDir(tmp);
 			runImportFind(tmp);
-			//xmlDesignCustomObjectScriptMatcher(tmp);
 			map(tmp);
 		} catch (AppXpressException | IOException e) {
 			throw new PMBuilderException(
@@ -47,7 +54,7 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 		Path destination = Files
 				.createTempDirectory(tmpPath, tmpPrefix);
 		File dest = destination.toFile();
-		dest.deleteOnExit();
+		tmpHolder.deleteOnExit(dest);
 		fs.copyDirectory(source, destination);
 		return dest;
 	}

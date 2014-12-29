@@ -2,6 +2,7 @@ package com.gtnexus.appxpress.pmbuilder;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
@@ -50,14 +51,14 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-			AppXpressContext<BuilderOption> context = factory.creatContext(pmb, args);
+			AppXpressContext<BuilderOption> context = factory.creatContext(pmb,
+					args);
 			pmb.build(context);
 			System.out.println("Success!");
 		} catch (AppXpressException e) {
 			System.out.println(e.getAppXpressMessage());
 		}
 	}
-
 
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
@@ -71,19 +72,24 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	public PlatformModuleBuilder() {
 	}
 
-	public void build(AppXpressContext<BuilderOption> context) {
+	public void build(AppXpressContext<BuilderOption> context)
+			throws AppXpressException {
+		attachCleanUpHook(context);
 		PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
-		BuildPrep prep = new BuildPrep();
+		BuildPrep prep = new BuildPrep(context);
 		PlatformModuleBundler bundler = new PlatformModuleBundler(
 				vo.getRootFile());
 		try {
 			prep.prepare(vo);
 			bundler.bundle(vo.getWorkingDir());
-			System.out.println("Success!");
 		} catch (AppXpressException e) {
-			e.printStackTrace();
-			context.shutdown("Aborting build.");
+			throw new AppXpressException("Failed to build module.", e);
 		}
+	}
+
+	private void attachCleanUpHook(AppXpressContext<BuilderOption> ctx) {
+		Runtime.getRuntime().addShutdownHook(
+				new Thread(new BuilderCleanup(ctx)));
 	}
 
 	@Override
@@ -97,12 +103,10 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 		return (Class<M>) BuilderOption.class;
 	}
 
-
 	@Override
 	public String getHelpHeader() {
 		return "";
 	}
-
 
 	@Override
 	public String getHelpFooter() {

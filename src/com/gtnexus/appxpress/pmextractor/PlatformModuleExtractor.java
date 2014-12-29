@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
-import com.gtnexus.appxpress.pmbuilder.ApplicationInfo;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
 import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
@@ -44,12 +44,19 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 	private static final String NAME = "pmextractor";
 
 	public PlatformModuleExtractor() {
+		
 	}
 	
 	public void extract(AppXpressContext<ExtractorOption> context) throws AppXpressException {
-		Mapper tool = GitMapper.createMapper(context.getOptMap());
+		attachCleanUpHook(context);
+		Mapper tool = GitMapper.createMapper(context);
 		tool.doMapping();
 		System.out.println("Success!");
+	}
+	
+	private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {
+		Runtime.getRuntime().addShutdownHook(
+				new Thread(new ExtractorCleanup(ctx)));
 	}
 	
 	@Override
