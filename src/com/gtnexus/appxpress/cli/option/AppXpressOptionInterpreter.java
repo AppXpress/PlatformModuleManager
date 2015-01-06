@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress.cli.option;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import org.apache.commons.cli.HelpFormatter;
@@ -35,7 +37,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 					parsedOptions.getOptions(), app.getHelpFooter());
 			shutdown.shutdown();
 		}
-		parsedOptions = customInterpretation(parsedOptions);
+		parsedOptions = performCustomInterpretation(parsedOptions);
 		CLIOptsAndPropConsolidator<T> consolidator = new CLIOptsAndPropConsolidator<>(
 				parsedOptions.getOptionsMap(), parsedOptions.getCliOptionSet(),
 				properties);
@@ -43,7 +45,25 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 		return optMap;
 	}
 
-	public abstract ParsedOptions<T> customInterpretation(
+	protected boolean isCustomerFolder(Path dir, T localDirKey)
+			throws AppXpressException {
+		final String localDir = properties.getProperty(localDirKey
+				.getLongName());
+		if (localDir == null || localDir.isEmpty()) {
+			throw new AppXpressException(
+					"Local Directory property is not set. "
+							+ "Please check your AppXpress properties file"
+							+ "before trying to run the Select option again.");
+		}
+		Path parent = dir.getParent();
+		Path ld = Paths.get(localDir);
+		if (parent.equals(ld)) {
+			return true;
+		}
+		return false;
+	}
+
+	public abstract ParsedOptions<T> performCustomInterpretation(
 			ParsedOptions<T> parsedOpts) throws AppXpressException;
 
 }

@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress.cli.option;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,6 +82,14 @@ public class ParsedOptions<T extends Enum<T> & CLIOption> {
 
 	public void put(T opt, String val) {
 		optionsMap.put(opt, val);
+	}
+	
+	public void put(T opt, Path val) {
+		put(opt, val.getFileName().toString());
+	}
+	
+	public void put(T opt, File val) {
+		put(opt, val.getName());
 	}
 
 }

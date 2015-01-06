@@ -9,7 +9,7 @@ public enum  BuilderOption implements AppXpressOption {
 	CUSTOMER("c", "customer", String.class, "The customer who owns this module.",true, true, null ),
 	PLATFORM("p", "platform", String.class, "The name of the platform.", true, true, null),
 	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of GIT staging folder.",true, true, null),
-	SELECT_PlATFORM("sp", "selectPlatform", Integer.class, "Select platform from the folders present in the cwd.", false, false, null)
+	SELECT("s", "select", Integer.class, "Select platform from the folders present in the cwd.", false, false, null)
 	;
 	
 	private final String flag;

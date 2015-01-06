@@ -74,7 +74,7 @@ in the src/PM_Builder and src/PM_extractor folders respectively. Steps to build 
 After importing project to eclipse:
 1. File -> Export
 2. Java -> Runnable jar
-3. Ensure that "Extract required libraries into generated JAR" is selected.
+3. Select "Extract required libraries into generated JAR".
 4. Finish
 
 ## Running `pmbuilder` and `pmextractor`
@@ -91,7 +91,7 @@ If any necessary values are missing you will be prompted for them. It is importa
 that you are careful when running the tool like this.
 
 Command line options **always** take precedence over the properties file. To display what options
-a tool supports, pass the `-help` option.
+a tool supports, pass the `--help` option.
 
 ```bash
 $ pmbuilder -help
@@ -103,9 +103,18 @@ The options that are common between `pmextractor` and `pmbuilder` adhere to the 
 ${localDir}/${customer}/${platform}
 ```
 
+If either tool is ran within a customer folder, then the option is inferred and does not need to be passed to the tool. Of course, you can still specify the `--customer` option to override this behavior.
+
+### Selecting a Platform to Build or extract
+`pmbuilder` and `pmextractor` can also select the platform for you! This cuts down on typos, and typing out full file names. To use this option, navigate to your customer's directory and run `pmbuilder` with the `-s` option.
+
+```bash
+$ pmbuilder -sp
+```
+
 ### Using PM Builder's Import Utility
 
-The `pmbuilder`Util.jar can add common files to any folder in your file structure. Use :
+The `pmbuilder.jar` can add common files to any folder in your file structure. Use :
 
 ```javascript
 !import commonFile.js

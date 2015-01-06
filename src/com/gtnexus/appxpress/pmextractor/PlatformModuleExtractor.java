@@ -6,6 +6,7 @@ import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
+import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
@@ -18,17 +19,6 @@ import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
  */
 public class PlatformModuleExtractor implements ApplicationInfo {
 
-	/**
-	 * Takes 4-6 arguments -->
-	 *
-	 * @param args
-	 *            [0] Exported Platform Module Name [1] Relative Path of GIT
-	 *            staging folder [2] Customer of Platform Module [3] Platform
-	 *            Module that is being exported
-	 * 
-	 *            Optional args [4] If Y -> overwriteScripts = true [5] If Y ->
-	 *            overwriteFEF = true
-	 */
 	public static void main(String args[]) throws IOException {
 		ContextFactory factory = new ContextFactory();
 		try {
@@ -43,9 +33,7 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 
 	private static final String NAME = "pmextractor";
 
-	public PlatformModuleExtractor() {
-		
-	}
+	public PlatformModuleExtractor() {}
 	
 	public void extract(AppXpressContext<ExtractorOption> context) throws AppXpressException {
 		attachCleanUpHook(context);
@@ -56,7 +44,7 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 	
 	private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {
 		Runtime.getRuntime().addShutdownHook(
-				new Thread(new ExtractorCleanup(ctx)));
+				new Thread(new ContextBasedCleanUp<>(ctx)));
 	}
 	
 	@Override

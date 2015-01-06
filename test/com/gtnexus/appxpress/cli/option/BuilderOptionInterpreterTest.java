@@ -44,21 +44,21 @@ public class BuilderOptionInterpreterTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testCustomInterpretationWithNull() throws Exception {
-		interpreter.customInterpretation(null);
-	}
+			public void testPerformCustomInterpretationWithNull() throws Exception {
+				interpreter.performCustomInterpretation(null);
+			}
 
 	@Test
-	public void testCustomInterpretationWithoutSPFlag()
-			throws AppXpressException {
-		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(new Options(), new HashMap<BuilderOption, String>(), EnumSet.allOf(BuilderOption.class));
-		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app, shutdown, parsedOptions, properties, selector, resolver);
-		fail("unimplemented");
-	}
+			public void testPerformCustomInterpretationWithoutSPFlag()
+					throws AppXpressException {
+				ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(new Options(), new HashMap<BuilderOption, String>(), EnumSet.allOf(BuilderOption.class));
+				BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app, shutdown, parsedOptions, properties, selector, resolver);
+				fail("unimplemented");
+			}
 
 	@Test
-	public void testCustomInterpretationWithSPFlag()
-			throws AppXpressException {
-		fail("unimplemented");
-	}
+			public void testPerformCustomInterpretationWithSPFlag()
+					throws AppXpressException {
+				fail("unimplemented");
+			}
 }
