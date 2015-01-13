@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor.cli;
+package com.gtnexus.appxpress.cli;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.asker.Asker;
 import com.gtnexus.appxpress.cli.asker.SimpleAsker;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
  * Consolidates stored properties file from User, with flags passed from CLI.
@@ -28,7 +26,6 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	private final Set<T> optSet;
 	private final PMProperties properties;
 	private final SimpleAsker asker;
-	private boolean presentSave;
 
 	/**
 	 * 
@@ -44,7 +41,6 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 		this.optSet = optSet;
 		this.properties = properties;
 		this.asker = new SimpleAsker(System.in, System.out);
-		presentSave = false;
 	}
 
 	/**
@@ -64,7 +60,6 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 		this.optSet = optSet;
 		this.properties = properties;
 		this.asker = new SimpleAsker(inputStream, printStream);
-		presentSave = false;
 	}
 
 	/**
@@ -73,12 +68,13 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	public Map<T, String> consolidate() {
 		final Map<T, String> optMap = new HashMap<>();
 		for (T opt : optSet) {
-			if(!opt.shouldBeOmitted()) {
+			if(!opt.shouldBeOmitted()) { //TODO: what is this ommitted logic? seems like it is better suited somewhere else.
+										 // idea: immutableMap containingLookups to "default" values. Would allow use to take
+										 // this out of the complicated enum constructors. hasDefaultValue() -> map.containsKey(key)
+										 // then all we would have to do is change the order of the last two if's in consolidateSingle()
+										 // ... also introduce idea of terminal flags? and run time flags?
 				String val = consolidateSingle(opt);
 				optMap.put(opt, val);
-				if(opt.isStoreableProperty()) {
-					properties.put(opt.getLongName(), val);
-				}
 			}
 		}
 		return optMap;
@@ -98,18 +94,22 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 		}
 		if (userArgs.containsKey(option)) {
 			input = userArgs.get(option);
-			if(option.isStoreableProperty()) {
-				presentSave = true;
-			}
-		}
-		if (input != null && !input.isEmpty()) {
+			storeIfAppropriate(option, input);
 			return input;
 		} else if (propVal != null && !propVal.isEmpty()) {
 			return propVal;
 		} else if (option.isAppXpressMandatory()) {
-			return getParameterFromUser(option);
+			input = getParameterFromUser(option);
+			storeIfAppropriate(option, input);
+			return input;
 		} else {
 			return option.getDefaultValue();
+		}
+	}
+
+	private void storeIfAppropriate(AppXpressOption option, String input) {
+		if(option.isStoreableProperty()) {
+			properties.put(option.getLongName(), input);
 		}
 	}
 
@@ -126,41 +126,4 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 		return val;
 	}
 
-	
-	//TOOD this has nothing to do with the consolidation.
-	/**
-	 * @param propPath
-	 *            the path to the Properties file to be written to
-	 * @throws PMExtractorException
-	 *             when there is an IOException when writing to the properties
-	 *             file at the propPath.
-	 */
-	public void presentSaveOption(final String propPath) throws AppXpressException {
-		if(presentSave) {
-			final String answer = askSaveQuestion();
-			if (answer.equalsIgnoreCase("Y")) {
-				saveProps();
-			}
-		}
-	}
-	
-	/**
-	 * 
-	 * @throws PMExtractorException
-	 */
-	private void saveProps() throws AppXpressException {
-		properties.store();
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	private String askSaveQuestion() {
-		String answer = asker.ask("Save settings? [y/n]: ");
-		while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
-			answer = asker.ask(Asker.INVALID_INPUT);
-		}
-		return answer;
-	}
 }

@@ -1,5 +1,6 @@
 package com.gtnexus.appxpress.context;
 
+import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.file.FileCleanup;
 
@@ -21,7 +22,19 @@ public class ContextBasedCleanUp<T extends Enum<T> & AppXpressOption> implements
 	
 	@Override
 	public void run() {
+		checkToSave();
 		cleanup.cleanup(ctx.getFilesToDeleteOnExit());
+	}
+	
+	public void checkToSave() {
+		if (ctx.isTerminatedRegulary() && ctx.propertiesWereChanged()) {
+			try {
+				ctx.presentSaveOption();
+			} catch (AppXpressException e) {
+				System.out
+						.println("Could not save properties file. Continuing with cleanup.");
+			}
+		}
 	}
 	
 }

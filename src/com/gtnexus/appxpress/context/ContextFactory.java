@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
@@ -15,7 +16,6 @@ import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.SimpleShutdownImpl;
-import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 
 public class ContextFactory {
 

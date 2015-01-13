@@ -16,10 +16,12 @@ public class PMProperties {
 
 	private File propertiesFile;
 	private Properties properties;
+	private boolean propertiesHaveChanged;
 
 	public PMProperties(Properties properties, File propertiesFile) {
 		this.properties = properties;
 		this.propertiesFile = propertiesFile;
+		this.propertiesHaveChanged = false;
 	}
 
 	public File getPropertiesFile() {
@@ -39,6 +41,9 @@ public class PMProperties {
 	}
 
 	public void put(String key, String value) {
+		if(properties.containsKey(key)) {
+			propertiesHaveChanged = true;
+		}
 		properties.put(key, value);
 	}
 
@@ -50,6 +55,10 @@ public class PMProperties {
 			throw new AppXpressException("Failed to write properties file!",
 					e);
 		}
+	}
+
+	public boolean haveChanged() {
+		return propertiesHaveChanged;
 	}
 
 }

@@ -84,6 +84,7 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 			prep.prepare(vo);
 			bundler.bundle(vo.getWorkingDir());
 		} catch (AppXpressException e) {
+			context.setTerminatedRegulary(false);
 			throw new AppXpressException("Failed to build module.", e);
 		}
 	}

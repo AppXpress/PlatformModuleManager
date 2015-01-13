@@ -7,10 +7,10 @@ import java.util.Map;
 import org.apache.commons.cli.HelpFormatter;
 
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
-import com.gtnexus.appxpress.pmextractor.cli.CLIOptsAndPropConsolidator;
 
 public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOption>
 		implements CLIOptionInterpreter<T> {

@@ -26,7 +26,6 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 			AppXpressContext<ExtractorOption> context = factory.creatContext(extractor, args);
 			extractor.extract(context);
 		} catch (AppXpressException e) {
-			System.err.println("Failure when running pmextractor.");
 			System.err.println(e.getMessage());
 		}
 	}
@@ -35,11 +34,17 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 
 	public PlatformModuleExtractor() {}
 	
-	public void extract(AppXpressContext<ExtractorOption> context) throws AppXpressException {
+	public void extract(AppXpressContext<ExtractorOption> context)
+			throws AppXpressException {
 		attachCleanUpHook(context);
 		Mapper tool = GitMapper.createMapper(context);
-		tool.doMapping();
-		System.out.println("Success!");
+		try {
+			tool.doMapping();
+			System.out.println("Success!");
+		} catch (AppXpressException e) {
+			context.setTerminatedRegulary(false);
+			throw new AppXpressException("Failure when running pmextractor.", e);
+		}
 	}
 	
 	private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {

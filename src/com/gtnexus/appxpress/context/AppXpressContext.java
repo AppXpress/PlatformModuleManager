@@ -13,10 +13,16 @@ import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
+import com.gtnexus.appxpress.commons.PropertiesPersister;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 
 /**
  * 
+ * @author jdonovan
+ *
+ * @param <T>
+ */
+/**
  * @author jdonovan
  *
  * @param <T>
@@ -31,6 +37,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	private final PMProperties properties;
 	private final SimpleShutdown shutdown;
 	private final List<File> delOnExit;
+	private boolean terminatedRegulary;
 
 	public AppXpressContext(ApplicationInfo app, SimpleShutdown shutdown,
 			DirectoryHelper dHelper, Options options, PMProperties properties,
@@ -42,6 +49,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 		this.properties = properties;
 		this.options = options;
 		this.delOnExit = new LinkedList<>();
+		this.terminatedRegulary = true;
 	}
 
 	public ApplicationInfo getApplicationInfo() {
@@ -60,9 +68,6 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 		return properties.getProperty(option.getLongName());
 	}
 
-	/**
-	 * Displays the usage information and exits.
-	 */
 	public void displayHelpAndExit() {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp(app.getAppName(), app.getHelpHeader(), options,
@@ -81,7 +86,6 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	@Override
 	public void shutdown() {
 		shutdown.shutdown();
-
 	}
 
 	@Override
@@ -106,5 +110,23 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	public List<File> getFilesToDeleteOnExit() {
 		return delOnExit;
 	}
+	
+	public boolean propertiesWereChanged() {
+		return properties.haveChanged();
+	}
+	
+	public void presentSaveOption() throws AppXpressException {
+		PropertiesPersister sister = new PropertiesPersister(properties);
+		sister.presentSaveOption();
+	}
 
+	public boolean isTerminatedRegulary() {
+		return terminatedRegulary;
+	}
+
+	public void setTerminatedRegulary(boolean terminatedRegulary) {
+		this.terminatedRegulary = terminatedRegulary;
+	}
+	
+	
 }
