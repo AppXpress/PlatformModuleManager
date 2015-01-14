@@ -67,11 +67,15 @@ public class ParsedOptions<T extends Enum<T> & CLIOption> {
 	public boolean hasOption(T opt) {
 		return optionsMap.containsKey(opt);
 	}
+	
+	public String getOption(T opt) {
+		return optionsMap.get(opt);
+	}
 
 	public Set<T> getCliOptionSet() {
 		return optSet;
 	}
-
+	
 	/**
 	 * 
 	 * @return whether or not the parsed parameters contain the help flag

@@ -47,8 +47,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 
 	protected boolean isCustomerFolder(Path dir, T localDirKey)
 			throws AppXpressException {
-		final String localDir = properties.getProperty(localDirKey
-				.getLongName());
+		final String localDir = resolveLocalDir(localDirKey);
 		if (localDir == null || localDir.isEmpty()) {
 			throw new AppXpressException(
 					"Local Directory property is not set. "
@@ -61,6 +60,13 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 			return true;
 		}
 		return false;
+	}
+
+	private String resolveLocalDir(T localDirKey) {
+		if (parsedOptions.hasOption(localDirKey)) {
+			return parsedOptions.getOption(localDirKey);
+		} 
+		return properties.getProperty(localDirKey);
 	}
 
 	public abstract ParsedOptions<T> performCustomInterpretation(

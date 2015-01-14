@@ -74,7 +74,7 @@ public class BuilderOptionInterpreter extends
 
 	private Collection<File> getCandidates(Path dir) {
 		File[] files = dir.toFile().listFiles(
-				FileFilterFactory.endsWith(ZIP_EXTENSION));
+				FileFilterFactory.directoriesOnly());
 		return Arrays.asList(files);
 	}
 

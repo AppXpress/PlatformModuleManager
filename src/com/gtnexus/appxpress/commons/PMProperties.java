@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 
 /**
  * Simple wrapper around a File and Property objects.
@@ -38,6 +39,10 @@ public class PMProperties {
 
 	public String getProperty(String property) {
 		return properties.getProperty(property);
+	}
+	
+	public String getProperty(AppXpressOption opt) {
+		return properties.getProperty(opt.getLongName());
 	}
 
 	public void put(String key, String value) {
