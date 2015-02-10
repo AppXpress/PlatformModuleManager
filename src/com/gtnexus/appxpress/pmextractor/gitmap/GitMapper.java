@@ -55,18 +55,6 @@ public class GitMapper implements Mapper {
 		return new GitMapper(context);
 	}
 	
-	
-//	public static GitMapper createMapper(Map<ExtractorOption, String> optionMap) {
-//		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
-//			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
-//			if (!platformZip.endsWith(ZIP_EXTENSION)) {
-//				platformZip = platformZip + ZIP_EXTENSION;
-//				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
-//			}
-//		}
-//		return new GitMapper(new GitMapVO(optionMap));
-//	}
-	
 	public GitMapper(AppXpressContext<ExtractorOption> context) {
 		this.ctx = context;
 		this.vo = new GitMapVO(context.getOptMap());
@@ -74,13 +62,6 @@ public class GitMapper implements Mapper {
 		this.prep = new GitMapPrep(ctx);
 		this.fs = new FileService();
 	}
-
-//	public GitMapper(GitMapVO vo) {
-//		this.vo = vo;
-//		this.overwrittenScripts = new ArrayList<>();
-//		this.prep = new GitMapPrep();
-//		this.fs = new FileService();
-//	}
 
 	/**
 	 * Performs the appropriate actions for module extraction

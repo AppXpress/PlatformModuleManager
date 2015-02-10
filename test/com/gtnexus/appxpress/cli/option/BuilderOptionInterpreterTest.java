@@ -31,10 +31,10 @@ public class BuilderOptionInterpreterTest {
 	PMProperties properties;
 	@Mock
 	PlatformSelector selector;
-	
+
 	@Mock
 	AppXpressDirResolver resolver;
-	
+
 	BuilderOptionInterpreter interpreter;
 	HashMap<BuilderOption, String> optMap = new HashMap<>();
 
@@ -44,21 +44,24 @@ public class BuilderOptionInterpreterTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-			public void testPerformCustomInterpretationWithNull() throws Exception {
-				interpreter.performCustomInterpretation(null);
-			}
+	public void testPerformCustomInterpretationWithNull() throws Exception {
+		interpreter.performCustomInterpretation(null);
+	}
 
 	@Test
-			public void testPerformCustomInterpretationWithoutSPFlag()
-					throws AppXpressException {
-				ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(new Options(), new HashMap<BuilderOption, String>(), EnumSet.allOf(BuilderOption.class));
-				BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app, shutdown, parsedOptions, properties, selector, resolver);
-				fail("unimplemented");
-			}
+	public void testPerformCustomInterpretationWithoutSPFlag()
+			throws AppXpressException {
+		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
+				new Options(), new HashMap<BuilderOption, String>(),
+				EnumSet.allOf(BuilderOption.class));
+		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
+				shutdown, parsedOptions, properties, selector, resolver);
+		fail("unimplemented");
+	}
 
 	@Test
-			public void testPerformCustomInterpretationWithSPFlag()
-					throws AppXpressException {
-				fail("unimplemented");
-			}
+	public void testPerformCustomInterpretationWithSPFlag()
+			throws AppXpressException {
+		fail("unimplemented");
+	}
 }

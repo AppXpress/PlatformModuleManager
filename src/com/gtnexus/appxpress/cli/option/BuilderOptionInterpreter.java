@@ -1,7 +1,5 @@
 package com.gtnexus.appxpress.cli.option;
 
-import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
