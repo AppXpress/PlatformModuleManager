@@ -16,11 +16,10 @@ public class ParsedOptions<T extends Enum<T> & CLIOption> {
 			CommandLine cmd, Options options, Set<M> optSet) {
 		Map<M, String> optMap;
 		boolean helpFlagIsSet = false;
+		optMap = new HashMap<>();
 		if (cmd == null || cmd.getOptions().length == 0) {
-			optMap = Collections.emptyMap();
 			return new ParsedOptions<M>(options, optMap, optSet);
 		}
-		optMap = new HashMap<>();
 		for (M opt : optSet) {
 			if (cmd.hasOption(opt.getLongName()) || cmd.hasOption(opt.getFlag())) {
 				optMap.put(opt, cmd.getOptionValue(opt.getLongName()));
