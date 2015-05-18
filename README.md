@@ -109,7 +109,7 @@ If either tool is ran within a customer folder, then the option is inferred and 
 `pmbuilder` and `pmextractor` can also select the platform for you! This cuts down on typos, and typing out full file names. To use this option, navigate to your customer's directory and run `pmbuilder` with the `-s` option.
 
 ```bash
-$ pmbuilder -sp
+$ pmbuilder -s
 ```
 
 ### Using PM Builder's Import Utility

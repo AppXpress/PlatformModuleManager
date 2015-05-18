@@ -26,7 +26,7 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 			AppXpressContext<ExtractorOption> context = factory.creatContext(extractor, args);
 			extractor.extract(context);
 		} catch (AppXpressException e) {
-			System.err.println(e.getMessage());
+			System.err.println(e.getAppXpressMessage());
 		}
 	}
 

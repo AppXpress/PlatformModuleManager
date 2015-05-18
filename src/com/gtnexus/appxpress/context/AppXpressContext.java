@@ -1,6 +1,10 @@
 package com.gtnexus.appxpress.context;
 
+import static com.gtnexus.appxpress.AppXpressConstants.LIB;
+
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +19,7 @@ import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.PropertiesPersister;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 
 /**
  * 
@@ -58,6 +63,12 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 
 	public Map<T, String> getOptMap() {
 		return optMap;
+	}
+	
+	public Path getLibPath() {
+		String ld = properties.getProperty(BuilderOption.LOCAL_DIR);
+		Path localDir = Paths.get(ld);
+		return localDir.getParent().resolve(LIB);
 	}
 
 	public PMProperties getPMProperties() throws AppXpressException {

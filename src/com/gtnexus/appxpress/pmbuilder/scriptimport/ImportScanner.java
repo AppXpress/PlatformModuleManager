@@ -1,9 +1,8 @@
 package com.gtnexus.appxpress.pmbuilder.scriptimport;
 
 import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
-import static com.gtnexus.appxpress.AppXpressConstants.LIB;
 
-import java.io.File;
+import java.io.Reader;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -13,23 +12,15 @@ import java.util.regex.Pattern;
 
 public class ImportScanner {
 
-	private static final String libPath = LIB + File.separator + "%s";
 	private static final Pattern startOfBlockComment = Pattern.compile("/[\\*].*");
 	private static final Pattern endOfBlockComment = Pattern.compile(".*[\\*]/");
 	private static final Pattern singleLineComment = Pattern.compile("//.*");
 
-	/**
-	 * Look through top comment and try to find !import statements File name
-	 * directly after !import statement will be attempted to be imported into
-	 * the current folder
-	 * 
-	 * @param f
-	 *            File to parse
-	 */
-	public Set<File> parseDoc(final File f) {
-		final Set<File> fileNames = new HashSet<>();
+	
+	public Set<String> parseDoc(final Reader fileContents) {
+		final Set<String> fileNames = new HashSet<>();
 		try {
-			final Scanner scan = new Scanner(f);
+			final Scanner scan = new Scanner(fileContents);
 			String line;
 			boolean lineIsInBlock = false;
 			while (scan.hasNextLine()) {
@@ -68,31 +59,38 @@ public class ImportScanner {
 	 * @param line
 	 *            Line of a file
 	 */
-	public Set<File> scanLine(String line) {
+	public Set<String> scanLine(String line) {
 		if(line == null) {
 			throw new NullPointerException("Cannot scan null line");
 		}
 		if (line.isEmpty()) {
 			return Collections.emptySet();
 		}
-		final Set<File> libFiles = new HashSet<>();
+		final Set<String> libFiles = new HashSet<>();
 		line = line.replaceAll(",", " ");
 		if (line.contains(IMPORT_FLAG)) {
-			final String[] fileNames = line.split("//w+");
+			final String[] fileNames = line.split("\\s+");
 			boolean importFlagFound = false;
 			for (String fileName : fileNames) {
 				if (importFlagFound && !fileName.isEmpty()) {
-					libFiles.add(new File(libFilePathFor(fileName)));
+					libFiles.add(fileName);
 				}
-				if (fileName.equals(IMPORT_FLAG)) {
+				if (isImportFlag(fileName)) {
 					importFlagFound = true;
 				}
 			}
 		}
 		return libFiles;
 	}
-	
-	private String libFilePathFor(final String fileName) {
-		return String.format(libPath, fileName);
+
+	private boolean isImportFlag(String fileName) {
+		if (fileName.equals(IMPORT_FLAG)){
+			return true;
+		}
+		if(fileName.length() >= 2) {
+			return fileName.substring(2, fileName.length()).equals(IMPORT_FLAG);
+		}
+		return false;
 	}
+	
 }

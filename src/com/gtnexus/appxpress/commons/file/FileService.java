@@ -195,6 +195,25 @@ public class FileService {
 		return paths;
 	}
 
+	public List<Path> copyFiles(final Collection<String> fileNames,
+			final NameToPath converter, final File destination,
+			Precondition<File> precondition) throws IOException {
+		if (fileNames == null || destination == null) {
+			throw new NullPointerException(
+					"files and destination cannot be null.");
+		}
+		if (!destination.isDirectory()) {
+			throw new IllegalArgumentException(
+					"Destination must be a directory.");
+		}
+		List<Path> paths = new LinkedList<>();
+		for (String file : fileNames) {
+			paths.add(_copyFile(destination, precondition,
+					converter.resolve(file).toFile()));
+		}
+		return paths;
+	}
+
 	/**
 	 * 
 	 * @param files
@@ -210,18 +229,36 @@ public class FileService {
 			throw new NullPointerException(
 					"files and destination cannot be null.");
 		}
+		if (!destination.isDirectory()) {
+			throw new IOException("Destination " + destination.getName()
+					+ " is not a directory.");
+		}
 		if (precondition == null) {
 			precondition = new Precondition.EmptyCondition<>();
 		}
+		return _copyFiles(files, destination, precondition);
+	}
+
+	private List<Path> _copyFiles(final Collection<File> files,
+			final File destination, Precondition<File> precondition)
+			throws IOException {
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
-			if (precondition.isMet(file)) {
-				Path p = destination.toPath().resolve(file.getName());
-				Files.copy(file.toPath(), p,
-						StandardCopyOption.REPLACE_EXISTING);
-			}
+			Path result = _copyFile(destination, precondition, file);
+			if (result != null)
+				paths.add(result);
 		}
 		return paths;
+	}
+
+	private Path _copyFile(final File destination,
+			Precondition<File> precondition, File file) throws IOException {
+		if (precondition.isMet(file)) {
+			Path p = destination.toPath().resolve(file.getName());
+			return Files.copy(file.toPath(), p,
+					StandardCopyOption.REPLACE_EXISTING);
+		}
+		return null;
 	}
 
 	/**
@@ -246,13 +283,13 @@ public class FileService {
 	public Path copyDirectory(Path source, Path destination) throws IOException {
 		if (!Files.exists(source)) {
 			throw new IOException("Cannot copy directory tree from source: "
-					+ source.toString()
-					+ ". Source directory does not exist.");
+					+ source.toString() + ". Source directory does not exist.");
 		}
-		if(destination.startsWith(source)) {
-			throw new IllegalArgumentException("Cannot copy directory structure into subdirectory of itself.");
+		if (destination.startsWith(source)) {
+			throw new IllegalArgumentException(
+					"Cannot copy directory structure into subdirectory of itself.");
 		}
-		if(!Files.exists(destination)) {
+		if (!Files.exists(destination)) {
 			Files.createDirectories(destination);
 		}
 		CopyDirVisitor visitor = new CopyDirVisitor(source, destination);
@@ -277,11 +314,10 @@ public class FileService {
 	public void emptyDir(final File root) throws IOException {
 		emptyDir(root, false);
 	}
-	
+
 	public void emptyDir(final Path root) throws IOException {
 		emptyDir(root, false);
 	}
-	
 
 	/**
 	 * 
@@ -293,11 +329,10 @@ public class FileService {
 			throws IOException {
 		emptyDir(root.toPath(), deleteRoot);
 	}
-	
+
 	public void emptyDir(final Path root, boolean deleteRoot)
 			throws IOException {
-		DeleteDirVisitor visitor = new DeleteDirVisitor(root,
-				deleteRoot);
+		DeleteDirVisitor visitor = new DeleteDirVisitor(root, deleteRoot);
 		Files.walkFileTree(root, visitor);
 	}
 

@@ -77,7 +77,7 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 			throws AppXpressException {
 		attachCleanUpHook(context);
 		PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
-		BuildPrep prep = new BuildPrep(context);
+		BuildPrep prep = new BuildPrep(context, context.getLibPath());
 		PlatformModuleBundler bundler = new PlatformModuleBundler(
 				vo.getRootFile());
 		try {

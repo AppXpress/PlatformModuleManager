@@ -25,11 +25,13 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 	private final FileService fs;
 	private final AppXpressDirResolver resolver;
 	private final TempResourceHolder tmpHolder;
+	private final Path libPath;
 
-	public BuildPrep(TempResourceHolder tmp) {
+	public BuildPrep(TempResourceHolder tmp, Path libPath) {
 		this.fs = new FileService();
 		this.resolver = new AppXpressDirResolver();
 		this.tmpHolder = tmp;
+		this.libPath = libPath;
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 		try {
 			File tmp = createTemp(vo);
 			vo.setWorkingDir(tmp);
-			runImportFind(tmp);
+			runImportFind(tmp, libPath);
 			map(tmp);
 		} catch (AppXpressException | IOException e) {
 			throw new PMBuilderException(
@@ -68,9 +70,9 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 	 *            Name of platform module folder
 	 * @throws AppXpressException
 	 */
-	private void runImportFind(File rootFile) throws AppXpressException {
+	private void runImportFind(final File rootFile, final Path lib) throws AppXpressException {
 		System.out.println("Gathering imports...");
-		ImportService iScanner = new ImportService(rootFile);
+		ImportService iScanner = new ImportService(rootFile, lib);
 		iScanner.scanAndImport();
 	}
 

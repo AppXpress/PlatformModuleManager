@@ -20,6 +20,7 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
+@Deprecated
 public class CustomObjectDesignXML {
 
 	private final String designPathTemplate = "%s" + File.separator
@@ -70,7 +71,7 @@ public class CustomObjectDesignXML {
 	/**
 	 * Asserts that the necessary directories exist. In order for the scripts
 	 * directory to exist the design directory must exist, so a single check is
-	 * all the is necessary.
+	 * all that is necessary.
 	 * 
 	 * @return
 	 */

@@ -121,7 +121,7 @@ public class GitMapper implements Mapper {
 			System.out.println("Cannot find script folder: "
 					+ scriptsPath.toString());
 			System.out
-					.println("\tAssuming this module contains no custom objects.");
+					.println("\tAssuming this module contains no scripts for custom objects.");
 			return;
 		}
 		File scripts = scriptsPath.toFile();
