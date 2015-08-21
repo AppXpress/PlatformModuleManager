@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.Condition;
 
 /**
  * Service class to handle File IO procedures common to app.
@@ -32,7 +32,7 @@ public class FileService {
 	}
 
 	public Path prependToName(File file, String prepend,
-			Precondition<File> precondition) throws IOException {
+			Condition<File> precondition) throws IOException {
 		return renameFile(file, prepend + file.getName(), precondition);
 	}
 
@@ -47,7 +47,7 @@ public class FileService {
 	public List<Path> prependToName(Collection<File> files, String prepend)
 			throws IOException {
 		return prependToName(files, prepend,
-				new Precondition.EmptyCondition<File>());
+				new Condition.EmptyCondition<File>());
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class FileService {
 	 *               to file name
 	 */
 	public List<Path> prependToName(Collection<File> files, String prepend,
-			Precondition<File> precondition) throws IOException {
+			Condition<File> precondition) throws IOException {
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
 			paths.add(prependToName(file, prepend, precondition));
@@ -81,7 +81,7 @@ public class FileService {
 	 */
 	public Path renameFile(File file, String newName) throws IOException {
 		return renameFile(file, newName,
-				new Precondition.EmptyCondition<File>());
+				new Condition.EmptyCondition<File>());
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class FileService {
 	 *             if the renaming operation fails.
 	 */
 	public Path renameFile(File file, String newName,
-			Precondition<File> precondition) throws IOException {
+			Condition<File> precondition) throws IOException {
 		Path path = file.toPath();
 		if (!precondition.isMet(file))
 			return path;
@@ -125,7 +125,7 @@ public class FileService {
 	public List<Path> renameFile(Collection<File> files, String toReplace,
 			String replacement) throws IOException {
 		return renameFile(files, toReplace, replacement,
-				new Precondition.EmptyCondition<File>());
+				new Condition.EmptyCondition<File>());
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class FileService {
 	 *            renamed.
 	 */
 	public List<Path> renameFile(Collection<File> files, String toReplace,
-			String replacement, Precondition<File> precondition)
+			String replacement, Condition<File> precondition)
 			throws IOException {
 		if (files == null) {
 			throw new NullPointerException("Files cannot be null.");
@@ -197,7 +197,7 @@ public class FileService {
 
 	public List<Path> copyFiles(final Collection<String> fileNames,
 			final NameToPath converter, final File destination,
-			Precondition<File> precondition) throws IOException {
+			Condition<File> precondition) throws IOException {
 		if (fileNames == null || destination == null) {
 			throw new NullPointerException(
 					"files and destination cannot be null.");
@@ -223,7 +223,7 @@ public class FileService {
 	 * @throws IOException
 	 */
 	public List<Path> copyFiles(final Collection<File> files,
-			final File destination, Precondition<File> precondition)
+			final File destination, Condition<File> precondition)
 			throws IOException {
 		if (files == null || destination == null) {
 			throw new NullPointerException(
@@ -234,13 +234,13 @@ public class FileService {
 					+ " is not a directory.");
 		}
 		if (precondition == null) {
-			precondition = new Precondition.EmptyCondition<>();
+			precondition = new Condition.EmptyCondition<>();
 		}
 		return _copyFiles(files, destination, precondition);
 	}
 
 	private List<Path> _copyFiles(final Collection<File> files,
-			final File destination, Precondition<File> precondition)
+			final File destination, Condition<File> precondition)
 			throws IOException {
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
@@ -252,7 +252,7 @@ public class FileService {
 	}
 
 	private Path _copyFile(final File destination,
-			Precondition<File> precondition, File file) throws IOException {
+			Condition<File> precondition, File file) throws IOException {
 		if (precondition.isMet(file)) {
 			Path p = destination.toPath().resolve(file.getName());
 			return Files.copy(file.toPath(), p,

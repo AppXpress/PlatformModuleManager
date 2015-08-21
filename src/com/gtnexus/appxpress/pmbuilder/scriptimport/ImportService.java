@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.Condition;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.commons.file.LibResourceToPath;
@@ -28,7 +28,7 @@ public class ImportService {
 	private final ImportFile root;
 	private final ImportScanner importScanner;
 	private final FileService fs;
-	private final Precondition<File> precondition;
+	private final Condition<File> precondition;
 	private final Path libPath;
 
 	public ImportService(final File root, final Path libPath) {
@@ -36,7 +36,7 @@ public class ImportService {
 		this.libPath = libPath;
 		this.importScanner = new ImportScanner();
 		this.fs = new FileService();
-		this.precondition = new Precondition<File>() {
+		this.precondition = new Condition<File>() {
 			/**
 			 * This precondition is here as a guard. Some File objects are
 			 * created via manual appending of path Strings. This ensures we do

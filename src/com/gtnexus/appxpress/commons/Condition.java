@@ -1,9 +1,9 @@
 package com.gtnexus.appxpress.commons;
 
-public interface Precondition<T> {
+public interface Condition<T> {
 	public boolean isMet(T obj);
 	
-	public class EmptyCondition<Y> implements Precondition<Y> {
+	public class EmptyCondition<Y> implements Condition<Y> {
 
 		@Override
 		public boolean isMet(Y obj) {

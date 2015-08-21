@@ -2,9 +2,9 @@ package com.gtnexus.appxpress.commons;
 
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 
-public interface ApplicationInfo {
+public interface CommandInformation {
 	
-	public String getAppName();
+	public String getCommandName();
 
 	public String getHelpHeader();
 	

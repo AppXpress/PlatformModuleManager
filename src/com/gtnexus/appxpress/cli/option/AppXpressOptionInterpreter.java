@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.cli.HelpFormatter;
 
 import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInformation;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
@@ -16,11 +16,11 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 		implements CLIOptionInterpreter<T> {
 
 	private ParsedOptions<T> parsedOptions;
-	private final ApplicationInfo app;
+	private final CommandInformation app;
 	protected final SimpleShutdown shutdown;
 	protected final PMProperties properties;
 
-	public AppXpressOptionInterpreter(ApplicationInfo app,
+	public AppXpressOptionInterpreter(CommandInformation app,
 			SimpleShutdown shutdown, ParsedOptions<T> parsedOptions,
 			PMProperties properties) {
 		this.app = app;
@@ -33,7 +33,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 	public final Map<T, String> interpret() throws AppXpressException {
 		if (parsedOptions.isHelpFlagSet()) {
 			HelpFormatter helpFormatter = new HelpFormatter();
-			helpFormatter.printHelp(app.getAppName(), app.getHelpHeader(),
+			helpFormatter.printHelp(app.getCommandName(), app.getHelpHeader(),
 					parsedOptions.getOptions(), app.getHelpFooter());
 			shutdown.shutdown();
 		}

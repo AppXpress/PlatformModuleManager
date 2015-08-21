@@ -1,11 +1,13 @@
 package com.gtnexus.appxpress.pmbuilder;
 
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.AppXCommand;
+import com.gtnexus.appxpress.commons.CommandInformation;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.context.ContextFactory;
+import com.gtnexus.appxpress.context.HasAppXContext;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
@@ -38,7 +40,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class PlatformModuleBuilder implements ApplicationInfo {
+public class PlatformModuleBuilder implements AppXCommand, CommandInformation, HasAppXContext {
 
 	private static final String NAME = "pmbuilder";
 
@@ -46,13 +48,14 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
 	 * 
 	 * @param args
-	 *            0 - Name of customer folder 1 - Name of platform module folder
+	 *            0 - Name of customer folder 
+	 *            1 - Name of platform module folder
 	 */
 	public static void main(String args[]) {
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-			AppXpressContext<BuilderOption> context = factory.creatContext(pmb,
+			AppXpressContext<BuilderOption> context = factory.createContext(pmb,
 					args);
 			pmb.build(context);
 			System.out.println("Success!");
@@ -95,7 +98,7 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	}
 
 	@Override
-	public String getAppName() {
+	public String getCommandName() {
 		return NAME;
 	}
 
@@ -113,6 +116,12 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	@Override
 	public String getHelpFooter() {
 		return "";
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

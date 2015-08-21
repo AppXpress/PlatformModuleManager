@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.gtnexus.appxpress.commons.AppXpressDirResolver;
-import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.Condition;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.ZipService;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
@@ -25,7 +25,7 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @author jdonovan
  *
  */
-public class GitMapPrep implements Precondition<GitMapVO>,
+public class GitMapPrep implements Condition<GitMapVO>,
 		Preparation<GitMapVO> {
 
 	private final FileService fs;

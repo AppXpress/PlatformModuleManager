@@ -3,7 +3,8 @@ package com.gtnexus.appxpress.pmextractor;
 import java.io.IOException;
 
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.AppXCommand;
+import com.gtnexus.appxpress.commons.CommandInformation;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
@@ -17,13 +18,13 @@ import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
  * @author jdonovan
  *
  */
-public class PlatformModuleExtractor implements ApplicationInfo {
+public class PlatformModuleExtractor implements AppXCommand, CommandInformation {
 
 	public static void main(String args[]) throws IOException {
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleExtractor extractor = new PlatformModuleExtractor();
-			AppXpressContext<ExtractorOption> context = factory.creatContext(extractor, args);
+			AppXpressContext<ExtractorOption> context = factory.createContext(extractor, args);
 			extractor.extract(context);
 		} catch (AppXpressException e) {
 			System.err.println(e.getAppXpressMessage());
@@ -53,7 +54,7 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 	}
 	
 	@Override
-	public String getAppName() {
+	public String getCommandName() {
 		return NAME;
 	}
 
@@ -71,6 +72,12 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 	@Override
 	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
 		return (Class<M>) ExtractorOption.class;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

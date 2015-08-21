@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.gtnexus.appxpress.commons.AppXpressDirResolver;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInformation;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
@@ -27,7 +27,7 @@ public class BuilderOptionInterpreter extends
 	private final Select<File> selector;
 	private final AppXpressDirResolver resolver;
 
-	public BuilderOptionInterpreter(ApplicationInfo app,
+	public BuilderOptionInterpreter(CommandInformation app,
 			SimpleShutdown shutdown,
 			ParsedOptions<BuilderOption> parsedOptions,
 			PMProperties properties, Select<File> selector,
