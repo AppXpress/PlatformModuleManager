@@ -1,12 +1,12 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
-import static com.gtnexus.appxpress.AppXpressConstants.DESIGNS;
-import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
-import static com.gtnexus.appxpress.AppXpressConstants.ZIP_EXTENSION;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.$;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.CUSTOM_OBJECT_MODULE;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.DESIGNS;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.JS_EXTENSION;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.SCRIPTS;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.SCRIPT_DESIGN;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.ZIP_EXTENSION;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import java.io.File;
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.Preparation;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;

@@ -1,8 +1,8 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.context.ContextFactory;
@@ -33,7 +33,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
  * into GTNexus system</li>
  * </ol>
  *
- * @author Andrew Reynolds
+ * @author Andrew Reynolds   
  * @author john donovan
  * @version 1.0
  * @date 8-27-2014 GT Nexus

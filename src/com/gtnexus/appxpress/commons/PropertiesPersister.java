@@ -1,8 +1,8 @@
 package com.gtnexus.appxpress.commons;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.asker.Asker;
 import com.gtnexus.appxpress.cli.asker.SimpleAsker;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 public class PropertiesPersister {

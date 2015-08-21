@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.AppXpressDirResolver;
 import com.gtnexus.appxpress.commons.Preparation;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.context.TempResourceHolder;
 import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;

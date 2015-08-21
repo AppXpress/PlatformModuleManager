@@ -1,8 +1,8 @@
 package com.gtnexus.appxpress.pmbuilder.design;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTING_FEATURE;
-import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.$;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.SCRIPTING_FEATURE;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.SCRIPT_DESIGN;
 
 import java.io.File;
 

@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.AppXpressDirResolver;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;

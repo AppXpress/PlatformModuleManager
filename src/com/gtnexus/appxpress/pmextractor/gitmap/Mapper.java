@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 
 public interface Mapper {
 	

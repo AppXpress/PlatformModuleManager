@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons;
 
 import java.io.File;
 

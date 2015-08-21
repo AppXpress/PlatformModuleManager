@@ -1,19 +1,19 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.BACKUP_FLDR;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.$;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.BACKUP_FLDR;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.CUSTOM_LINK_D1;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.AppXpressDirResolver;
 import com.gtnexus.appxpress.commons.Precondition;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.ZipService;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.context.TempResourceHolder;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons.exception;
 
 public class AppXpressException extends Exception {
 

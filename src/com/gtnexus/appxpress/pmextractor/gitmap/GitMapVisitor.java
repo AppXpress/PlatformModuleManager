@@ -1,7 +1,7 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
-import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.CUSTOM_UI;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.JS_EXTENSION;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;

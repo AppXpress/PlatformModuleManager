@@ -1,7 +1,7 @@
 package com.gtnexus.appxpress.context;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileCleanup;
 
 /**

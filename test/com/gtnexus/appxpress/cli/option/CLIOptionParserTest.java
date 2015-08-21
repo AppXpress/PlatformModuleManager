@@ -8,7 +8,7 @@ import java.util.EnumSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 
 public class CLIOptionParserTest {

@@ -1,9 +1,9 @@
 package com.gtnexus.appxpress.pmbuilder.design;
 
-import static com.gtnexus.appxpress.AppXpressConstants.$;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
-import static com.gtnexus.appxpress.AppXpressConstants.DESIGN_;
-import static com.gtnexus.appxpress.AppXpressConstants.XML_EXTENSION;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.$;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.CUSTOM_OBJECT_MODULE;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.DESIGN_;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.XML_EXTENSION;
 
 import java.io.File;
 

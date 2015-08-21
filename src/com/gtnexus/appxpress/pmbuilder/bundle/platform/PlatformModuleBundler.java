@@ -2,8 +2,8 @@ package com.gtnexus.appxpress.pmbuilder.bundle.platform;
 
 import java.io.File;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.ZipService;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 
 public class PlatformModuleBundler implements Bundler {

@@ -1,6 +1,6 @@
-package com.gtnexus.appxpress;
+package com.gtnexus.appxpress.commons;
 
-import static com.gtnexus.appxpress.AppXpressConstants.dirTemplate;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.dirTemplate;
 
 import java.io.File;
 import java.nio.file.Path;

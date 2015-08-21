@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.context;
 
-import static com.gtnexus.appxpress.AppXpressConstants.LIB;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.LIB;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -12,13 +12,13 @@ import java.util.Map;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.PropertiesPersister;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 
 /**

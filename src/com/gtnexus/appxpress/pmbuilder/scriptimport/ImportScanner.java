@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmbuilder.scriptimport;
 
-import static com.gtnexus.appxpress.AppXpressConstants.IMPORT_FLAG;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.IMPORT_FLAG;
 
 import java.io.Reader;
 import java.util.Collections;

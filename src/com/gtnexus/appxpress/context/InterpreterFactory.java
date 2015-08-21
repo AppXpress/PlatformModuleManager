@@ -2,12 +2,12 @@ package com.gtnexus.appxpress.context;
 
 import java.io.File;
 
-import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.BuilderOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ExtractorOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.commons.AppXpressDirResolver;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;

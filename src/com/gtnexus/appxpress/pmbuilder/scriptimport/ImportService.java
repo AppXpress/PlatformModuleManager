@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.commons.file.LibResourceToPath;
 

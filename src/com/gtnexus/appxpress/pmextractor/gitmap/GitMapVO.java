@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
-import static com.gtnexus.appxpress.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
 
 import java.io.File;
 import java.util.Map;

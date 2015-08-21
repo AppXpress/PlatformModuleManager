@@ -1,21 +1,21 @@
 package com.gtnexus.appxpress.context;
 
-import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
+import static com.gtnexus.appxpress.commons.AppXpressConstants.PROPERTIES_EXTENSION;
 
 import java.util.Map;
 
-import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
+import com.gtnexus.appxpress.commons.AppXpressDirResolver;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.SimpleShutdownImpl;
+import com.gtnexus.appxpress.commons.exception.AppXpressException;
 
 public class ContextFactory {
 
