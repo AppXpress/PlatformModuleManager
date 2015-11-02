@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -55,6 +55,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 				args, optSet, properties, inputStreamFrom(), new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
 		for (ExtractorOption option : allNonOmmitable) {
+			assertNotNull(option.toString() + " is missing!", consolidated.get(option));
 			assertTrue("Option value was " + consolidated.get(option), 
 					consolidated.get(option).startsWith("arg_") || 
 					consolidated.get(option).equals("N"));
@@ -78,6 +79,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 				assertTrue("The option was " + consolidated.get(option),
 						consolidated.get(option).startsWith("prop_"));
 			} else {
+				assertNotNull(option.toString() + " is missing!", consolidated.get(option));
 				assertTrue(consolidated.get(option)
 						+ " does not start with arg_.", 
 						consolidated.get(option).startsWith("arg_") ||
