@@ -161,4 +161,4 @@ function splitJvmOpts() {
 eval splitJvmOpts $DEFAULT_JVM_OPTS $JAVA_OPTS $PLATFORM_MODULE_BUILDER_OPTS
 
 
-exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" com.gtnexus.appxpress.pmbuilder.PlatformModuleBuilder "$@"
+exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" com.gtnexus.appxpress.PlatformModuleManager "$@"

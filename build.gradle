@@ -5,7 +5,7 @@ apply plugin: 'application'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-mainClassName = 'com.gtnexus.appxpress.pmbuilder.PlatformModuleBuilder'
+mainClassName = 'com.gtnexus.appxpress.PlatformModuleManager'
 
 repositories {
    flatDir {
@@ -30,4 +30,5 @@ task wrapper(type: Wrapper) {
 
 compileJava.doFirst {
     println "source compatibility >>" + sourceCompatibility
+    println "java_home: " + System.getProperty("java.home")
 }

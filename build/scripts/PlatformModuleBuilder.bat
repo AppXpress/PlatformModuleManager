@@ -72,7 +72,7 @@ set CMD_LINE_ARGS=%$
 set CLASSPATH=%APP_HOME%\lib\pmbuilder-0.1.0.jar;%APP_HOME%\lib\commons-cli-1.3-SNAPSHOT.jar;%APP_HOME%\lib\zip4j_1.3.2.jar;%APP_HOME%\lib\mockito-all-1.9.5.jar
 
 @rem Execute PlatformModuleBuilder
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %PLATFORM_MODULE_BUILDER_OPTS%  -classpath "%CLASSPATH%" com.gtnexus.appxpress.pmbuilder.PlatformModuleBuilder %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %PLATFORM_MODULE_BUILDER_OPTS%  -classpath "%CLASSPATH%" com.gtnexus.appxpress.PlatformModuleManager %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell
