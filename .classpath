@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="output" path="bin"/>
-	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
-	<classpathentry kind="lib" path="/code/gtnexus/appx/PlatformModuleBuilder/lib/commons-cli-1.3-SNAPSHOT.jar" exported="true"/>
-	<classpathentry kind="lib" path="/code/gtnexus/appx/PlatformModuleBuilder/lib/zip4j_1.3.2.jar" exported="true"/>
-	<classpathentry kind="lib" path="/code/gtnexus/appx/PlatformModuleBuilder/lib/mockito-all-1.9.5.jar" exported="true"/>
-</classpath>

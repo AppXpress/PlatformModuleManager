@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.apache.commons.cli.Options;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -48,6 +49,7 @@ public class BuilderOptionInterpreterTest {
 		interpreter.performCustomInterpretation(null);
 	}
 
+	@Ignore("Not yet implemented")
 	@Test
 	public void testPerformCustomInterpretationWithoutSPFlag()
 			throws AppXpressException {
@@ -59,9 +61,10 @@ public class BuilderOptionInterpreterTest {
 		fail("unimplemented");
 	}
 
+	@Ignore("Not yet implemented")
 	@Test
 	public void testPerformCustomInterpretationWithSPFlag()
 			throws AppXpressException {
-		fail("unimplemented");
+		
 	}
 }

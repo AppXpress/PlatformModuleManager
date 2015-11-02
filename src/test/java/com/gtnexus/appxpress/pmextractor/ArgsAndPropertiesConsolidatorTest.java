@@ -55,10 +55,12 @@ public class ArgsAndPropertiesConsolidatorTest {
 				args, optSet, properties, inputStreamFrom(), new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
 		for (ExtractorOption option : allNonOmmitable) {
-			assertNotNull(option.toString() + " is missing!", consolidated.get(option));
-			assertTrue("Option value was " + consolidated.get(option), 
-					consolidated.get(option).startsWith("arg_") || 
-					consolidated.get(option).equals("N"));
+			if(!option.equals(ExtractorOption.SELECT)) {
+				assertNotNull(option.toString() + " is missing!", consolidated.get(option));
+				assertTrue("Option value was " + consolidated.get(option), 
+						consolidated.get(option).startsWith("arg_") || 
+						consolidated.get(option).equals("N"));
+			}
 		}
 	}
 
@@ -78,7 +80,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 			if (option.equals(ExtractorOption.LOCAL_DIR)) {
 				assertTrue("The option was " + consolidated.get(option),
 						consolidated.get(option).startsWith("prop_"));
-			} else {
+			} else if(!option.equals(ExtractorOption.SELECT)) {
 				assertNotNull(option.toString() + " is missing!", consolidated.get(option));
 				assertTrue(consolidated.get(option)
 						+ " does not start with arg_.", 
