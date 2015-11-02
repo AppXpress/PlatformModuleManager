@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+mainClassName = 'com.gtnexus.appxpress.pmbuilder.PlatformModuleBuilder'
+
+repositories {
+   flatDir {
+       dirs 'lib'
+   }
+}
+
+dependencies {
+   compile name: 'commons-cli-1.3-SNAPSHOT'
+   compile name: 'zip4j_1.3.2'
+   compile name: 'mockito-all-1.9.5'
+}
+
+jar {
+    baseName = 'pmbuilder'
+    version  = '0.1.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+compileJava.doFirst {
+    println "source compatibility >>" + sourceCompatibility
+}

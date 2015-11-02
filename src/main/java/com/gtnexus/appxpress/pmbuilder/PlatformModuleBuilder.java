@@ -82,7 +82,8 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
-		return (Class<M>) BuilderOption.class;
+//		return (Class<M>) BuilderOption.class;
+		return null;
 	}
 
 	@Override
