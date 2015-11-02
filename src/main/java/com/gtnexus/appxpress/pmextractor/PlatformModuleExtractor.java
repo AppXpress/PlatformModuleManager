@@ -53,11 +53,9 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 		return "";
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
-		//return (Class<M>) ExtractorOption.class;
-		return null;
+	public  Class<?> getContextType() {
+		return ExtractorOption.class;
 	}
 
 }

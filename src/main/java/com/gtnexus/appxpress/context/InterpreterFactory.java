@@ -44,7 +44,7 @@ public class InterpreterFactory {
 			ApplicationInfo app, SimpleShutdown shutdown,
 			ParsedOptions<T> options, PMProperties properties)
 			throws PMBuilderException {
-		Class<T> contextType = app.getContextType();
+		Class<?> contextType = app.getContextType();
 		Select<File> selector = new PlatformSelector(System.in, System.out);
 //		if (contextType.equals(BuilderOption.class)) {
 //			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,

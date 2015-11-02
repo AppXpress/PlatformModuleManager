@@ -1,7 +1,5 @@
 package com.gtnexus.appxpress.commons;
 
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
-
 public interface ApplicationInfo {
 	
 	public String getAppName();
@@ -10,6 +8,6 @@ public interface ApplicationInfo {
 	
 	public String getHelpFooter();
 	
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType();
+	public Class<?> getContextType();
 	
 }
