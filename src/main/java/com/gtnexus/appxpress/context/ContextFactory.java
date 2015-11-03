@@ -33,9 +33,9 @@ public class ContextFactory {
 				+ PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmProperties = dHelper.getPmProperties();
-		Class<M> contextType = app.getContextType();
+		Class<?> contextType = app.getContextType();
 		CLIOptionParser<M> parser = CLIOptionParser.createParser(
-				app.getAppName(), args, contextType);
+				app.getAppName(), args, (Class<M>)contextType);
 		ParsedOptions<M> parsedOptions = parser.parse();
 		SimpleShutdown shutdown = new SimpleShutdownImpl();
 		CLIOptionInterpreter<M> interpreter = interpreterFac.createInterpreter(

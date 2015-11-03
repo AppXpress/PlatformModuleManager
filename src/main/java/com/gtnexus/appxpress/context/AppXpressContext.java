@@ -110,7 +110,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	}
 
 	@Override
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
+	public Class<?> getContextType() {
 		return app.getContextType();
 	}
 

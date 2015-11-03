@@ -5,7 +5,6 @@ import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
-import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
@@ -41,25 +40,6 @@ import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
 public class PlatformModuleBuilder implements ApplicationInfo {
 
 	private static final String NAME = "pmbuilder";
-
-	/**
-	 * Main method of pm_builder_util.jar. Instantiates PlatfromModuleBuilder.
-	 * 
-	 * @param args
-	 *            0 - Name of customer folder 1 - Name of platform module folder
-	 */
-	public static void main(String args[]) {
-		ContextFactory factory = new ContextFactory();
-		try {
-			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-			AppXpressContext<BuilderOption> context = factory.creatContext(pmb,
-					args);
-			pmb.build(context);
-			System.out.println("Success!");
-		} catch (AppXpressException e) {
-			System.out.println(e.getAppXpressMessage());
-		}
-	}
 
 	/**
 	 * Inputs recently pulled down git repository and outputs zip file that is
@@ -99,10 +79,9 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 		return NAME;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
-		return (Class<M>) BuilderOption.class;
+	public Class<?> getContextType() {
+		return BuilderOption.class;
 	}
 
 	@Override
