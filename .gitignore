@@ -29,3 +29,4 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 .classpath
+.DS_Store
