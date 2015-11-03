@@ -1,4 +1,3 @@
-![alt text](http://developer.gtnexus.com/sites/default/files/GTNexusDeveloperNetwork.jpg "GTNexus Developer Network")
 Using `pmbuilder` and `pmextractor`
 ============
 ## About
