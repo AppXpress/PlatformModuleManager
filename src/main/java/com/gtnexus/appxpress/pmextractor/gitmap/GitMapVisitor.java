@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.commons.file.CopyDirVisitor;
 
 public class GitMapVisitor extends CopyDirVisitor {
@@ -18,25 +20,34 @@ public class GitMapVisitor extends CopyDirVisitor {
 	private GitMapVO vo;
 	private List<Path> overwrittenScripts;
 
-	public GitMapVisitor(final GitMapVO vo, final Path source,
-			final Path destination) {
+	private static final Set<String> IGNORE_SET = new ImmutableSet.Builder<String>()
+			.add("_MACOSX")
+			.build();
+
+	public GitMapVisitor(final GitMapVO vo, final Path source, final Path destination) {
 		super(source, destination);
 		this.vo = vo;
 		overwrittenScripts = new LinkedList<Path>();
 	}
 
 	@Override
-	public FileVisitResult preVisitDirectory(final Path dir,
-			final BasicFileAttributes attrs) throws IOException {
-		if (dir.endsWith(CUSTOM_UI) && !vo.isOverwriteFef()) {
+	public FileVisitResult preVisitDirectory(final Path dir, final BasicFileAttributes attrs) throws IOException {
+		if (isIgnorePath(dir)) {
 			return FileVisitResult.SKIP_SUBTREE;
 		}
 		return super.preVisitDirectory(dir, attrs);
 	}
 
+	protected boolean isIgnorePath(Path dir) {
+		if (dir.endsWith(CUSTOM_UI) && !vo.isOverwriteFef()) {
+			return true;
+		}
+		String dirName = dir.getName(-1).toString();
+		return IGNORE_SET.contains(dirName);
+	}
+
 	@Override
-	public FileVisitResult visitFile(final Path file,
-			final BasicFileAttributes attrs) throws IOException {
+	public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
 		if (!isPreExistingJSFile(file)) {
 			return super.visitFile(file, attrs);
 		} else if (vo.isOverwriteScripts()) {
@@ -46,7 +57,7 @@ public class GitMapVisitor extends CopyDirVisitor {
 			return FileVisitResult.CONTINUE;
 		}
 	}
-	
+
 	public List<Path> getOverwrittenScripts() {
 		return overwrittenScripts;
 	}
