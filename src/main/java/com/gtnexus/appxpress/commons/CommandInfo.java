@@ -4,9 +4,9 @@ import java.util.Set;
 
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 
-public interface ApplicationInfo {
+public interface CommandInfo {
 	
-	public String getAppName();
+	public String getName();
 
 	public String getHelpHeader();
 	

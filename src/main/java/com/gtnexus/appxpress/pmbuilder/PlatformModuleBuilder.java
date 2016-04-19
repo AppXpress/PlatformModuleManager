@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
@@ -39,7 +39,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class PlatformModuleBuilder implements ApplicationInfo {
+public class PlatformModuleBuilder implements CommandInfo {
 
 	private static final String NAME = "pmbuilder";
 
@@ -77,7 +77,7 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	}
 
 	@Override
-	public String getAppName() {
+	public String getName() {
 		return NAME;
 	}
 

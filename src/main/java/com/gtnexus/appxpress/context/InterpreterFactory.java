@@ -8,7 +8,7 @@ import com.gtnexus.appxpress.cli.option.BuilderOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ExtractorOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
@@ -41,7 +41,7 @@ public class InterpreterFactory {
 	 */
 //	@SuppressWarnings("unchecked")
 	public <T extends AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
-			ApplicationInfo app, SimpleShutdown shutdown,
+			CommandInfo app, SimpleShutdown shutdown,
 			ParsedOptions<T> options, PMProperties properties)
 			throws PMBuilderException {
 		Class<?> contextType = app.getContextType();

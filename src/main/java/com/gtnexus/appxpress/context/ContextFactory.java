@@ -12,7 +12,7 @@ import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
@@ -29,8 +29,8 @@ public class ContextFactory {
 	}
 
 	public <M extends Enum<M> & AppXpressOption> AppXpressContext<M> createContext(
-			ApplicationInfo app, String[] args) throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper(app.getAppName()
+			CommandInfo app, String[] args) throws AppXpressException {
+		DirectoryHelper dHelper = new DirectoryHelper(app.getName()
 				+ PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmProperties = dHelper.getPmProperties();
