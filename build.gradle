@@ -7,6 +7,14 @@ targetCompatibility = 1.7
 
 mainClassName = 'com.gtnexus.appxpress.PlatformModuleManager'
 
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked"
+        }
+    }
+}
+
 repositories {
   mavenCentral()
    flatDir {
@@ -23,7 +31,7 @@ dependencies {
 }
 
 jar {
-    baseName = 'pmbuilder'
+    baseName = 'pmmanager'
     version  = '0.1.0'
 }
 

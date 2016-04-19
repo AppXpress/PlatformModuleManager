@@ -39,7 +39,7 @@ public class InterpreterFactory {
 	 * @return
 	 * @throws PMBuilderException
 	 */
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	public <T extends Enum<T> & AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
 			ApplicationInfo app, SimpleShutdown shutdown,
 			ParsedOptions<T> options, PMProperties properties)

@@ -1,6 +1,10 @@
 package com.gtnexus.appxpress.pmbuilder;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
@@ -91,6 +95,13 @@ public class PlatformModuleBuilder implements ApplicationInfo {
 	@Override
 	public String getHelpFooter() {
 		return "";
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <M extends AppXpressOption> Set<M> getOptions() {
+		Set<BuilderOption> allOf = EnumSet.allOf(BuilderOption.class);
+		return (Set<M>) allOf;
 	}
 
 }

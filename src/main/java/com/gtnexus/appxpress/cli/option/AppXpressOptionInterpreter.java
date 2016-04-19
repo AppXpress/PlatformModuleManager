@@ -69,7 +69,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 		return properties.getProperty(localDirKey);
 	}
 
-	public abstract ParsedOptions<T> performCustomInterpretation(
+	protected abstract ParsedOptions<T> performCustomInterpretation(
 			ParsedOptions<T> parsedOpts) throws AppXpressException;
 
 }

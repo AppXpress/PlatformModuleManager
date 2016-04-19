@@ -25,7 +25,7 @@ public class PlatformModuleManager {
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-			AppXpressContext<BuilderOption> context = factory.creatContext(pmb,
+			AppXpressContext<BuilderOption> context = factory.createContext(pmb,
 					args);
 			pmb.build(context);
 		} catch (AppXpressException e) {
@@ -37,7 +37,7 @@ public class PlatformModuleManager {
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleExtractor extractor = new PlatformModuleExtractor();
-			AppXpressContext<ExtractorOption> context = factory.creatContext(extractor, args);
+			AppXpressContext<ExtractorOption> context = factory.createContext(extractor, args);
 			extractor.extract(context);
 		} catch (AppXpressException e) {
 			System.err.println(e.getAppXpressMessage());

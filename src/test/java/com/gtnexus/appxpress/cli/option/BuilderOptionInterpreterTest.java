@@ -2,10 +2,8 @@ package com.gtnexus.appxpress.cli.option;
 
 import static org.junit.Assert.fail;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 
-import org.apache.commons.cli.Options;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -53,11 +51,11 @@ public class BuilderOptionInterpreterTest {
 	@Test
 	public void testPerformCustomInterpretationWithoutSPFlag()
 			throws AppXpressException {
-		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
-				new Options(), new HashMap<BuilderOption, String>(),
-				EnumSet.allOf(BuilderOption.class));
-		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
-				shutdown, parsedOptions, properties, selector, resolver);
+//		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
+//				new Options(), new HashMap<BuilderOption, String>(),
+//				EnumSet.allOf(BuilderOption.class));
+//		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
+//				shutdown, parsedOptions, properties, selector, resolver);
 		fail("unimplemented");
 	}
 

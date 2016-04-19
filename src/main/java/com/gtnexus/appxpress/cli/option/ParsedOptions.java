@@ -9,9 +9,9 @@ import java.util.Set;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
-public class ParsedOptions<T extends Enum<T> & CLIOption> {
+public class ParsedOptions<T extends CLIOption> {
 
-	public static <M extends Enum<M> & CLIOption> ParsedOptions<M> createFrom(
+	public static <M extends CLIOption> ParsedOptions<M> createFrom(
 			CommandLine cmd, Options options, Set<M> optSet) {
 		Map<M, String> optMap;
 		boolean helpFlagIsSet = false;

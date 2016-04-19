@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -137,6 +138,11 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 
 	public void setTerminatedRegulary(boolean terminatedRegulary) {
 		this.terminatedRegulary = terminatedRegulary;
+	}
+
+	@Override
+	public <M extends AppXpressOption> Set<M> getOptions() {
+		return null;
 	}
 	
 	

@@ -1,6 +1,9 @@
 package com.gtnexus.appxpress.pmextractor;
 
+import java.util.Set;
+
 import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
@@ -55,6 +58,12 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 	@Override
 	public  Class<?> getContextType() {
 		return ExtractorOption.class;
+	}
+
+	@Override
+	public <M extends AppXpressOption> Set<M> getOptions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
