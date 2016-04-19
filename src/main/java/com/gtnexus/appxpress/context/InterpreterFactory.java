@@ -40,20 +40,32 @@ public class InterpreterFactory {
 	 * @throws PMBuilderException
 	 */
 //	@SuppressWarnings("unchecked")
-	public <T extends Enum<T> & AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
+	public <T extends AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
 			ApplicationInfo app, SimpleShutdown shutdown,
 			ParsedOptions<T> options, PMProperties properties)
 			throws PMBuilderException {
 		Class<?> contextType = app.getContextType();
 		Select<File> selector = new PlatformSelector(System.in, System.out);
 		if (contextType.equals(BuilderOption.class)) {
+			
+			
+			
 			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,
 					shutdown, (ParsedOptions<BuilderOption>) options,
 					properties, selector, resolver);
+			
+			
+			
 		} else if(contextType.equals(ExtractorOption.class)) {
+			
+			
+			
 			return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app,
 					shutdown, (ParsedOptions<ExtractorOption>) options,
 					properties, selector, resolver);
+			
+			
+			
 		}
 		throw new IllegalArgumentException("Unsupported context type.");
 	}

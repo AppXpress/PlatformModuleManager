@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress;
 
+import java.util.Arrays;
+
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.pmbuilder.PlatformModuleBuilder;
@@ -10,15 +12,28 @@ import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 public class PlatformModuleManager {
 	
 	public static void main(String ... args) {
+		if(args.length == 0) {
+			System.out.println("Please select build or extract");
+			return;
+		}
+		String commandName = args[0];
 		PlatformModuleManager pmm = new PlatformModuleManager();
-		if("build".equals(args[0])) {
-			pmm.runBuilder();
-		} else if ("extract".equals(args[0])) {
-			pmm.runExtractor();
+		String[] childArgs = pmm.ltrimArgs(args);
+		if("build".equals(commandName)) {
+			pmm.runBuilder(childArgs);
+		} else if ("extract".equals(commandName)) {
+			pmm.runExtractor(childArgs);
 		} else {
 			System.out.println("Not a recognized command");
 			return;
 		}
+	}
+	
+	private String[] ltrimArgs(String ...args) {
+		if(args.length < 2) {
+			return new String[0];
+		}
+		return Arrays.copyOfRange(args, 1, args.length);
 	}
 	
 	private void runBuilder(String ... args) {

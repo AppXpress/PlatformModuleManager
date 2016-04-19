@@ -61,9 +61,8 @@ public class PlatformModuleExtractor implements ApplicationInfo {
 	}
 
 	@Override
-	public <M extends AppXpressOption> Set<M> getOptions() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<AppXpressOption> getOptions() {
+		return ExtractorOption.getAllOptions();
 	}
 
 }

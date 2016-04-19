@@ -1,5 +1,9 @@
 package com.gtnexus.appxpress.pmbuilder.cli;
 
+import java.util.EnumSet;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
@@ -21,6 +25,11 @@ public enum  BuilderOption implements AppXpressOption {
 	private final String description;
 	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
 	private static final ValidityProvider validityProvider = new ValidityProvider();
+	
+	private final static Set<AppXpressOption> allOptions = new ImmutableSet.Builder<AppXpressOption>()
+			.addAll(EnumSet.allOf(BuilderOption.class))
+			.build();
+
 	
 	private BuilderOption(String flag, String name, Class<?> type, String description,
 			boolean hasArg, boolean isMandatory, String defaulValue) {
@@ -99,6 +108,10 @@ public enum  BuilderOption implements AppXpressOption {
 	@Override
 	public boolean isHelpFlag() {
 		return this.equals(HELP);
+	}
+	
+	public static Set<AppXpressOption>  getAllOptions() {
+		return allOptions;
 	}
 
 }

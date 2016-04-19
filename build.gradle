@@ -35,6 +35,17 @@ jar {
     version  = '0.1.0'
 }
 
+task fatJar(type: Jar) {
+  manifest {
+        attributes 'Implementation-Title': 'PlatformModuleManager',
+          'Implementation-Version': '1.0.0',
+          'Main-Class': 'com.gtnexus.appxpress.PlatformModuleManager'
+    }
+    baseName = 'pmm' + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
