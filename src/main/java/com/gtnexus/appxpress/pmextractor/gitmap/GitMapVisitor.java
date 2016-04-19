@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmextractor.gitmap;
 
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
+import static com.gtnexus.appxpress.AppXpressConstants.IGNORE_SET;
 import static com.gtnexus.appxpress.AppXpressConstants.JS_EXTENSION;
 
 import java.io.IOException;
@@ -10,19 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.commons.file.CopyDirVisitor;
 
 public class GitMapVisitor extends CopyDirVisitor {
 
 	private GitMapVO vo;
 	private List<Path> overwrittenScripts;
-
-	private static final Set<String> IGNORE_SET = new ImmutableSet.Builder<String>()
-			.add("_MACOSX")
-			.build();
 
 	public GitMapVisitor(final GitMapVO vo, final Path source, final Path destination) {
 		super(source, destination);

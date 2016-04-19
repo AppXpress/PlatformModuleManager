@@ -1,7 +1,6 @@
 package com.gtnexus.appxpress.pmbuilder;
 
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.ApplicationInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
