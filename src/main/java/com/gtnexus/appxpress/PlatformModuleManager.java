@@ -13,12 +13,12 @@ public class PlatformModuleManager {
 	
 	public static void main(String ... args) {
 		if(args.length == 0) {
-			System.out.println("Please select build or extract");
+			System.out.println("Please select build or extract.");
 			return;
 		}
 		String commandName = args[0];
 		PlatformModuleManager pmm = new PlatformModuleManager();
-		String[] childArgs = pmm.ltrimArgs(args);
+		String[] childArgs = pmm.restOf(args);
 		if("build".equals(commandName)) {
 			pmm.runBuilder(childArgs);
 		} else if ("extract".equals(commandName)) {
@@ -29,7 +29,7 @@ public class PlatformModuleManager {
 		}
 	}
 	
-	private String[] ltrimArgs(String ...args) {
+	private String[] restOf(String ...args) {
 		if(args.length < 2) {
 			return new String[0];
 		}

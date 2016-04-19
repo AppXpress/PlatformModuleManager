@@ -19,7 +19,7 @@ public enum ExtractorOption implements AppXpressOption {
 	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of GIT staging folder",true, true, null), 
 	CUSTOMER("c", "customer", String.class, "Customer of Platform Module", true, true, null), 
 	SELECT("s", "select", Integer.class, "Select platform from the folders present in the cwd.", false, false, null),
-	PLATFORM("p", "platform", String.class, "Platform Module that is being exported", true, true, null), 
+	MODULE("m", "module", String.class, "Platform Module that is being exported", true, true, null), 
 	OVERWRITE_SCRIPTS("os", "overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", true, false, "N"), 
 	OVERWRITE_FEF("of", "overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true, false, "N");
 

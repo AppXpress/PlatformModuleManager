@@ -54,7 +54,7 @@ public class BuilderOptionInterpreter extends
 				throw new PMBuilderException("Nothing to select from!");
 			}
 			File selection = selector.select(choices);
-			parsedOpts.put(BuilderOption.PLATFORM, selection);
+			parsedOpts.put(BuilderOption.MODULE, selection);
 			parsedOpts.put(BuilderOption.CUSTOMER, cwd);
 		}
 		if (isCandidateForArgInjection(parsedOpts, cwd)) {
