@@ -46,7 +46,7 @@ public class PMProperties {
 	}
 
 	public void put(String key, String value) {
-		if(properties.containsKey(key)) {
+		if(properties.containsKey(key)  && !properties.get(key).equals(value)) {
 			propertiesHaveChanged = true;
 		}
 		properties.put(key, value);
