@@ -2,10 +2,8 @@ package com.gtnexus.appxpress.cli.option;
 
 import static org.junit.Assert.fail;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 
-import org.apache.commons.cli.Options;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,7 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
@@ -25,7 +23,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 public class BuilderOptionInterpreterTest {
 
 	@Mock
-	ApplicationInfo app;
+	CommandInfo app;
 	@Mock
 	SimpleShutdown shutdown;
 	@Mock
@@ -53,11 +51,11 @@ public class BuilderOptionInterpreterTest {
 	@Test
 	public void testPerformCustomInterpretationWithoutSPFlag()
 			throws AppXpressException {
-		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
-				new Options(), new HashMap<BuilderOption, String>(),
-				EnumSet.allOf(BuilderOption.class));
-		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
-				shutdown, parsedOptions, properties, selector, resolver);
+//		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
+//				new Options(), new HashMap<BuilderOption, String>(),
+//				EnumSet.allOf(BuilderOption.class));
+//		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
+//				shutdown, parsedOptions, properties, selector, resolver);
 		fail("unimplemented");
 	}
 

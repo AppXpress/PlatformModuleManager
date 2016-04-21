@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmextractor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -42,7 +43,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 		mandatoryFieldsAndVals.put(ExtractorOption.PLATFORM_ZIP, "arg_myZip");
 		mandatoryFieldsAndVals.put(ExtractorOption.LOCAL_DIR, "arg_myLocalDir");
 		mandatoryFieldsAndVals.put(ExtractorOption.CUSTOMER, "arg_myCustomer");
-		mandatoryFieldsAndVals.put(ExtractorOption.PLATFORM, "arg_myPlatform");
+		mandatoryFieldsAndVals.put(ExtractorOption.MODULE, "arg_myPlatform");
 		allNonOmmitable =  EnumSet.allOf(ExtractorOption.class);
 		allNonOmmitable.remove(ExtractorOption.HELP);
 	}
@@ -67,11 +68,11 @@ public class ArgsAndPropertiesConsolidatorTest {
 	@Test
 	public void testWithArgsAndProps() {
 		mandatoryFieldsAndVals.remove(ExtractorOption.LOCAL_DIR);
-		mandatoryFieldsAndVals.remove(ExtractorOption.PLATFORM);
+		mandatoryFieldsAndVals.remove(ExtractorOption.MODULE);
 		Map<ExtractorOption, String> args = mandatoryFieldsAndVals;
 		PMProperties properties = new PMProperties(new Properties(), new File(""));
 		properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
-		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
+		properties.put(ExtractorOption.MODULE.toString(), "prop_platform");
 		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom("arg_customer", "arg_platform"), new PrintStream(
 						new NullOutputStream()));
@@ -95,7 +96,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 		mandatoryFieldsAndVals.remove(ExtractorOption.LOCAL_DIR);
 		Map<ExtractorOption, String> args = mandatoryFieldsAndVals;
 		PMProperties properties = new PMProperties(new Properties(), new File(""));
-		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
+		properties.put(ExtractorOption.MODULE.toString(), "prop_platform");
 		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom("some_local_dir", "Y"),
 				new PrintStream(new NullOutputStream()));
@@ -108,7 +109,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 	public void testDefaultValForOptional() {
 		Map<ExtractorOption, String> args = mandatoryFieldsAndVals;
 		PMProperties properties = new PMProperties(new Properties(), new File(""));
-		properties.put(ExtractorOption.PLATFORM.toString(), "prop_platform");
+		properties.put(ExtractorOption.MODULE.toString(), "prop_platform");
 		CLIOptsAndPropConsolidator<ExtractorOption> consolidator = new CLIOptsAndPropConsolidator<>(
 				args, optSet, properties, inputStreamFrom("some_local_dir", "Y"),
 				new PrintStream(new NullOutputStream()));

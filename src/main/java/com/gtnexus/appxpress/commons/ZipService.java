@@ -8,14 +8,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
+
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 
 /**
  * Zips up a folder
@@ -28,9 +30,15 @@ import com.gtnexus.appxpress.commons.file.FileService;
 public class ZipService {
 
 	private final FileService fs;
+	private final Set<String> ignoreSet;
 
 	public ZipService() {
+		this(Collections.<String>emptySet());
+	}
+	
+	public ZipService(Set<String> ignoreDirNames) {
 		this.fs = new FileService();
+		this.ignoreSet = ignoreDirNames;
 	}
 
 	public void zipFiles(Collection<File> files, String absPathToDestinationZip)
@@ -129,7 +137,9 @@ public class ZipService {
 			throws IOException {
 		for (File f : file.listFiles()) {
 			if (f.isDirectory()) {
-				zipDirFiles(root, f, zos);
+				if(!ignoreSet.contains(f.getName())) {
+					zipDirFiles(root, f, zos);
+				}
 			} else {
 				ZipEntry entry = new ZipEntry(zipName(root, f));
 				zos.putNextEntry(entry);

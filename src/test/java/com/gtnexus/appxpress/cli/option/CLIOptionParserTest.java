@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 
@@ -15,12 +17,14 @@ public class CLIOptionParserTest {
 
 	CLIOptionParser<DummyOption> cli;
 	String appName = "ParserTest";
+	Set<DummyOption> optSet = new ImmutableSet.Builder<DummyOption>()
+			.add(DummyOption.DUMMY)
+			.build();
 
 	@Before
 	public void setUp() {
 		String[] args = { "-Dummy" };
-		cli = CLIOptionParser.createParser(appName, args,
-				DummyOption.class);
+		cli = CLIOptionParser.createParser(optSet, args);
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -37,8 +41,7 @@ public class CLIOptionParserTest {
 	@Test(expected = AppXpressException.class)
 	public void testParseWithInvalidOpt() throws Exception {
 		String[] args = { "-invalidOpt" };
-		CLIOptionParser<DummyOption> cli2 = cli = CLIOptionParser.createParser(
-				appName, args, DummyOption.class);
+		CLIOptionParser<DummyOption> cli2 = CLIOptionParser.createParser(optSet, args);
 		cli2.parse();
 	}
 

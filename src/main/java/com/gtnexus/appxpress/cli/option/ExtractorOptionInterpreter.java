@@ -9,7 +9,7 @@ import java.util.Collection;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
@@ -24,7 +24,7 @@ public class ExtractorOptionInterpreter extends
 	private final Select<File> selector;
 	private AppXpressDirResolver resolver;
 	
-	public ExtractorOptionInterpreter(ApplicationInfo app,
+	public ExtractorOptionInterpreter(CommandInfo app,
 			SimpleShutdown shutdown,
 			ParsedOptions<ExtractorOption> parsedOptions,
 			PMProperties properties, Select<File> selector,

@@ -1,6 +1,9 @@
 package com.gtnexus.appxpress;
 
 import java.io.File;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Constants used across the PlatformModuleBuilder tool set.
@@ -30,4 +33,8 @@ public interface AppXpressConstants {
 	public static final String XML_EXTENSION = ".xml";
 	public static final String ZIP_EXTENSION = ".zip";
 	public static final String dirTemplate = "%s" + File.separator + APPXRESS_FOLDER;
+	
+	public static final Set<String> IGNORE_SET = new ImmutableSet.Builder<String>()
+			.add("_MACOSX")
+			.build();
 }

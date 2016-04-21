@@ -8,13 +8,14 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.PropertiesPersister;
@@ -33,9 +34,9 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
  * @param <T>
  */
 public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
-		SimpleShutdown, ApplicationInfo, TempResourceHolder {
+		SimpleShutdown, CommandInfo, TempResourceHolder {
 
-	private final ApplicationInfo app;
+	private final CommandInfo app;
 	private final DirectoryHelper dHelper;
 	private final Options options;
 	private final Map<T, String> optMap;
@@ -44,7 +45,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	private final List<File> delOnExit;
 	private boolean terminatedRegulary;
 
-	public AppXpressContext(ApplicationInfo app, SimpleShutdown shutdown,
+	public AppXpressContext(CommandInfo app, SimpleShutdown shutdown,
 			DirectoryHelper dHelper, Options options, PMProperties properties,
 			Map<T, String> optMap) {
 		this.app = app;
@@ -57,7 +58,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 		this.terminatedRegulary = true;
 	}
 
-	public ApplicationInfo getApplicationInfo() {
+	public CommandInfo getApplicationInfo() {
 		return app;
 	}
 
@@ -81,7 +82,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 
 	public void displayHelpAndExit() {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp(app.getAppName(), app.getHelpHeader(), options,
+		formatter.printHelp(app.getName(), app.getHelpHeader(), options,
 				app.getHelpFooter());
 		shutdown();
 	}
@@ -105,8 +106,8 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	}
 
 	@Override
-	public String getAppName() {
-		return app.getAppName();
+	public String getName() {
+		return app.getName();
 	}
 
 	@Override
@@ -137,6 +138,11 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 
 	public void setTerminatedRegulary(boolean terminatedRegulary) {
 		this.terminatedRegulary = terminatedRegulary;
+	}
+
+	@Override
+	public <M extends AppXpressOption> Set<M> getOptions() {
+		return null;
 	}
 	
 	

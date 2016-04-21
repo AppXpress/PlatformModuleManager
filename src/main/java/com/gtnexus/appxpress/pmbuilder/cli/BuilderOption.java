@@ -1,5 +1,9 @@
 package com.gtnexus.appxpress.pmbuilder.cli;
 
+import java.util.EnumSet;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
@@ -7,8 +11,8 @@ import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 public enum  BuilderOption implements AppXpressOption {
 	HELP("h", "help", String.class, "Display usage for this too.l", false, false, null),
 	CUSTOMER("c", "customer", String.class, "The customer who owns this module.",true, true, null ),
-	PLATFORM("p", "platform", String.class, "The name of the platform.", true, true, null),
-	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of GIT staging folder.",true, true, null),
+	MODULE("m", "module", String.class, "The name of the platform.", true, true, null),
+	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of git staging folder.",true, true, null),
 	SELECT("s", "select", Integer.class, "Select platform from the folders present in the cwd.", false, false, null)
 	;
 	
@@ -21,6 +25,11 @@ public enum  BuilderOption implements AppXpressOption {
 	private final String description;
 	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
 	private static final ValidityProvider validityProvider = new ValidityProvider();
+	
+	private final static Set<AppXpressOption> allOptions = new ImmutableSet.Builder<AppXpressOption>()
+			.addAll(EnumSet.allOf(BuilderOption.class))
+			.build();
+
 	
 	private BuilderOption(String flag, String name, Class<?> type, String description,
 			boolean hasArg, boolean isMandatory, String defaulValue) {
@@ -99,6 +108,10 @@ public enum  BuilderOption implements AppXpressOption {
 	@Override
 	public boolean isHelpFlag() {
 		return this.equals(HELP);
+	}
+	
+	public static Set<AppXpressOption>  getAllOptions() {
+		return allOptions;
 	}
 
 }

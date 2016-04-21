@@ -3,6 +3,7 @@ package com.gtnexus.appxpress.context;
 import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.AppXpressException;
@@ -11,7 +12,7 @@ import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
@@ -27,15 +28,14 @@ public class ContextFactory {
 		this.interpreterFac = new InterpreterFactory(resolver);
 	}
 
-	public <M extends Enum<M> & AppXpressOption> AppXpressContext<M> creatContext(
-			ApplicationInfo app, String[] args) throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper(app.getAppName()
+	public <M extends Enum<M> & AppXpressOption> AppXpressContext<M> createContext(
+			CommandInfo app, String[] args) throws AppXpressException {
+		DirectoryHelper dHelper = new DirectoryHelper(app.getName()
 				+ PROPERTIES_EXTENSION);
 		dHelper.ensureAppXpress();
 		PMProperties pmProperties = dHelper.getPmProperties();
-		Class<?> contextType = app.getContextType();
-		CLIOptionParser<M> parser = CLIOptionParser.createParser(
-				app.getAppName(), args, (Class<M>)contextType);
+		Set<M> options = app.getOptions();
+		CLIOptionParser<M> parser = CLIOptionParser.createParser(options, args);
 		ParsedOptions<M> parsedOptions = parser.parse();
 		SimpleShutdown shutdown = new SimpleShutdownImpl();
 		CLIOptionInterpreter<M> interpreter = interpreterFac.createInterpreter(

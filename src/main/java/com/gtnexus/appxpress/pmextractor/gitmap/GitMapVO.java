@@ -23,7 +23,7 @@ public class GitMapVO {
 	public GitMapVO(Map<ExtractorOption, String> optionMap) {
 		this.localDir = new File(optionMap.get(ExtractorOption.LOCAL_DIR));
 		this.customer = optionMap.get(ExtractorOption.CUSTOMER);
-		this.platform = optionMap.get(ExtractorOption.PLATFORM);
+		this.platform = optionMap.get(ExtractorOption.MODULE);
 		this.customerDir = localDir.toPath().resolve(customer).toFile();
 		this.platformDir = customerDir.toPath().resolve(platform).toFile();
 		this.platformZip = new File(optionMap.get(ExtractorOption.PLATFORM_ZIP));

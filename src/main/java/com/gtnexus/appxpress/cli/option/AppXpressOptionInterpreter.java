@@ -8,7 +8,7 @@ import org.apache.commons.cli.HelpFormatter;
 
 import com.gtnexus.appxpress.AppXpressException;
 import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 
@@ -16,11 +16,11 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 		implements CLIOptionInterpreter<T> {
 
 	private ParsedOptions<T> parsedOptions;
-	private final ApplicationInfo app;
+	private final CommandInfo app;
 	protected final SimpleShutdown shutdown;
 	protected final PMProperties properties;
 
-	public AppXpressOptionInterpreter(ApplicationInfo app,
+	public AppXpressOptionInterpreter(CommandInfo app,
 			SimpleShutdown shutdown, ParsedOptions<T> parsedOptions,
 			PMProperties properties) {
 		this.app = app;
@@ -33,7 +33,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 	public final Map<T, String> interpret() throws AppXpressException {
 		if (parsedOptions.isHelpFlagSet()) {
 			HelpFormatter helpFormatter = new HelpFormatter();
-			helpFormatter.printHelp(app.getAppName(), app.getHelpHeader(),
+			helpFormatter.printHelp(app.getName(), app.getHelpHeader(),
 					parsedOptions.getOptions(), app.getHelpFooter());
 			shutdown.shutdown();
 		}
@@ -69,7 +69,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 		return properties.getProperty(localDirKey);
 	}
 
-	public abstract ParsedOptions<T> performCustomInterpretation(
+	protected abstract ParsedOptions<T> performCustomInterpretation(
 			ParsedOptions<T> parsedOpts) throws AppXpressException;
 
 }

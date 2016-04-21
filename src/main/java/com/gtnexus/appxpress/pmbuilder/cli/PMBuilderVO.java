@@ -13,7 +13,7 @@ public class PMBuilderVO {
 		this.localDir = new File(optionMap.get(BuilderOption.LOCAL_DIR));
 		this.rootFile = localDir.toPath()
 				.resolve(optionMap.get(BuilderOption.CUSTOMER))
-				.resolve(optionMap.get(BuilderOption.PLATFORM)).toFile();
+				.resolve(optionMap.get(BuilderOption.MODULE)).toFile();
 	}
 	
 	public File getLocalDir() {

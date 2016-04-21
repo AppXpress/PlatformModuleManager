@@ -8,7 +8,7 @@ import com.gtnexus.appxpress.cli.option.BuilderOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ExtractorOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
-import com.gtnexus.appxpress.commons.ApplicationInfo;
+import com.gtnexus.appxpress.commons.CommandInfo;
 import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
@@ -39,22 +39,34 @@ public class InterpreterFactory {
 	 * @return
 	 * @throws PMBuilderException
 	 */
-	@SuppressWarnings("unchecked")
-	public <T extends Enum<T> & AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
-			ApplicationInfo app, SimpleShutdown shutdown,
+//	@SuppressWarnings("unchecked")
+	public <T extends AppXpressOption> CLIOptionInterpreter<T> createInterpreter(
+			CommandInfo app, SimpleShutdown shutdown,
 			ParsedOptions<T> options, PMProperties properties)
 			throws PMBuilderException {
 		Class<?> contextType = app.getContextType();
 		Select<File> selector = new PlatformSelector(System.in, System.out);
-//		if (contextType.equals(BuilderOption.class)) {
-//			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,
-//					shutdown, (ParsedOptions<BuilderOption>) options,
-//					properties, selector, resolver);
-//		} else if(contextType.equals(ExtractorOption.class)) {
-//			return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app,
-//					shutdown, (ParsedOptions<ExtractorOption>) options,
-//					properties, selector, resolver);
-//		}
+		if (contextType.equals(BuilderOption.class)) {
+			
+			
+			
+			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,
+					shutdown, (ParsedOptions<BuilderOption>) options,
+					properties, selector, resolver);
+			
+			
+			
+		} else if(contextType.equals(ExtractorOption.class)) {
+			
+			
+			
+			return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app,
+					shutdown, (ParsedOptions<ExtractorOption>) options,
+					properties, selector, resolver);
+			
+			
+			
+		}
 		throw new IllegalArgumentException("Unsupported context type.");
 	}
 

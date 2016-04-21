@@ -1,5 +1,9 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
+import java.util.EnumSet;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
@@ -15,7 +19,7 @@ public enum ExtractorOption implements AppXpressOption {
 	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of GIT staging folder",true, true, null), 
 	CUSTOMER("c", "customer", String.class, "Customer of Platform Module", true, true, null), 
 	SELECT("s", "select", Integer.class, "Select platform from the folders present in the cwd.", false, false, null),
-	PLATFORM("p", "platform", String.class, "Platform Module that is being exported", true, true, null), 
+	MODULE("m", "module", String.class, "Platform Module that is being exported", true, true, null), 
 	OVERWRITE_SCRIPTS("os", "overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", true, false, "N"), 
 	OVERWRITE_FEF("of", "overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true, false, "N");
 
@@ -28,6 +32,10 @@ public enum ExtractorOption implements AppXpressOption {
 	private final String description;
 	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
 	private static final ValidityProvider validityProvider = new ValidityProvider();
+	
+	private final static Set<AppXpressOption> allOptions = new ImmutableSet.Builder<AppXpressOption>()
+			.addAll(EnumSet.allOf(ExtractorOption.class))
+			.build();
 
 	/**
 	 * 
@@ -133,6 +141,10 @@ public enum ExtractorOption implements AppXpressOption {
 	@Override
 	public boolean isHelpFlag() {
 		return this.equals(HELP);
+	}
+	
+	public static Set<AppXpressOption>  getAllOptions() {
+		return allOptions;
 	}
 
 }

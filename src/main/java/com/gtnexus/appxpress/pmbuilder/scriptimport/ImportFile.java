@@ -19,8 +19,7 @@ public class ImportFile extends File {
 	 */
 	private static final long serialVersionUID = -7530032818432622334L;
 	// TODO we should maintain a whitelist, not a blacklist.
-	final List<String> invalidExtensions = Arrays.asList("zip", "xml", "xsd",
-			"xlf");
+	final List<String> validExtensions = Arrays.asList("js");
 
 	public ImportFile(File parent, String child) {
 		super(parent, child);
@@ -54,7 +53,7 @@ public class ImportFile extends File {
 		}
 		String[] splitName = getName().split("\\.");
 		if (splitName.length > 1
-				&& !invalidExtensions.contains(splitName[splitName.length - 1])) {
+				&& validExtensions.contains(splitName[splitName.length - 1])) {
 			return true;
 		}
 		return false;
