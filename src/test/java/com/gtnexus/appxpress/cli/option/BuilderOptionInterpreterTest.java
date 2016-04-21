@@ -12,10 +12,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.commons.CommandInfo;
-import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
+import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 
@@ -23,7 +23,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 public class BuilderOptionInterpreterTest {
 
 	@Mock
-	CommandInfo app;
+	PMMCommandInfo app;
 	@Mock
 	SimpleShutdown shutdown;
 	@Mock

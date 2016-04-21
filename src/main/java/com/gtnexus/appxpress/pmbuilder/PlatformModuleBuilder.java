@@ -2,9 +2,9 @@ package com.gtnexus.appxpress.pmbuilder;
 
 import java.util.Set;
 
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.CommandInfo;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
@@ -39,7 +39,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.PMBuilderVO;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class PlatformModuleBuilder implements CommandInfo {
+public class PlatformModuleBuilder implements PMMCommandInfo {
 
 	private static final String NAME = "pmbuilder";
 
@@ -97,7 +97,7 @@ public class PlatformModuleBuilder implements CommandInfo {
 	}
 
 	@Override
-	public Set<AppXpressOption> getOptions() {
+	public Set<CLICommandOption> getOptions() {
 		return BuilderOption.getAllOptions();
 	}
 

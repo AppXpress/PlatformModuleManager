@@ -13,30 +13,25 @@ import java.util.Set;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.CommandInfo;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
-import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.commons.PropertiesPersister;
-import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
+import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.commons.properties.PropertiesPersister;
+import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 
-/**
- * 
- * @author jdonovan
- *
- * @param <T>
- */
-/**
- * @author jdonovan
- *
- * @param <T>
- */
-public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
-		SimpleShutdown, CommandInfo, TempResourceHolder {
 
-	private final CommandInfo app;
+/**
+ * @author jdonovan
+ *
+ * @param <T>
+ */
+public class AppXpressContext<T extends CLICommandOption> implements
+		SimpleShutdown, PMMCommandInfo, TempResourceHolder {
+
+	private final PMMCommandInfo app;
 	private final DirectoryHelper dHelper;
 	private final Options options;
 	private final Map<T, String> optMap;
@@ -45,7 +40,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	private final List<File> delOnExit;
 	private boolean terminatedRegulary;
 
-	public AppXpressContext(CommandInfo app, SimpleShutdown shutdown,
+	public AppXpressContext(PMMCommandInfo app, SimpleShutdown shutdown,
 			DirectoryHelper dHelper, Options options, PMProperties properties,
 			Map<T, String> optMap) {
 		this.app = app;
@@ -58,7 +53,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 		this.terminatedRegulary = true;
 	}
 
-	public CommandInfo getApplicationInfo() {
+	public PMMCommandInfo getApplicationInfo() {
 		return app;
 	}
 
@@ -76,7 +71,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 		return dHelper.getPmProperties();
 	}
 
-	public String getProperty(AppXpressOption option) {
+	public String getProperty(CLICommandOption option) {
 		return properties.getProperty(option.getLongName());
 	}
 
@@ -141,7 +136,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	}
 
 	@Override
-	public <M extends AppXpressOption> Set<M> getOptions() {
+	public <M extends CLICommandOption> Set<M> getOptions() {
 		return null;
 	}
 	

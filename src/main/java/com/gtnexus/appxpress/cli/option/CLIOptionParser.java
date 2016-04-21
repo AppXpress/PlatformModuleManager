@@ -9,7 +9,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -71,7 +71,11 @@ public class CLIOptionParser<T extends CLIOption> {
 					"Failed to parse args from command line!\n"
 							+ e.getMessage());
 		}
-		return ParsedOptions.createFrom(cmd, options, cliOptionSet);
+		return ParsedOptions.createFrom(this);
+	}
+	
+	public CommandLine getCommandLine() {
+		return cmd;
 	}
 
 	public Set<T> getCliOptionSet() {

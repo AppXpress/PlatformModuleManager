@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.gtnexus.appxpress.commons.Precondition;
+import com.gtnexus.appxpress.commons.HasPrerequisite;
 import com.gtnexus.appxpress.commons.file.FileService;
 
 public class FileServiceTest {
@@ -105,7 +105,7 @@ public class FileServiceTest {
 	@Test
 	public void testCopyFiles() throws IOException {
 		final String[] extension = {".js", ".zip"};
-		Precondition<File> pre = new Precondition<File>() {
+		HasPrerequisite<File> pre = new HasPrerequisite<File>() {
 
 			@Override
 			public boolean isMet(File f) {

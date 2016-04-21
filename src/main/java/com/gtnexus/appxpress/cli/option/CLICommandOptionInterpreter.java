@@ -6,21 +6,21 @@ import java.util.Map;
 
 import org.apache.commons.cli.HelpFormatter;
 
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
-import com.gtnexus.appxpress.commons.CommandInfo;
-import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
+import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 
-public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOption>
+public abstract class CLICommandOptionInterpreter<T extends CLICommandOption>
 		implements CLIOptionInterpreter<T> {
 
 	private ParsedOptions<T> parsedOptions;
-	private final CommandInfo app;
+	private final PMMCommandInfo app;
 	protected final SimpleShutdown shutdown;
 	protected final PMProperties properties;
 
-	public AppXpressOptionInterpreter(CommandInfo app,
+	public CLICommandOptionInterpreter(PMMCommandInfo app,
 			SimpleShutdown shutdown, ParsedOptions<T> parsedOptions,
 			PMProperties properties) {
 		this.app = app;

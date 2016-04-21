@@ -1,61 +1,40 @@
 package com.gtnexus.appxpress;
 
-import java.util.Arrays;
+import java.util.Set;
 
-import com.gtnexus.appxpress.context.AppXpressContext;
-import com.gtnexus.appxpress.context.ContextFactory;
-import com.gtnexus.appxpress.pmbuilder.PlatformModuleBuilder;
-import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
-import com.gtnexus.appxpress.pmextractor.PlatformModuleExtractor;
-import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
+import com.google.common.base.Optional;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.cli.command.CLICommand;
+import com.gtnexus.appxpress.cli.command.CommandParser;
+import com.gtnexus.appxpress.commons.command.Command;
 
 public class PlatformModuleManager {
 	
 	public static void main(String ... args) {
-		if(args.length == 0) {
-			System.out.println("Please select build or extract.");
-			return;
-		}
-		String commandName = args[0];
-		PlatformModuleManager pmm = new PlatformModuleManager();
-		String[] childArgs = pmm.restOf(args);
-		if("build".equals(commandName)) {
-			pmm.runBuilder(childArgs);
-		} else if ("extract".equals(commandName)) {
-			pmm.runExtractor(childArgs);
-		} else {
-			System.out.println("Not a recognized command");
-			return;
-		}
+		new PlatformModuleManager().run(args);
 	}
 	
-	private String[] restOf(String ...args) {
-		if(args.length < 2) {
-			return new String[0];
-		}
-		return Arrays.copyOfRange(args, 1, args.length);
+	public PlatformModuleManager() {
 	}
 	
-	private void runBuilder(String ... args) {
-		ContextFactory factory = new ContextFactory();
+	protected void run(String ...args) {
 		try {
-			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-			AppXpressContext<BuilderOption> context = factory.createContext(pmb,
-					args);
-			pmb.build(context);
+			Command c = PlatformModuleManager.getCommand(this, args);
+			c.execute();
 		} catch (AppXpressException e) {
 			System.out.println(e.getAppXpressMessage());
 		}
 	}
 	
-	private void runExtractor(String... args ) {
-		ContextFactory factory = new ContextFactory();
-		try {
-			PlatformModuleExtractor extractor = new PlatformModuleExtractor();
-			AppXpressContext<ExtractorOption> context = factory.createContext(extractor, args);
-			extractor.extract(context);
-		} catch (AppXpressException e) {
-			System.err.println(e.getAppXpressMessage());
+	public static Command getCommand(PlatformModuleManager pmm, String ...args) throws AppXpressException {
+		Optional<Command> command =  new CommandParser(pmm.getCommands()).parse(args);
+		if(command.isPresent()) {
+			return command.get();
 		}
+		throw new AppXpressException("Unable to parse command. You should try the -h flag.");
+	}
+
+	public Set<CLICommand> getCommands() {
+		return PlatformModuleManagerCommand.getAllCommands();
 	}
 }

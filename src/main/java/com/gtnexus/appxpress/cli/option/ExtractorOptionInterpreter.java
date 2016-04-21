@@ -8,23 +8,23 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.commons.CommandInfo;
-import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
+import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 public class ExtractorOptionInterpreter extends
-		AppXpressOptionInterpreter<ExtractorOption> implements
+		CLICommandOptionInterpreter<ExtractorOption> implements
 		CLIOptionInterpreter<ExtractorOption> {
 
 	private final Select<File> selector;
 	private AppXpressDirResolver resolver;
 	
-	public ExtractorOptionInterpreter(CommandInfo app,
+	public ExtractorOptionInterpreter(PMMCommandInfo app,
 			SimpleShutdown shutdown,
 			ParsedOptions<ExtractorOption> parsedOptions,
 			PMProperties properties, Select<File> selector,

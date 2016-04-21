@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.ZipService;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.commons.file.filter.ChainedAnd;

@@ -11,11 +11,9 @@ import java.util.List;
  *
  */
 public interface TempResourceHolder {
-	
-	
+		
 	public void deleteOnExit(File f);
 	
 	public List<File> getFilesToDeleteOnExit();
-	
 
 }

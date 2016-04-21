@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.gtnexus.appxpress.Exception.AppXpressException;
+
 public class AppXpressExceptionTest {
 
 	@Test

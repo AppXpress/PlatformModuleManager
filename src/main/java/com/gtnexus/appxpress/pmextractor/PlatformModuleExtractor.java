@@ -2,9 +2,9 @@ package com.gtnexus.appxpress.pmextractor;
 
 import java.util.Set;
 
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.CommandInfo;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
@@ -16,7 +16,7 @@ import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
  * @author jdonovan
  *
  */
-public class PlatformModuleExtractor implements CommandInfo {
+public class PlatformModuleExtractor implements PMMCommandInfo {
 
 	private static final String NAME = "pmextractor";
 
@@ -61,7 +61,7 @@ public class PlatformModuleExtractor implements CommandInfo {
 	}
 
 	@Override
-	public Set<AppXpressOption> getOptions() {
+	public Set<CLICommandOption> getOptions() {
 		return ExtractorOption.getAllOptions();
 	}
 

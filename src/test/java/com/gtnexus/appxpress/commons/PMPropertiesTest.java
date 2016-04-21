@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.commons;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -8,6 +8,8 @@ import java.util.Properties;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import com.gtnexus.appxpress.commons.properties.PMProperties;
 
 public class PMPropertiesTest {
 

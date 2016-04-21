@@ -5,11 +5,11 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
-public enum  BuilderOption implements AppXpressOption {
-	HELP("h", "help", String.class, "Display usage for this too.l", false, false, null),
+public enum  BuilderOption implements CLICommandOption {
+	HELP("h", "help", String.class, "Display usage for this tool", false, false, null),
 	CUSTOMER("c", "customer", String.class, "The customer who owns this module.",true, true, null ),
 	MODULE("m", "module", String.class, "The name of the platform.", true, true, null),
 	LOCAL_DIR("ld", "localDir", String.class, "Relative Path of git staging folder.",true, true, null),
@@ -26,7 +26,7 @@ public enum  BuilderOption implements AppXpressOption {
 	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
 	private static final ValidityProvider validityProvider = new ValidityProvider();
 	
-	private final static Set<AppXpressOption> allOptions = new ImmutableSet.Builder<AppXpressOption>()
+	private final static Set<CLICommandOption> allOptions = new ImmutableSet.Builder<CLICommandOption>()
 			.addAll(EnumSet.allOf(BuilderOption.class))
 			.build();
 
@@ -110,7 +110,7 @@ public enum  BuilderOption implements AppXpressOption {
 		return this.equals(HELP);
 	}
 	
-	public static Set<AppXpressOption>  getAllOptions() {
+	public static Set<CLICommandOption>  getAllOptions() {
 		return allOptions;
 	}
 

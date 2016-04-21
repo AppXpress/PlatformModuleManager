@@ -1,6 +1,6 @@
-package com.gtnexus.appxpress.commons;
+package com.gtnexus.appxpress.commons.properties;
 
-import com.gtnexus.appxpress.AppXpressException;
+import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.asker.Asker;
 import com.gtnexus.appxpress.cli.asker.SimpleAsker;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;

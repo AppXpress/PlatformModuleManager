@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.commons.CommandInfo;
-import com.gtnexus.appxpress.commons.PMProperties;
-import com.gtnexus.appxpress.commons.SimpleShutdown;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
+import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
@@ -21,13 +21,13 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  *
  */
 public class BuilderOptionInterpreter extends
-		AppXpressOptionInterpreter<BuilderOption> implements
+		CLICommandOptionInterpreter<BuilderOption> implements
 		CLIOptionInterpreter<BuilderOption> {
 
 	private final Select<File> selector;
 	private final AppXpressDirResolver resolver;
 
-	public BuilderOptionInterpreter(CommandInfo app,
+	public BuilderOptionInterpreter(PMMCommandInfo app,
 			SimpleShutdown shutdown,
 			ParsedOptions<BuilderOption> parsedOptions,
 			PMProperties properties, Select<File> selector,
@@ -45,22 +45,27 @@ public class BuilderOptionInterpreter extends
 		}
 		Path cwd = resolver.resovleCurrentDirectory();
 		if (parsedOpts.hasOption(BuilderOption.SELECT)) {
-			if (!isCustomerFolder(cwd, BuilderOption.LOCAL_DIR)) {
-				throw new PMBuilderException(
-						"The select option must be run from a cutomer folder.");
-			}
-			Collection<File> choices = getCandidates(cwd);
-			if (choices.isEmpty()) {
-				throw new PMBuilderException("Nothing to select from!");
-			}
-			File selection = selector.select(choices);
-			parsedOpts.put(BuilderOption.MODULE, selection);
-			parsedOpts.put(BuilderOption.CUSTOMER, cwd);
+			doSelect(parsedOpts, cwd);
 		}
 		if (isCandidateForArgInjection(parsedOpts, cwd)) {
 			parsedOpts.put(BuilderOption.CUSTOMER, cwd);
 		}//TODO: can we inject platform as well?
 		return parsedOpts;
+	}
+
+	private void doSelect(ParsedOptions<BuilderOption> parsedOpts, Path cwd)
+			throws AppXpressException, PMBuilderException {
+		if (!isCustomerFolder(cwd, BuilderOption.LOCAL_DIR)) {
+			throw new PMBuilderException(
+					"The select option must be run from a cutomer folder.");
+		}
+		Collection<File> choices = getCandidates(cwd);
+		if (choices.isEmpty()) {
+			throw new PMBuilderException("Nothing to select from!");
+		}
+		File selection = selector.select(choices);
+		parsedOpts.put(BuilderOption.MODULE, selection);
+		parsedOpts.put(BuilderOption.CUSTOMER, cwd);
 	}
 
 	private boolean isCandidateForArgInjection(

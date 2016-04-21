@@ -8,8 +8,8 @@ import java.util.Set;
 
 import com.gtnexus.appxpress.cli.asker.Asker;
 import com.gtnexus.appxpress.cli.asker.SimpleAsker;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
-import com.gtnexus.appxpress.commons.PMProperties;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.appxpress.commons.properties.PMProperties;
 
 /**
  * Consolidates stored properties file from User, with flags passed from CLI.
@@ -20,7 +20,7 @@ import com.gtnexus.appxpress.commons.PMProperties;
  *
  * @author jjdonov
  */
-public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
+public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
 
 	private final Map<T, String> userArgs;
 	private final Set<T> optSet;
@@ -86,7 +86,7 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 *            the option we are consolidating
 	 * @return the consolidated result
 	 */
-	private String consolidateSingle(AppXpressOption option) {
+	private String consolidateSingle(CLICommandOption option) {
 		String input = null;
 		String propVal = null;
 		if(option.isStoreableProperty()) {
@@ -107,7 +107,7 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 		}
 	}
 
-	private void storeIfAppropriate(AppXpressOption option, String input) {
+	private void storeIfAppropriate(CLICommandOption option, String input) {
 		if(option.isStoreableProperty()) {
 			properties.put(option.getLongName(), input);
 		}
@@ -118,7 +118,7 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 *            The ExtractorOption to be query the user for.
 	 * @return The value entered by the user.
 	 */
-	private String getParameterFromUser(AppXpressOption option) {
+	private String getParameterFromUser(CLICommandOption option) {
 		String val = asker.ask(option.getMessage());
 		while (!option.isValid(val)) {
 			val = asker.ask(Asker.INVALID_INPUT);

@@ -1,12 +1,12 @@
-package com.gtnexus.appxpress.commons;
+package com.gtnexus.appxpress.commons.properties;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.gtnexus.appxpress.AppXpressException;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
 
 /**
  * Simple wrapper around a File and Property objects.
@@ -41,7 +41,7 @@ public class PMProperties {
 		return properties.getProperty(property);
 	}
 	
-	public String getProperty(AppXpressOption opt) {
+	public String getProperty(CLICommandOption opt) {
 		return properties.getProperty(opt.getLongName());
 	}
 

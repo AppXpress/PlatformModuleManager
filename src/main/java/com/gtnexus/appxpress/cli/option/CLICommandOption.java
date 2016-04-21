@@ -7,7 +7,7 @@ package com.gtnexus.appxpress.cli.option;
  * @author jdonovan
  *
  */
-public interface AppXpressOption extends CLIOption {
+public interface CLICommandOption extends CLIOption {
 
 	public String getMessage();
 	public boolean isAppXpressMandatory();

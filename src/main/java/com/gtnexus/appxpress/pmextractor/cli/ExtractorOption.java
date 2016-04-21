@@ -5,14 +5,14 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
-import com.gtnexus.appxpress.cli.option.AppXpressOption;
+import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in
  * from the CLI.
  */
-public enum ExtractorOption implements AppXpressOption {
+public enum ExtractorOption implements CLICommandOption {
 
 	HELP("h", "help", String.class, "Display usage for this tool", false, false, null), 
 	PLATFORM_ZIP("pz", "platformZip", String.class,"Exported Platform Module Name", true, true, null), 
@@ -33,7 +33,7 @@ public enum ExtractorOption implements AppXpressOption {
 	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
 	private static final ValidityProvider validityProvider = new ValidityProvider();
 	
-	private final static Set<AppXpressOption> allOptions = new ImmutableSet.Builder<AppXpressOption>()
+	private final static Set<CLICommandOption> allOptions = new ImmutableSet.Builder<CLICommandOption>()
 			.addAll(EnumSet.allOf(ExtractorOption.class))
 			.build();
 
@@ -143,7 +143,7 @@ public enum ExtractorOption implements AppXpressOption {
 		return this.equals(HELP);
 	}
 	
-	public static Set<AppXpressOption>  getAllOptions() {
+	public static Set<CLICommandOption>  getAllOptions() {
 		return allOptions;
 	}
 

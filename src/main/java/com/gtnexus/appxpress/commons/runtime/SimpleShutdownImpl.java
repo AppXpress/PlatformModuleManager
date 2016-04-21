@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.commons;
+package com.gtnexus.appxpress.commons.runtime;
 
 public class SimpleShutdownImpl implements SimpleShutdown {
 	
