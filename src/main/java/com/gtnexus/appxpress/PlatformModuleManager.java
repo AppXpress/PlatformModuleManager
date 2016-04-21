@@ -31,7 +31,7 @@ public class PlatformModuleManager {
 		if(command.isPresent()) {
 			return command.get();
 		}
-		throw new AppXpressException("Unable to parse command. You should try the -h flag.");
+		return PlatformModuleManagerCommand.HELP.constructCommand(args);
 	}
 
 	public Set<CLICommand> getCommands() {

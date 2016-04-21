@@ -7,6 +7,19 @@ targetCompatibility = 1.7
 
 mainClassName = 'com.gtnexus.appxpress.PlatformModuleManager'
 
+/*
+ * Gets the version name from the latest Git tag
+ * still needs to be added to .jar
+ */
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 allprojects {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
@@ -51,6 +64,9 @@ task wrapper(type: Wrapper) {
 }
 
 compileJava.doFirst {
+	println "" 
+	println "on tag -> " + getVersionName()
     println "source compatibility >>" + sourceCompatibility
     println "java_home: " + System.getProperty("java.home")
+    println ""
 }
