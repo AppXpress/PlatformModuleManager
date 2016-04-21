@@ -1,18 +1,15 @@
-Using `pmbuilder` and `pmextractor`
+Using `pmm`
 ============
 ## About
 
-`PlatformModuleBuilder` is a set of tools to make importing and exporting Modules from AppXpress easy and painless!
+`PlatformModuleManager`, or `pmm` for short, is a set of tools for working with AppXpress Modules. It plays nicely with [axus](https://github.com/AppXpress/axus), by allowing you to keep your modules under source control. Once extracted from the platform, new iterations of the module can be tested, built, and reuploaded to the platform.
 
 For more information about AppXpress, [visit The Developer Network.](http://developer.gtnexus.com/)
 
-### Use Case
+### Use Cases
 
-``pmbuilder`` consumes a specifically structured platform module, and zips it up into a correctly formatted importable zip file.
-
-``pmextractor`` takes an exported zip file and merges it with your
-current local git working directory. ``pmextractor`` performs the opposite function
-as ``pmbuilder``, and maps the exported module to a human readable file structure.
+* `pmm build` consumes a structured platform module, and zips it up into a correctly formatted importable zip file.
+* `pmm extract` takes an exported zip file and merges it with your defined local directory. `pmm extract` performs the opposite function as `pmm build`, and maps the exported module to a human readable file structure.
 
 ### Directory Overview and Git Structure
 
@@ -39,49 +36,33 @@ folders. The lib folder contains reusable javascript files.
 [Pick up the latest release here.](https://github.com/AppXpress/PlatformModuleBuilder/releases/latest) Or build from source!
 
 ### Installing
-After downloading the latest release, `pmbuilder` and `pmextractor` need to be added to your path, or put in a directory that is in already on your path.
+After downloading the latest release, `pmm` needs to be added to your path, or put in a directory that is in already on your path.
 
 e.g.:
 
 ```bash
-mv pmbuilder ~/bin
-mv pmextractor ~/bin
+$ mv pmm ~/bin
 ```
 
 The scripts also require that a `$APPXPRESS_HOME` environment variable be declared. This variable should point to the parent directory of pmbuilder.jar
 
 e.g:
 ```bash
-echo "APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
+$ echo "APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
 ```
 
 ### Building the .jar
 
-If your current java version is not 1.7, you might run into
-some problems running the the jars. You can always check your java version by
-running the following:
-
 ```bash
-$ java -version
+$ ./gradlew fatjar
 ```
-
-If your versions is below 1.7, it is safest to build your own jar using the source code found
-in the src/PM_Builder and src/PM_extractor folders respectively. Steps to build a jar in eclipse follow.
-
-#### Building From Eclipse
-
-After importing project to eclipse:
-1. File -> Export
-2. Java -> Runnable jar
-3. Select "Extract required libraries into generated JAR".
-4. Finish
 
 ## Running `pmbuilder` and `pmextractor`
 
 Running either tool is easy. For example:
 
 ```bash
-$ `pmbuilder`
+$ `pmm build`
 ```
 If this is your first time running the tool, it will create a `~/.appxpress` directory for you. Properties files for each tool are stored in this directory. Some temp files will also be stored here while the tool is running.
 
@@ -93,11 +74,12 @@ Command line options **always** take precedence over the properties file. To dis
 a tool supports, pass the `--help` option.
 
 ```bash
-$ pmbuilder -help
+$ pmm build -help
 ```
 
 ### Understanding the Options
-The options that are common between `pmextractor` and `pmbuilder` adhere to the aforementioned git structure, and can be used to build the absolute path to a module.
+The options that are common to the `pmm` tool set adhere to the aforementioned git structure, and can be used to build the absolute path to a module.
+
 ```
 ${localDir}/${customer}/${platform}
 ```
@@ -105,21 +87,21 @@ ${localDir}/${customer}/${platform}
 If either tool is ran within a customer folder, then the option is inferred and does not need to be passed to the tool. Of course, you can still specify the `--customer` option to override this behavior.
 
 ### Selecting a Platform to Build or extract
-`pmbuilder` and `pmextractor` can also select the platform for you! This cuts down on typos, and typing out full file names. To use this option, navigate to your customer's directory and run `pmbuilder` with the `-s` option.
+`pmm build` and `pmm extract` can also select the platform for you! This cuts down on typos, and typing out full file names. To use this option, navigate to your customer's directory and run `pmm build` with the `-s` option.
 
 ```bash
-$ pmbuilder -s
+$ pmm build -s
 ```
 
-### Using PM Builder's Import Utility
+### Using PMBuilder's Import Utility
 
-The `pmbuilder.jar` can add common files to any folder in your file structure. Use :
+The build tool can add common scripts to any folder in your file structure. Use :
 
 ```javascript
 !import commonFile.js
 ```
 
-to import a file from the **lib** folder in your repository.
+To import a file from the **lib/** folder in your repository.
 
 The following examples will import correctly:
 
@@ -137,7 +119,7 @@ The following examples will import correctly:
 */
 ```
 
-This following example will *not* import the file correctly ->
+This following example will *not* import the file correctly.
 
 ```javascript
 /*
