@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ -z "$APPXPRESS_HOME" ]; then
+  echo "APPXPRESS_HOME is not set. Cannot run pmm."
+  exit 0;
+fi;
+java -jar $APPXPRESS_HOME/pmm-all.jar "$@"

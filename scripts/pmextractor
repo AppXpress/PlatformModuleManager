@@ -1,8 +1,0 @@
-#!/bin/sh
-source ~/.profile
-if [ -z "$APPXPRESS_HOME" ]; then
-  echo "APPXPRESS_HOME is not set. Aborting build."
-  exit 0;
-fi;
-java -cp $APPXPRESS_HOME/pmbuilder.jar \
-  com.gtnexus.appxpress.pmextractor.PlatformModuleExtractor "$@"
