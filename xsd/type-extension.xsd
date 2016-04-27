@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="TYPEEXTENSIOND1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="__metadata"/>
+        <xs:element ref="type"/>
+        <xs:element ref="uid"/>
+        <xs:element ref="platformModuleId"/>
+        <xs:element ref="platformModuleType"/>
+        <xs:element ref="documentType"/>
+        <xs:element ref="apiVersion"/>
+        <xs:element ref="status"/>
+        <xs:element ref="rank"/>
+        <xs:element ref="callbacks"/>
+        <xs:element ref="fingerprint"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="__metadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="apiVersion"/>
+        <xs:element ref="type"/>
+        <xs:element ref="uid"/>
+        <xs:element ref="createTimestamp"/>
+        <xs:element ref="modifyTimestamp"/>
+        <xs:element ref="status"/>
+        <xs:element ref="userModRev"/>
+        <xs:element ref="creatorId"/>
+        <xs:element ref="fingerprint"/>
+        <xs:element ref="redirectUrl"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="createTimestamp" type="xs:string"/>
+  <xs:element name="modifyTimestamp" type="xs:string"/>
+  <xs:element name="userModRev" type="xs:integer"/>
+  <xs:element name="creatorId" type="xs:integer"/>
+  <xs:element name="redirectUrl" type="xs:anyURI"/>
+  <xs:element name="platformModuleId" type="xs:integer"/>
+  <xs:element name="platformModuleType" type="xs:NCName"/>
+  <xs:element name="documentType" type="xs:NCName"/>
+  <xs:element name="rank" type="xs:integer"/>
+  <xs:element name="callbacks">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uid"/>
+        <xs:element ref="event"/>
+        <xs:element ref="role"/>
+        <xs:element ref="functionName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="event" type="xs:NCName"/>
+  <xs:element name="role" type="xs:NCName"/>
+  <xs:element name="functionName" type="xs:NCName"/>
+  <xs:element name="apiVersion" type="xs:integer"/>
+  <xs:element name="type" type="xs:string"/>
+  <xs:element name="uid" type="xs:integer"/>
+  <xs:element name="status" type="xs:NCName"/>
+  <xs:element name="fingerprint" type="xs:string"/>
+</xs:schema>

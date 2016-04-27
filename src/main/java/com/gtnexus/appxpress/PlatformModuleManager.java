@@ -28,10 +28,7 @@ public class PlatformModuleManager {
 	
 	public static Command getCommand(PlatformModuleManager pmm, String ...args) throws AppXpressException {
 		Optional<Command> command =  new CommandParser(pmm.getCommands()).parse(args);
-		if(command.isPresent()) {
-			return command.get();
-		}
-		return PlatformModuleManagerCommand.HELP.constructCommand(args);
+		return command.or(PlatformModuleManagerCommand.HELP.constructCommand(args));
 	}
 
 	public Set<CLICommand> getCommands() {
