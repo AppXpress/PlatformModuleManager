@@ -21,6 +21,7 @@ public abstract class DisplayAdapter<X>  implements Iterable<String> {
 		return adapterFn.apply(target);
 	}
 	
+	@Deprecated
 	public Iterator<String> iterateKeys() {
 		return adapterMap.keySet().iterator();
 	}

@@ -14,7 +14,7 @@ public class WorkflowFeatureDisplayAdapter extends WorkflowDisplayAdapter {
 			.put("Workflow State Field", WORKFLOW_STATE_FIELD_FN)
 			.build();
 	
-	protected WorkflowFeatureDisplayAdapter() {
+	public WorkflowFeatureDisplayAdapter() {
 		super(adapterMap);
 	}
 

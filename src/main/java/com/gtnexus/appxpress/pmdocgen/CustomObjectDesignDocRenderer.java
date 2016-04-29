@@ -2,6 +2,7 @@ package com.gtnexus.appxpress.pmdocgen;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -10,12 +11,15 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
+import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomObjectDesignV110DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptor;
 import com.gtnexus.appxpress.pmdocgen.adapter.EmbeddedFieldsDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.IdentificationAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.RuntimeSettingsAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScalarFieldDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.WorkflowFeatureDisplayAdapter;
 
 public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjectDesignV110>{
 	
@@ -23,11 +27,8 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final CustomObjectDesignV110DisplayAdapter runtimeSettingsDisplayAdapter;
 	private final ScalarFieldDisplayAdapter scalarFieldDisplayAdapter;
 	private final EmbeddedFieldsDisplayAdapter embeddedFieldsDisplayAdapter;
+	private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
 
-//	private static final Map<String, Function<CustomObjectDesignV110, String>> WORKFLOW_FEATURE = 
-//			new ImmutableMap.Builder<String, Function<CustomObjectDesignV110,String>>()
-//			.build();
-//	
 //	private static final Map<String, Function<CustomObjectDesignV110, String>> SCRIPTING_FEATURE = 
 //			new ImmutableMap.Builder<String, Function<CustomObjectDesignV110,String>>()
 //			.build();
@@ -46,6 +47,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();
 		this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
 		this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
+		this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
 	}
 
 	@Override
@@ -55,6 +57,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		renderRuntimeSettings(design);
 		renderScalarFields(design);
 		renderEmbeddedFields(design);
+		renderWorkflow(design);
 		autofit();
 	}
 	
@@ -99,8 +102,15 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	}
 	
 	private void renderWorkflow(CustomObjectDesignV110 design) {
+		traverser.nextRow();
 		renderLabelValueSectionHeader("Workflow Design", 3);
-//		renderLableValueSection(design, adapter, width);
+		WorkflowFeature wff = design.getWorkflowFeature();
+		renderLableValueSection(wff, workflowFeatureDisplayAdapter, 3);
+		List<EdgeDescriptor> edgeDesc = EdgeDescriptor.createDescriptors(wff.getWorkflow());
+		DisplayAdapter<EdgeDescriptor> adapter = edgeDesc.get(0);
+		renderSectionHeader("Workflow Steps", adapter);
+		renderTableHeader(adapter); //TODO: null check the descs
+		renderTableBody(edgeDesc, adapter);
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------
@@ -128,16 +138,15 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		sheet.addMergedRegion(headerRegion);
 	}
 	
-	private void renderLableValueSection(CustomObjectDesignV110 design, CustomObjectDesignV110DisplayAdapter adapter,
-			int width) {
-		Iterator<String> iterator = adapter.iterateKeys();
+	private <X> void renderLableValueSection(X target, DisplayAdapter<X> adapter, int width) {
+		Iterator<String> iterator = adapter.iterator();
 		while (iterator.hasNext()) {
 			traverser.nextRow();
-			renderLabelValueRow(design, adapter, width, iterator);
+			renderLabelValueRow(target, adapter, width, iterator);
 		}
 	}
-
-	private void renderLabelValueRow(CustomObjectDesignV110 design, CustomObjectDesignV110DisplayAdapter adapter, int width,
+	
+	private <X> void renderLabelValueRow(X target, DisplayAdapter<X> adapter, int width,
 			Iterator<String> iterator) {
 		for (int i = 0; i < width; i++) {
 			if (!iterator.hasNext()) {
@@ -151,7 +160,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 			cell.setCellValue(key);
 			cell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
 			cell = traverser.nextCell();
-			cell.setCellValue(adapter.display(design, key));
+			cell.setCellValue(adapter.display(target, key));
 		}
 	}
 	

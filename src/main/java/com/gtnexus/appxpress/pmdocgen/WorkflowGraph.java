@@ -10,8 +10,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.gtnexus.appxpress.platform.module.model.design.Step;
 import com.gtnexus.appxpress.platform.module.model.design.Transition;
+import com.gtnexus.appxpress.platform.module.model.design.Workflow;
 
 public class WorkflowGraph {
+	
+	public static WorkflowGraph constructGraph(Workflow wf) {
+		return constructGraph(wf.getStep(), wf.getTransition());
+	}
 	
 	public static WorkflowGraph constructGraph(Collection<Step> steps, Collection<Transition> transitions) {
 		Map<String, Node> nodeMap = Maps.uniqueIndex(toNodes(steps), new Function<Node, String>() {
@@ -36,20 +41,6 @@ public class WorkflowGraph {
 	
 	public Collection<Node> getNodes() {
 		return this.nodes;
-	}
-	
-	public void fn(Node n) {
-		for(Transition t : n.getTransitions()) {
-			n.getState();
-			n.getEditRoles();
-			t.getAction();
-			t.getToState();
-			t.getRoles();
-			t.getPreconditionFn();
-//			t.getValidtionFn();
-			t.getPostTransitionFn();
-//			t.getOnStateFn();
-		}
 	}
 	
 	private static List<Node> toNodes(Collection<Step> steps) {
