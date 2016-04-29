@@ -11,12 +11,14 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
+import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomObjectDesignV110DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptor;
 import com.gtnexus.appxpress.pmdocgen.adapter.EmbeddedFieldsDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.IdentificationAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.NavFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.RuntimeSettingsAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScalarFieldDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.WorkflowFeatureDisplayAdapter;
@@ -28,15 +30,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final ScalarFieldDisplayAdapter scalarFieldDisplayAdapter;
 	private final EmbeddedFieldsDisplayAdapter embeddedFieldsDisplayAdapter;
 	private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
-
-//	private static final Map<String, Function<CustomObjectDesignV110, String>> SCRIPTING_FEATURE = 
-//			new ImmutableMap.Builder<String, Function<CustomObjectDesignV110,String>>()
-//			.build();
-//	
-//	private static final Map<String, Function<CustomObjectDesignV110, String>> NAV_FEATURE = 
-//			new ImmutableMap.Builder<String, Function<CustomObjectDesignV110,String>>()
-//			.build();
-	
+	private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
 	
 	private static final String SHEET_NAME = "Custom Object Design";
 	private static final int MAX_WIDTH = 9;
@@ -48,6 +42,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
 		this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
 		this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
+		this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
 	}
 
 	@Override
@@ -58,6 +53,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		renderScalarFields(design);
 		renderEmbeddedFields(design);
 		renderWorkflow(design);
+		renderNavigation(design);
 		autofit();
 	}
 	
@@ -113,7 +109,19 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		renderTableBody(edgeDesc, adapter);
 	}
 	
+	private void renderNavigation(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		NavFeature navFeature = design.getNavFeature();
+		renderLabelValueSectionHeader("Navigation Feature", navFeatureDisplayAdapter);
+		renderLableValueSection(navFeature, navFeatureDisplayAdapter);
+	}
+	
 	//--------------------------------------------------------------------------------------------------------------------------
+	private <X> void renderLabelValueSectionHeader(String sectionName, DisplayAdapter<X> adapter) {
+		int cellWidth = (adapter.size() * 2) - 1;
+		renderSectionHeader(sectionName, cellWidth);
+	}
+	
 	private void renderLabelValueSectionHeader(String sectionName, int fieldAndLabelPairCount) {
 		int cellWidth = (fieldAndLabelPairCount * 2) - 1;
 		renderSectionHeader(sectionName, cellWidth);
@@ -136,6 +144,10 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		idHeaderCell.setCellStyle(styleProvider.getHeaderStyle());
 		CellRangeAddress headerRegion = new CellRangeAddress(idHeaderRow.getRowNum(), idHeaderRow.getRowNum(), 0, cellWidth);
 		sheet.addMergedRegion(headerRegion);
+	}
+	
+	private <X> void renderLableValueSection(X target, DisplayAdapter<X> adapter) {
+		renderLableValueSection(target, adapter, adapter.size());
 	}
 	
 	private <X> void renderLableValueSection(X target, DisplayAdapter<X> adapter, int width) {
