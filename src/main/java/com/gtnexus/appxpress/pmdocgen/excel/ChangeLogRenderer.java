@@ -13,10 +13,11 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
+import com.gtnexus.appxpress.pmdocgen.BaseSheetRenderer;
 import com.gtnexus.appxpress.pmdocgen.GtnxStyleProviderImpl;
 import com.gtnexus.appxpress.pmdocgen.StyleProvider;
 
-public class ChangeLogRenderer implements SheetRenderer<PlatformModuleXml> {
+public class ChangeLogRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 		
 	private final Map<String, Function<PlatformModuleXml, String>> HEADER_LVL_DESCRIPTORS_MAP = 
 			new ImmutableMap.Builder<String, Function<PlatformModuleXml, String>>()
@@ -25,7 +26,7 @@ public class ChangeLogRenderer implements SheetRenderer<PlatformModuleXml> {
 			.put("Description", PlatformModuleXml.DESCRIPTION_FN)
 			.build();
 	
-	private final List<String> CHANGE_LOG_COL_LABELS = new ImmutableList.Builder<String>()
+	private final static List<String> CHANGE_LOG_COL_LABELS = new ImmutableList.Builder<String>()
 			.add("Jira #")
 			.add("Version")
 			.add("Date Requested")
@@ -34,19 +35,12 @@ public class ChangeLogRenderer implements SheetRenderer<PlatformModuleXml> {
 			.add("Business Reason")
 			.build();
 	
-	private final String SHEET_NAME = "Change Log";
+	private final static String SHEET_NAME = "Change Log";
 	private final String HEADER = "GTNexus Custom Object Specification";
-	private final int MAX_WIDTH = CHANGE_LOG_COL_LABELS.size() - 1; 
-	private final XSSFWorkbook workBook;
-	private final XSSFSheet sheet;
-	private final SheetTraverser traverser;
-	private final StyleProvider styleProvider;
+	private final static int MAX_WIDTH = CHANGE_LOG_COL_LABELS.size() - 1; 
 	
 	public ChangeLogRenderer(XSSFWorkbook wb) {
-		this.workBook = wb;
-		this.sheet = wb.createSheet(SHEET_NAME);
-		this.traverser = new SheetTraverserImpl(sheet, MAX_WIDTH);
-		this.styleProvider = new GtnxStyleProviderImpl(workBook);
+		super(wb,SHEET_NAME, MAX_WIDTH);
 	}
 	
 	@Override
@@ -90,7 +84,6 @@ public class ChangeLogRenderer implements SheetRenderer<PlatformModuleXml> {
 			cell.setCellValue(colLabel);
 			cell.setCellStyle(styleProvider.getHeaderStyle());
 		}
-		
 	}
 	
 	private void renderEmptyLogSpace() {
@@ -100,12 +93,6 @@ public class ChangeLogRenderer implements SheetRenderer<PlatformModuleXml> {
 				XSSFCell cell = traverser.nextCell();
 				cell.setCellStyle(styleProvider.getAllBordersStyle());
 			}
-		}
-	}
-	
-	private void autofit() {
-		for(int i = 0; i <= MAX_WIDTH; i++) {
-			sheet.autoSizeColumn(i);	
 		}
 	}
 

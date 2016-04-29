@@ -1,21 +1,14 @@
 package com.gtnexus.appxpress.pmdocgen;
 
-import java.awt.Color;
-
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.base.Supplier;
 
 public class GtnxStyleProviderImpl implements StyleProvider {
-	
-	private static final XSSFColor GTNX_ORANGE = new XSSFColor(new Color(205, 112, 55));
-	private static final XSSFColor GTNX_BLUE   = new XSSFColor(new Color(29, 44, 77));
-	private static final XSSFColor WHITE       = new XSSFColor(new Color(255, 255, 255));
 	
 	private final XSSFWorkbook workBook;
 	
@@ -36,10 +29,10 @@ public class GtnxStyleProviderImpl implements StyleProvider {
 	@Override
 	public XSSFCellStyle getHeaderStyle() {
 		XSSFCellStyle style = workBook.createCellStyle();
-		style.setFillForegroundColor(GTNX_BLUE);
+		style.setFillForegroundColor(GtnxColors.DARK_BLUE);
 		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		XSSFFont createFont = workBook.createFont();
-		createFont.setColor(WHITE);
+		createFont.setColor(GtnxColors.WHITE);
 		style.setFont(createFont);
 		style.setAlignment(HorizontalAlignment.CENTER);
 		return style;
@@ -48,7 +41,7 @@ public class GtnxStyleProviderImpl implements StyleProvider {
 	@Override
 	public XSSFCellStyle getSecondaryHeaderStyle() {
 		XSSFCellStyle style = workBook.createCellStyle();
-		style.setFillForegroundColor(GTNX_ORANGE);
+		style.setFillForegroundColor(GtnxColors.GREEN);
 		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		style.setAlignment(HorizontalAlignment.CENTER);
 		return style;
