@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,7 +41,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private static final String SHEET_NAME = "Custom Object Design";
 	private static final int MAX_WIDTH = 9;
 	
-	protected CustomObjectDesignDocRenderer(XSSFWorkbook workBook) {
+	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook) {
 		super(workBook, SHEET_NAME, MAX_WIDTH);
 		this.identificationDisplayAdapter = new IdentificationAdapter();
 		this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();

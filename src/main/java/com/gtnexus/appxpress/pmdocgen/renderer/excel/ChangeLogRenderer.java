@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen.excel;
+package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
-import com.gtnexus.appxpress.pmdocgen.BaseSheetRenderer;
-import com.gtnexus.appxpress.pmdocgen.GtnxStyleProviderImpl;
-import com.gtnexus.appxpress.pmdocgen.StyleProvider;
 
 public class ChangeLogRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 		

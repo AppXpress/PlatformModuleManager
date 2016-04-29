@@ -17,7 +17,9 @@ import com.gtnexus.appxpress.commons.command.Command;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
 import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
-import com.gtnexus.appxpress.pmdocgen.excel.ChangeLogRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.ChangeLogRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomObjectDesignDocRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.TypeExtensionDocRenderer;
 
 public class PMDocGenCommand implements Command {
 

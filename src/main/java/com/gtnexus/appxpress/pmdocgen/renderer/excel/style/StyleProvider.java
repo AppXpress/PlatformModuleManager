@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.pmdocgen.renderer.excel.style;
 
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 

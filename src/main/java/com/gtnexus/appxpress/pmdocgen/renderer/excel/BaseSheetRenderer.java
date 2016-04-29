@@ -1,11 +1,12 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.gtnexus.appxpress.pmdocgen.excel.SheetRenderer;
-import com.gtnexus.appxpress.pmdocgen.excel.SheetTraverser;
-import com.gtnexus.appxpress.pmdocgen.excel.SheetTraverserImpl;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.style.GtnxStyleProviderImpl;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.style.StyleProvider;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.traversal.SheetTraverser;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.traversal.SheetTraverserImpl;
 
 public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 	

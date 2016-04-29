@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import java.util.Collection;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen.excel;
+package com.gtnexus.appxpress.pmdocgen.renderer.excel.traversal;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
