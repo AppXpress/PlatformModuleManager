@@ -1,22 +1,22 @@
-package com.gtnexus.appxpress.pmdocgen.cli.option;
+package com.gtnexus.appxpress.cli.option.options;
 
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
-public class CustomerOption implements CLICommandOption {
+public class ModuleOption implements CLICommandOption {
 
 	private final OptionMessageProvider msgProvider = new OptionMessageProvider();
 	private final ValidityProvider validityProvider = new ValidityProvider();
-	
+
 	@Override
 	public String getLongName() {
-		return "customer";
+		return "module";
 	}
 
 	@Override
 	public String getFlag() {
-		return "c";
+		return "m";
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class CustomerOption implements CLICommandOption {
 
 	@Override
 	public String getDescription() {
-		return "The customer who owns this module";
+		return "The name of the module";
 	}
 
 	@Override

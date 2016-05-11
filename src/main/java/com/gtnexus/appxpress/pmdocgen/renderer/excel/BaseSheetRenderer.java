@@ -20,7 +20,7 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 		this.workBook = workBook;
 		this.sheet = workBook.createSheet(sheetName);
 		this.maxWidth = maxWidth;
-		this.traverser = new SheetTraverserImpl(sheet, maxWidth);
+		this.traverser = new SheetTraverserImpl(sheet);
 		this.styleProvider = new GtnxStyleProviderImpl(workBook);
 	}
 	

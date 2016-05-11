@@ -10,12 +10,12 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.gtnexus.appxpress.platform.module.interpretation.workflow.EdgeDescriptor;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomObjectDesignV110DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
-import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptor;
 import com.gtnexus.appxpress.pmdocgen.adapter.EmbeddedFieldsDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.IdentificationAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.NavFeatureDisplayAdapter;

@@ -6,8 +6,6 @@ import com.google.common.base.Function;
 import com.gtnexus.appxpress.platform.module.model.design.Workflow;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 import com.gtnexus.appxpress.pmdocgen.PrimitiveDisplayFunction;
-import com.gtnexus.appxpress.pmdocgen.WorkflowGraph;
-import com.gtnexus.appxpress.pmdocgen.WorkflowGraph.Node;
 
 public abstract class WorkflowDisplayAdapter extends DisplayAdapter<WorkflowFeature>{
 

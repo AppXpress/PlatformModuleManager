@@ -19,13 +19,11 @@ public class SheetTraverserImpl implements SheetTraverser {
 	
 	private final XSSFSheet sheet;
 	private final Coord currentCoord;
-	private final int maxCols;
 	
-	public SheetTraverserImpl(XSSFSheet sheet, int maxCols) {
+	public SheetTraverserImpl(XSSFSheet sheet) {
 		Preconditions.checkNotNull(sheet);
 		this.sheet = sheet;
 		this.currentCoord  = new Coord(-1, -1);
-		this.maxCols = maxCols;
 	}
 
 	@Override

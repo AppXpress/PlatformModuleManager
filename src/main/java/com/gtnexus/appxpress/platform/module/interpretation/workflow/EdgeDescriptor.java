@@ -1,14 +1,14 @@
-package com.gtnexus.appxpress.pmdocgen.adapter;
+package com.gtnexus.appxpress.platform.module.interpretation.workflow;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.gtnexus.appxpress.commons.NullSafeStringEntryImmutableMapBuilder;
 import com.gtnexus.appxpress.platform.module.model.design.Transition;
 import com.gtnexus.appxpress.platform.module.model.design.Workflow;
-import com.gtnexus.appxpress.pmdocgen.NullSafeStringEntryImmutableMapBuilder;
-import com.gtnexus.appxpress.pmdocgen.WorkflowGraph;
+import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
 
 public class EdgeDescriptor extends DisplayAdapter<EdgeDescriptor>{
 	

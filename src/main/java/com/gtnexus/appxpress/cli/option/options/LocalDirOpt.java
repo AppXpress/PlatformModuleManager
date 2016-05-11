@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen.cli.option;
+package com.gtnexus.appxpress.cli.option.options;
 
 import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;

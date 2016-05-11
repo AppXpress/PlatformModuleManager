@@ -18,6 +18,7 @@ import com.gtnexus.appxpress.commons.properties.PMProperties;
 import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
+import com.gtnexus.appxpress.pmbuilder.cli.BuilderOptionInterpreter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BuilderOptionInterpreterTest {

@@ -10,7 +10,7 @@ import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
 
 /**
- * Helper class used by PlatformModuleExtractor. Ensures the existence of necessary directories and files.
+ * Helper class used by pmm. Ensures the existence of necessary directories and files.
  * If they do not exist, DirectoryHelper tries to create them.
  *
  * @author jjdonov

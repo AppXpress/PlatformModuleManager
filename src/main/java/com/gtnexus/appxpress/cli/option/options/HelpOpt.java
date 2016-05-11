@@ -1,22 +1,17 @@
-package com.gtnexus.appxpress.pmdocgen.cli.option;
+package com.gtnexus.appxpress.cli.option.options;
 
-import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
-import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
-public class ModuleOption implements CLICommandOption {
-
-	private final OptionMessageProvider msgProvider = new OptionMessageProvider();
-	private final ValidityProvider validityProvider = new ValidityProvider();
+public class HelpOpt implements CLICommandOption {
 
 	@Override
 	public String getLongName() {
-		return "module";
+		return "help";
 	}
 
 	@Override
 	public String getFlag() {
-		return "m";
+		return "h";
 	}
 
 	@Override
@@ -26,37 +21,37 @@ public class ModuleOption implements CLICommandOption {
 
 	@Override
 	public String getDescription() {
-		return "The name of the module";
+		return "Display usage for this tool";
 	}
 
 	@Override
 	public boolean hasArg() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isHelpFlag() {
-		return false;
-	}
-
-	@Override
-	public String getMessage() {
-		return msgProvider.getMessage(this.getType(), this.getLongName());
-	}
-
-	@Override
-	public boolean isAppXpressMandatory() {
 		return true;
 	}
 
 	@Override
-	public boolean shouldBeOmitted() {
+	public String getMessage() {
+		return "we have no msg :(";
+	}
+
+	@Override
+	public boolean isAppXpressMandatory() {
 		return false;
 	}
 
 	@Override
+	public boolean shouldBeOmitted() {
+		return true;
+	}
+
+	@Override
 	public boolean isValid(String val) {
-		return validityProvider.isValid(val, this.getType());
+		return true;
 	}
 
 	@Override
@@ -68,5 +63,5 @@ public class ModuleOption implements CLICommandOption {
 	public boolean isStoreableProperty() {
 		return false;
 	}
-
+	
 }

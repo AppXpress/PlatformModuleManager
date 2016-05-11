@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.gtnexus.appxpress.platform.module.ModuleVO;
+import com.gtnexus.appxpress.platform.module.interpretation.CustomObjectDesignV110Comparator;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.ChangeLogRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomObjectDesignDocRenderer;

@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.platform.module;
 
 import java.util.LinkedList;
 import java.util.List;

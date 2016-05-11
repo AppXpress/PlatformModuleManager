@@ -1,40 +1,25 @@
 package com.gtnexus.appxpress.pmdocgen;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.appxpress.cli.option.options.CustomerOption;
+import com.gtnexus.appxpress.cli.option.options.HelpOpt;
+import com.gtnexus.appxpress.cli.option.options.LocalDirOpt;
+import com.gtnexus.appxpress.cli.option.options.ModuleOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
-import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.context.AppXpressContext;
-import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
-import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
-import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
-import com.gtnexus.appxpress.pmdocgen.cli.option.CustomerOption;
+import com.gtnexus.appxpress.platform.module.ModulePointer;
+import com.gtnexus.appxpress.platform.module.ModuleVO;
+import com.gtnexus.appxpress.platform.module.interpretation.PlatformModuleInterpreter;
 import com.gtnexus.appxpress.pmdocgen.cli.option.DocumentGeneratorOptions;
-import com.gtnexus.appxpress.pmdocgen.cli.option.HelpOpt;
-import com.gtnexus.appxpress.pmdocgen.cli.option.LocalDirOpt;
-import com.gtnexus.appxpress.pmdocgen.cli.option.ModuleOption;
-import com.gtnexus.appxpress.pmdocgen.renderer.excel.ChangeLogRenderer;
-import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomObjectDesignDocRenderer;
-import com.gtnexus.appxpress.pmdocgen.renderer.excel.TypeExtensionDocRenderer;
 
 /**
  * Generates documentation for the given platform module.

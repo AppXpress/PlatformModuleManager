@@ -6,21 +6,19 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.google.common.base.Supplier;
-
 public class GtnxStyleProviderImpl implements StyleProvider {
 	
 	private final XSSFWorkbook workBook;
 	
 	//TODO
-	private final Supplier<XSSFCellStyle> styleSupplier = new Supplier<XSSFCellStyle>() {
-
-		@Override
-		public XSSFCellStyle get() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	};
+//	private final Supplier<XSSFCellStyle> styleSupplier = new Supplier<XSSFCellStyle>() {
+//
+//		@Override
+//		public XSSFCellStyle get() {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//	};
 	
 	public GtnxStyleProviderImpl(XSSFWorkbook workBook) {
 		this.workBook = workBook;

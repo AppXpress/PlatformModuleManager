@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.platform.module.unmarshal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,6 +10,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.platform.module.ModuleModelPointer;
+import com.gtnexus.appxpress.platform.module.ModuleVO;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
 import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
@@ -20,7 +22,7 @@ public class ModuleUnmarshaller {
 
 	}
 
-	public ModuleVO unmarshall(CollectedDocGenVO vo) throws AppXpressException {
+	public ModuleVO unmarshall(ModuleModelPointer vo) throws AppXpressException {
 		ModuleVO.Builder builder = new ModuleVO.Builder();
 		try {
 			builder.setPlatformModuleXml(unmarshallPlatMod(vo.getPlatformModuleXml()));

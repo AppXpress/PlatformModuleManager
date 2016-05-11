@@ -1,10 +1,14 @@
-package com.gtnexus.appxpress.pmdocgen;
+package com.gtnexus.appxpress.platform.module.interpretation;
 
 import java.io.File;
 import java.util.regex.Pattern;
 
 import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
+import com.gtnexus.appxpress.platform.module.ModuleModelPointer;
+import com.gtnexus.appxpress.platform.module.ModulePointer;
+import com.gtnexus.appxpress.platform.module.ModuleVO;
+import com.gtnexus.appxpress.platform.module.unmarshal.ModuleUnmarshaller;
 
 public class PlatformModuleInterpreter {
 	
@@ -22,12 +26,12 @@ public class PlatformModuleInterpreter {
 	}
 
 	protected ModuleVO getVO() throws AppXpressException {
-		CollectedDocGenVO filesForDocumentation = collectFilesForDocumentation(root);
+		ModuleModelPointer filesForDocumentation = collectFilesForDocumentation(root);
 		ModuleUnmarshaller unmarshaller = new ModuleUnmarshaller();
 		return unmarshaller.unmarshall(filesForDocumentation);
 	}
 
-	protected CollectedDocGenVO collectFilesForDocumentation(ModulePointer vo) {
+	protected ModuleModelPointer collectFilesForDocumentation(ModulePointer vo) {
 		File targetModule = vo.getTargetModule();
 		File platModXml = null;
 		File[] typeExtensions = null;
@@ -45,6 +49,6 @@ public class PlatformModuleInterpreter {
 				}
 			}
 		}
-		return CollectedDocGenVO.make(vo, platModXml, typeExtensions, designs);
+		return ModuleModelPointer.make(vo, platModXml, typeExtensions, designs);
 	}
 }
