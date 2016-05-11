@@ -15,6 +15,8 @@ import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
 import com.gtnexus.appxpress.pmbuilder.Select;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
+import com.gtnexus.appxpress.pmdocgen.DocumentGeneratorOptionInterpreter;
+import com.gtnexus.appxpress.pmdocgen.cli.option.DocumentGeneratorOptions;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 /**
@@ -56,6 +58,10 @@ public class InterpreterFactory {
 			return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app,
 					shutdown, (ParsedOptions<ExtractorOption>) options,
 					properties, selector, resolver);
+		} else if(contextType.equals(DocumentGeneratorOptions.class)) {
+			return (CLIOptionInterpreter<T>) new DocumentGeneratorOptionInterpreter(app,
+					shutdown, (ParsedOptions<DocumentGeneratorOptions>) options,
+					properties);
 		}
 		throw new IllegalArgumentException("Unsupported context type.");
 	}

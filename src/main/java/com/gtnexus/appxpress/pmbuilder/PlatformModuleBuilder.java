@@ -43,15 +43,6 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
 
 	private static final String NAME = "pmbuilder";
 
-	/**
-	 * Inputs recently pulled down git repository and outputs zip file that is
-	 * ready to be imported onto GTNexus system
-	 * 
-	 * @param customer
-	 *            Name of customer folder
-	 * @param module
-	 *            Name of platform module folder
-	 */
 	public PlatformModuleBuilder() {
 	}
 

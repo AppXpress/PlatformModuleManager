@@ -12,16 +12,14 @@ import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
 import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 
-public abstract class CLICommandOptionInterpreter<T extends CLICommandOption>
-		implements CLIOptionInterpreter<T> {
+public abstract class CLICommandOptionInterpreter<T extends CLICommandOption> implements CLIOptionInterpreter<T> {
 
 	private ParsedOptions<T> parsedOptions;
 	private final PMMCommandInfo app;
 	protected final SimpleShutdown shutdown;
 	protected final PMProperties properties;
 
-	public CLICommandOptionInterpreter(PMMCommandInfo app,
-			SimpleShutdown shutdown, ParsedOptions<T> parsedOptions,
+	public CLICommandOptionInterpreter(PMMCommandInfo app, SimpleShutdown shutdown, ParsedOptions<T> parsedOptions,
 			PMProperties properties) {
 		this.app = app;
 		this.shutdown = shutdown;
@@ -33,26 +31,22 @@ public abstract class CLICommandOptionInterpreter<T extends CLICommandOption>
 	public final Map<T, String> interpret() throws AppXpressException {
 		if (parsedOptions.isHelpFlagSet()) {
 			HelpFormatter helpFormatter = new HelpFormatter();
-			helpFormatter.printHelp(app.getName(), app.getHelpHeader(),
-					parsedOptions.getOptions(), app.getHelpFooter());
+			helpFormatter.printHelp(app.getName(), app.getHelpHeader(), parsedOptions.getOptions(),
+					app.getHelpFooter());
 			shutdown.shutdown();
 		}
 		parsedOptions = performCustomInterpretation(parsedOptions);
-		CLIOptsAndPropConsolidator<T> consolidator = new CLIOptsAndPropConsolidator<>(
-				parsedOptions.getOptionsMap(), parsedOptions.getCliOptionSet(),
-				properties);
+		CLIOptsAndPropConsolidator<T> consolidator = new CLIOptsAndPropConsolidator<>(parsedOptions.getOptionsMap(),
+				parsedOptions.getCliOptionSet(), properties);
 		Map<T, String> optMap = consolidator.consolidate();
 		return optMap;
 	}
 
-	protected boolean isCustomerFolder(Path dir, T localDirKey)
-			throws AppXpressException {
+	protected boolean isCustomerFolder(Path dir, T localDirKey) throws AppXpressException {
 		final String localDir = resolveLocalDir(localDirKey);
 		if (localDir == null || localDir.isEmpty()) {
-			throw new AppXpressException(
-					"Local Directory property is not set. "
-							+ "Please check your AppXpress properties file"
-							+ "before trying to run the Select option again.");
+			throw new AppXpressException("Local Directory property is not set. "
+					+ "Please check your AppXpress properties file" + "before trying to run the Select option again.");
 		}
 		Path parent = dir.getParent();
 		Path ld = Paths.get(localDir);
@@ -65,11 +59,11 @@ public abstract class CLICommandOptionInterpreter<T extends CLICommandOption>
 	private String resolveLocalDir(T localDirKey) {
 		if (parsedOptions.hasOption(localDirKey)) {
 			return parsedOptions.getOption(localDirKey);
-		} 
+		}
 		return properties.getProperty(localDirKey);
 	}
 
-	protected abstract ParsedOptions<T> performCustomInterpretation(
-			ParsedOptions<T> parsedOpts) throws AppXpressException;
+	protected abstract ParsedOptions<T> performCustomInterpretation(ParsedOptions<T> parsedOpts)
+			throws AppXpressException;
 
 }

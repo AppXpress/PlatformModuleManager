@@ -2,6 +2,7 @@ package com.gtnexus.appxpress.commons.file.filter;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.regex.Pattern;
 
 public class FileFilterFactory {
 
@@ -71,6 +72,15 @@ public class FileFilterFactory {
 			@Override
 			public boolean accept(File f) {
 				return !f.getName().endsWith(string); 
+			}
+		};
+	}
+	
+	public static FileFilter fileNameMatches(final Pattern p) {
+		return new FileFilter() {
+			@Override
+			public boolean accept(File f) {
+				return p.matcher(f.getName()).matches();
 			}
 		};
 	}
