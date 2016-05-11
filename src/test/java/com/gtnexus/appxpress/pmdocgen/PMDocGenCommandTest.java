@@ -8,7 +8,7 @@ public class PMDocGenCommandTest {
 
 	@Test
 	public void test() {
-		PMDocGenCommand cmd = new PMDocGenCommand();
+		PMDocGenCommand cmd = new PMDocGenCommand("-c", "gap", "-m", "ParcelTracking", "-ld", "/code/gtnexus/platform/customer");
 		cmd.execute();
 		assertTrue(true);
 	}

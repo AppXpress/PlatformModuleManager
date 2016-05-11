@@ -99,8 +99,11 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	
 	private void renderWorkflow(CustomObjectDesignV110 design) {
 		traverser.nextRow();
-		renderLabelValueSectionHeader("Workflow Design", 3);
 		WorkflowFeature wff = design.getWorkflowFeature();
+		if(wff == null) {
+			return;
+		}
+		renderLabelValueSectionHeader("Workflow Design", 3);
 		renderLableValueSection(wff, workflowFeatureDisplayAdapter, 3);
 		List<EdgeDescriptor> edgeDesc = EdgeDescriptor.createDescriptors(wff.getWorkflow());
 		DisplayAdapter<EdgeDescriptor> adapter = edgeDesc.get(0);

@@ -5,19 +5,20 @@ import java.util.Map;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
+import com.gtnexus.appxpress.pmdocgen.PrimitiveDisplayFunction;
 
 public class NavFeatureDisplayAdapter extends DisplayAdapter<NavFeature>{
 
-	private static final  Function<NavFeature, String> IS_ENABLED_FN = new Function<NavFeature, String>() {
+	private static final  Function<NavFeature, String> IS_ENABLED_FN = new PrimitiveDisplayFunction<NavFeature>() {
 		@Override
-		public String apply(NavFeature nav) {
+		public String applyToNonNull(NavFeature nav) {
 			return Boolean.toString(nav.isEnabled());
 		}
 	};
 	
-	private static final Function<NavFeature, String> NAV_HEADING_FN = new Function<NavFeature, String>() {
+	private static final Function<NavFeature, String> NAV_HEADING_FN = new PrimitiveDisplayFunction<NavFeature>() {
 		@Override
-		public String apply(NavFeature nav) {
+		public String applyToNonNull(NavFeature nav) {
 			return nav.getNavHeading();
 		}
 	};

@@ -9,7 +9,7 @@ import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 public class PlatformModuleInterpreter {
 	
 	private static final Pattern TE_FILENAME_REGEX = Pattern.compile("[a-zA-Z]+__Rank-\\d+\\.xml$");
-	private static final Pattern DESIGN_FILENAME_REGEX = Pattern.compile("^Design_[a-zA-Z]+\\.xml$");
+	private static final Pattern DESIGN_FILENAME_REGEX = Pattern.compile("^Design_\\w+\\.xml$");
 	
 	private final ModulePointer root;
 	
@@ -39,7 +39,10 @@ public class PlatformModuleInterpreter {
 			} else if ("TypeExtensionD1".equals(fileName)) {
 				typeExtensions = f.listFiles(FileFilterFactory.fileNameMatches(TE_FILENAME_REGEX));
 			} else if ("CustomObjectModule".equals(fileName)) {
-				designs = f.listFiles(FileFilterFactory.fileNameMatches(DESIGN_FILENAME_REGEX));
+				File d = f.toPath().resolve("designs").toFile();
+				if(d.exists()) {
+					designs = d.listFiles(FileFilterFactory.fileNameMatches(DESIGN_FILENAME_REGEX));
+				}
 			}
 		}
 		return CollectedDocGenVO.make(vo, platModXml, typeExtensions, designs);

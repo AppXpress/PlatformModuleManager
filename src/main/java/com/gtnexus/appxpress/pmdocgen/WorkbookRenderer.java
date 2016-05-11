@@ -1,5 +1,8 @@
 package com.gtnexus.appxpress.pmdocgen;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
@@ -16,6 +19,8 @@ public class WorkbookRenderer {
 		XSSFWorkbook wb = new XSSFWorkbook();
 		new ChangeLogRenderer(wb).render(vo.getPlatformModuleXml());
 		new TypeExtensionDocRenderer(wb).render(vo.getTypeExtensions());
+		List<CustomObjectDesignV110> designs = vo.getDesigns();
+		Collections.sort(designs, new CustomObjectDesignV110Comparator());
 		for(CustomObjectDesignV110 design : vo.getDesigns()) {
 			new CustomObjectDesignDocRenderer(wb).render(design);
 		}
