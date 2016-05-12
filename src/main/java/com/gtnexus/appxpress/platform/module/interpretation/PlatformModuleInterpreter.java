@@ -49,6 +49,9 @@ public class PlatformModuleInterpreter {
 				}
 			}
 		}
+		if(platModXml == null) {
+			throw new IllegalStateException("There is no PlatformModule.xml in this module.");
+		}
 		return ModuleModelPointer.make(vo, platModXml, typeExtensions, designs);
 	}
 }

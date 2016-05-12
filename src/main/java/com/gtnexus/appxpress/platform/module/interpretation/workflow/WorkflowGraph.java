@@ -43,6 +43,10 @@ public class WorkflowGraph {
 		return this.nodes;
 	}
 	
+	public boolean isEmpty() {
+		return nodes == null || nodes.isEmpty();
+	}
+	
 	private static List<Node> toNodes(Collection<Step> steps) {
 		List<Node> nodes = Lists.newLinkedList();
 		for(Step step : steps) {
@@ -78,6 +82,10 @@ public class WorkflowGraph {
 		
 		public List<Transition> getTransitions() {
 			return this.transitions;
+		}
+		
+		public boolean hasTransitions() {
+			return this.transitions == null || transitions.isEmpty();
 		}
 		
 	}

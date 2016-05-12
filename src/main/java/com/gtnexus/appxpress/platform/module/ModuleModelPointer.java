@@ -2,6 +2,7 @@ package com.gtnexus.appxpress.platform.module;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ModuleModelPointer  {
@@ -12,7 +13,16 @@ public class ModuleModelPointer  {
 	private final List<File> designs;
 	
 	public static ModuleModelPointer make(ModulePointer root, File platformModuleXml, File[]typeExtensions, File[] designs) {
-		return make(root, platformModuleXml, Arrays.asList(typeExtensions), Arrays.asList(designs));
+		List<File> designList = asList(designs);
+		List<File> teList = asList(typeExtensions);
+		return make(root, platformModuleXml, teList, designList);
+	}
+	
+	private static <T> List<T> asList(T[] arr) {
+		if(arr == null) {
+			return Collections.emptyList();
+		}
+		return Arrays.asList(arr);
 	}
 	
 	public static ModuleModelPointer make(ModulePointer root, File platformModuleXml, List<File> typeExtensions, List<File> designs) {

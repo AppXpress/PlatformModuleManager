@@ -1,8 +1,10 @@
 package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -10,12 +12,12 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.gtnexus.appxpress.platform.module.interpretation.workflow.EdgeDescriptor;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomObjectDesignV110DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptorAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.EmbeddedFieldsDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.IdentificationAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.NavFeatureDisplayAdapter;
@@ -32,10 +34,12 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
 	private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
 	
+	private final Map<String, String> truncatedNames;
+	
 	private static final String SHEET_NAME = "Custom Object Design";
 	private static final int MAX_WIDTH = 9;
 	
-	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook) {
+	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook, Map<String, String> namesWithoutPrefix) {
 		super(workBook, SHEET_NAME, MAX_WIDTH);
 		this.identificationDisplayAdapter = new IdentificationAdapter();
 		this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();
@@ -43,6 +47,12 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
 		this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
 		this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
+		this.truncatedNames = namesWithoutPrefix;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook) {
+		this(workBook, Collections.EMPTY_MAP);
 	}
 
 	@Override
@@ -58,9 +68,16 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	}
 	
 	private void renderSheetLevelDetails(CustomObjectDesignV110 source) {
-		workBook.setSheetName(workBook.getSheetIndex(sheet), source.getName());
+		workBook.setSheetName(workBook.getSheetIndex(sheet), getName(source));
 		short color = getTabColor(source);
 		sheet.setTabColor(color);
+	}
+	
+	private String getName(CustomObjectDesignV110 design) {
+		if(truncatedNames.isEmpty()) {
+			return design.getName();
+		}
+		return truncatedNames.get(design.getName());
 	}
 	
 	private short getTabColor(CustomObjectDesignV110 source) {
@@ -101,12 +118,12 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		traverser.nextRow();
 		WorkflowFeature wff = design.getWorkflowFeature();
 		if(wff == null) {
-			return;
+			return; //TODO: can we replace with a dummy "Disabled Feature"
 		}
 		renderLabelValueSectionHeader("Workflow Design", 3);
 		renderLableValueSection(wff, workflowFeatureDisplayAdapter, 3);
-		List<EdgeDescriptor> edgeDesc = EdgeDescriptor.createDescriptors(wff.getWorkflow());
-		DisplayAdapter<EdgeDescriptor> adapter = edgeDesc.get(0);
+		List<EdgeDescriptorAdapter> edgeDesc = EdgeDescriptorAdapter.createDescriptors(wff.getWorkflow());
+		DisplayAdapter<EdgeDescriptorAdapter> adapter = edgeDesc.get(0);
 		renderSectionHeader("Workflow Steps", adapter);
 		renderTableHeader(adapter); //TODO: null check the descs
 		renderTableBody(edgeDesc, adapter);
