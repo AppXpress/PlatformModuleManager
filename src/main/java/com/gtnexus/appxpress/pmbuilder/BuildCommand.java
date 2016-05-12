@@ -1,10 +1,10 @@
 package com.gtnexus.appxpress.pmbuilder;
 
 import com.google.common.base.Preconditions;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.command.Command;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 
 public class BuildCommand implements Command {

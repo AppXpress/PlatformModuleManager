@@ -3,8 +3,8 @@ package com.gtnexus.appxpress.platform.module;
 import java.io.File;
 import java.util.Map;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmdocgen.PlatformModuleDocumentGenerator;
 
 public class ModulePointer {

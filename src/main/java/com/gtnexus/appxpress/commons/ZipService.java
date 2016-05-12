@@ -13,8 +13,8 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;

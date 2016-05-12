@@ -6,11 +6,11 @@ import java.util.Map;
 
 import org.apache.commons.cli.HelpFormatter;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
 import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 public abstract class CLICommandOptionInterpreter<T extends CLICommandOption> implements CLIOptionInterpreter<T> {
 

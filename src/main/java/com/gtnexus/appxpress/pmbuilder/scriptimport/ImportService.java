@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.HasPrerequisite;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.commons.file.LibResourceToPath;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 /**
  * Parses a file for !import statements

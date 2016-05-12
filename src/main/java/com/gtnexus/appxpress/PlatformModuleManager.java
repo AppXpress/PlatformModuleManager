@@ -3,10 +3,10 @@ package com.gtnexus.appxpress;
 import java.util.Set;
 
 import com.google.common.base.Optional;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.command.CLICommand;
 import com.gtnexus.appxpress.cli.command.CommandParser;
 import com.gtnexus.appxpress.commons.command.Command;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 public class PlatformModuleManager {
 	

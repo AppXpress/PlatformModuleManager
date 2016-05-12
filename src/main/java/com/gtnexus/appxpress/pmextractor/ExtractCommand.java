@@ -1,10 +1,10 @@
 package com.gtnexus.appxpress.pmextractor;
 
 import com.google.common.base.Preconditions;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.command.Command;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 public class ExtractCommand implements Command {

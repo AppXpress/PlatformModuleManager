@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.commons;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 
 public interface Preparation<T> {

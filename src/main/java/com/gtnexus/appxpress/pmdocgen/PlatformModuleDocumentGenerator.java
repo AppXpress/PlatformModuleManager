@@ -8,7 +8,6 @@ import java.util.Set;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.cli.option.options.CustomerOption;
 import com.gtnexus.appxpress.cli.option.options.HelpOpt;
@@ -16,6 +15,7 @@ import com.gtnexus.appxpress.cli.option.options.LocalDirOpt;
 import com.gtnexus.appxpress.cli.option.options.ModuleOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.platform.module.ModulePointer;
 import com.gtnexus.appxpress.platform.module.ModuleVO;
 import com.gtnexus.appxpress.platform.module.interpretation.PlatformModuleInterpreter;

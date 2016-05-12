@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 /**
  * Helper class used by pmm. Ensures the existence of necessary directories and files.

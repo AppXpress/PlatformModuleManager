@@ -9,7 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.platform.module.ModuleModelPointer;
 import com.gtnexus.appxpress.platform.module.ModuleVO;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;

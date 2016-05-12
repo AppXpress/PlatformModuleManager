@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 
 public class CLIOptionParserTest {
