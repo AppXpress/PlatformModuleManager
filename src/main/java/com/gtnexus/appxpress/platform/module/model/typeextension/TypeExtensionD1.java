@@ -19,8 +19,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.google.common.base.Function;
-
 
 /**
  * <p>Java class for anonymous complex type.
@@ -360,53 +358,5 @@ public class TypeExtensionD1 {
     public void setFingerprint(String value) {
         this.fingerprint = value;
     }
-    
-    public static final Function<TypeExtensionD1, String> DOC_TYPE_FN = new Function<TypeExtensionD1, String>() {
-		@Override
-		public String apply(TypeExtensionD1 te) {
-			return te.getDocumentType();
-		}
-    };
-    
-    public static final Function<TypeExtensionD1, String> API_VERSION_FN = new Function<TypeExtensionD1, String>() {
-		@Override
-		public String apply(TypeExtensionD1 te) {
-			BigInteger apiVersion = te.getApiVersion();
-			return apiVersion == null ? "" : apiVersion.toString();
-		}
-    };
-    
-    public static final Function<TypeExtensionD1, String> RANK_FN = new Function<TypeExtensionD1, String>() {
-		@Override
-		public String apply(TypeExtensionD1 te) {
-			BigInteger rank = te.getRank();
-			return rank == null ? "" : rank.toString();
-		}
-    };
-    
-    public static final Function<TypeExtensionD1, String> EVENT_FN = new Function<TypeExtensionD1, String>() {
-		@Override
-		public String apply(TypeExtensionD1 te) {
-			Callbacks cb = te.getCallbacks();
-			return cb == null ? "" : cb.getEvent();
-		}
-    };
-    
-    public static final Function<TypeExtensionD1, String> ROLE_FN = new Function<TypeExtensionD1, String>() {
-		@Override
-		public String apply(TypeExtensionD1 te) {
-			Callbacks cb = te.getCallbacks();
-			return cb == null ? "" : cb.getRole();
-		}
-    };
-    
-    public static final Function<TypeExtensionD1, String> FN_NAME_FN = new Function<TypeExtensionD1, String>() {
-		@Override
-		public String apply(TypeExtensionD1 te) {
-			Callbacks cb = te.getCallbacks();
-			return cb == null ? "" : cb.getFunctionName();
-		}
-    };
-    
 
 }

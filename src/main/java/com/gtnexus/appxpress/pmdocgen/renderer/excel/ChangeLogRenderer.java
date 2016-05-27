@@ -12,14 +12,16 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
+import com.gtnexus.appxpress.pmdocgen.adapter.PlatformModuleXmlDisplayAdapter;
 
 public class ChangeLogRenderer extends BaseSheetRenderer<PlatformModuleXml> {
-		
+	
+	//TODO: use display adapter instead of local map
 	private final Map<String, Function<PlatformModuleXml, String>> HEADER_LVL_DESCRIPTORS_MAP = 
 			new ImmutableMap.Builder<String, Function<PlatformModuleXml, String>>()
-			.put("Module Name", PlatformModuleXml.NAME_FN)
-			.put("API Version", PlatformModuleXml.API_VERSION_FN)
-			.put("Description", PlatformModuleXml.DESCRIPTION_FN)
+			.put("Module Name", PlatformModuleXmlDisplayAdapter.NAME_FN)
+			.put("API Version", PlatformModuleXmlDisplayAdapter.API_VERSION_FN)
+			.put("Description", PlatformModuleXmlDisplayAdapter.DESCRIPTION_FN)
 			.build();
 	
 	private final static List<String> CHANGE_LOG_COL_LABELS = new ImmutableList.Builder<String>()

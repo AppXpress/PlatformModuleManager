@@ -21,8 +21,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.google.common.base.Function;
-
 
 /**
  * <p>Java class for anonymous complex type.
@@ -426,29 +424,5 @@ public class PlatformModuleXml {
         this.userVersion = value;
     }
     
-    public static final Function<PlatformModuleXml, String> NAME_FN =  new Function<PlatformModuleXml, String>() {
-    	@Override
-    	public String apply(PlatformModuleXml mod) {
-    		return mod.getName();
-    	}
-    };
-
-    public static final Function<PlatformModuleXml, String> API_VERSION_FN = new Function<PlatformModuleXml, String>() {
-    	@Override
-    	public String apply(PlatformModuleXml mod) {
-    		Metadata metadata = mod.getMetadata();
-    		if(metadata != null && metadata.getApiVersion() != null) {
-    			return metadata.getApiVersion().toString();
-    		}
-    		return null;
-    	}
-    };
-
-    public static final Function<PlatformModuleXml, String> DESCRIPTION_FN =  new Function<PlatformModuleXml, String>() {
-    	@Override
-    	public String apply(PlatformModuleXml mod) {
-    		return mod.getDescription();
-    	}
-    };
 
 }

@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
+import com.gtnexus.appxpress.pmdocgen.adapter.TypeExtensionD1DisplayAdapter;
 
 public class TypeExtensionDocRenderer extends BaseSheetRenderer<Collection<TypeExtensionD1>> {
 
@@ -16,12 +17,12 @@ public class TypeExtensionDocRenderer extends BaseSheetRenderer<Collection<TypeE
 	
 	private final static Map<String, Function<TypeExtensionD1, String>> TABLE_COLS = 
 			new ImmutableMap.Builder<String, Function<TypeExtensionD1, String>>()
-			.put("Document Type", TypeExtensionD1.DOC_TYPE_FN)
-			.put("API Version", TypeExtensionD1.API_VERSION_FN)
-			.put("Rank", TypeExtensionD1.RANK_FN)
-			.put("Event", TypeExtensionD1.EVENT_FN)
-			.put("Role", TypeExtensionD1.ROLE_FN)
-			.put("Function Name", TypeExtensionD1.FN_NAME_FN)
+			.put("Document Type", TypeExtensionD1DisplayAdapter.DOC_TYPE_FN)
+			.put("API Version", TypeExtensionD1DisplayAdapter.API_VERSION_FN)
+			.put("Rank", TypeExtensionD1DisplayAdapter.RANK_FN)
+			.put("Event", TypeExtensionD1DisplayAdapter.EVENT_FN)
+			.put("Role", TypeExtensionD1DisplayAdapter.ROLE_FN)
+			.put("Function Name", TypeExtensionD1DisplayAdapter.FN_NAME_FN)
 			.build();
 	
 	private static final int MAX_WIDTH = TABLE_COLS.size() - 1;
