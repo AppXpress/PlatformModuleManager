@@ -5,7 +5,6 @@ import java.util.Map;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
-import com.gtnexus.appxpress.pmdocgen.PrimitiveDisplayFunction;
 
 public class NavFeatureDisplayAdapter extends DisplayAdapter<NavFeature>{
 

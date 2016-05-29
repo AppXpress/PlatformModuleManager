@@ -26,6 +26,7 @@ public interface AppXpressConstants {
 	public static final String LIB = "lib";
 	public static final String PLATFORM_MODULE_UNZIP_NAME = "PlatModX";
 	public static final String PROPERTIES_EXTENSION = ".properties";
+	public static final String PROPERTIES_FILE_NAME = "pmm" + AppXpressConstants.PROPERTIES_EXTENSION;
 	public static final String SCRIPTS = "scripts";
 	public static final String SCRIPT_DESIGN = "ScriptDesign_";
 	public static final String SCRIPTING_FEATURE = "scriptingFeature";

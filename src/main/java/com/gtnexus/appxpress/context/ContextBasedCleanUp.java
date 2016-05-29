@@ -10,7 +10,7 @@ import com.gtnexus.appxpress.exception.AppXpressException;
  * @param <T>
  *
  */
-public class ContextBasedCleanUp<T extends Enum<T> & CLICommandOption> implements Runnable {
+public class ContextBasedCleanUp<T extends CLICommandOption> implements Runnable {
 
 	private final AppXpressContext<T> ctx;
 	private final FileCleanup cleanup;

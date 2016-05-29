@@ -5,7 +5,6 @@ import java.util.Map;
 import com.google.common.base.Function;
 import com.gtnexus.appxpress.platform.module.model.design.Workflow;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
-import com.gtnexus.appxpress.pmdocgen.PrimitiveDisplayFunction;
 
 public abstract class WorkflowDisplayAdapter extends DisplayAdapter<WorkflowFeature>{
 

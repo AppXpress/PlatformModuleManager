@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.gtnexus.appxpress.AppXpressConstants;
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
 import com.gtnexus.appxpress.exception.AppXpressException;
@@ -16,12 +17,17 @@ import com.gtnexus.appxpress.exception.AppXpressException;
  * @author jjdonov
  */
 public class DirectoryHelper {
-
-   
-    private String propertiesFilePath;
+    
+	private String propertiesFilePath;
     private PMProperties pmbProperties;
     private final AppXpressDirResolver resolver;
 
+    public DirectoryHelper() {
+    	this.resolver = new AppXpressDirResolver();
+        this.propertiesFilePath = resolver.resolveAppXpressDir().resolve(AppXpressConstants.PROPERTIES_FILE_NAME).toString();
+    }
+    
+    @Deprecated 
     public DirectoryHelper(final String settingsFileName) {
     	this.resolver = new AppXpressDirResolver();
         this.propertiesFilePath = resolver.resolveAppXpressDir().resolve(settingsFileName).toString();

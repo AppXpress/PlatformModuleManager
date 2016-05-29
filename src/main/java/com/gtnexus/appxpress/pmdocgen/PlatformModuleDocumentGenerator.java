@@ -15,6 +15,7 @@ import com.gtnexus.appxpress.cli.option.options.LocalDirOpt;
 import com.gtnexus.appxpress.cli.option.options.ModuleOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
+import com.gtnexus.appxpress.context.ContextBasedCleanUp;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.platform.module.ModulePointer;
 import com.gtnexus.appxpress.platform.module.ModuleVO;
@@ -51,6 +52,7 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 	}
 
 	public void generateDocs(AppXpressContext<CLICommandOption> context) throws AppXpressException {
+		attachCleanUpHook(context);
 		ModulePointer pointer = ModulePointer.make(context.getOptMap());
 		PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);
 		ModuleVO vo = interp.interpret();
@@ -61,6 +63,11 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 		} catch (IOException e) {
 			throw new AppXpressException("Failed to write documentation to file.", e);
 		}
+	}
+	
+	private void attachCleanUpHook(AppXpressContext<CLICommandOption> ctx) {
+		Runtime.getRuntime().addShutdownHook(
+				new Thread(new ContextBasedCleanUp<>(ctx)));
 	}
 
 	private String fileName(Map<CLICommandOption, String> optMap) {

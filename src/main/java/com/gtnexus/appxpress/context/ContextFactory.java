@@ -1,7 +1,5 @@
 package com.gtnexus.appxpress.context;
 
-import static com.gtnexus.appxpress.AppXpressConstants.PROPERTIES_EXTENSION;
-
 import java.util.Map;
 import java.util.Set;
 
@@ -30,8 +28,7 @@ public class ContextFactory {
 
 	public <M extends CLICommandOption> AppXpressContext<M> createContext(
 			PMMCommandInfo app, String[] args) throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper(app.getName() // TODO: would like to move this,
-									+ PROPERTIES_EXTENSION);		// but should wait till we're ready to rename the properties file.
+		DirectoryHelper dHelper = new DirectoryHelper();
 		dHelper.ensureAppXpress();
 		PMProperties pmProperties = dHelper.getPmProperties();
 		Set<M> options = app.getOptions();
