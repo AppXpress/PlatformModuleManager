@@ -48,10 +48,12 @@ The scripts also require that a `$APPXPRESS_HOME` environment variable be declar
 
 e.g:
 ```bash
-$ echo "APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
+$ echo "export APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
 ```
 
 ### Building the .jar
+
+From the project root:
 
 ```bash
 $ ./gradlew fatjar

@@ -60,8 +60,8 @@ public class InterpreterFactory {
 					properties, selector, resolver);
 		} else if(contextType.equals(DocumentGeneratorOptions.class)) {
 			return (CLIOptionInterpreter<T>) new DocumentGeneratorOptionInterpreter(app,
-					shutdown, (ParsedOptions<DocumentGeneratorOptions>) options,
-					properties);
+					shutdown, (ParsedOptions<CLICommandOption>) options,
+					properties, resolver);
 		}
 		throw new IllegalArgumentException("Unsupported context type.");
 	}

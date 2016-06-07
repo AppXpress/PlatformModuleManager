@@ -37,5 +37,6 @@ public interface AppXpressConstants {
 	
 	public static final Set<String> IGNORE_SET = new ImmutableSet.Builder<String>()
 			.add("_MACOSX")
+			.add("__MACOSX")
 			.build();
 }

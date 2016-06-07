@@ -188,7 +188,7 @@ public class ZipService {
 	 *            Destination of file structure to iterate over
 	 */
 	private void recurseUnzip(File f) throws AppXpressException {
-		if (f.isDirectory()) {
+		if (f.isDirectory() && !ignoreSet.contains(f.getName()) ) {
 			for (File item : f.listFiles()) {
 				recurseUnzip(item);
 			}
