@@ -2,7 +2,7 @@ package com.gtnexus.appxpress.cli.option;
 
 import java.util.Map;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 public interface CLIOptionInterpreter<T extends CLIOption> {
 

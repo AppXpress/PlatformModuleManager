@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 /**
  * Simple wrapper around a File and Property objects.

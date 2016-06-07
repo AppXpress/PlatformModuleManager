@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="CustomObjectDesignV110">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="version"/>
+        <xs:element ref="globalObjectType"/>
+        <xs:element ref="name"/>
+        <xs:element ref="description"/>
+        <xs:element ref="uniqueIdentifier"/>
+        <xs:element ref="designType"/>
+        <xs:element maxOccurs="unbounded" ref="scalarField"/>
+        <xs:element maxOccurs="unbounded" ref="linkField"/>
+        <xs:element ref="workflowFeature"/>
+        <xs:element ref="scriptingFeature"/>
+        <xs:element ref="integrationFeature"/>
+        <xs:element ref="navFeature"/>
+        <xs:element ref="visibilityType"/>
+        <xs:element maxOccurs="unbounded" ref="roleSecurity"/>
+        <xs:element ref="codSection"/>
+        <xs:element ref="schemaVers"/>
+        <xs:element ref="apiVersion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="version" type="xs:integer"/>
+  <xs:element name="globalObjectType" type="xs:string"/>
+  <xs:element name="uniqueIdentifier" type="xs:NCName"/>
+  <xs:element name="designType" type="xs:NCName"/>
+  <xs:element name="scalarField">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fieldName"/>
+        <xs:element ref="fieldNumber"/>
+        <xs:element minOccurs="0" ref="description"/>
+        <xs:element ref="fieldPosition"/>
+        <xs:element ref="dataType"/>
+        <xs:element ref="detailedDataType"/>
+        <xs:element ref="indexed"/>
+        <xs:element ref="summaryField"/>
+        <xs:element ref="maxLength"/>
+        <xs:element ref="renderedOnUi"/>
+        <xs:element maxOccurs="unbounded" ref="extendedData"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataType" type="xs:NCName"/>
+  <xs:element name="detailedDataType" type="xs:NCName"/>
+  <xs:element name="indexed" type="xs:boolean"/>
+  <xs:element name="summaryField" type="xs:boolean"/>
+  <xs:element name="maxLength" type="xs:integer"/>
+  <xs:element name="extendedData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dataKey"/>
+        <xs:element minOccurs="0" ref="stringValue"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataKey" type="xs:NCName"/>
+  <xs:element name="stringValue" type="xs:NCName"/>
+  <xs:element name="linkField">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fieldName"/>
+        <xs:element ref="fieldNumber"/>
+        <xs:element ref="fieldPosition"/>
+        <xs:element ref="linkToDesign"/>
+        <xs:element ref="renderedOnUi"/>
+        <xs:element ref="isCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="linkToDesign" type="xs:NCName"/>
+  <xs:element name="isCollection" type="xs:boolean"/>
+  <xs:element name="workflowFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+        <xs:element ref="businessStatusField"/>
+        <xs:element ref="workflow"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="businessStatusField" type="xs:NCName"/>
+  <xs:element name="workflow">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="initialStatus"/>
+        <xs:element maxOccurs="unbounded" ref="step"/>
+        <xs:element maxOccurs="unbounded" ref="transition"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="initialStatus" type="xs:NCName"/>
+  <xs:element name="step">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="editRoles"/>
+        <xs:element minOccurs="0" ref="onStateFn"/>
+        <xs:element ref="state"/>
+        <xs:element ref="systemDelete"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="editRoles" type="xs:string"/>
+  <xs:element name="onStateFn" type="xs:NCName"/>
+  <xs:element name="state" type="xs:NCName"/>
+  <xs:element name="systemDelete" type="xs:boolean"/>
+  <xs:element name="transition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fromState"/>
+        <xs:element ref="toState"/>
+        <xs:element ref="action"/>
+        <xs:element ref="roles"/>
+        <xs:sequence minOccurs="0">
+          <xs:element ref="preconditionFn"/>
+          <xs:element ref="postTransitionFn"/>
+        </xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fromState" type="xs:NCName"/>
+  <xs:element name="toState" type="xs:NCName"/>
+  <xs:element name="roles" type="xs:string"/>
+  <xs:element name="preconditionFn" type="xs:NCName"/>
+  <xs:element name="postTransitionFn" type="xs:NCName"/>
+  <xs:element name="scriptingFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+        <xs:element ref="mimeType"/>
+        <xs:element ref="description"/>
+        <xs:element ref="fileName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mimeType" type="xs:string"/>
+  <xs:element name="fileName" type="xs:string"/>
+  <xs:element name="integrationFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+        <xs:element ref="uploadRuntimeEnabled"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uploadRuntimeEnabled" type="xs:boolean"/>
+  <xs:element name="navFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+        <xs:element ref="navHeading"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="navHeading" type="xs:NCName"/>
+  <xs:element name="visibilityType" type="xs:NCName"/>
+  <xs:element name="roleSecurity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="role"/>
+        <xs:element ref="action"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="role" type="xs:NCName"/>
+  <xs:element name="codSection">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="schemaVers" type="xs:NCName"/>
+  <xs:element name="apiVersion" type="xs:integer"/>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="description" type="xs:string"/>
+  <xs:element name="fieldName" type="xs:NCName"/>
+  <xs:element name="fieldNumber" type="xs:integer"/>
+  <xs:element name="fieldPosition" type="xs:integer"/>
+  <xs:element name="renderedOnUi" type="xs:NCName"/>
+  <xs:element name="enabled" type="xs:boolean"/>
+  <xs:element name="action" type="xs:NCName"/>
+</xs:schema>

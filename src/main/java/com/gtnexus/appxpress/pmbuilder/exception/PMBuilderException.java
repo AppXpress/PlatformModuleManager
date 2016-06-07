@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmbuilder.exception;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 public class PMBuilderException extends AppXpressException {
 

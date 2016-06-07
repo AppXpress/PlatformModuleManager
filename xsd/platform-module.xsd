@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="PlatformModule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="__metadata"/>
+        <xs:element ref="moduleId"/>
+        <xs:element ref="createTimestamp"/>
+        <xs:element ref="modifyTimestamp"/>
+        <xs:element ref="authorId"/>
+        <xs:element ref="authorType"/>
+        <xs:element ref="ownerId"/>
+        <xs:element ref="ownerType"/>
+        <xs:element ref="name"/>
+        <xs:element ref="description"/>
+        <xs:element maxOccurs="unbounded" ref="customUiConfiguration"/>
+        <xs:element ref="notificationTopic"/>
+        <xs:element ref="userVersion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="__metadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="apiVersion"/>
+        <xs:element ref="type"/>
+        <xs:element ref="uid"/>
+        <xs:element ref="createTimestamp"/>
+        <xs:element ref="modifyTimestamp"/>
+        <xs:element ref="status"/>
+        <xs:element ref="fingerprint"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type" type="xs:NCName"/>
+  <xs:element name="uid" type="xs:integer"/>
+  <xs:element name="status" type="xs:NCName"/>
+  <xs:element name="fingerprint" type="xs:string"/>
+  <xs:element name="moduleId" type="xs:integer"/>
+  <xs:element name="authorId" type="xs:integer"/>
+  <xs:element name="authorType" type="xs:NCName"/>
+  <xs:element name="ownerId" type="xs:integer"/>
+  <xs:element name="ownerType" type="xs:NCName"/>
+  <xs:element name="name" type="xs:NCName"/>
+  <xs:element name="description" type="xs:string"/>
+  <xs:element name="customUiConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="globalObjectType"/>
+        <xs:element ref="uiType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="globalObjectType" type="xs:string"/>
+  <xs:element name="uiType" type="xs:NCName"/>
+  <xs:element name="notificationTopic">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="topicName"/>
+        <xs:element ref="notificationConfiguration"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="topicName" type="xs:NCName"/>
+  <xs:element name="notificationConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="targetType"/>
+        <xs:element ref="apiVersion"/>
+        <xs:element ref="notificationDeliveryMethod"/>
+        <xs:element ref="suppressible"/>
+        <xs:element ref="role"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="targetType" type="xs:string"/>
+  <xs:element name="notificationDeliveryMethod" type="xs:NCName"/>
+  <xs:element name="suppressible" type="xs:boolean"/>
+  <xs:element name="role" type="xs:NCName"/>
+  <xs:element name="userVersion" type="xs:NMTOKEN"/>
+  <xs:element name="apiVersion" type="xs:integer"/>
+  <xs:element name="createTimestamp" type="xs:string"/>
+  <xs:element name="modifyTimestamp" type="xs:string"/>
+</xs:schema>

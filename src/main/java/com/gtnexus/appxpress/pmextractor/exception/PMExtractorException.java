@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.exception;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 /**
  * Created by jjdonov on 9/29/14.

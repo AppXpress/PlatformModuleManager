@@ -9,13 +9,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.gtnexus.appxpress.AppXpressConstants;
 import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.HasPrerequisite;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.ZipService;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.context.TempResourceHolder;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -34,7 +35,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 
 	public GitMapPrep(TempResourceHolder tmp) {
 		fs = new FileService();
-		zs = new ZipService();
+		zs = new ZipService(AppXpressConstants.IGNORE_SET);
 		this.tmp = tmp;
 	}
 

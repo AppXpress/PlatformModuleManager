@@ -5,23 +5,29 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.gtnexus.appxpress.AppXpressConstants;
 import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 /**
- * Helper class used by PlatformModuleExtractor. Ensures the existence of necessary directories and files.
+ * Helper class used by pmm. Ensures the existence of necessary directories and files.
  * If they do not exist, DirectoryHelper tries to create them.
  *
  * @author jjdonov
  */
 public class DirectoryHelper {
-
-   
-    private String propertiesFilePath;
+    
+	private String propertiesFilePath;
     private PMProperties pmbProperties;
     private final AppXpressDirResolver resolver;
 
+    public DirectoryHelper() {
+    	this.resolver = new AppXpressDirResolver();
+        this.propertiesFilePath = resolver.resolveAppXpressDir().resolve(AppXpressConstants.PROPERTIES_FILE_NAME).toString();
+    }
+    
+    @Deprecated 
     public DirectoryHelper(final String settingsFileName) {
     	this.resolver = new AppXpressDirResolver();
         this.propertiesFilePath = resolver.resolveAppXpressDir().resolve(settingsFileName).toString();

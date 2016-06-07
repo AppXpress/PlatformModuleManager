@@ -10,7 +10,8 @@ import com.gtnexus.appxpress.cli.command.CLICommand;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 import com.gtnexus.appxpress.commons.command.Command;
 import com.gtnexus.appxpress.pmbuilder.BuildCommand;
-import com.gtnexus.appxpress.pmbuilder.ExtractCommand;
+import com.gtnexus.appxpress.pmdocgen.PMDocGenCommand;
+import com.gtnexus.appxpress.pmextractor.ExtractCommand;
 
 public abstract class PlatformModuleManagerCommand implements CLICommand {
 	
@@ -116,10 +117,29 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 		
 	};
 	
+	public static final PlatformModuleManagerCommand DOCGEN = new PlatformModuleManagerCommand() {
+		
+		@Override
+		public String getName() {
+			return "docgen";
+		}
+		
+		@Override
+		public String getDescription() {
+			return "generates docs/specs for a given platform module";
+		}
+		
+		@Override
+		public Command constructCommand(String... args) {
+			return new PMDocGenCommand(args);
+		}
+	};
+	
 	private static final Set<CLICommand> ALL_COMMANDS = new ImmutableSet.Builder<CLICommand>()
 			.add(HELP)
 			.add(EXTRACT)
 			.add(BUILD)
+			.add(DOCGEN)
 			.build();
 	
 	private static final OptionMessageProvider msgProvider = new OptionMessageProvider();

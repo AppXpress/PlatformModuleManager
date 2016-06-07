@@ -2,11 +2,11 @@ package com.gtnexus.appxpress.pmbuilder;
 
 import java.util.Set;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
+import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
@@ -43,15 +43,6 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
 
 	private static final String NAME = "pmbuilder";
 
-	/**
-	 * Inputs recently pulled down git repository and outputs zip file that is
-	 * ready to be imported onto GTNexus system
-	 * 
-	 * @param customer
-	 *            Name of customer folder
-	 * @param module
-	 *            Name of platform module folder
-	 */
 	public PlatformModuleBuilder() {
 	}
 

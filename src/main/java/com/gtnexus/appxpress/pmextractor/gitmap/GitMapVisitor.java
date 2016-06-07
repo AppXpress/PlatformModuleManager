@@ -37,7 +37,7 @@ public class GitMapVisitor extends CopyDirVisitor {
 		if (dir.endsWith(CUSTOM_UI) && !vo.isOverwriteFef()) {
 			return true;
 		}
-		String dirName = dir.getName(-1).toString();
+		String dirName = dir.getName(dir.getNameCount() - 1).toString();
 		return IGNORE_SET.contains(dirName);
 	}
 

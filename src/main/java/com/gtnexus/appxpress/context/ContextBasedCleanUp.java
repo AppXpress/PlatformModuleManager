@@ -1,8 +1,8 @@
 package com.gtnexus.appxpress.context;
 
-import com.gtnexus.appxpress.Exception.AppXpressException;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.file.FileCleanup;
+import com.gtnexus.appxpress.exception.AppXpressException;
 
 /**
  * Used {@link FileCleanup} to delete all temporary files marked for deletion by a {@link TempResourceHolder}
@@ -10,7 +10,7 @@ import com.gtnexus.appxpress.commons.file.FileCleanup;
  * @param <T>
  *
  */
-public class ContextBasedCleanUp<T extends Enum<T> & CLICommandOption> implements Runnable {
+public class ContextBasedCleanUp<T extends CLICommandOption> implements Runnable {
 
 	private final AppXpressContext<T> ctx;
 	private final FileCleanup cleanup;
