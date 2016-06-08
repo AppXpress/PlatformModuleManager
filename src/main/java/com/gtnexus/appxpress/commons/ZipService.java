@@ -205,13 +205,10 @@ public class ZipService {
 	}
 
 	private void bubbleWhenNecessary(File f) {
-		if (f.list().length != 1) {
+		if(!shouldBubble(f)) {
 			return;
 		}
 		File onlyChild = f.listFiles()[0];
-		if (!onlyChild.isDirectory() || !onlyChild.getName().equals(f.getName())) {
-			return;
-		}
 		try {
 			fs.moveFiles(Arrays.asList(onlyChild.listFiles()), f);
 			onlyChild.delete();
@@ -219,6 +216,14 @@ public class ZipService {
 			System.out.println("Unable to bubble up " + f.getAbsolutePath()
 					+ ". Continuing to unzip anyways.");
 		}
+	}
+	
+	private boolean shouldBubble(File f) {
+		if (f.list().length != 1) {
+			return false;
+		}
+		File onlyChild = f.listFiles()[0];
+		return onlyChild.isDirectory()  && (f.getName().endsWith(onlyChild.getName()));
 	}
 
 }

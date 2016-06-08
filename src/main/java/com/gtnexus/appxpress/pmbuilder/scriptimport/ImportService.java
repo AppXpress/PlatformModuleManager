@@ -49,9 +49,6 @@ public class ImportService {
 		};
 	}
 
-	// TODO For IDE, compare imported scripts functions with functions in
-	// currently folder to ensure no identical, conflicting functions
-
 	/**
 	 * Looks recursively through the file structure Searching through the file
 	 * structure to find !import statements. It ignores zip, xml , and xsd files
