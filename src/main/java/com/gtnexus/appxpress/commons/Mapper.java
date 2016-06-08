@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmextractor.gitmap;
+package com.gtnexus.appxpress.commons;
 
 import com.gtnexus.appxpress.exception.AppXpressException;
 

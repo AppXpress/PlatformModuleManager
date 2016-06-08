@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnexus.appxpress.commons.Mapper;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.context.AppXpressContext;

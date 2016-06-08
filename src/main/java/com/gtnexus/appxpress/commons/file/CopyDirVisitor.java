@@ -8,6 +8,8 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import static com.gtnexus.appxpress.AppXpressConstants.IGNORE_SET;
+
 /**
  * When used with Files.walkFileTree() this class will copy entire File tree from source
  * to destination.
@@ -36,12 +38,16 @@ public class CopyDirVisitor extends SimpleFileVisitor<Path> {
 		}
 		return FileVisitResult.CONTINUE;
 	}
+	
+	
 
 	@Override
 	public FileVisitResult visitFile(final Path file,
 			final BasicFileAttributes attrs) throws IOException {
 		Path target = destination.resolve(source.relativize(file));
-		Files.copy(file, target , replace);
+		if(!IGNORE_SET.contains(file.getFileName())) {
+			Files.copy(file, target , replace);
+		}
 		return FileVisitResult.CONTINUE;
 	}
 

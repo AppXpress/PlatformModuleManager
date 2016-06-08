@@ -2,12 +2,12 @@ package com.gtnexus.appxpress.pmbuilder.bundle.platform;
 
 import java.io.File;
 
+import com.gtnexus.appxpress.commons.Mapper;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.FolderPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.scripts.ScriptBundler;
-import com.gtnexus.appxpress.pmextractor.gitmap.Mapper;
 
 /**
  * Replacement for PlatfromMapUtil.
