@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
 import com.gtnexus.appxpress.commons.HasPrerequisite;
 
 /**
@@ -147,18 +148,13 @@ public class FileService {
 	public List<Path> renameFile(Collection<File> files, String toReplace,
 			String replacement, HasPrerequisite<File> precondition)
 			throws IOException {
-		if (files == null) {
-			throw new NullPointerException("Files cannot be null.");
-		}
-		if (toReplace == null || replacement == null) {
-			throw new NullPointerException(
-					"Replacement Strings cannot be null.");
-		}
+		Preconditions.checkNotNull(files, "Files to rename cannot be null.");
+		Preconditions.checkNotNull(toReplace, "String to be replaced cannot be null");
+		Preconditions.checkNotNull(replacement, "Replacement string cannot be null");
 		List<Path> paths = new LinkedList<>();
 		for (File file : files) {
 			String fileName = file.getName();
-			Path result = renameFile(file,
-					fileName.replace(toReplace, replacement), precondition);
+			Path result = renameFile(file, fileName.replace(toReplace, replacement), precondition);
 			paths.add(result);
 		}
 		return paths;
@@ -225,14 +221,10 @@ public class FileService {
 	public List<Path> copyFiles(final Collection<File> files,
 			final File destination, HasPrerequisite<File> precondition)
 			throws IOException {
-		if (files == null || destination == null) {
-			throw new NullPointerException(
-					"files and destination cannot be null.");
-		}
-		if (!destination.isDirectory()) {
-			throw new IOException("Destination " + destination.getName()
-					+ " is not a directory.");
-		}
+		Preconditions.checkArgument(files == null || destination == null, 
+				"files and destination cannot be null.");
+		Preconditions.checkArgument(!destination.isDirectory(), 
+				"Destination " + destination.getName()+ " is not a directory.");
 		if (precondition == null) {
 			precondition = new HasPrerequisite.EmptyCondition<>();
 		}

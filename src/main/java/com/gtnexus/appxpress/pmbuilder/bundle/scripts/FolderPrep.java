@@ -17,6 +17,7 @@ import com.gtnexus.appxpress.commons.HasPrerequisite;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.file.FileService;
 import com.gtnexus.appxpress.commons.file.filter.ChainedAnd;
+import com.gtnexus.appxpress.commons.file.filter.FileFilterChain;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.exception.AppXpressException;
 
@@ -68,17 +69,14 @@ public class FolderPrep implements Preparation<File> {
 		if (designFolder.exists()) {
 			renameWhenNecessary(designFolder.listFiles(), DESIGN_, DESIGN_ + $);
 		}
-		File scriptFolder = new File(directory.getAbsolutePath()
-				+ File.separator + SCRIPTS);
+		File scriptFolder = directory.toPath().resolve(SCRIPTS).toFile();
 		if (scriptFolder.exists()) {
-			File[] files = scriptFolder.listFiles(new ChainedAnd(
-					FileFilterFactory.directoriesOnly(), FileFilterFactory
-							.fileNameDoesNotContain("_$")));
-			fs.renameFile(Arrays.asList(files), SCRIPT_DESIGN, SCRIPT_DESIGN
-					+ $);
+			FileFilterChain directoriesWithoutSigil = new ChainedAnd(FileFilterFactory.directoriesOnly(), 
+					FileFilterFactory.fileNameDoesNotContain("_$"));
+			File[] files = scriptFolder.listFiles(directoriesWithoutSigil);
+			fs.renameFile(Arrays.asList(files), SCRIPT_DESIGN, SCRIPT_DESIGN + $);
 		}
-		File xsdFolder = new File(directory.getAbsoluteFile() + File.separator
-				+ "xsd");
+		File xsdFolder = directory.toPath().resolve("xsd").toFile();
 		if (xsdFolder.exists()) {
 			prependWhenNecessary(xsdFolder.listFiles(), $);
 		}
@@ -94,8 +92,7 @@ public class FolderPrep implements Preparation<File> {
 
 	private void prependWhenNecessary(final File[] files, final String prepend)
 			throws IOException {
-		HasPrerequisite<File> precondition = doesNotStartWith(prepend);
-		fs.prependToName(Arrays.asList(files), prepend, precondition);
+		fs.prependToName(Arrays.asList(files), prepend, doesNotStartWith(prepend));
 	}
 
 	private HasPrerequisite<File> doesNotStartWith(final String string) {

@@ -190,7 +190,6 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 			if(!customer.mkdir()) {
 				return false;
 			}
-			
 		}
 		if (!vo.getPlatformDir().exists()) {
 			return vo.getPlatformDir().mkdir();
