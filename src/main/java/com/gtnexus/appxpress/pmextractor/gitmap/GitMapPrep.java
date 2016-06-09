@@ -26,8 +26,7 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @author jdonovan
  *
  */
-public class GitMapPrep implements HasPrerequisite<GitMapVO>,
-		Preparation<GitMapVO> {
+public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMapVO> {
 
 	private final FileService fs;
 	private final ZipService zs;
@@ -56,8 +55,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 			try {
 				fs.emptyDir(unzipDestination);
 			} catch (IOException e) {
-				throw new PMBuilderException(
-						"Exception when cleaning unzipDestination", e);
+				throw new PMBuilderException("Exception when cleaning unzipDestination", e);
 			}
 		}
 	}
@@ -68,8 +66,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 	 * of outdated custom links files.
 	 *
 	 */
-	private void clearCustomLinksXML(File customerPath)
-			throws PMBuilderException {
+	private void clearCustomLinksXML(File customerPath) throws PMBuilderException {
 		File dir = customerPath.toPath().resolve(CUSTOM_LINK_D1).toFile();
 		cleanup(dir);
 	}
@@ -77,16 +74,13 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 	/**
 	 * Unzips file 'folder' into PlatModX
 	 */
-	private void unzipPlatformZip(File platformZip, File unzipDestination)
-			throws PMBuilderException {
+	private void unzipPlatformZip(File platformZip, File unzipDestination) throws PMBuilderException {
 		if (platformZip.exists()) {
 			try {
 				zs.unzip(platformZip, unzipDestination, true);
 				tmp.deleteOnExit(unzipDestination);
 			} catch (AppXpressException e) {
-				throw new PMBuilderException(
-						"Exception when unzipping platformZip: " + platformZip,
-						e);
+				throw new PMBuilderException("Exception when unzipping platformZip: " + platformZip, e);
 			}
 		} else {
 			System.out.println("Cannot find zipped folder!");
@@ -111,13 +105,25 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 			}
 			checkIfBundle(f);
 		}
-		if (f.getName().contains($)) {
-			try {
+		try {
+			if (f.getName().contains($)) {
 				fs.renameFile(f, f.getName().replace($, ""));
-			} catch (IOException e) {
-				throw new PMBuilderException("Exception when renaming " + f, e);
 			}
+			if (parentIsCustomUi(f) && customUiBundleHasPrefix(f)) {
+				fs.renameFile(f, f.getName().substring(2));
+			}
+		} catch (IOException e) {
+			throw new PMBuilderException("Exception when coercing module to human readable format ->" + f, e);
 		}
+	}
+
+	private boolean parentIsCustomUi(File f) {
+		File parent = f.getParentFile();
+		return parent == null ? false : AppXpressConstants.CUSTOM_UI.equals(parent.getName());
+	}
+
+	private boolean customUiBundleHasPrefix(File f) {
+		return f.isDirectory() && f.getName().startsWith("__");
 	}
 
 	private void checkIfBundle(File f) throws PMBuilderException {
@@ -128,8 +134,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 			try {
 				fs.renameFile(f, fName);
 			} catch (IOException e) {
-				throw new PMBuilderException(
-						"Failed to rename bundle " + fName, e);
+				throw new PMBuilderException("Failed to rename bundle " + fName, e);
 			}
 		}
 	}
@@ -139,8 +144,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 	 */
 	private void backup(Path customerPath, String platform) {
 		AppXpressDirResolver resolver = new AppXpressDirResolver();
-		Path bkpPath = resolver.resolveAppXpressDir().resolve(BACKUP_FLDR)
-				.resolve(platform);
+		Path bkpPath = resolver.resolveAppXpressDir().resolve(BACKUP_FLDR).resolve(platform);
 		try {
 			if (Files.exists(bkpPath)) {
 				fs.emptyDir(bkpPath);
@@ -158,11 +162,8 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 			return false;
 		}
 		if (!vo.getLocalDir().isDirectory() || !vo.getPlatformZip().exists()) {
-			System.err
-					.println("ERROR: One of the following paths is invalid:\n\t"
-							+ vo.getLocalDir().getAbsolutePath()
-							+ "\n\t"
-							+ vo.getPlatformZip().getAbsolutePath());
+			System.err.println("ERROR: One of the following paths is invalid:\n\t" + vo.getLocalDir().getAbsolutePath()
+					+ "\n\t" + vo.getPlatformZip().getAbsolutePath());
 			return false;
 		}
 		return true;
@@ -182,12 +183,11 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>,
 	 */
 	private boolean validateAndEnsurePathExists(GitMapVO vo) {
 		if (!vo.getCustomerDir().isDirectory()) {
-			System.out
-					.println("Cannot find specific customer in customer folder ["
-							+ vo.getCustomerDir().getAbsolutePath() + "]");
+			System.out.println(
+					"Cannot find specific customer in customer folder [" + vo.getCustomerDir().getAbsolutePath() + "]");
 			System.out.println("\tAssuming this is a new customer, and creating directory...");
 			File customer = vo.getCustomerDir();
-			if(!customer.mkdir()) {
+			if (!customer.mkdir()) {
 				return false;
 			}
 		}
