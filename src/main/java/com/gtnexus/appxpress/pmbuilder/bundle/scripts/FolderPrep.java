@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmbuilder.bundle.scripts;
 
 import static com.gtnexus.appxpress.AppXpressConstants.$;
+import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_ACTION_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
@@ -51,10 +52,10 @@ public class FolderPrep implements Preparation<File> {
 			fs.renameFile(dir,  $ + CUSTOM_LINK_D1);
 		} else if (directoryName.endsWith(TYPE_EXTENSION_D1)) {
 			fs.renameFile(dir, $ + TYPE_EXTENSION_D1);
-		} else if (directoryName.endsWith(CUSTOM_UI)) {
-			fs.prependToName(Arrays.asList(dir.listFiles()), $);
 		} else if (directoryName.endsWith(CUSTOM_OBJECT_MODULE)) {
 			fixCustomObjectModule(dir);
+		} else if(directoryName.equals(CUSTOM_ACTION_D1)) {
+			fs.renameFile(dir,  $ + CUSTOM_ACTION_D1);
 		}
 	}
 
@@ -97,7 +98,6 @@ public class FolderPrep implements Preparation<File> {
 
 	private HasPrerequisite<File> doesNotStartWith(final String string) {
 		return new HasPrerequisite<File>() {
-
 			@Override
 			public boolean isMet(File f) {
 				return !f.getName().startsWith(string);

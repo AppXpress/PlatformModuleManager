@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress;
 
-import static com.gtnexus.appxpress.AppXpressConstants.dirTemplate;
+import static com.gtnexus.appxpress.AppXpressConstants.DIR_TEMPLATE;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -15,7 +15,7 @@ public class AppXpressDirResolver {
 	 
 	 public AppXpressDirResolver() {
 		 this.homeDir = System.getProperty(USER_HOME);
-		 this.appXpressDir = new File(String.format(dirTemplate, this.homeDir));
+		 this.appXpressDir = new File(String.format(DIR_TEMPLATE, this.homeDir));
 	 }
 	 
 	 public Path resolveAppXpressDir() {

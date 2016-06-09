@@ -3,6 +3,7 @@ package com.gtnexus.appxpress.pmextractor.gitmap;
 import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.BACKUP_FLDR;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
+import static com.gtnexus.appxpress.AppXpressConstants.UI_BUNDLE_PREFIX;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,13 +29,14 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  */
 public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMapVO> {
 
+	
 	private final FileService fs;
 	private final ZipService zs;
 	private final TempResourceHolder tmp;
 
 	public GitMapPrep(TempResourceHolder tmp) {
-		fs = new FileService();
-		zs = new ZipService(AppXpressConstants.IGNORE_SET);
+		this.fs = new FileService();
+		this.zs = new ZipService(AppXpressConstants.IGNORE_SET);
 		this.tmp = tmp;
 	}
 
@@ -123,7 +125,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
 	}
 
 	private boolean customUiBundleHasPrefix(File f) {
-		return f.isDirectory() && f.getName().startsWith("__");
+		return f.isDirectory() && f.getName().startsWith(UI_BUNDLE_PREFIX);
 	}
 
 	private void checkIfBundle(File f) throws PMBuilderException {

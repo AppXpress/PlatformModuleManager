@@ -42,19 +42,15 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 			runImportFind(tmp, libPath);
 			map(tmp);
 		} catch (AppXpressException | IOException e) {
-			throw new PMBuilderException(
-					"Exception when mapping file structure.", e);
+			throw new PMBuilderException("Exception when mapping file structure.", e);
 		}
 	}
 
 	private File createTemp(final PMBuilderVO vo) throws IOException {
 		Path source = vo.getRootFile().toPath();
-		Path tmpPath = resolver
-				.resolveAppXpressDir()
-				.toAbsolutePath();
+		Path tmpPath = resolver.resolveAppXpressDir().toAbsolutePath();
 		String tmpPrefix = String.valueOf(System.currentTimeMillis());
-		Path destination = Files
-				.createTempDirectory(tmpPath, tmpPrefix);
+		Path destination = Files.createTempDirectory(tmpPath, tmpPrefix);
 		File dest = destination.toFile();
 		tmpHolder.deleteOnExit(dest);
 		fs.copyDirectory(source, destination);
