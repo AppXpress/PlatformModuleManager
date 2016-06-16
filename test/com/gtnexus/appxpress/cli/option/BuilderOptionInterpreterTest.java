@@ -51,9 +51,9 @@ public class BuilderOptionInterpreterTest {
 	@Test
 	public void testPerformCustomInterpretationWithoutSPFlag()
 			throws AppXpressException {
-		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
+		ParsedOptions parsedOptions = new ParsedOptions(
 				new Options(), new HashMap<BuilderOption, String>(),
-				EnumSet.allOf(BuilderOption.class));
+				EnumSet.allOf(BuilderOption.Opt.class));
 		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
 				shutdown, parsedOptions, properties, selector, resolver);
 		fail("unimplemented");

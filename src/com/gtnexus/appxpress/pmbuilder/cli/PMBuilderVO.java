@@ -3,17 +3,19 @@ package com.gtnexus.appxpress.pmbuilder.cli;
 import java.io.File;
 import java.util.Map;
 
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
+
 public class PMBuilderVO {
 
 	private final File localDir;
 	private final File rootFile;
 	private File workingDir;
 
-	public PMBuilderVO(Map<BuilderOption, String> optionMap) {
-		this.localDir = new File(optionMap.get(BuilderOption.LOCAL_DIR));
+	public PMBuilderVO(Map<AppXpressOption, String> map) {
+		this.localDir = new File(map.get(BuilderOption.LOCAL_DIR));
 		this.rootFile = localDir.toPath()
-				.resolve(optionMap.get(BuilderOption.CUSTOMER))
-				.resolve(optionMap.get(BuilderOption.PLATFORM)).toFile();
+				.resolve(map.get(BuilderOption.CUSTOMER))
+				.resolve(map.get(BuilderOption.PLATFORM)).toFile();
 	}
 	
 	public File getLocalDir() {

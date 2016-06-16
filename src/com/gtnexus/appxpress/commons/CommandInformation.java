@@ -10,6 +10,6 @@ public interface CommandInformation {
 	
 	public String getHelpFooter();
 	
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType();
+	public <M extends AppXpressOption> Class<M> getContextType();
 	
 }

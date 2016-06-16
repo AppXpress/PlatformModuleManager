@@ -5,6 +5,7 @@ import static com.gtnexus.appxpress.commons.AppXpressConstants.PLATFORM_MODULE_U
 import java.io.File;
 import java.util.Map;
 
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 public class GitMapVO {
@@ -20,7 +21,7 @@ public class GitMapVO {
 	private final boolean overwriteFef;
 	
 
-	public GitMapVO(Map<ExtractorOption, String> optionMap) {
+	public GitMapVO(Map<AppXpressOption, String> optionMap) {
 		this.localDir = new File(optionMap.get(ExtractorOption.LOCAL_DIR));
 		this.customer = optionMap.get(ExtractorOption.CUSTOMER);
 		this.platform = optionMap.get(ExtractorOption.PLATFORM);

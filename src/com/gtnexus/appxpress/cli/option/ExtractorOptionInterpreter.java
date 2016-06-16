@@ -26,7 +26,7 @@ public class ExtractorOptionInterpreter extends
 	
 	public ExtractorOptionInterpreter(CommandInformation app,
 			SimpleShutdown shutdown,
-			ParsedOptions<ExtractorOption> parsedOptions,
+			ParsedOptions parsedOptions,
 			PMProperties properties, Select<File> selector,
 			AppXpressDirResolver resolver) {
 		super(app, shutdown, parsedOptions, properties);
@@ -35,8 +35,8 @@ public class ExtractorOptionInterpreter extends
 	}
 
 	@Override
-	public ParsedOptions<ExtractorOption> performCustomInterpretation(
-			ParsedOptions<ExtractorOption> parsedOpts)
+	public ParsedOptions performCustomInterpretation(
+			ParsedOptions parsedOpts)
 			throws AppXpressException {
 		Path cwd = resolver.resovleCurrentDirectory();
 		if (parsedOpts.hasOption(ExtractorOption.SELECT)) {
@@ -54,7 +54,7 @@ public class ExtractorOptionInterpreter extends
 	}
 
 	private boolean isCandidateForArgInjection(
-			ParsedOptions<ExtractorOption> parsedOpts, Path cwd)
+			ParsedOptions parsedOpts, Path cwd)
 			throws AppXpressException {
 		return !parsedOpts.hasOption(ExtractorOption.CUSTOMER)
 				&& isCustomerFolder(cwd, ExtractorOption.LOCAL_DIR);

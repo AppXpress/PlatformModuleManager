@@ -55,7 +55,7 @@ public class PlatformModuleBuilder implements AppXCommand, CommandInformation, H
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-			AppXpressContext<BuilderOption> context = factory.createContext(pmb,
+			AppXpressContext context = factory.createContext(pmb,
 					args);
 			pmb.build(context);
 			System.out.println("Success!");
@@ -76,7 +76,7 @@ public class PlatformModuleBuilder implements AppXCommand, CommandInformation, H
 	public PlatformModuleBuilder() {
 	}
 
-	public void build(AppXpressContext<BuilderOption> context)
+	public void build(AppXpressContext context)
 			throws AppXpressException {
 		attachCleanUpHook(context);
 		PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
@@ -92,9 +92,9 @@ public class PlatformModuleBuilder implements AppXCommand, CommandInformation, H
 		}
 	}
 
-	private void attachCleanUpHook(AppXpressContext<BuilderOption> ctx) {
+	private void attachCleanUpHook(AppXpressContext ctx) {
 		Runtime.getRuntime().addShutdownHook(
-				new Thread(new ContextBasedCleanUp<>(ctx)));
+				new Thread(new ContextBasedCleanUp(ctx)));
 	}
 
 	@Override
@@ -104,8 +104,8 @@ public class PlatformModuleBuilder implements AppXCommand, CommandInformation, H
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
-		return (Class<M>) BuilderOption.class;
+	public  Class getContextType() {
+		return BuilderOption.class;
 	}
 
 	@Override

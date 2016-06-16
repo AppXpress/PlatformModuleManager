@@ -21,15 +21,14 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  *
  */
 public class BuilderOptionInterpreter extends
-		AppXpressOptionInterpreter<BuilderOption> implements
-		CLIOptionInterpreter<BuilderOption> {
+		AppXpressOptionInterpreter<BuilderOption> {
 
 	private final Select<File> selector;
 	private final AppXpressDirResolver resolver;
 
 	public BuilderOptionInterpreter(CommandInformation app,
 			SimpleShutdown shutdown,
-			ParsedOptions<BuilderOption> parsedOptions,
+			ParsedOptions parsedOptions,
 			PMProperties properties, Select<File> selector,
 			AppXpressDirResolver resolver) {
 		super(app, shutdown, parsedOptions, properties);
@@ -38,8 +37,8 @@ public class BuilderOptionInterpreter extends
 	}
 
 	@Override
-	public ParsedOptions<BuilderOption> performCustomInterpretation(
-			ParsedOptions<BuilderOption> parsedOpts) throws AppXpressException {
+	public ParsedOptions performCustomInterpretation(
+			ParsedOptions parsedOpts) throws AppXpressException {
 		if (parsedOpts == null) {
 			throw new NullPointerException("parsedOpts cannot be null");
 		}
@@ -64,7 +63,7 @@ public class BuilderOptionInterpreter extends
 	}
 
 	private boolean isCandidateForArgInjection(
-			ParsedOptions<BuilderOption> parsedOpts, Path cwd)
+			ParsedOptions parsedOpts, Path cwd)
 			throws AppXpressException {
 		return !parsedOpts.hasOption(BuilderOption.CUSTOMER)
 				&& isCustomerFolder(cwd, BuilderOption.LOCAL_DIR);

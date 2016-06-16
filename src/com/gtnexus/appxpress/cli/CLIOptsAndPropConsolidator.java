@@ -19,11 +19,12 @@ import com.gtnexus.appxpress.commons.PMProperties;
  * the user is prompted for input.
  *
  * @author jjdonov
+ * @param <M>
  */
-public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
+public class CLIOptsAndPropConsolidator<M extends AppXpressOption> {
 
-	private final Map<T, String> userArgs;
-	private final Set<T> optSet;
+	private final Map<M, String> userArgs;
+	private final Set<AppXpressOption> optSet;
 	private final PMProperties properties;
 	private final SimpleAsker asker;
 
@@ -35,8 +36,8 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 * @param properties
 	 *            Properties file read from user's AppXpress directory.
 	 */
-	public CLIOptsAndPropConsolidator(Map<T, String> userArgs,
-			Set<T> optSet, PMProperties properties) {
+	public CLIOptsAndPropConsolidator(Map<M, String> userArgs,
+			Set<AppXpressOption> optSet, PMProperties properties) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
 		this.properties = properties;
@@ -53,8 +54,8 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	 * @param printStream
 	 *            The printStream that this consolidator should write to.
 	 */
-	public CLIOptsAndPropConsolidator(Map<T, String> userArgs,
-			Set<T> optSet, PMProperties properties, InputStream inputStream,
+	public CLIOptsAndPropConsolidator(Map<M , String> userArgs,
+			Set<AppXpressOption> optSet, PMProperties properties, InputStream inputStream,
 			PrintStream printStream) {
 		this.userArgs = userArgs;
 		this.optSet = optSet;
@@ -65,9 +66,9 @@ public class CLIOptsAndPropConsolidator<T extends AppXpressOption> {
 	/**
 	 * @return the map of consolidated ExtractorOptions and their values.
 	 */
-	public Map<T, String> consolidate() {
-		final Map<T, String> optMap = new HashMap<>();
-		for (T opt : optSet) {
+	public Map<AppXpressOption, String> consolidate() {
+		final Map<AppXpressOption, String> optMap = new HashMap<>();
+		for (AppXpressOption opt : optSet) {
 			if(!opt.shouldBeOmitted()) { //TODO: what is this ommitted logic? seems like it is better suited somewhere else.
 										 // idea: immutableMap containingLookups to "default" values. Would allow use to take
 										 // this out of the complicated enum constructors. hasDefaultValue() -> map.containsKey(key)

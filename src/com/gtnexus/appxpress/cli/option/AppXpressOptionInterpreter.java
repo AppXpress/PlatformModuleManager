@@ -12,16 +12,16 @@ import com.gtnexus.appxpress.commons.PMProperties;
 import com.gtnexus.appxpress.commons.SimpleShutdown;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
 
-public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOption>
-		implements CLIOptionInterpreter<T> {
+public abstract class AppXpressOptionInterpreter<T extends AppXpressOption>
+		implements CLIOptionInterpreter<AppXpressOption> {
 
-	private ParsedOptions<T> parsedOptions;
+	private ParsedOptions parsedOptions;
 	private final CommandInformation app;
 	protected final SimpleShutdown shutdown;
 	protected final PMProperties properties;
 
 	public AppXpressOptionInterpreter(CommandInformation app,
-			SimpleShutdown shutdown, ParsedOptions<T> parsedOptions,
+			SimpleShutdown shutdown, ParsedOptions parsedOptions,
 			PMProperties properties) {
 		this.app = app;
 		this.shutdown = shutdown;
@@ -30,7 +30,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 	}
 
 	@Override
-	public final Map<T, String> interpret() throws AppXpressException {
+	public final Map<AppXpressOption, String> interpret() throws AppXpressException {
 		if (parsedOptions.isHelpFlagSet()) {
 			HelpFormatter helpFormatter = new HelpFormatter();
 			helpFormatter.printHelp(app.getCommandName(), app.getHelpHeader(),
@@ -38,10 +38,10 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 			shutdown.shutdown();
 		}
 		parsedOptions = performCustomInterpretation(parsedOptions);
-		CLIOptsAndPropConsolidator<T> consolidator = new CLIOptsAndPropConsolidator<>(
+		CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(
 				parsedOptions.getOptionsMap(), parsedOptions.getCliOptionSet(),
 				properties);
-		Map<T, String> optMap = consolidator.consolidate();
+		Map<AppXpressOption, String> optMap = consolidator.consolidate();
 		return optMap;
 	}
 
@@ -69,7 +69,7 @@ public abstract class AppXpressOptionInterpreter<T extends Enum<T> & AppXpressOp
 		return properties.getProperty(localDirKey);
 	}
 
-	public abstract ParsedOptions<T> performCustomInterpretation(
-			ParsedOptions<T> parsedOpts) throws AppXpressException;
+	public abstract ParsedOptions performCustomInterpretation(
+			ParsedOptions parsedOpts) throws AppXpressException;
 
 }

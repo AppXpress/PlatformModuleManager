@@ -27,7 +27,7 @@ public class ContextFactory {
 		this.interpreterFac = new InterpreterFactory(resolver);
 	}
 
-	public <M extends Enum<M> & AppXpressOption> AppXpressContext<M> createContext(
+	public AppXpressContext createContext(
 			CommandInformation app, String[] args) throws AppXpressException {
 		DirectoryHelper dHelper = new DirectoryHelper(app.getCommandName()
 				+ PROPERTIES_EXTENSION);
@@ -36,16 +36,16 @@ public class ContextFactory {
 		Class<M> contextType = app.getContextType();
 		CLIOptionParser<M> parser = CLIOptionParser.createParser(
 				app.getCommandName(), args, contextType);
-		ParsedOptions<M> parsedOptions = parser.parse();
+		ParsedOptions parsedOptions = parser.parse();
 		SimpleShutdown shutdown = new SimpleShutdownImpl();
 		CLIOptionInterpreter<M> interpreter = interpreterFac.createInterpreter(
 				app, shutdown, parsedOptions, pmProperties);
 		Map<M, String> interpretedOptions = interpreter.interpret();
-		CLIOptsAndPropConsolidator<M> consolidator = new CLIOptsAndPropConsolidator<>(
+		CLIOptsAndPropConsolidator<M> consolidator = new CLIOptsAndPropConsolidator(
 				interpretedOptions, parsedOptions.getCliOptionSet(),
 				pmProperties);
 		Map<M, String> optMap = consolidator.consolidate();
-		return new AppXpressContext<>(app, shutdown,
+		return new AppXpressContext(app, shutdown,
 				dHelper, parser.getOptions(), pmProperties, optMap);
 	}
 

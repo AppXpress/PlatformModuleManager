@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnexus.appxpress.cli.option.AppXpressOption;
 import com.gtnexus.appxpress.commons.Preparation;
 import com.gtnexus.appxpress.commons.exception.AppXpressException;
 import com.gtnexus.appxpress.commons.file.FileService;
@@ -36,15 +37,15 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  */
 public class GitMapper implements Mapper {
 
-	private final AppXpressContext<ExtractorOption> ctx;
+	private final AppXpressContext ctx;
 	private final GitMapVO vo;
 	private List<Path> overwrittenScripts;
 	private final Preparation<GitMapVO> prep;
 	private final FileService fs;
 
 	
-	public static GitMapper createMapper(AppXpressContext<ExtractorOption> context) {
-		Map<ExtractorOption, String> optionMap = context.getOptMap();
+	public static GitMapper createMapper(AppXpressContext context) {
+		Map<AppXpressOption, String> optionMap = context.getOptMap();
 		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 			if (!platformZip.endsWith(ZIP_EXTENSION)) {
@@ -55,7 +56,7 @@ public class GitMapper implements Mapper {
 		return new GitMapper(context);
 	}
 	
-	public GitMapper(AppXpressContext<ExtractorOption> context) {
+	public GitMapper(AppXpressContext context) {
 		this.ctx = context;
 		this.vo = new GitMapVO(context.getOptMap());
 		this.overwrittenScripts = new ArrayList<>();

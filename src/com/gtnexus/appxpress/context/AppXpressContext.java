@@ -27,13 +27,13 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
  *
  * @param <T>
  */
-public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
+public class AppXpressContext implements
 		SimpleShutdown, CommandInformation, TempResourceHolder {
 
 	private final CommandInformation app;
 	private final DirectoryHelper dHelper;
 	private final Options options;
-	private final Map<T, String> optMap;
+	private final Map<AppXpressOption, String> optMap;
 	private final PMProperties properties;
 	private final SimpleShutdown shutdown;
 	private final List<File> delOnExit;
@@ -41,7 +41,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 
 	public AppXpressContext(CommandInformation app, SimpleShutdown shutdown,
 			DirectoryHelper dHelper, Options options, PMProperties properties,
-			Map<T, String> optMap) {
+			Map<AppXpressOption, String> optMap) {
 		this.app = app;
 		this.shutdown = shutdown;
 		this.dHelper = dHelper;
@@ -56,7 +56,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 		return app;
 	}
 
-	public Map<T, String> getOptMap() {
+	public Map<AppXpressOption, String> getOptMap() {
 		return optMap;
 	}
 	
@@ -105,7 +105,7 @@ public class AppXpressContext<T extends Enum<T> & AppXpressOption> implements
 	}
 
 	@Override
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
+	public <M extends AppXpressOption> Class<M> getContextType() {
 		return app.getContextType();
 	}
 

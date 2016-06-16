@@ -1,5 +1,6 @@
 package com.gtnexus.appxpress.cli.option;
 
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -19,17 +20,17 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  * @author jdonovan
  *
  */
-public class CLIOptionParser<T extends Enum<T> & CLIOption> {
+public class CLIOptionParser<T extends CLIOption> {
 
 	private final String[] userArgs;
 	private final Set<T> cliOptionSet;
 	private final Options options;
 	private CommandLine cmd;
 
-	public static <M extends Enum<M> & CLIOption> CLIOptionParser<M> createParser(
+	public static <M extends CLIOption> CLIOptionParser<M> createParser(
 			String appName, String[] userArgs, Class<M> optClass) {
 		Options options = new Options();
-		Set<M> cliOptSet = EnumSet.allOf(optClass);
+		Set<M> cliOptSet = Collections.emptySet(); //EnumSet.allOf(optClass);
 		for (CLIOption opt : cliOptSet) {
 			options.addOption(Option.builder(opt.getFlag())
 					.longOpt(opt.getLongName()).type(opt.getType())
@@ -65,7 +66,7 @@ public class CLIOptionParser<T extends Enum<T> & CLIOption> {
 	 * @throws PMExtractorException
 	 *             if input is not parasable.
 	 */
-	public ParsedOptions<T> parse() throws AppXpressException {
+	public ParsedOptions parse() throws AppXpressException {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			cmd = parser.parse(options, userArgs);

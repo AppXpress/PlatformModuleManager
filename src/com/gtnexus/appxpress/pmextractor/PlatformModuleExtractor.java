@@ -24,7 +24,7 @@ public class PlatformModuleExtractor implements AppXCommand, CommandInformation 
 		ContextFactory factory = new ContextFactory();
 		try {
 			PlatformModuleExtractor extractor = new PlatformModuleExtractor();
-			AppXpressContext<ExtractorOption> context = factory.createContext(extractor, args);
+			AppXpressContext context = factory.createContext(extractor, args);
 			extractor.extract(context);
 		} catch (AppXpressException e) {
 			System.err.println(e.getAppXpressMessage());
@@ -35,7 +35,7 @@ public class PlatformModuleExtractor implements AppXCommand, CommandInformation 
 
 	public PlatformModuleExtractor() {}
 	
-	public void extract(AppXpressContext<ExtractorOption> context)
+	public void extract(AppXpressContext context)
 			throws AppXpressException {
 		attachCleanUpHook(context);
 		Mapper tool = GitMapper.createMapper(context);
@@ -48,9 +48,9 @@ public class PlatformModuleExtractor implements AppXCommand, CommandInformation 
 		}
 	}
 	
-	private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {
+	private void attachCleanUpHook(AppXpressContext ctx) {
 		Runtime.getRuntime().addShutdownHook(
-				new Thread(new ContextBasedCleanUp<>(ctx)));
+				new Thread(new ContextBasedCleanUp(ctx)));
 	}
 	
 	@Override
@@ -70,7 +70,7 @@ public class PlatformModuleExtractor implements AppXCommand, CommandInformation 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <M extends Enum<M> & AppXpressOption> Class<M> getContextType() {
+	public <M extends  AppXpressOption> Class<M> getContextType() {
 		return (Class<M>) ExtractorOption.class;
 	}
 
