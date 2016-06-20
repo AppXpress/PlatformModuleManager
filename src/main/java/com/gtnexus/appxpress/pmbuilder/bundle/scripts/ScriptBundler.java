@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,8 +58,7 @@ public class ScriptBundler implements Bundler {
 		final String platformIndependent = DESIGNS + File.separator + SCRIPTS;
 		boolean isSpecial = false;
 		try {
-			if (dir.getAbsolutePath().toLowerCase()
-					.contains(platformIndependent.toLowerCase())) {
+			if (dir.getAbsolutePath().toLowerCase().contains(platformIndependent.toLowerCase())) {
 				handleCustomObjectDesignScripts(dir);
 				isSpecial = true;
 			} else if (dir.getName().endsWith(CUSTOM_UI)) {
@@ -85,11 +85,10 @@ public class ScriptBundler implements Bundler {
 		}
 		if (jsFiles.size() > 1) {
 			try {
-				zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE
-						+ ZIP_EXTENSION);
+				zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
 				fs.emptyDir(dir, true);
 			} catch (AppXpressException | IOException e) {
-				//TODO
+				// TODO
 				System.err.println("Failed to bundle directory " + dir.toString() + " generically.");
 				System.err.println(e.getMessage());
 			}
@@ -104,16 +103,23 @@ public class ScriptBundler implements Bundler {
 	 * @throws PMExtractorException
 	 */
 	private void handleFef(final File dir) throws PMExtractorException {
-		final ChainedAnd filter = new ChainedAnd(
-				FileFilterFactory.directoriesOnly(),
+		final ChainedAnd filter = new ChainedAnd(FileFilterFactory.directoriesOnly(),
 				FileFilterFactory.doesNotEndWith(ZIP_EXTENSION));
-		for (File file : dir.listFiles(filter)) {
+		if (filter.hasResults(dir)) {
+			Path customUiBundle = dir.toPath().resolve("CustomUIBundle");
 			try {
-				zs.zipDirectory(file);
-				fs.emptyDir(file, true);
+				addPathsToUIBundle(filter.listPaths(dir), customUiBundle);
+				zs.zipDirectory(customUiBundle);
+				fs.emptyDir(customUiBundle, true);
 			} catch (AppXpressException | IOException e) {
 				throw new PMExtractorException("Could not handle FEF", e);
 			}
+		}
+	}
+
+	private void addPathsToUIBundle(Collection<Path> paths, Path customUiBundle) throws IOException {
+		for(Path subdir : paths) {
+			fs.copyDirectory(subdir, customUiBundle.resolve(subdir.getFileName()));
 		}
 	}
 
@@ -122,28 +128,24 @@ public class ScriptBundler implements Bundler {
 	 *            The CustomObject/designs/scripts directory.
 	 * @throws PMExtractorException
 	 */
-	private void handleCustomObjectDesignScripts(final File dir)
-			throws PMExtractorException {
+	private void handleCustomObjectDesignScripts(final File dir) throws PMExtractorException {
 		for (File subDir : dir.listFiles(FileFilterFactory.directoriesOnly())) {
 			handleSingleCODScript(subDir);
 		}
 	}
 
-	private void handleSingleCODScript(final File dir)
-			throws PMExtractorException {
+	private void handleSingleCODScript(final File dir) throws PMExtractorException {
 		Path p = dir.toPath();
 		try {
 			if (dir.list().length == 1) {
 				moveUpAndRename(dir);
 			} else if (dir.list().length > 1) {
 				p = bundleCODScript(dir);
-				zs.zipDirectory(p.toFile());
+				zs.zipDirectory(p);
 			}
 			fs.emptyDir(p, true);
 		} catch (AppXpressException | IOException e) {
-			throw new PMExtractorException(
-					"Couldn't handle single custom object design script "
-							+ dir.toString(), e);
+			throw new PMExtractorException("Couldn't handle single custom object design script " + dir.toString(), e);
 		}
 	}
 
@@ -160,13 +162,13 @@ public class ScriptBundler implements Bundler {
 		File loneFile = dir.listFiles()[0];
 		return Files.move(loneFile.toPath(), newPath);
 	}
-	
+
 	private String scriptNameForDir(File dir) {
 		String name = dir.getName();
-		if(name.startsWith(SCRIPT_DESIGN) && name.startsWith(SCRIPT_DESIGN + $)) {
+		if (name.startsWith(SCRIPT_DESIGN) && name.startsWith(SCRIPT_DESIGN + $)) {
 			return name + JS_EXTENSION;
 		}
-		if(name.startsWith(SCRIPT_DESIGN) && !name.startsWith(SCRIPT_DESIGN + $)) {
+		if (name.startsWith(SCRIPT_DESIGN) && !name.startsWith(SCRIPT_DESIGN + $)) {
 			return name.replace(SCRIPT_DESIGN, SCRIPT_DESIGN + $) + JS_EXTENSION;
 		} else {
 			return SCRIPT_DESIGN + $ + name + JS_EXTENSION;

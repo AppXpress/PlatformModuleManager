@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -65,6 +66,10 @@ public class ZipService {
 				zos.write(block, 0, bytesRead);
 			}
 		}
+	}
+	
+	public void zipDirectory(Path directory) throws AppXpressException {
+		zipDirectory(directory.toFile());
 	}
 
 	/**

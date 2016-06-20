@@ -4,7 +4,6 @@ import static com.gtnexus.appxpress.AppXpressConstants.$;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_ACTION_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_LINK_D1;
 import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_OBJECT_MODULE;
-import static com.gtnexus.appxpress.AppXpressConstants.CUSTOM_UI;
 import static com.gtnexus.appxpress.AppXpressConstants.DESIGN_;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPTS;
 import static com.gtnexus.appxpress.AppXpressConstants.SCRIPT_DESIGN;

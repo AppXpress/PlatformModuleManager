@@ -1,5 +1,7 @@
 package com.gtnexus.appxpress.commons.file;
 
+import static com.gtnexus.appxpress.AppXpressConstants.IGNORE_SET;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -7,8 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-
-import static com.gtnexus.appxpress.AppXpressConstants.IGNORE_SET;
 
 /**
  * When used with Files.walkFileTree() this class will copy entire File tree from source
