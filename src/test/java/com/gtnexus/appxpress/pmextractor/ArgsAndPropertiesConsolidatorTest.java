@@ -34,7 +34,6 @@ public class ArgsAndPropertiesConsolidatorTest {
 	@BeforeClass
 	public static void  setup() {
 		optSet = EnumSet.allOf(ExtractorOption.class);
-		
 	}
 	
 	@Before
@@ -58,9 +57,9 @@ public class ArgsAndPropertiesConsolidatorTest {
 		for (ExtractorOption option : allNonOmmitable) {
 			if(!option.equals(ExtractorOption.SELECT)) {
 				assertNotNull(option.toString() + " is missing!", consolidated.get(option));
-				assertTrue("Option value was " + consolidated.get(option), 
+				assertTrue( option.getLongName() + " -> Option value was " + consolidated.get(option), 
 						consolidated.get(option).startsWith("arg_") || 
-						consolidated.get(option).equals("N"));
+						consolidated.get(option).equals(option.getDefaultValue()));
 			}
 		}
 	}
@@ -83,10 +82,9 @@ public class ArgsAndPropertiesConsolidatorTest {
 						consolidated.get(option).startsWith("prop_"));
 			} else if(!option.equals(ExtractorOption.SELECT)) {
 				assertNotNull(option.toString() + " is missing!", consolidated.get(option));
-				assertTrue(consolidated.get(option)
-						+ " does not start with arg_.", 
+				assertTrue(consolidated.get(option) + " does not start with arg_.", 
 						consolidated.get(option).startsWith("arg_") ||
-						consolidated.get(option).equals("N"));
+						consolidated.get(option).equals(option.getDefaultValue()));
 			}
 		}
 	}
@@ -114,7 +112,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 				args, optSet, properties, inputStreamFrom("some_local_dir", "Y"),
 				new PrintStream(new NullOutputStream()));
 		Map<ExtractorOption, String> consolidated = consolidator.consolidate();
-		assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("N"));
+		assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("Y"));
 	}
 
 	/**

@@ -221,9 +221,9 @@ public class FileService {
 	public List<Path> copyFiles(final Collection<File> files,
 			final File destination, HasPrerequisite<File> precondition)
 			throws IOException {
-		Preconditions.checkArgument(files == null || destination == null, 
+		Preconditions.checkArgument(files != null && destination != null, 
 				"files and destination cannot be null.");
-		Preconditions.checkArgument(!destination.isDirectory(), 
+		Preconditions.checkArgument(destination.isDirectory(), 
 				"Destination " + destination.getName()+ " is not a directory.");
 		if (precondition == null) {
 			precondition = new HasPrerequisite.EmptyCondition<>();
