@@ -16,12 +16,16 @@
         <xs:element maxOccurs="unbounded" ref="eventField"/>
         <xs:element ref="workflowFeature"/>
         <xs:element ref="scriptingFeature"/>
+        <xs:element ref="attachmentFeature"/>
+        <xs:element ref="pdfFeature"/>
+        <xs:element ref="reportingFeature"/>
         <xs:element ref="integrationFeature"/>
         <xs:element ref="navFeature"/>
         <xs:element ref="anchor"/>
         <xs:element ref="visibilityType"/>
         <xs:element maxOccurs="unbounded" ref="roleSecurity"/>
         <xs:element ref="codSection"/>
+        <xs:element maxOccurs="unbounded" ref="codExtensionPoint"/>
         <xs:element ref="schemaVers"/>
         <xs:element ref="apiVersion"/>
       </xs:sequence>
@@ -152,25 +156,55 @@
         <xs:element ref="mimeType"/>
         <xs:element ref="description"/>
         <xs:element ref="fileName"/>
+        <xs:element ref="fieldMaskingEnabled"/>
+        <xs:element ref="fieldMaskFunctionName"/>
+        <xs:element ref="revisionIncrementFunctionName"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="fieldMaskingEnabled" type="xs:string"></xs:element>
+  <xs:element name="fieldMaskFunctionName" type="xs:string"></xs:element>
+  <xs:element name="revisionIncrementFunctionName" type="xs:string"></xs:element>
   <xs:element name="mimeType" type="xs:string"/>
   <xs:element name="fileName" type="xs:string"/>
+   <xs:element name="attachmentFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pdfFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="reportingFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="integrationFeature">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="enabled"/>
+        <xs:element ref="downloadRuntimeEnabled"/>
         <xs:element ref="uploadRuntimeEnabled"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="downloadRuntimeEnabled" type="xs:boolean"/>
   <xs:element name="uploadRuntimeEnabled" type="xs:boolean"/>
   <xs:element name="navFeature">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="enabled"/>
         <xs:element ref="navHeading"/>
+        <xs:element ref="landingOQL"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -188,6 +222,7 @@
   <xs:element name="anchorOQL" type="xs:string"/>
   <xs:element name="requiredDocStates" type="xs:string"/>
   <xs:element name="navHeading" type="xs:NCName"/>
+  <xs:element name="landingOQL" type="xs:string"/>
   <xs:element name="visibilityType" type="xs:NCName"/>
   <xs:element name="roleSecurity">
     <xs:complexType>
@@ -204,8 +239,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="role" type="xs:NCName"/>
   <xs:element name="numberOfDisplayColumns" type="xs:integer"/>
+  <xs:element name="codExtensionPoint">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="code"/>
+        <xs:element ref="roles"/>
+        <xs:element ref="fieldPosition"/>
+        <xs:element ref="objectQueryEnabled"/>
+        <xs:element ref="mutateSelfEnabled"/>
+        <xs:element ref="mutateOthersEnabled"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="code" type="xs:string"></xs:element>
+  <xs:element name="objectQueryEnabled" type="xs:string"></xs:element>
+  <xs:element name="mutateSelfEnabled" type="xs:string"></xs:element>
+  <xs:element name="mutateOthersEnabled" type="xs:string"></xs:element>
+  <xs:element name="role" type="xs:NCName"/>
   <xs:element name="schemaVers" type="xs:NCName"/>
   <xs:element name="apiVersion" type="xs:integer"/>
   <xs:element name="name" type="xs:string"/>

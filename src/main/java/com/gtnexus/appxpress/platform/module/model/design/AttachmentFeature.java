@@ -25,8 +25,6 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{}enabled"/>
- *         &lt;element ref="{}downloadRuntimeEnabled"/>
- *         &lt;element ref="{}uploadRuntimeEnabled"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,16 +35,12 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "enabled",
-    "downloadRuntimeEnabled",
-    "uploadRuntimeEnabled"
+    "enabled"
 })
-@XmlRootElement(name = "integrationFeature")
-public class IntegrationFeature {
+@XmlRootElement(name = "attachmentFeature")
+public class AttachmentFeature {
 
     protected boolean enabled;
-    protected boolean downloadRuntimeEnabled;
-    protected boolean uploadRuntimeEnabled;
 
     /**
      * Gets the value of the enabled property.
@@ -62,38 +56,6 @@ public class IntegrationFeature {
      */
     public void setEnabled(boolean value) {
         this.enabled = value;
-    }
-
-    /**
-     * Gets the value of the downloadRuntimeEnabled property.
-     * 
-     */
-    public boolean isDownloadRuntimeEnabled() {
-        return downloadRuntimeEnabled;
-    }
-
-    /**
-     * Sets the value of the downloadRuntimeEnabled property.
-     * 
-     */
-    public void setDownloadRuntimeEnabled(boolean value) {
-        this.downloadRuntimeEnabled = value;
-    }
-
-    /**
-     * Gets the value of the uploadRuntimeEnabled property.
-     * 
-     */
-    public boolean isUploadRuntimeEnabled() {
-        return uploadRuntimeEnabled;
-    }
-
-    /**
-     * Sets the value of the uploadRuntimeEnabled property.
-     * 
-     */
-    public void setUploadRuntimeEnabled(boolean value) {
-        this.uploadRuntimeEnabled = value;
     }
 
 }
