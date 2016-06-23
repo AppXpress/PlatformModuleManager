@@ -8,13 +8,17 @@
         <xs:element ref="name"/>
         <xs:element ref="description"/>
         <xs:element ref="uniqueIdentifier"/>
+        <xs:element ref="licenseeField"/>
+        <xs:element ref="useTableSupport"/>
         <xs:element ref="designType"/>
         <xs:element maxOccurs="unbounded" ref="scalarField"/>
         <xs:element maxOccurs="unbounded" ref="linkField"/>
+        <xs:element maxOccurs="unbounded" ref="eventField"/>
         <xs:element ref="workflowFeature"/>
         <xs:element ref="scriptingFeature"/>
         <xs:element ref="integrationFeature"/>
         <xs:element ref="navFeature"/>
+        <xs:element ref="anchor"/>
         <xs:element ref="visibilityType"/>
         <xs:element maxOccurs="unbounded" ref="roleSecurity"/>
         <xs:element ref="codSection"/>
@@ -26,6 +30,8 @@
   <xs:element name="version" type="xs:integer"/>
   <xs:element name="globalObjectType" type="xs:string"/>
   <xs:element name="uniqueIdentifier" type="xs:NCName"/>
+  <xs:element name="licenseeField" type="xs:NCName"/>
+  <xs:element name="useTableSupport" type="xs:boolean"/>
   <xs:element name="designType" type="xs:NCName"/>
   <xs:element name="scalarField">
     <xs:complexType>
@@ -73,6 +79,18 @@
   </xs:element>
   <xs:element name="linkToDesign" type="xs:NCName"/>
   <xs:element name="isCollection" type="xs:boolean"/>
+    <xs:element name="eventField">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fieldName"/>
+        <xs:element ref="fieldNumber"/>
+        <xs:element ref="description"/>
+        <xs:element ref="fieldPosition"/>
+        <xs:element ref="eventType"/>
+        <xs:element ref="functionName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="workflowFeature">
     <xs:complexType>
       <xs:sequence>
@@ -156,6 +174,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+   <xs:element name="anchor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="transactionType"/>
+        <xs:element ref="isCollection"/>
+        <xs:element ref="anchorOQL"/>
+        <xs:element ref="requiredDocStates"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="transactionType" type="xs:NCName"/>
+  <xs:element name="anchorOQL" type="xs:string"/>
+  <xs:element name="requiredDocStates" type="xs:string"/>
   <xs:element name="navHeading" type="xs:NCName"/>
   <xs:element name="visibilityType" type="xs:NCName"/>
   <xs:element name="roleSecurity">
@@ -166,16 +197,23 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="role" type="xs:NCName"/>
   <xs:element name="codSection">
-    <xs:complexType/>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="numberOfDisplayColumns"/>
+      </xs:sequence>
+    </xs:complexType>
   </xs:element>
+  <xs:element name="role" type="xs:NCName"/>
+  <xs:element name="numberOfDisplayColumns" type="xs:integer"/>
   <xs:element name="schemaVers" type="xs:NCName"/>
   <xs:element name="apiVersion" type="xs:integer"/>
   <xs:element name="name" type="xs:string"/>
   <xs:element name="description" type="xs:string"/>
   <xs:element name="fieldName" type="xs:NCName"/>
   <xs:element name="fieldNumber" type="xs:integer"/>
+  <xs:element name="eventType" type="xs:NCName"/>
+  <xs:element name="functionName" type="xs:NCName"/>
   <xs:element name="fieldPosition" type="xs:integer"/>
   <xs:element name="renderedOnUi" type="xs:NCName"/>
   <xs:element name="enabled" type="xs:boolean"/>

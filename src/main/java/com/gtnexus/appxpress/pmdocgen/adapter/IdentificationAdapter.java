@@ -14,7 +14,7 @@ public class IdentificationAdapter extends CustomObjectDesignV110DisplayAdapter 
 			.put("Design Type", CustomObjectDesignV110DisplayAdapter.DESIGN_TYPE_FN)
 			.put("Description", CustomObjectDesignV110DisplayAdapter.DESCRIPTION_FN)
 			.put("Natural Identifier", CustomObjectDesignV110DisplayAdapter.NATURAL_IDENTIFIER_FN)
-			// .put("Licensee Field", null)
+			.put("Licensee Field", CustomObjectDesignV110DisplayAdapter.LICENSEE_FIELD_FN)
 			.put("API Version", CustomObjectDesignV110DisplayAdapter.API_VERSION_FN).build();
 
 	public IdentificationAdapter() {

@@ -47,11 +47,13 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="globalObjectType"/>
+        <xs:element ref="directoryName"/>
         <xs:element ref="uiType"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="globalObjectType" type="xs:string"/>
+  <xs:element name="directoryName" type="xs:string"/>
   <xs:element name="uiType" type="xs:NCName"/>
   <xs:element name="notificationTopic">
     <xs:complexType>

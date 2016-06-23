@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="CUSTOMACTIOND1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="__metadata">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="apiVersion" type="xs:int"></xs:element>
+              <xs:element name="type" type="xs:string"></xs:element>
+              <xs:element name="uid" type="xs:int"></xs:element>
+              <xs:element name="createTimestamp" type="xs:string"></xs:element>
+              <xs:element name="modifyTimestamp" type="xs:string"></xs:element>
+			  <xs:element name="status" type="xs:string"></xs:element>
+			  <xs:element name="userModRev" type="xs:int"></xs:element>
+			  <xs:element name="creatorId" type="xs:int"></xs:element>
+			  <xs:element name="fingerprint" type="xs:string"></xs:element>
+			  <xs:element name="redirectUrl" type="xs:string"></xs:element>
+			  <xs:element name="self" type="xs:string"></xs:element>
+			</xs:sequence>
+	      </xs:complexType>
+		</xs:element>
+	    <xs:element name="type" type="xs:string"></xs:element>
+	    <xs:element name="uid" type="xs:int"></xs:element>
+	    <xs:element name="customActionId" type="xs:int"></xs:element>
+	    <xs:element name="platformModuleId" type="xs:int"></xs:element>
+	    <xs:element name="platformModuleType" type="xs:string"></xs:element>
+	    <xs:element name="name" type="xs:string"></xs:element>
+	    <xs:element name="status" type="xs:string"></xs:element>
+	    <xs:element name="docType" type="xs:string"></xs:element>
+        <xs:element name="apiVersion" type="xs:int"></xs:element>
+	    <xs:element name="roles" type="xs:string"></xs:element>
+	    <xs:element name="executeFn" type="xs:string"></xs:element>
+	    <xs:element name="fingerprint" type="xs:string"></xs:element>
+	  </xs:sequence>
+	</xs:complexType>
+  </xs:element>
+</xs:schema>
