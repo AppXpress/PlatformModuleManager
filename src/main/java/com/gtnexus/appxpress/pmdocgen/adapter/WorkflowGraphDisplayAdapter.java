@@ -14,10 +14,10 @@ public class WorkflowGraphDisplayAdapter extends DisplayAdapter<WorkflowGraph.No
 	}
 
 	
-	protected static final Function<WorkflowGraph.Node, String> FN = new Function<WorkflowGraph.Node, String> () {
+	protected static final Function<WorkflowGraph.Node, String> FN = new PrimitiveDisplayFunction<WorkflowGraph.Node> () {
 
 		@Override
-		public String apply(Node n) {
+		public String applyToNonNull(Node n) {
 			return null;
 		}
 		

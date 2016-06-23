@@ -9,16 +9,16 @@ import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModule
 
 public class PlatformModuleXmlDisplayAdapter extends DisplayAdapter<PlatformModuleXml>{
 
-	public static final Function<PlatformModuleXml, String> NAME_FN =  new Function<PlatformModuleXml, String>() {
+	public static final Function<PlatformModuleXml, String> NAME_FN =  new PrimitiveDisplayFunction<PlatformModuleXml>() {
     	@Override
-    	public String apply(PlatformModuleXml mod) {
+    	public String applyToNonNull(PlatformModuleXml mod) {
     		return mod.getName();
     	}
     };
 
-    public static final Function<PlatformModuleXml, String> API_VERSION_FN = new Function<PlatformModuleXml, String>() {
+    public static final Function<PlatformModuleXml, String> API_VERSION_FN = new PrimitiveDisplayFunction<PlatformModuleXml>() {
     	@Override
-    	public String apply(PlatformModuleXml mod) {
+    	public String applyToNonNull(PlatformModuleXml mod) {
     		Metadata metadata = mod.getMetadata();
     		if(metadata != null && metadata.getApiVersion() != null) {
     			return metadata.getApiVersion().toString();
@@ -27,9 +27,9 @@ public class PlatformModuleXmlDisplayAdapter extends DisplayAdapter<PlatformModu
     	}
     };
 
-    public static final Function<PlatformModuleXml, String> DESCRIPTION_FN =  new Function<PlatformModuleXml, String>() {
+    public static final Function<PlatformModuleXml, String> DESCRIPTION_FN =  new PrimitiveDisplayFunction<PlatformModuleXml>() {
     	@Override
-    	public String apply(PlatformModuleXml mod) {
+    	public String applyToNonNull(PlatformModuleXml mod) {
     		return mod.getDescription();
     	}
     };

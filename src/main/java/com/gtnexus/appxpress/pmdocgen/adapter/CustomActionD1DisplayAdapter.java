@@ -9,52 +9,52 @@ import com.gtnexus.appxpress.platform.module.model.customaction.CustomActionD1;
 
 public class CustomActionD1DisplayAdapter extends DisplayAdapter<CustomActionD1>{
 
-	public static final Function<CustomActionD1, String> DOC_TYPE_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> DOC_TYPE_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			return ca.getDocType();
 		}
 	};
 
-	public static final Function<CustomActionD1, String> API_VERSION_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> API_VERSION_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			BigInteger apiVersion = ca.getApiVersion();
 			return apiVersion == null ? "" : apiVersion.toString();
 		}
 	};
 	
-	public static final Function<CustomActionD1, String> NAME_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> NAME_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			return ca.getName();
 		}
 	};
 	
-	public static final Function<CustomActionD1, String> ROLES_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> ROLES_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			return ca.getRoles();
 		}
 	};
 	
-	public static final Function<CustomActionD1, String> OQL_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> OQL_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			return ca.getOql();
 		}
 	};
 	
-	public static final Function<CustomActionD1, String> HAS_ACTION_FN_NAME_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> HAS_ACTION_FN_NAME_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			return ca.getHasActionFn();
 		}
 	};
 	
-	public static final Function<CustomActionD1, String> EXECUTION_FN_NAME_FN = new Function<CustomActionD1, String>() {
+	public static final Function<CustomActionD1, String> EXECUTION_FN_NAME_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
-		public String apply(CustomActionD1 ca) {
+		public String applyToNonNull(CustomActionD1 ca) {
 			return ca.getExecuteFn();
 		}
 	};

@@ -8,28 +8,28 @@ import com.gtnexus.appxpress.platform.module.model.design.Step;
 
 public class WorkflowStepDisplayAdapter extends DisplayAdapter<Step>{
 	
-	protected static final Function<Step, String> EXTENSION_PT_FN = new Function<Step, String>() {
+	protected static final Function<Step, String> EXTENSION_PT_FN = new PrimitiveDisplayFunction<Step>() {
 
 		@Override
-		public String apply(Step step) {
+		public String applyToNonNull(Step step) {
 			return step.getState();
 		}
 		
 	};
 	
-	protected static final Function<Step, String> EDIT_ROLES_FN = new Function<Step, String>() {
+	protected static final Function<Step, String> EDIT_ROLES_FN = new PrimitiveDisplayFunction<Step>() {
 
 		@Override
-		public String apply(Step step) {
+		public String applyToNonNull(Step step) {
 			return step.getEditRoles();
 		}
 		
 	};
 	
-	protected static final Function<Step, String> ACTION_FN = new Function<Step, String>() {
+	protected static final Function<Step, String> ACTION_FN = new PrimitiveDisplayFunction<Step>() {
 
 		@Override
-		public String apply(Step step) {
+		public String applyToNonNull(Step step) {
 			return null;
 		}
 		
