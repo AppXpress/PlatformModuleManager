@@ -102,7 +102,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	
 	private void renderScalarFields(CustomObjectDesignV110 design) {
 		traverser.nextRow();
-		renderSectionHeader("Scalar Fields", 5);
+		renderSectionHeader("Scalar Fields", scalarFieldDisplayAdapter);
 		renderTableHeader(scalarFieldDisplayAdapter);
 		renderTableBody(design.getScalarField(), scalarFieldDisplayAdapter);
 	}
@@ -154,7 +154,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	
 	/**
 	 * 
-	 * @param sectioName
+	 * @param sectionName
 	 * @param cellWidth how many cells wide this section is.
 	 */
 	private void renderSectionHeader(String sectioName, int cellWidth) {

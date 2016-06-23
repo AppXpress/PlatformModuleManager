@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.util.Map;
 
 import com.google.common.base.Function;
+import com.gtnexus.appxpress.platform.module.model.design.Anchor;
+import com.gtnexus.appxpress.platform.module.model.design.CodSection;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 
 public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapter<CustomObjectDesignV110> {
@@ -49,7 +51,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
 			// TODO Auto-generated method stub
-			return null;
+			return design.getLicenseeField();
 		}
 	};
 
@@ -74,6 +76,11 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 	protected static final Function<CustomObjectDesignV110, String> DISPLAY_COLUMNS_FN = new Function<CustomObjectDesignV110, String>() {
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
+			CodSection codSection = design.getCodSection();
+			if (codSection != null) {
+				BigInteger numberOfDisplayColumns = codSection.getNumberOfDisplayColumns();
+				return numberOfDisplayColumns == null ? "" : numberOfDisplayColumns.toString();
+			}
 			return null;
 		}
 	};
@@ -81,7 +88,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 	protected static final Function<CustomObjectDesignV110, String> ANCHOR_TO_FN = new Function<CustomObjectDesignV110, String>() {
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
-			return null;
+			return design.getAnchor() != null ? design.getAnchor().getTransactionType() : null;
 		}
 	};
 
@@ -93,12 +100,20 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 	};
 
 	protected static final Function<CustomObjectDesignV110, String> ANCHOR_CARDINALITY_FN = new Function<CustomObjectDesignV110, String>() {
+		final String LIST = "List";
+		final String SINGLE = "Single";
+		
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
+			Anchor anchor = design.getAnchor();
+			if (anchor != null) {
+				return design.getAnchor().isIsCollection() ? LIST : SINGLE;
+			}
 			return null;
 		}
 	};
 
+	//TODO
 	protected static final Function<CustomObjectDesignV110, String> FIELD_MASKING_SCRIPT_NAME_FN = new Function<CustomObjectDesignV110, String>() {
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
@@ -106,6 +121,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 		}
 	};
 
+	//TODO
 	protected static final Function<CustomObjectDesignV110, String> REQUIRED_DOC_STATUS_FN = new Function<CustomObjectDesignV110, String>() {
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
@@ -123,7 +139,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 	protected static final Function<CustomObjectDesignV110, String> ENABLE_TABLE_MODE_FN = new Function<CustomObjectDesignV110, String>() {
 		@Override
 		public String apply(CustomObjectDesignV110 design) {
-			return null;
+			return Boolean.toString(design.isUseTableSupport());
 		}
 	};
 	

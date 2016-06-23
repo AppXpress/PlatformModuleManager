@@ -37,6 +37,14 @@ public class ScalarFieldDisplayAdapter  extends DisplayAdapter<ScalarField> {
 		}
 	};
 	
+	protected static Function<ScalarField, String> SUMMARY_FIELD_FN = new Function<ScalarField, String>() {
+
+		@Override
+		public String apply(ScalarField field) {
+			return Boolean.toString(field.isSummaryField());
+		}
+	};
+	
 	protected static Function<ScalarField, String> RENDER_ON_UI_FN = new Function<ScalarField, String>() {
 
 		@Override
@@ -67,6 +75,7 @@ public class ScalarFieldDisplayAdapter  extends DisplayAdapter<ScalarField> {
 			.put("Field Name", NAME_FN)
 			.put("Data Type", DATA_TYPE_FN)
 			.put("Indexed?", INDEXED_FN)
+			.put("Summary Field", SUMMARY_FIELD_FN)
 			.put("Render On UI", RENDER_ON_UI_FN)
 			.put("Max Length", MAX_LENGTH_FN)
 			.put("field Position", FIELD_POSITION_FN)
