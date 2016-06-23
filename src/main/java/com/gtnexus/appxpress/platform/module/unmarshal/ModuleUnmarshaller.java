@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.platform.module.ModuleModelPointer;
 import com.gtnexus.appxpress.platform.module.ModuleVO;
+import com.gtnexus.appxpress.platform.module.model.customaction.CustomActionD1;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
 import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
@@ -26,6 +27,9 @@ public class ModuleUnmarshaller {
 		ModuleVO.Builder builder = new ModuleVO.Builder();
 		try {
 			builder.setPlatformModuleXml(unmarshallPlatMod(vo.getPlatformModuleXml()));
+			for (File f : vo.getCustomActions()) {
+				builder.addCustomAction(unmarshallCA(f));
+			}
 			for (File f : vo.getTypeExtensions()) {
 				builder.addTypeExtension(unmarshallTE(f));
 			}
@@ -42,6 +46,10 @@ public class ModuleUnmarshaller {
 		return unmarshall(PlatformModuleXml.class, f);
 	}
 
+	private CustomActionD1 unmarshallCA(File f) throws JAXBException, IOException {
+		return unmarshall(CustomActionD1.class, f);
+	}
+	
 	private TypeExtensionD1 unmarshallTE(File f) throws JAXBException, IOException {
 		return unmarshall(TypeExtensionD1.class, f);
 	}
