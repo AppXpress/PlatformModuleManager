@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.pmdocgen.adapter;
 
-import java.math.BigInteger;
 import java.util.Map;
 
 import com.google.common.base.Function;
@@ -21,8 +20,7 @@ public class EmbeddedFieldsDisplayAdapter extends DisplayAdapter<LinkField>{
 		
 		@Override
 		public String applyToNonNull(LinkField field) {
-			BigInteger fieldPosition = field.getFieldPosition();
-			return fieldPosition == null ? "" : fieldPosition.toString();
+			return field.getFieldPosition() == null ? "" : field.getFieldPosition().toString();
 		}
 	};
 	

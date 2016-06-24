@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.pmdocgen.adapter;
 
-import java.math.BigInteger;
 import java.util.Map;
 
 import com.google.common.base.Function;
@@ -19,8 +18,7 @@ public class CustomActionD1DisplayAdapter extends DisplayAdapter<CustomActionD1>
 	public static final Function<CustomActionD1, String> API_VERSION_FN = new PrimitiveDisplayFunction<CustomActionD1>() {
 		@Override
 		public String applyToNonNull(CustomActionD1 ca) {
-			BigInteger apiVersion = ca.getApiVersion();
-			return apiVersion == null ? "" : apiVersion.toString();
+			return ca.getApiVersion() == null ? "" : ca.getApiVersion().toString();
 		}
 	};
 	

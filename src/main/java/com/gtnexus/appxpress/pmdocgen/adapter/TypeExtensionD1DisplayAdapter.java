@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.pmdocgen.adapter;
 
-import java.math.BigInteger;
 import java.util.Map;
 
 import com.google.common.base.Function;
@@ -20,16 +19,14 @@ public class TypeExtensionD1DisplayAdapter extends DisplayAdapter<TypeExtensionD
 	public static final Function<TypeExtensionD1, String> API_VERSION_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
 		public String applyToNonNull(TypeExtensionD1 te) {
-			BigInteger apiVersion = te.getApiVersion();
-			return apiVersion == null ? "" : apiVersion.toString();
+			return te.getApiVersion() == null ? "" : te.getApiVersion().toString();
 		}
 	};
 
 	public static final Function<TypeExtensionD1, String> RANK_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
 		public String applyToNonNull(TypeExtensionD1 te) {
-			BigInteger rank = te.getRank();
-			return rank == null ? "" : rank.toString();
+			return te.getRank() == null ? "" : te.getRank().toString();
 		}
 	};
 

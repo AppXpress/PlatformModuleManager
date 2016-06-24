@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.pmdocgen.adapter;
 
-import java.math.BigInteger;
 import java.util.Map;
 
 import com.google.common.base.Function;
@@ -57,8 +56,7 @@ public class ScalarFieldDisplayAdapter  extends DisplayAdapter<ScalarField> {
 
 		@Override
 		public String applyToNonNull(ScalarField field) {
-			BigInteger maxLength = field.getMaxLength();
-			return maxLength == null ? "" : maxLength.toString();
+			return field.getMaxLength() == null ? "" : field.getMaxLength().toString();
 		}
 	};
 	
@@ -66,8 +64,7 @@ public class ScalarFieldDisplayAdapter  extends DisplayAdapter<ScalarField> {
 
 		@Override
 		public String applyToNonNull(ScalarField field) {
-			BigInteger fieldPosition = field.getFieldPosition();
-			return fieldPosition == null ? "" : fieldPosition.toString();
+			return field.getFieldPosition() == null ? "" : field.getFieldPosition().toString();
 		}
 	};
 	
