@@ -13,6 +13,7 @@ import com.gtnexus.appxpress.platform.module.unmarshal.ModuleUnmarshaller;
 public class PlatformModuleInterpreter {
 	
 	private static final Pattern CA_FILENAME_REGEX = Pattern.compile("\\d+.xml$");
+	private static final Pattern CL_FILENAME_REGEX = Pattern.compile("\\d+.xml$");
 	private static final Pattern TE_FILENAME_REGEX = Pattern.compile("[a-zA-Z-_]+__Rank-\\d+\\.xml$");
 	private static final Pattern DESIGN_FILENAME_REGEX = Pattern.compile("^Design_\\w+\\.xml$");
 	
@@ -36,6 +37,7 @@ public class PlatformModuleInterpreter {
 		File targetModule = vo.getTargetModule();
 		File platModXml = null;
 		File[] customActions = null;
+		File[] customLinks = null;
 		File[] typeExtensions = null;
 		File[] designs = null;
 		for (File f : targetModule.listFiles()) {
@@ -44,6 +46,8 @@ public class PlatformModuleInterpreter {
 				platModXml = f;
 			} else if ("CustomActionD1".equals(fileName)) {
 				customActions = f.listFiles(FileFilterFactory.fileNameMatches(CA_FILENAME_REGEX));
+			} else if ("CustomLinkD1".equals(fileName)) {
+				customLinks = f.listFiles(FileFilterFactory.fileNameMatches(CL_FILENAME_REGEX));
 			} else if ("TypeExtensionD1".equals(fileName)) {
 				typeExtensions = f.listFiles(FileFilterFactory.fileNameMatches(TE_FILENAME_REGEX));
 			} else if ("CustomObjectModule".equals(fileName)) {
@@ -56,6 +60,6 @@ public class PlatformModuleInterpreter {
 		if(platModXml == null) {
 			throw new IllegalStateException("There is no PlatformModule.xml in this module.");
 		}
-		return ModuleModelPointer.make(vo, platModXml, customActions, typeExtensions, designs);
+		return ModuleModelPointer.make(vo, platModXml, customActions, customLinks, typeExtensions, designs);
 	}
 }
