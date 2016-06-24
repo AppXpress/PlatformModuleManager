@@ -31,10 +31,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *       &lt;sequence>
  *         &lt;element ref="{}fieldName"/>
  *         &lt;element ref="{}fieldNumber"/>
+ *         &lt;element ref="{}description"/>
  *         &lt;element ref="{}fieldPosition"/>
- *         &lt;element ref="{}linkToDesign"/>
- *         &lt;element ref="{}renderedOnUi"/>
- *         &lt;element ref="{}isCollection"/>
+ *         &lt;element ref="{}eventType"/>
+ *         &lt;element ref="{}functionName"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -47,13 +47,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "fieldName",
     "fieldNumber",
+    "description",
     "fieldPosition",
-    "linkToDesign",
-    "renderedOnUi",
-    "isCollection"
+    "eventType",
+    "functionName"
 })
-@XmlRootElement(name = "linkField")
-public class LinkField {
+@XmlRootElement(name = "eventField")
+public class EventField {
 
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -62,16 +62,17 @@ public class LinkField {
     @XmlElement(required = true)
     protected BigInteger fieldNumber;
     @XmlElement(required = true)
+    protected String description;
+    @XmlElement(required = true)
     protected BigInteger fieldPosition;
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlSchemaType(name = "NCName")
-    protected String linkToDesign;
+    protected String eventType;
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlSchemaType(name = "NCName")
-    protected String renderedOnUi;
-    protected boolean isCollection;
+    protected String functionName;
 
     /**
      * Gets the value of the fieldName property.
@@ -122,6 +123,30 @@ public class LinkField {
     }
 
     /**
+     * Gets the value of the description property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the value of the description property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescription(String value) {
+        this.description = value;
+    }
+
+    /**
      * Gets the value of the fieldPosition property.
      * 
      * @return
@@ -146,67 +171,51 @@ public class LinkField {
     }
 
     /**
-     * Gets the value of the linkToDesign property.
+     * Gets the value of the eventType property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLinkToDesign() {
-        return linkToDesign;
+    public String getEventType() {
+        return eventType;
     }
 
     /**
-     * Sets the value of the linkToDesign property.
+     * Sets the value of the eventType property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLinkToDesign(String value) {
-        this.linkToDesign = value;
+    public void setEventType(String value) {
+        this.eventType = value;
     }
 
     /**
-     * Gets the value of the renderedOnUi property.
+     * Gets the value of the functionName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getRenderedOnUi() {
-        return renderedOnUi;
+    public String getFunctionName() {
+        return functionName;
     }
 
     /**
-     * Sets the value of the renderedOnUi property.
+     * Sets the value of the functionName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setRenderedOnUi(String value) {
-        this.renderedOnUi = value;
-    }
-
-    /**
-     * Gets the value of the isCollection property.
-     * 
-     */
-    public boolean isIsCollection() {
-        return isCollection;
-    }
-
-    /**
-     * Sets the value of the isCollection property.
-     * 
-     */
-    public void setIsCollection(boolean value) {
-        this.isCollection = value;
+    public void setFunctionName(String value) {
+        this.functionName = value;
     }
 
 }

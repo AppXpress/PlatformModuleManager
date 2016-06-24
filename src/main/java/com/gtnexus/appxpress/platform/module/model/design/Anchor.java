@@ -28,9 +28,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}enabled"/>
- *         &lt;element ref="{}navHeading"/>
- *         &lt;element ref="{}landingOQL"/>
+ *         &lt;element ref="{}transactionType"/>
+ *         &lt;element ref="{}isCollection"/>
+ *         &lt;element ref="{}anchorOQL"/>
+ *         &lt;element ref="{}requiredDocStates"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -41,83 +42,110 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "enabled",
-    "navHeading",
-    "landingOQL"
+    "transactionType",
+    "isCollection",
+    "anchorOQL",
+    "requiredDocStates"
 })
-@XmlRootElement(name = "navFeature")
-public class NavFeature {
+@XmlRootElement(name = "anchor")
+public class Anchor {
 
-    protected boolean enabled;
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlSchemaType(name = "NCName")
-    protected String navHeading;
+    protected String transactionType;
+    protected boolean isCollection;
     @XmlElement(required = true)
-    protected String landingOQL;
+    protected String anchorOQL;
+    @XmlElement(required = true)
+    protected String requiredDocStates;
 
     /**
-     * Gets the value of the enabled property.
-     * 
-     */
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    /**
-     * Sets the value of the enabled property.
-     * 
-     */
-    public void setEnabled(boolean value) {
-        this.enabled = value;
-    }
-
-    /**
-     * Gets the value of the navHeading property.
+     * Gets the value of the transactionType property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getNavHeading() {
-        return navHeading;
+    public String getTransactionType() {
+        return transactionType;
     }
 
     /**
-     * Sets the value of the navHeading property.
+     * Sets the value of the transactionType property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setNavHeading(String value) {
-        this.navHeading = value;
+    public void setTransactionType(String value) {
+        this.transactionType = value;
     }
 
     /**
-     * Gets the value of the landingOQL property.
+     * Gets the value of the isCollection property.
+     * 
+     */
+    public boolean isIsCollection() {
+        return isCollection;
+    }
+
+    /**
+     * Sets the value of the isCollection property.
+     * 
+     */
+    public void setIsCollection(boolean value) {
+        this.isCollection = value;
+    }
+
+    /**
+     * Gets the value of the anchorOQL property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLandingOQL() {
-        return landingOQL;
+    public String getAnchorOQL() {
+        return anchorOQL;
     }
 
     /**
-     * Sets the value of the landingOQL property.
+     * Sets the value of the anchorOQL property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLandingOQL(String value) {
-        this.landingOQL = value;
+    public void setAnchorOQL(String value) {
+        this.anchorOQL = value;
+    }
+
+    /**
+     * Gets the value of the requiredDocStates property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRequiredDocStates() {
+        return requiredDocStates;
+    }
+
+    /**
+     * Sets the value of the requiredDocStates property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRequiredDocStates(String value) {
+        this.requiredDocStates = value;
     }
 
 }

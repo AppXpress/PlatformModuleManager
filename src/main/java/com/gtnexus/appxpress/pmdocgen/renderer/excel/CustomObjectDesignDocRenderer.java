@@ -12,17 +12,25 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.gtnexus.appxpress.platform.module.interpretation.role.security.NormalizedRoleSecurity;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
-import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
+import com.gtnexus.appxpress.pmdocgen.adapter.AttachmentFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomObjectDesignV110DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
-import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptorAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptorDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.EmbeddedFieldsDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.EventsDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.ExtensionPointDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.IdentificationAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.IntegrationFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.NavFeatureDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.PdfFeatureDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.ReportingFeatureDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.RoleSecurityDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.RuntimeSettingsAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScalarFieldDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.ScriptingFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.WorkflowFeatureDisplayAdapter;
 
 public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjectDesignV110>{
@@ -31,13 +39,22 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final CustomObjectDesignV110DisplayAdapter runtimeSettingsDisplayAdapter;
 	private final ScalarFieldDisplayAdapter scalarFieldDisplayAdapter;
 	private final EmbeddedFieldsDisplayAdapter embeddedFieldsDisplayAdapter;
-	private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
+	private final EventsDisplayAdapter eventsDisplayAdapter;
+	private final RoleSecurityDisplayAdapter roleSecurityDisplayAdapter;
 	private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
+	private final ScriptingFeatureDisplayAdapter scriptingFeatureDisplayAdapter;
+	private final AttachmentFeatureDisplayAdapter attachmentFeatureDisplayAdapter;
+	private final PdfFeatureDisplayAdapter pdfFeatureDisplayAdapter;
+	private final ReportingFeatureDisplayAdapter reportingFeatureDisplayAdapter;
+	private final IntegrationFeatureDisplayAdapter integrationFeatureDisplayAdapter;
+	private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
+	private final ExtensionPointDisplayAdapter extensionPointDisplayAdapter;
 	
 	private final Map<String, String> truncatedNames;
 	
 	private static final String SHEET_NAME = "Custom Object Design";
 	private static final int MAX_WIDTH = 9;
+	private static final String PRIMARY = "PRIMARY";
 	
 	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook, Map<String, String> namesWithoutPrefix) {
 		super(workBook, SHEET_NAME, MAX_WIDTH);
@@ -45,8 +62,16 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();
 		this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
 		this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
-		this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
+		this.eventsDisplayAdapter = new EventsDisplayAdapter();
+		this.roleSecurityDisplayAdapter = new RoleSecurityDisplayAdapter();
 		this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
+		this.scriptingFeatureDisplayAdapter = new ScriptingFeatureDisplayAdapter();
+		this.attachmentFeatureDisplayAdapter = new AttachmentFeatureDisplayAdapter();
+		this.pdfFeatureDisplayAdapter = new PdfFeatureDisplayAdapter();
+		this.reportingFeatureDisplayAdapter = new ReportingFeatureDisplayAdapter();
+		this.integrationFeatureDisplayAdapter = new IntegrationFeatureDisplayAdapter();
+		this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
+		this.extensionPointDisplayAdapter = new ExtensionPointDisplayAdapter();
 		this.truncatedNames = namesWithoutPrefix;
 	}
 	
@@ -62,8 +87,19 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		renderRuntimeSettings(design);
 		renderScalarFields(design);
 		renderEmbeddedFields(design);
-		renderWorkflow(design);
-		renderNavigation(design);
+		
+		if (PRIMARY.equals(design.getDesignType())) {
+			renderEvents(design);
+			renderRolePermissions(design);
+			renderNavigation(design);
+			renderScripting(design);
+			renderAttachment(design);
+			renderPDFFeature(design);
+			renderReporting(design);
+			renderIntegration(design);
+			renderWorkflow(design);
+			renderExtensionPoints(design);
+		}
 		autofit();
 	}
 	
@@ -102,7 +138,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	
 	private void renderScalarFields(CustomObjectDesignV110 design) {
 		traverser.nextRow();
-		renderSectionHeader("Scalar Fields", 5);
+		renderSectionHeader("Scalar Fields", scalarFieldDisplayAdapter);
 		renderTableHeader(scalarFieldDisplayAdapter);
 		renderTableBody(design.getScalarField(), scalarFieldDisplayAdapter);
 	}
@@ -114,26 +150,86 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		renderTableBody(design.getLinkField(), embeddedFieldsDisplayAdapter);
 	}
 	
+	private void renderEvents(CustomObjectDesignV110 design) {
+		if (design.getEventField() == null || design.getEventField().isEmpty()) {
+			return;
+		}
+			traverser.nextRow();
+			renderSectionHeader("Events", eventsDisplayAdapter);
+			renderTableHeader(eventsDisplayAdapter);
+			renderTableBody(design.getEventField(), eventsDisplayAdapter);
+	}
+	
+	private void renderRolePermissions(CustomObjectDesignV110 design) {
+		if (design.getRoleSecurity() == null || design.getRoleSecurity().isEmpty()) {
+			return;
+		}
+		List<NormalizedRoleSecurity> normalizedRoleSecurities = NormalizedRoleSecurity.normalizeRoleSecurities(design.getRoleSecurity());
+		traverser.nextRow();
+		renderSectionHeader("Role Permissions", roleSecurityDisplayAdapter);
+		renderTableHeader(roleSecurityDisplayAdapter);
+		renderTableBody(normalizedRoleSecurities, roleSecurityDisplayAdapter);
+	}
+	
+	private void renderNavigation(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("Navigation Feature", navFeatureDisplayAdapter);
+		renderLableValueSection(design.getNavFeature(), navFeatureDisplayAdapter);
+	}
+	
+	private void renderScripting(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("Scripting", scriptingFeatureDisplayAdapter);
+		renderLableValueSection(design.getScriptingFeature(), scriptingFeatureDisplayAdapter);
+	}
+	
+	private void renderAttachment(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("Attachment", attachmentFeatureDisplayAdapter);
+		renderLableValueSection(design.getAttachmentFeature(), attachmentFeatureDisplayAdapter);
+	}
+
+	private void renderPDFFeature(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("PDF Feature", pdfFeatureDisplayAdapter);
+		renderLableValueSection(design.getPdfFeature(), pdfFeatureDisplayAdapter);
+	}
+	
+	private void renderReporting(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("Reporting", reportingFeatureDisplayAdapter);
+		renderLableValueSection(design.getReportingFeature(), reportingFeatureDisplayAdapter);
+	}
+	
+	private void renderIntegration(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("Integration", integrationFeatureDisplayAdapter);
+		renderLableValueSection(design.getIntegrationFeature(), integrationFeatureDisplayAdapter);
+	}
+
 	private void renderWorkflow(CustomObjectDesignV110 design) {
 		traverser.nextRow();
 		WorkflowFeature wff = design.getWorkflowFeature();
 		if(wff == null) {
-			return; //TODO: can we replace with a dummy "Disabled Feature"
+			return;
 		}
 		renderLabelValueSectionHeader("Workflow Design", 3);
 		renderLableValueSection(wff, workflowFeatureDisplayAdapter, 3);
-		List<EdgeDescriptorAdapter> edgeDesc = EdgeDescriptorAdapter.createDescriptors(wff.getWorkflow());
-		DisplayAdapter<EdgeDescriptorAdapter> adapter = edgeDesc.get(0);
+		List<EdgeDescriptorDisplayAdapter> edgeDesc = EdgeDescriptorDisplayAdapter.createDescriptors(wff.getWorkflow());
+		DisplayAdapter<EdgeDescriptorDisplayAdapter> adapter = edgeDesc.get(0);
 		renderSectionHeader("Workflow Steps", adapter);
 		renderTableHeader(adapter); //TODO: null check the descs
 		renderTableBody(edgeDesc, adapter);
 	}
 	
-	private void renderNavigation(CustomObjectDesignV110 design) {
+	private void renderExtensionPoints(CustomObjectDesignV110 design) {
+		if (design.getCodExtensionPoint() == null || design.getCodExtensionPoint().isEmpty()) {
+			return;
+		}
 		traverser.nextRow();
-		NavFeature navFeature = design.getNavFeature();
-		renderLabelValueSectionHeader("Navigation Feature", navFeatureDisplayAdapter);
-		renderLableValueSection(navFeature, navFeatureDisplayAdapter);
+		renderSectionHeader("Extension Points", extensionPointDisplayAdapter);
+		renderTableHeader(extensionPointDisplayAdapter);
+		renderTableBody(design.getCodExtensionPoint(), extensionPointDisplayAdapter);
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------
@@ -154,7 +250,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	
 	/**
 	 * 
-	 * @param sectioName
+	 * @param sectionName
 	 * @param cellWidth how many cells wide this section is.
 	 */
 	private void renderSectionHeader(String sectioName, int cellWidth) {

@@ -9,43 +9,43 @@ import com.gtnexus.appxpress.platform.module.model.design.LinkField;
 
 public class EmbeddedFieldsDisplayAdapter extends DisplayAdapter<LinkField>{
 	
-	private static final Function<LinkField, String> NAME_FN = new Function<LinkField, String>() {
+	private static final Function<LinkField, String> NAME_FN = new PrimitiveDisplayFunction<LinkField>() {
 		
 		@Override
-		public String apply(LinkField field) {
+		public String applyToNonNull(LinkField field) {
 			return field.getFieldName();
 		}
 	};
 	
-	private static final Function<LinkField, String> POSITION_FN = new Function<LinkField, String>() {
+	private static final Function<LinkField, String> POSITION_FN = new PrimitiveDisplayFunction<LinkField>() {
 		
 		@Override
-		public String apply(LinkField field) {
+		public String applyToNonNull(LinkField field) {
 			BigInteger fieldPosition = field.getFieldPosition();
 			return fieldPosition == null ? "" : fieldPosition.toString();
 		}
 	};
 	
-	private static final Function<LinkField, String> DESIGN_FN = new Function<LinkField, String>() {
+	private static final Function<LinkField, String> DESIGN_FN = new PrimitiveDisplayFunction<LinkField>() {
 		
 		@Override
-		public String apply(LinkField field) {
+		public String applyToNonNull(LinkField field) {
 			return field.getLinkToDesign();
 		}
 	};
 	
-	private static final Function<LinkField, String> RENDER_ON_UI_FN = new Function<LinkField, String>() {
+	private static final Function<LinkField, String> RENDER_ON_UI_FN = new PrimitiveDisplayFunction<LinkField>() {
 		
 		@Override
-		public String apply(LinkField field) {
+		public String applyToNonNull(LinkField field) {
 			return field.getRenderedOnUi();
 		}
 	};
 	
-	private static final Function<LinkField, String> IS_COLLECTION_FN = new Function<LinkField, String>() {
+	private static final Function<LinkField, String> IS_COLLECTION_FN = new PrimitiveDisplayFunction<LinkField>() {
 		
 		@Override
-		public String apply(LinkField field) {
+		public String applyToNonNull(LinkField field) {
 			return Boolean.toString(field.isIsCollection());
 		}
 	};

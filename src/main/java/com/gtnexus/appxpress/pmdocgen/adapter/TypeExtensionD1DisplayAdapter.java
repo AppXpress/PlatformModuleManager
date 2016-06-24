@@ -10,48 +10,48 @@ import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1
 
 public class TypeExtensionD1DisplayAdapter extends DisplayAdapter<TypeExtensionD1>{
 
-	public static final Function<TypeExtensionD1, String> DOC_TYPE_FN = new Function<TypeExtensionD1, String>() {
+	public static final Function<TypeExtensionD1, String> DOC_TYPE_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
-		public String apply(TypeExtensionD1 te) {
+		public String applyToNonNull(TypeExtensionD1 te) {
 			return te.getDocumentType();
 		}
 	};
 
-	public static final Function<TypeExtensionD1, String> API_VERSION_FN = new Function<TypeExtensionD1, String>() {
+	public static final Function<TypeExtensionD1, String> API_VERSION_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
-		public String apply(TypeExtensionD1 te) {
+		public String applyToNonNull(TypeExtensionD1 te) {
 			BigInteger apiVersion = te.getApiVersion();
 			return apiVersion == null ? "" : apiVersion.toString();
 		}
 	};
 
-	public static final Function<TypeExtensionD1, String> RANK_FN = new Function<TypeExtensionD1, String>() {
+	public static final Function<TypeExtensionD1, String> RANK_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
-		public String apply(TypeExtensionD1 te) {
+		public String applyToNonNull(TypeExtensionD1 te) {
 			BigInteger rank = te.getRank();
 			return rank == null ? "" : rank.toString();
 		}
 	};
 
-	public static final Function<TypeExtensionD1, String> EVENT_FN = new Function<TypeExtensionD1, String>() {
+	public static final Function<TypeExtensionD1, String> EVENT_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
-		public String apply(TypeExtensionD1 te) {
+		public String applyToNonNull(TypeExtensionD1 te) {
 			Callbacks cb = te.getCallbacks();
 			return cb == null ? "" : cb.getEvent();
 		}
 	};
 
-	public static final Function<TypeExtensionD1, String> ROLE_FN = new Function<TypeExtensionD1, String>() {
+	public static final Function<TypeExtensionD1, String> ROLE_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
-		public String apply(TypeExtensionD1 te) {
+		public String applyToNonNull(TypeExtensionD1 te) {
 			Callbacks cb = te.getCallbacks();
 			return cb == null ? "" : cb.getRole();
 		}
 	};
 
-	public static final Function<TypeExtensionD1, String> FN_NAME_FN = new Function<TypeExtensionD1, String>() {
+	public static final Function<TypeExtensionD1, String> FN_NAME_FN = new PrimitiveDisplayFunction<TypeExtensionD1>() {
 		@Override
-		public String apply(TypeExtensionD1 te) {
+		public String applyToNonNull(TypeExtensionD1 te) {
 			Callbacks cb = te.getCallbacks();
 			return cb == null ? "" : cb.getFunctionName();
 		}

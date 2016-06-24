@@ -11,7 +11,7 @@ import com.gtnexus.appxpress.platform.module.interpretation.workflow.WorkflowGra
 import com.gtnexus.appxpress.platform.module.model.design.Transition;
 import com.gtnexus.appxpress.platform.module.model.design.Workflow;
 
-public class EdgeDescriptorAdapter extends DisplayAdapter<EdgeDescriptorAdapter>{
+public class EdgeDescriptorDisplayAdapter extends DisplayAdapter<EdgeDescriptorDisplayAdapter>{
 	
 	private static final Map<String, String> DUMMY_DESC = new ImmutableMap.Builder<String, String>()
 			.put("State", "")
@@ -23,12 +23,12 @@ public class EdgeDescriptorAdapter extends DisplayAdapter<EdgeDescriptorAdapter>
 			.put("Post Transition Fn", "")
 			.build();
 	
-	public static List<EdgeDescriptorAdapter> createDescriptors(Workflow wf) {
+	public static List<EdgeDescriptorDisplayAdapter> createDescriptors(Workflow wf) {
 		return createDescriptors(WorkflowGraph.constructGraph(wf));
 	}
 
-	public static List<EdgeDescriptorAdapter> createDescriptors(WorkflowGraph graph) {
-		List<EdgeDescriptorAdapter> descs = Lists.newLinkedList();
+	public static List<EdgeDescriptorDisplayAdapter> createDescriptors(WorkflowGraph graph) {
+		List<EdgeDescriptorDisplayAdapter> descs = Lists.newLinkedList();
 		if(graph.isEmpty()) {
 			 descs.add(dummyDescriptor());
 			 return descs;
@@ -39,8 +39,8 @@ public class EdgeDescriptorAdapter extends DisplayAdapter<EdgeDescriptorAdapter>
 		return descs;
 	}
 
-	private static List<EdgeDescriptorAdapter>  descriptorsFor(WorkflowGraph.Node n) {
-		List<EdgeDescriptorAdapter> descs = Lists.newLinkedList();
+	private static List<EdgeDescriptorDisplayAdapter>  descriptorsFor(WorkflowGraph.Node n) {
+		List<EdgeDescriptorDisplayAdapter> descs = Lists.newLinkedList();
 		List<Transition> trans = (n.getTransitions() == null || n.getTransitions().isEmpty()) ? Lists.newArrayList(new Transition()) :  n.getTransitions();
 		for(Transition t : trans) {
 			Map<String, String> desc = new NullSafeStringEntryImmutableMapBuilder<String>()
@@ -52,24 +52,24 @@ public class EdgeDescriptorAdapter extends DisplayAdapter<EdgeDescriptorAdapter>
 					.put("Precondition Fn", t.getPreconditionFn())
 					.put("Post Transition Fn", t.getPostTransitionFn())
 					.build();
-			descs.add(new EdgeDescriptorAdapter(desc));
+			descs.add(new EdgeDescriptorDisplayAdapter(desc));
 		}
 		return descs;
 	}
 	
 	
-	public static EdgeDescriptorAdapter  dummyDescriptor() {
-		return new EdgeDescriptorAdapter(DUMMY_DESC);
+	public static EdgeDescriptorDisplayAdapter  dummyDescriptor() {
+		return new EdgeDescriptorDisplayAdapter(DUMMY_DESC);
 	}
 	
 	private final Map<String, String> contents;
 	
-	private EdgeDescriptorAdapter(Map<String, String> contents) {
+	private EdgeDescriptorDisplayAdapter(Map<String, String> contents) {
 		super(null);
 		this.contents = contents;
 	}
 	
-	@Override public String display(EdgeDescriptorAdapter target, String key) {
+	@Override public String display(EdgeDescriptorDisplayAdapter target, String key) {
 		return target.get(key);
 	}
 	
