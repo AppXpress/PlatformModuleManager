@@ -14,7 +14,7 @@
         <xs:element ref="name"/>
         <xs:element ref="description"/>
         <xs:element maxOccurs="unbounded" ref="customUiConfiguration"/>
-        <xs:element ref="notificationTopic"/>
+        <xs:element maxOccurs="unbounded" ref="notificationTopic"/>
         <xs:element ref="userVersion"/>
       </xs:sequence>
     </xs:complexType>
