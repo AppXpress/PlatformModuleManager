@@ -8,21 +8,21 @@ import com.gtnexus.appxpress.platform.module.model.design.IntegrationFeature;
 
 public class IntegrationFeatureDisplayAdapter extends DisplayAdapter<IntegrationFeature>{
 
-	private static final  Function<IntegrationFeature, String> IS_ENABLED_FN = new PrimitiveDisplayFunction<IntegrationFeature>() {
+	private static final  Function<IntegrationFeature, String> IS_ENABLED_FN = new BooleanDisplayFunction<IntegrationFeature>() {
 		@Override
 		public String applyToNonNull(IntegrationFeature intf) {
 			return Boolean.toString(intf.isEnabled());
 		}
 	};
 	
-	private static final Function<IntegrationFeature, String> DATA_DOWNLOAD_FN = new PrimitiveDisplayFunction<IntegrationFeature>() {
+	private static final Function<IntegrationFeature, String> DATA_DOWNLOAD_FN = new BooleanDisplayFunction<IntegrationFeature>() {
 		@Override
 		public String applyToNonNull(IntegrationFeature intf) {
 			return Boolean.toString(intf.isDownloadRuntimeEnabled());
 		}
 	};
 	
-	private static final Function<IntegrationFeature, String> DATA_UPLOAD_FN = new PrimitiveDisplayFunction<IntegrationFeature>() {
+	private static final Function<IntegrationFeature, String> DATA_UPLOAD_FN = new BooleanDisplayFunction<IntegrationFeature>() {
 		@Override
 		public String applyToNonNull(IntegrationFeature intf) {
 			return Boolean.toString(intf.isUploadRuntimeEnabled());

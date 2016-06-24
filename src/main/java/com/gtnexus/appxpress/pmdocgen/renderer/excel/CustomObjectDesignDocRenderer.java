@@ -12,12 +12,13 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.gtnexus.appxpress.platform.module.interpretation.role.security.NormalizedRoleSecurity;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 import com.gtnexus.appxpress.pmdocgen.adapter.AttachmentFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomObjectDesignV110DisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.DisplayAdapter;
-import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptorAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.EdgeDescriptorDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.EmbeddedFieldsDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.EventsDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ExtensionPointDisplayAdapter;
@@ -26,6 +27,7 @@ import com.gtnexus.appxpress.pmdocgen.adapter.IntegrationFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.NavFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.PdfFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ReportingFeatureDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.RoleSecurityDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.RuntimeSettingsAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScalarFieldDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScriptingFeatureDisplayAdapter;
@@ -38,6 +40,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final ScalarFieldDisplayAdapter scalarFieldDisplayAdapter;
 	private final EmbeddedFieldsDisplayAdapter embeddedFieldsDisplayAdapter;
 	private final EventsDisplayAdapter eventsDisplayAdapter;
+	private final RoleSecurityDisplayAdapter roleSecurityDisplayAdapter;
 	private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
 	private final ScriptingFeatureDisplayAdapter scriptingFeatureDisplayAdapter;
 	private final AttachmentFeatureDisplayAdapter attachmentFeatureDisplayAdapter;
@@ -51,6 +54,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	
 	private static final String SHEET_NAME = "Custom Object Design";
 	private static final int MAX_WIDTH = 9;
+	private static final String PRIMARY = "PRIMARY";
 	
 	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook, Map<String, String> namesWithoutPrefix) {
 		super(workBook, SHEET_NAME, MAX_WIDTH);
@@ -59,6 +63,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
 		this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
 		this.eventsDisplayAdapter = new EventsDisplayAdapter();
+		this.roleSecurityDisplayAdapter = new RoleSecurityDisplayAdapter();
 		this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
 		this.scriptingFeatureDisplayAdapter = new ScriptingFeatureDisplayAdapter();
 		this.attachmentFeatureDisplayAdapter = new AttachmentFeatureDisplayAdapter();
@@ -82,16 +87,19 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		renderRuntimeSettings(design);
 		renderScalarFields(design);
 		renderEmbeddedFields(design);
-		renderEvents(design);
-		//TODO renderRolePermissions(design);
-		renderNavigation(design);
-		renderScripting(design);
-		renderAttachment(design);
-		renderPDFFeature(design);
-		renderReporting(design);
-		renderIntegration(design);
-		renderWorkflow(design);
-		renderExtensionPoints(design);
+		
+		if (PRIMARY.equals(design.getDesignType())) {
+			renderEvents(design);
+			renderRolePermissions(design);
+			renderNavigation(design);
+			renderScripting(design);
+			renderAttachment(design);
+			renderPDFFeature(design);
+			renderReporting(design);
+			renderIntegration(design);
+			renderWorkflow(design);
+			renderExtensionPoints(design);
+		}
 		autofit();
 	}
 	
@@ -152,55 +160,48 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 			renderTableBody(design.getEventField(), eventsDisplayAdapter);
 	}
 	
-	private void renderNavigation(CustomObjectDesignV110 design) {
-		if (design.getNavFeature() == null) {
+	private void renderRolePermissions(CustomObjectDesignV110 design) {
+		if (design.getRoleSecurity() == null || design.getRoleSecurity().isEmpty()) {
 			return;
 		}
+		List<NormalizedRoleSecurity> normalizedRoleSecurities = NormalizedRoleSecurity.normalizeRoleSecurities(design.getRoleSecurity());
+		traverser.nextRow();
+		renderSectionHeader("Role Permissions", roleSecurityDisplayAdapter);
+		renderTableHeader(roleSecurityDisplayAdapter);
+		renderTableBody(normalizedRoleSecurities, roleSecurityDisplayAdapter);
+	}
+	
+	private void renderNavigation(CustomObjectDesignV110 design) {
 		traverser.nextRow();
 		renderLabelValueSectionHeader("Navigation Feature", navFeatureDisplayAdapter);
 		renderLableValueSection(design.getNavFeature(), navFeatureDisplayAdapter);
 	}
 	
 	private void renderScripting(CustomObjectDesignV110 design) {
-		if (design.getScriptingFeature() == null) {
-			return;
-		}
 		traverser.nextRow();
 		renderLabelValueSectionHeader("Scripting", scriptingFeatureDisplayAdapter);
 		renderLableValueSection(design.getScriptingFeature(), scriptingFeatureDisplayAdapter);
 	}
 	
 	private void renderAttachment(CustomObjectDesignV110 design) {
-		if (design.getAttachmentFeature() == null) {
-			return;
-		}
 		traverser.nextRow();
 		renderLabelValueSectionHeader("Attachment", attachmentFeatureDisplayAdapter);
 		renderLableValueSection(design.getAttachmentFeature(), attachmentFeatureDisplayAdapter);
 	}
 
 	private void renderPDFFeature(CustomObjectDesignV110 design) {
-		if (design.getPdfFeature() == null) {
-			return;
-		}
 		traverser.nextRow();
 		renderLabelValueSectionHeader("PDF Feature", pdfFeatureDisplayAdapter);
 		renderLableValueSection(design.getPdfFeature(), pdfFeatureDisplayAdapter);
 	}
 	
 	private void renderReporting(CustomObjectDesignV110 design) {
-		if (design.getReportingFeature() == null) {
-			return;
-		}
 		traverser.nextRow();
-		renderLabelValueSectionHeader("PDF Feature", reportingFeatureDisplayAdapter);
+		renderLabelValueSectionHeader("Reporting", reportingFeatureDisplayAdapter);
 		renderLableValueSection(design.getReportingFeature(), reportingFeatureDisplayAdapter);
 	}
 	
 	private void renderIntegration(CustomObjectDesignV110 design) {
-		if (design.getIntegrationFeature() == null) {
-			return;
-		}
 		traverser.nextRow();
 		renderLabelValueSectionHeader("Integration", integrationFeatureDisplayAdapter);
 		renderLableValueSection(design.getIntegrationFeature(), integrationFeatureDisplayAdapter);
@@ -214,8 +215,8 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		}
 		renderLabelValueSectionHeader("Workflow Design", 3);
 		renderLableValueSection(wff, workflowFeatureDisplayAdapter, 3);
-		List<EdgeDescriptorAdapter> edgeDesc = EdgeDescriptorAdapter.createDescriptors(wff.getWorkflow());
-		DisplayAdapter<EdgeDescriptorAdapter> adapter = edgeDesc.get(0);
+		List<EdgeDescriptorDisplayAdapter> edgeDesc = EdgeDescriptorDisplayAdapter.createDescriptors(wff.getWorkflow());
+		DisplayAdapter<EdgeDescriptorDisplayAdapter> adapter = edgeDesc.get(0);
 		renderSectionHeader("Workflow Steps", adapter);
 		renderTableHeader(adapter); //TODO: null check the descs
 		renderTableBody(edgeDesc, adapter);

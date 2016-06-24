@@ -8,7 +8,7 @@ import com.gtnexus.appxpress.platform.module.model.design.NavFeature;
 
 public class NavFeatureDisplayAdapter extends DisplayAdapter<NavFeature>{
 
-	private static final  Function<NavFeature, String> IS_ENABLED_FN = new PrimitiveDisplayFunction<NavFeature>() {
+	private static final  Function<NavFeature, String> IS_ENABLED_FN = new BooleanDisplayFunction<NavFeature>() {
 		@Override
 		public String applyToNonNull(NavFeature nav) {
 			return Boolean.toString(nav.isEnabled());

@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.design.PdfFeature;
 
 public class PdfFeatureDisplayAdapter extends DisplayAdapter<PdfFeature>{
-	private static final  Function<PdfFeature, String> IS_ENABLED_FN = new PrimitiveDisplayFunction<PdfFeature>() {
+	private static final  Function<PdfFeature, String> IS_ENABLED_FN = new BooleanDisplayFunction<PdfFeature>() {
 		@Override
 		public String applyToNonNull(PdfFeature pdf) {
 			return Boolean.toString(pdf.isEnabled());

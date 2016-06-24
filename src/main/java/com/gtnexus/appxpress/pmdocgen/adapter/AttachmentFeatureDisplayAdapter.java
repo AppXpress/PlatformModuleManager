@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.gtnexus.appxpress.platform.module.model.design.AttachmentFeature;
 
 public class AttachmentFeatureDisplayAdapter extends DisplayAdapter<AttachmentFeature>{
-	private static final  Function<AttachmentFeature, String> IS_ENABLED_FN = new PrimitiveDisplayFunction<AttachmentFeature>() {
+	private static final  Function<AttachmentFeature, String> IS_ENABLED_FN = new BooleanDisplayFunction<AttachmentFeature>() {
 		@Override
 		public String applyToNonNull(AttachmentFeature af) {
 			return Boolean.toString(af.isEnabled());

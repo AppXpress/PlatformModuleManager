@@ -8,7 +8,7 @@ import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
 
 public abstract class WorkflowDisplayAdapter extends DisplayAdapter<WorkflowFeature>{
 
-	protected static final Function<WorkflowFeature, String> ENABLED_FN  = new PrimitiveDisplayFunction<WorkflowFeature>() {
+	protected static final Function<WorkflowFeature, String> ENABLED_FN  = new BooleanDisplayFunction<WorkflowFeature>() {
 
 		@Override
 		public String applyToNonNull(WorkflowFeature feature) {

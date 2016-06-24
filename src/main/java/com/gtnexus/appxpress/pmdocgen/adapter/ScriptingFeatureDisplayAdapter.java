@@ -8,7 +8,7 @@ import com.gtnexus.appxpress.platform.module.model.design.ScriptingFeature;
 
 public class ScriptingFeatureDisplayAdapter extends DisplayAdapter<ScriptingFeature>{
 
-	private static final  Function<ScriptingFeature, String> IS_ENABLED_FN = new PrimitiveDisplayFunction<ScriptingFeature>() {
+	private static final  Function<ScriptingFeature, String> IS_ENABLED_FN = new BooleanDisplayFunction<ScriptingFeature>() {
 		@Override
 		public String applyToNonNull(ScriptingFeature sf) {
 			return Boolean.toString(sf.isEnabled());
