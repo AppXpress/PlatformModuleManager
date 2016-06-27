@@ -1,5 +1,6 @@
 package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -12,6 +13,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import com.gtnexus.appxpress.platform.module.interpretation.role.security.NormalizedRoleSecurity;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.design.WorkflowFeature;
@@ -53,11 +56,10 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final Map<String, String> truncatedNames;
 	
 	private static final String SHEET_NAME = "Custom Object Design";
-	private static final int MAX_WIDTH = 9;
 	private static final String PRIMARY = "PRIMARY";
 	
 	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook, Map<String, String> namesWithoutPrefix) {
-		super(workBook, SHEET_NAME, MAX_WIDTH);
+		super(workBook, SHEET_NAME);
 		this.identificationDisplayAdapter = new IdentificationAdapter();
 		this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();
 		this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
@@ -102,6 +104,40 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		}
 		autofit();
 	}
+	
+	@Override
+	public int getMaxWidth() {
+		return maximumWidth(allAdapters());
+	}
+	
+	private Integer maximumWidth(Collection<DisplayAdapter<?>> adapters) {
+		return Collections.max(Collections2.transform(adapters, new Function<DisplayAdapter<?>, Integer>() {
+			@Override
+			public Integer apply(DisplayAdapter<?> input) {
+				return input.size();
+			}
+		}));
+	}
+	
+	private Collection<DisplayAdapter<?>> allAdapters() {
+		return Arrays.asList(new DisplayAdapter[]{
+				identificationDisplayAdapter,
+				runtimeSettingsDisplayAdapter,
+				scalarFieldDisplayAdapter,
+				embeddedFieldsDisplayAdapter,
+				eventsDisplayAdapter,
+				roleSecurityDisplayAdapter,
+				navFeatureDisplayAdapter,
+				scriptingFeatureDisplayAdapter,
+				attachmentFeatureDisplayAdapter,
+				pdfFeatureDisplayAdapter,
+				reportingFeatureDisplayAdapter,
+				integrationFeatureDisplayAdapter,
+				workflowFeatureDisplayAdapter,
+				extensionPointDisplayAdapter,
+		});
+	}
+	
 	
 	private void renderSheetLevelDetails(CustomObjectDesignV110 source) {
 		workBook.setSheetName(workBook.getSheetIndex(sheet), getName(source));
@@ -154,10 +190,10 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		if (design.getEventField() == null || design.getEventField().isEmpty()) {
 			return;
 		}
-			traverser.nextRow();
-			renderSectionHeader("Events", eventsDisplayAdapter);
-			renderTableHeader(eventsDisplayAdapter);
-			renderTableBody(design.getEventField(), eventsDisplayAdapter);
+		traverser.nextRow();
+		renderSectionHeader("Events", eventsDisplayAdapter);
+		renderTableHeader(eventsDisplayAdapter);
+		renderTableBody(design.getEventField(), eventsDisplayAdapter);
 	}
 	
 	private void renderRolePermissions(CustomObjectDesignV110 design) {

@@ -28,7 +28,7 @@ public class TypeExtensionDocRenderer extends BaseSheetRenderer<Collection<TypeE
 	private static final int MAX_WIDTH = TABLE_COLS.size() - 1;
 	
 	public TypeExtensionDocRenderer(XSSFWorkbook wb) {
-		super(wb, SHEET_NAME, MAX_WIDTH);
+		super(wb, SHEET_NAME);
 	}
 	
 	@Override
@@ -55,6 +55,11 @@ public class TypeExtensionDocRenderer extends BaseSheetRenderer<Collection<TypeE
 			XSSFCell cell = traverser.nextCell();
 			cell.setCellValue(TABLE_COLS.get(key).apply(te));
 		}
+	}
+
+	@Override
+	public int getMaxWidth() {
+		return MAX_WIDTH;
 	}
 
 }

@@ -38,7 +38,7 @@ public class ChangeLogRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 	private final static int MAX_WIDTH = CHANGE_LOG_COL_LABELS.size() - 1; 
 	
 	public ChangeLogRenderer(XSSFWorkbook wb) {
-		super(wb,SHEET_NAME, MAX_WIDTH);
+		super(wb,SHEET_NAME);
 	}
 	
 	@Override
@@ -92,6 +92,11 @@ public class ChangeLogRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 				cell.setCellStyle(styleProvider.getAllBordersStyle());
 			}
 		}
+	}
+
+	@Override
+	public int getMaxWidth() {
+		 return Math.max(HEADER_LVL_DESCRIPTORS_MAP.size(), CHANGE_LOG_COL_LABELS.size()) - 1;
 	}
 
 }

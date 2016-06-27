@@ -29,7 +29,7 @@ public class CustomActionDocRenderer extends BaseSheetRenderer<Collection<Custom
 	private static final int MAX_WIDTH = TABLE_COLS.size() - 1;
 	
 	public CustomActionDocRenderer(XSSFWorkbook wb) {
-		super(wb, SHEET_NAME, MAX_WIDTH);
+		super(wb, SHEET_NAME);
 	}
 	
 	@Override
@@ -56,6 +56,11 @@ public class CustomActionDocRenderer extends BaseSheetRenderer<Collection<Custom
 			XSSFCell cell = traverser.nextCell();
 			cell.setCellValue(TABLE_COLS.get(key).apply(ca));
 		}
+	}
+
+	@Override
+	public int getMaxWidth() {
+		return MAX_WIDTH;
 	}
 
 }

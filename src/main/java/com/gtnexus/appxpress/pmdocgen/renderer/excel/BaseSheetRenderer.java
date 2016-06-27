@@ -12,21 +12,18 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 	
 	protected final XSSFWorkbook workBook;
 	protected final XSSFSheet sheet;
-	protected final int maxWidth;
 	protected final SheetTraverser traverser;
 	protected final StyleProvider styleProvider;
 	
-	protected BaseSheetRenderer(XSSFWorkbook workBook, String sheetName, int maxWidth) {
+	protected BaseSheetRenderer(XSSFWorkbook workBook, String sheetName) {
 		this.workBook = workBook;
 		this.sheet = workBook.createSheet(sheetName);
-		this.maxWidth = maxWidth;
 		this.traverser = new SheetTraverserImpl(sheet);
 		this.styleProvider = new GtnxStyleProviderImpl(workBook);
 	}
 	
-	public int getMaxWidth() {
-		return this.maxWidth;
-	}
+	public abstract int getMaxWidth();
+	public abstract void render(X source);
 	
 	public XSSFSheet getSheet() {
 		return this.sheet;
