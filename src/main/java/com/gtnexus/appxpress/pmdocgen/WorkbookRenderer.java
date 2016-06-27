@@ -16,6 +16,7 @@ import com.gtnexus.appxpress.pmdocgen.renderer.excel.ChangeLogRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomActionDocRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomLinkDocRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomObjectDesignDocRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.TemplatesRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.TopicsRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.TypeExtensionDocRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.UserInterfacesRenderer;
@@ -47,6 +48,7 @@ public class WorkbookRenderer {
 		new CustomLinkDocRenderer(wb).render(vo.getCustomLinks());
 		new UserInterfacesRenderer(wb).render(vo.getPlatformModuleXml());
 		new TopicsRenderer(wb).render(vo.getPlatformModuleXml());
+		new TemplatesRenderer(wb).render(vo.getTemplates());
 		return wb;
 	}
 	

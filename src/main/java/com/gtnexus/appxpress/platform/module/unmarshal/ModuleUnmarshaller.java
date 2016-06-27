@@ -16,6 +16,7 @@ import com.gtnexus.appxpress.platform.module.model.customaction.CustomActionD1;
 import com.gtnexus.appxpress.platform.module.model.customlink.CustomLinkD1;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
+import com.gtnexus.appxpress.platform.module.model.template.TemplateMediaV110;
 import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
 
 public class ModuleUnmarshaller {
@@ -37,6 +38,9 @@ public class ModuleUnmarshaller {
 			for (File f : vo.getTypeExtensions()) {
 				builder.addTypeExtension(unmarshallTE(f));
 			}
+			for (File f : vo.getTemplates()) {
+				builder.addTemplate(unmarshallTM(f));
+			} 
 			for(File f : vo.getDesigns()) {
 				builder.addDesign(unmarshallCustomObjectDesignV110(f));
 			}
@@ -60,6 +64,10 @@ public class ModuleUnmarshaller {
 	
 	private TypeExtensionD1 unmarshallTE(File f) throws JAXBException, IOException {
 		return unmarshall(TypeExtensionD1.class, f);
+	}
+	
+	private TemplateMediaV110 unmarshallTM(File f) throws JAXBException, IOException {
+		return unmarshall(TemplateMediaV110.class, f);
 	}
 
 	private CustomObjectDesignV110 unmarshallCustomObjectDesignV110(File f)

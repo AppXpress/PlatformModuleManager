@@ -8,21 +8,21 @@ import com.gtnexus.appxpress.platform.module.model.platformmodule.CustomUiConfig
 
 public class CustomUiConfigurationDisplayAdapter extends DisplayAdapter<CustomUiConfiguration>{
 
-	public static final Function<CustomUiConfiguration, String> GLOBAL_OBJECT_TYPE_FN = new PrimitiveDisplayFunction<CustomUiConfiguration>() {
+	private static final Function<CustomUiConfiguration, String> GLOBAL_OBJECT_TYPE_FN = new PrimitiveDisplayFunction<CustomUiConfiguration>() {
 		@Override
 		public String applyToNonNull(CustomUiConfiguration cui) {
 			return cui.getGlobalObjectType();
 		}
 	};
 
-	public static final Function<CustomUiConfiguration, String> RESOURCE_DIRECTORY_FN = new PrimitiveDisplayFunction<CustomUiConfiguration>() {
+	private static final Function<CustomUiConfiguration, String> RESOURCE_DIRECTORY_FN = new PrimitiveDisplayFunction<CustomUiConfiguration>() {
 		@Override
 		public String applyToNonNull(CustomUiConfiguration cui) {
 			return cui.getDirectoryName();
 		}
 	};
 	
-	public static final Function<CustomUiConfiguration, String> UI_TYPE_FN = new PrimitiveDisplayFunction<CustomUiConfiguration>() {
+	private static final Function<CustomUiConfiguration, String> UI_TYPE_FN = new PrimitiveDisplayFunction<CustomUiConfiguration>() {
 		@Override
 		public String applyToNonNull(CustomUiConfiguration cui) {
 			return cui.getUiType();

@@ -8,7 +8,7 @@ import com.gtnexus.appxpress.platform.module.model.platformmodule.NotificationTo
 
 public class NotificationTopicDisplayAdapter extends DisplayAdapter<NotificationTopic>{
 
-	public static final Function<NotificationTopic, String> TOPIC_NAME_FN = new PrimitiveDisplayFunction<NotificationTopic>() {
+	private static final Function<NotificationTopic, String> TOPIC_NAME_FN = new PrimitiveDisplayFunction<NotificationTopic>() {
 		@Override
 		public String applyToNonNull(NotificationTopic nt) {
 			return nt.getTopicName();
