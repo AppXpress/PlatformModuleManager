@@ -14,11 +14,7 @@ import java.util.List;
  */
 public class ImportFile extends File {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7530032818432622334L;
-	// TODO we should maintain a whitelist, not a blacklist.
 	final List<String> validExtensions = Arrays.asList("js");
 
 	public ImportFile(File parent, String child) {

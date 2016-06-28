@@ -254,7 +254,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		List<EdgeDescriptorDisplayAdapter> edgeDesc = EdgeDescriptorDisplayAdapter.createDescriptors(wff.getWorkflow());
 		DisplayAdapter<EdgeDescriptorDisplayAdapter> adapter = edgeDesc.get(0);
 		renderSectionHeader("Workflow Steps", adapter);
-		renderTableHeader(adapter); //TODO: null check the descs
+		renderTableHeader(adapter);
 		renderTableBody(edgeDesc, adapter);
 	}
 	

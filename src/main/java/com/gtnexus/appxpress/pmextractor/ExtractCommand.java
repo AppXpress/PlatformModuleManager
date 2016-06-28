@@ -19,15 +19,14 @@ public class ExtractCommand implements Command {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute() throws AppXpressException {
 		PlatformModuleExtractor extractor = new PlatformModuleExtractor();
 		AppXpressContext<ExtractorOption> context;
 		try {
 			context = contextFactory.createContext(extractor, args);
 			extractor.extract(context);
 		} catch (AppXpressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AppXpressException("extract has failed.", e);
 		}
 	}
 

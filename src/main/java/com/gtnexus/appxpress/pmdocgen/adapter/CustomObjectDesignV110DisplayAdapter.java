@@ -47,7 +47,6 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 		}
 	};
 
-	// TODO
 	protected static final Function<CustomObjectDesignV110, String> LICENSEE_FIELD_FN = new PrimitiveDisplayFunction<CustomObjectDesignV110>() {
 		@Override
 		public String applyToNonNull(CustomObjectDesignV110 design) {
@@ -128,6 +127,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 		}
 	};
 
+	//TODO
 	protected static final Function<CustomObjectDesignV110, String> ANCHOR_FILTER_FN = new PrimitiveDisplayFunction<CustomObjectDesignV110>() {
 		@Override
 		public String applyToNonNull(CustomObjectDesignV110 design) {
@@ -135,6 +135,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 		}
 	};
 
+	//TODO
 	protected static final Function<CustomObjectDesignV110, String> ENABLE_TABLE_MODE_FN = new PrimitiveDisplayFunction<CustomObjectDesignV110>() {
 		@Override
 		public String applyToNonNull(CustomObjectDesignV110 design) {
@@ -148,6 +149,5 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 	 */
 	protected CustomObjectDesignV110DisplayAdapter(Map<String, Function<CustomObjectDesignV110, String>> adapterMap) {
 		super(adapterMap);
-		// TODO Auto-generated constructor stub
 	}
 }

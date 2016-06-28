@@ -23,6 +23,11 @@ public class ChainedAnd extends FileFilterChain {
 		super(filters);
 	}
 	
+	public ChainedAnd and(FileFilter filter) {
+		super.add(filter);
+		return this;
+	}
+	
 	@Override
 	public boolean accept(File file) {
 		Iterator<FileFilter> i = filters.iterator();

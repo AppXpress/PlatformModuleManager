@@ -51,7 +51,7 @@ public class BuilderOptionInterpreter extends
 		}
 		if (isCandidateForArgInjection(parsedOpts, cwd)) {
 			parsedOpts.put(BuilderOption.CUSTOMER, cwd);
-		}//TODO: can we inject platform as well?
+		}
 		return parsedOpts;
 	}
 

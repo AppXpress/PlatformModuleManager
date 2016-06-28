@@ -19,15 +19,14 @@ public class PMDocGenCommand implements Command {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws AppXpressException {
 		PlatformModuleDocumentGenerator pmdg = new PlatformModuleDocumentGenerator();
 		AppXpressContext<CLICommandOption> context;
 		try {
 			context = contextFactory.createContext(pmdg,args);
 			pmdg.generateDocs(context);
 		} catch (AppXpressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AppXpressException("docgen has failed.", e);
 		}
 	}
 

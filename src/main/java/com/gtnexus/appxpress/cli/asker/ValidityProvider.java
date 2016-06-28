@@ -3,8 +3,6 @@ package com.gtnexus.appxpress.cli.asker;
 public class ValidityProvider {
 
 	public boolean isValid(String val, Class<?> type) {
-		// TODO this can be improved to make sure string input has actual
-		// meaning
 		if (val == null || val.length() == 0) {
 			return false;
 		}
@@ -12,7 +10,7 @@ public class ValidityProvider {
 			return true;
 		}
 		if (type.equals(Integer.class)) {
-			return val.matches("\\d+"); // TODO test this regex
+			return val.matches("\\d+");
 		} else if (type.equals(Boolean.class)) {
 			return val.equalsIgnoreCase("Y") || val.equalsIgnoreCase("N");
 		} else {

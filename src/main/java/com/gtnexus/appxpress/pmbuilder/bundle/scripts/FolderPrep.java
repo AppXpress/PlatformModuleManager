@@ -45,34 +45,35 @@ public class FolderPrep implements Preparation<File> {
 	}
 
 	private void route(File dir) throws IOException {
-		// TODO can we do better than this?
 		String directoryName = dir.getName();
-		if (directoryName.endsWith(CUSTOM_LINK_D1)) {
-			fs.renameFile(dir,  $ + CUSTOM_LINK_D1);
-		} else if (directoryName.endsWith(TYPE_EXTENSION_D1)) {
-			fs.renameFile(dir, $ + TYPE_EXTENSION_D1);
+		if(needsRenaming(dir)) {
+			fs.prependToName(dir, $);
 		} else if (directoryName.endsWith(CUSTOM_OBJECT_MODULE)) {
 			fixCustomObjectModule(dir);
-		} else if(directoryName.equals(CUSTOM_ACTION_D1)) {
-			fs.renameFile(dir,  $ + CUSTOM_ACTION_D1);
-		}
+		} 
 	}
 
+	private boolean needsRenaming(File dir) {
+		String directoryName = dir.getName();
+		return directoryName.equals(CUSTOM_LINK_D1) ||
+				directoryName.equals(TYPE_EXTENSION_D1) ||
+				directoryName.equals(CUSTOM_ACTION_D1);
+	}
+	
 	/**
 	 * 
 	 * @param directory
 	 */
 	private void fixCustomObjectModule(File directory) throws IOException {
-		// TODO refactor me! But I am better than before :)
-		File designFolder = new File(directory.getAbsolutePath()
-				+ File.separator + "designs");
+		File designFolder = directory.toPath().resolve("designs").toFile();
 		if (designFolder.exists()) {
 			renameWhenNecessary(designFolder.listFiles(), DESIGN_, DESIGN_ + $);
 		}
 		File scriptFolder = directory.toPath().resolve(SCRIPTS).toFile();
 		if (scriptFolder.exists()) {
-			FileFilterChain directoriesWithoutSigil = new ChainedAnd(FileFilterFactory.directoriesOnly(), 
-					FileFilterFactory.fileNameDoesNotContain("_$"));
+			FileFilterChain directoriesWithoutSigil = new ChainedAnd()
+					.and(FileFilterFactory.directoriesOnly())
+					.and(FileFilterFactory.fileNameDoesNotContain("_$"));
 			File[] files = scriptFolder.listFiles(directoriesWithoutSigil);
 			fs.renameFile(Arrays.asList(files), SCRIPT_DESIGN, SCRIPT_DESIGN + $);
 		}

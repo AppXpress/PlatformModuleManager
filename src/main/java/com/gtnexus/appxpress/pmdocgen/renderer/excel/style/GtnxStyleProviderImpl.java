@@ -10,16 +10,6 @@ public class GtnxStyleProviderImpl implements StyleProvider {
 	
 	private final XSSFWorkbook workBook;
 	
-	//TODO
-//	private final Supplier<XSSFCellStyle> styleSupplier = new Supplier<XSSFCellStyle>() {
-//
-//		@Override
-//		public XSSFCellStyle get() {
-//			// TODO Auto-generated method stub
-//			return null;
-//		}
-//	};
-	
 	public GtnxStyleProviderImpl(XSSFWorkbook workBook) {
 		this.workBook = workBook;
 	}

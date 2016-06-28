@@ -23,6 +23,7 @@ import com.gtnexus.appxpress.commons.file.filter.ChainedAnd;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
+import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
@@ -47,7 +48,7 @@ public class ScriptBundler implements Bundler {
 		}
 	}
 
-	private void searchForPotentialBundles(final File dir) {
+	private void searchForPotentialBundles(final File dir) throws PMBuilderException {
 		if (wasSpecialCase(dir)) {
 			return;
 		}
@@ -74,7 +75,7 @@ public class ScriptBundler implements Bundler {
 		return isSpecial;
 	}
 
-	private void bundleGenerically(final File dir) {
+	private void bundleGenerically(final File dir) throws PMBuilderException {
 		final List<File> jsFiles = new LinkedList<>();
 		for (File f : dir.listFiles()) {
 			if (fs.isFileType(f, JS_EXTENSION)) {
@@ -88,9 +89,7 @@ public class ScriptBundler implements Bundler {
 				zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
 				fs.emptyDir(dir, true);
 			} catch (AppXpressException | IOException e) {
-				// TODO
-				System.err.println("Failed to bundle directory " + dir.toString() + " generically.");
-				System.err.println(e.getMessage());
+				throw new PMBuilderException("Failed to bundle directory generically", e);
 			}
 		}
 	}

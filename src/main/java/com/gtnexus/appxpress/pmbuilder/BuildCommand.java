@@ -19,15 +19,14 @@ public class BuildCommand implements Command {
 	}
 
 	@Override
-	public void execute()  {
+	public void execute() throws AppXpressException {
 		PlatformModuleBuilder pmb = new PlatformModuleBuilder();
 		AppXpressContext<BuilderOption> context;
 		try {
 			context = contextFactory.createContext(pmb,args);
 			pmb.build(context);
 		} catch (AppXpressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AppXpressException("build has failed.", e);
 		}
 	}
 

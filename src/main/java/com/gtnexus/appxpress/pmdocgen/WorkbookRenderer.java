@@ -60,7 +60,8 @@ public class WorkbookRenderer {
 			return;
 		}
 		String lcp = longestCommonPrefix(longNames);
-		if(lcp.equals("")) { //TODO: this is too naive, we should have a threshold, or check that the prefix makes sense.
+		if(lcp.equals("")) { //TODO: this is too naive, we should have a threshold,
+							 //		 or check that the prefix makes sense.
 			useFullNames = true;
 		} else {
 			useFullNames = false;

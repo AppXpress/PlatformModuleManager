@@ -68,11 +68,7 @@ public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
 	public Map<T, String> consolidate() {
 		final Map<T, String> optMap = new HashMap<>();
 		for (T opt : optSet) {
-			if(!opt.shouldBeOmitted()) { //TODO: what is this ommitted logic? seems like it is better suited somewhere else.
-										 // idea: immutableMap containingLookups to "default" values. Would allow use to take
-										 // this out of the complicated enum constructors. hasDefaultValue() -> map.containsKey(key)
-										 // then all we would have to do is change the order of the last two if's in consolidateSingle()
-										 // ... also introduce idea of terminal flags? and run time flags?
+			if(!opt.shouldBeOmitted()) {
 				String val = consolidateSingle(opt);
 				optMap.put(opt, val);
 			}
