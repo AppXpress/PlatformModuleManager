@@ -14,6 +14,7 @@ import com.gtnexus.appxpress.cli.option.options.CustomerOption;
 import com.gtnexus.appxpress.cli.option.options.HelpOpt;
 import com.gtnexus.appxpress.cli.option.options.LocalDirOpt;
 import com.gtnexus.appxpress.cli.option.options.ModuleOption;
+import com.gtnexus.appxpress.cli.option.options.SelectOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
@@ -39,6 +40,7 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 	public static final CLICommandOption customerOpt = new CustomerOption();
 	public static final CLICommandOption moduleOpt = new ModuleOption();
 	public static final CLICommandOption localDirOpt = new LocalDirOpt();
+	public static final CLICommandOption selectOpt = new SelectOption();
 
 	private final WorkbookRenderer renderer;
 
@@ -46,7 +48,9 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 			.add(helpOpt)
 			.add(customerOpt)
 			.add(moduleOpt)
-			.add(localDirOpt).build();
+			.add(localDirOpt)
+			.add(selectOpt)
+			.build();
 
 	public PlatformModuleDocumentGenerator() {
 		this.renderer = new WorkbookRenderer();
