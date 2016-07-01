@@ -36,7 +36,15 @@ folders. The lib folder contains reusable javascript files.
 [Pick up the latest release here.](https://github.com/AppXpress/PlatformModuleBuilder/releases/latest) Or build from source!
 
 ### Installing
-After downloading the latest release, `pmm` needs to be added to your path, or put in a directory that is in already on your path.
+
+*NOTE*: The releases page is outdated, and new releases will not be published. Please build from source.
+
+From the project root:
+
+```bash
+$ ./gradlew fatjar
+```
+After building, `pmm` needs to be added to your path, or put in a directory that is in already on your path.
 
 e.g.:
 
@@ -44,22 +52,14 @@ e.g.:
 $ mv pmm ~/bin
 ```
 
-The scripts also require that a `$APPXPRESS_HOME` environment variable be declared. This variable should point to the parent directory of pmbuilder.jar
+And `$APPXPRESS_HOME` environment variable must be declared. This variable should point to the parent directory of `pmm-all.jar`.
 
 e.g:
 ```bash
 $ echo "export APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
 ```
 
-### Building the .jar
-
-From the project root:
-
-```bash
-$ ./gradlew fatjar
-```
-
-## Running `pmbuilder` and `pmextractor`
+## Running `pmm build` and `pmm extract`
 
 Running either tool is easy. For example:
 
