@@ -120,7 +120,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	}
 	
 	private Collection<DisplayAdapter<?>> allAdapters() {
-		return Arrays.asList(new DisplayAdapter[]{
+		return Arrays.asList(new DisplayAdapter<?>[]{
 				identificationDisplayAdapter,
 				runtimeSettingsDisplayAdapter,
 				scalarFieldDisplayAdapter,
