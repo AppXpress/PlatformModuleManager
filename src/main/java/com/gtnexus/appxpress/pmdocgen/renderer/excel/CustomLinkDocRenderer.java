@@ -1,7 +1,9 @@
 package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import java.util.Collection;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.gtnexus.appxpress.platform.module.model.customlink.CustomLinkD1;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomLinkD1DisplayAdapter;
 
@@ -13,8 +15,13 @@ public class CustomLinkDocRenderer extends BaseSheetRenderer<Collection<CustomLi
 	private static final int MAX_WIDTH = 6;
 	
 	public CustomLinkDocRenderer(XSSFWorkbook wb) {
-		super(wb, SHEET_NAME, MAX_WIDTH);
+		super(wb, SHEET_NAME);
 		this.customLinkD1DisplayAdapter = new CustomLinkD1DisplayAdapter();
+	}
+	
+	@Override
+	public int getMaxWidth() {
+		return MAX_WIDTH;
 	}
 	
 	@Override
@@ -31,7 +38,7 @@ public class CustomLinkDocRenderer extends BaseSheetRenderer<Collection<CustomLi
 	}
 	
 	private void renderCustomLink(CustomLinkD1 cl) {
-		renderLabelValueSectionHeader(customLinkD1DisplayAdapter);
-		renderLabelValueSection(cl, customLinkD1DisplayAdapter);
+		renderHeaderRow(customLinkD1DisplayAdapter);
+		renderValueRows(cl, customLinkD1DisplayAdapter);
 	}
 }

@@ -292,17 +292,19 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		sheet.addMergedRegion(headerRegion);
 	}
 	
-	@Override
-	protected final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter, int width) {
+	private final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter) {
+		renderLabelValueSection(target, adapter, adapter.size());
+	}
+	
+	private final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter, int width) {
 		Iterator<String> iterator = adapter.iterator();
 		while (iterator.hasNext()) {
 			traverser.nextRow();
 			renderLabelValueRow(target, adapter, width, iterator);
 		}
 	}
-	
-	@Override 
-	protected final <X> void renderLabelValueRow(X target, DisplayAdapter<X> adapter, int width,
+	 
+	private final <X> void renderLabelValueRow(X target, DisplayAdapter<X> adapter, int width,
 			Iterator<String> iterator) {
 		for (int i = 0; i < width; i++) {
 			if (!iterator.hasNext()) {

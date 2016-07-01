@@ -26,8 +26,6 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 		this.styleProvider = new GtnxStyleProviderImpl(workBook);
 	}
 	
-	public abstract int getMaxWidth();
-	
 	@Override
 	public final void render(X source) {
 		if (source == null) {
@@ -36,11 +34,13 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 		renderNonNull(source);
 	}
 	
-	public abstract void renderNonNull(X source);
-	
-	public int getMaxWidth() {
-		return this.maxWidth;
+	public final void renderStandardNonNull(X source, DisplayAdapter<X> adapter) {
+		renderHeaderRow(adapter);
+		renderValueRows(source, adapter);
 	}
+	
+	public abstract void renderNonNull(X source);
+	public abstract int getMaxWidth();
 	
 	public XSSFSheet getSheet() {
 		return this.sheet;
@@ -52,11 +52,11 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 		}
 	}
 	
-	protected <T> void renderLabelValueSectionHeader(DisplayAdapter<T> adapter) {
-		renderLabelValueSectionHeader(adapter.iterator());
+	protected <T> void renderHeaderRow(DisplayAdapter<T> adapter) {
+		renderHeaderRow(adapter.iterator());
 	}
 	
-	protected void renderLabelValueSectionHeader(Iterator<String> labels) {
+	private void renderHeaderRow(Iterator<String> labels) {
 		traverser.nextRow();
 		while(labels.hasNext()) {
 			XSSFCell nextCell = traverser.nextCell();
@@ -65,19 +65,15 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 		}
 	}
 	
-	protected <T> void renderLabelValueSection(T target, DisplayAdapter<T> adapter) {
-		renderLabelValueSection(target, adapter, adapter.size());
-	}
-	
-	protected <T> void renderLabelValueSection(T target, DisplayAdapter<T> adapter, int width) {
+	protected <T> void renderValueRows(T target, DisplayAdapter<T> adapter) {
 		Iterator<String> iterator = adapter.iterator();
 		while (iterator.hasNext()) {
 			traverser.nextRow();
-			renderLabelValueRow(target, adapter, width, iterator);
+			renderValueRow(target, adapter, adapter.size(), iterator);
 		}
 	}
 	
-	protected <T> void renderLabelValueRow(T target, DisplayAdapter<T> adapter, int width, Iterator<String> iterator) {
+ 	protected <T> void renderValueRow(T target, DisplayAdapter<T> adapter, int width, Iterator<String> iterator) {
 		for (int i = 0; i < width; i++) {
 			String key = iterator.next();
 			XSSFCell cell = traverser.nextCell();
@@ -85,47 +81,3 @@ public abstract class BaseSheetRenderer<X> implements SheetRenderer<X> {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

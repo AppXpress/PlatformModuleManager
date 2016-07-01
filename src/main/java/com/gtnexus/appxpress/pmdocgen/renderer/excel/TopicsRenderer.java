@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.gtnexus.appxpress.platform.module.model.platformmodule.NotificationConfiguration;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.NotificationTopic;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
@@ -16,9 +17,14 @@ public class TopicsRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 	private final static int MAX_WIDTH = 8; 
 	
 	public TopicsRenderer(XSSFWorkbook wb) {
-		super(wb,SHEET_NAME, MAX_WIDTH);
+		super(wb,SHEET_NAME);
 		this.notificationTopicDisplayAdapter = new NotificationTopicDisplayAdapter();
 		this.notificationConfigurationDisplayAdapter = new NotificationConfigurationDisplayAdapter();
+	}
+	
+	@Override
+	public int getMaxWidth() {
+		return MAX_WIDTH;
 	}
 	
 	@Override
@@ -36,12 +42,12 @@ public class TopicsRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 	}
 	
 	private void renderNotificationTopic(NotificationTopic nt) {
-		renderLabelValueSectionHeader(notificationTopicDisplayAdapter);
-		renderLabelValueSection(nt, notificationTopicDisplayAdapter);
+		renderHeaderRow(notificationTopicDisplayAdapter);
+		renderValueRows(nt, notificationTopicDisplayAdapter);
 	}
 	
 	private void renderNotificationConfiguration(NotificationConfiguration nc) {
-		renderLabelValueSectionHeader(notificationConfigurationDisplayAdapter);
-		renderLabelValueSection(nc, notificationConfigurationDisplayAdapter);
+		renderHeaderRow(notificationConfigurationDisplayAdapter);
+		renderValueRows(nc, notificationConfigurationDisplayAdapter);
 	}
 }

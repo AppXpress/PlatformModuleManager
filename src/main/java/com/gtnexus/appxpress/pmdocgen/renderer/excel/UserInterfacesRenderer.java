@@ -1,6 +1,7 @@
 package com.gtnexus.appxpress.pmdocgen.renderer.excel;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.gtnexus.appxpress.platform.module.model.platformmodule.CustomUiConfiguration;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
 import com.gtnexus.appxpress.pmdocgen.adapter.CustomUiConfigurationDisplayAdapter;
@@ -13,8 +14,13 @@ public class UserInterfacesRenderer extends BaseSheetRenderer<PlatformModuleXml>
 	private final static int MAX_WIDTH = 3; 
 	
 	public UserInterfacesRenderer(XSSFWorkbook wb) {
-		super(wb,SHEET_NAME, MAX_WIDTH);
+		super(wb,SHEET_NAME);
 		this.customUiConfigurationDisplayAdapter = new CustomUiConfigurationDisplayAdapter();
+	}
+	
+	@Override
+	public int getMaxWidth() {
+		return MAX_WIDTH;
 	}
 	
 	@Override
@@ -31,7 +37,7 @@ public class UserInterfacesRenderer extends BaseSheetRenderer<PlatformModuleXml>
 	}
 	
 	private void renderCustomUiConfiguration(CustomUiConfiguration cui) {
-		renderLabelValueSectionHeader(customUiConfigurationDisplayAdapter);
-		renderLabelValueSection(cui, customUiConfigurationDisplayAdapter);
+		renderHeaderRow(customUiConfigurationDisplayAdapter);
+		renderValueRows(cui, customUiConfigurationDisplayAdapter);
 	}
 }

@@ -36,8 +36,8 @@ public class CustomActionDocRenderer extends BaseSheetRenderer<Collection<Custom
 	}
 	
 	private void renderCustomAction(CustomActionD1 ca) {
-		renderLabelValueSectionHeader(customActionD1DisplayAdapter);
-		renderLabelValueSection(ca, customActionD1DisplayAdapter);
+		renderHeaderRow(customActionD1DisplayAdapter);
+		renderValueRows(ca, customActionD1DisplayAdapter);
 	}
 
 }

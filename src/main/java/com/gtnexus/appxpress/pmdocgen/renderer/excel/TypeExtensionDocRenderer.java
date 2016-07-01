@@ -36,8 +36,8 @@ public class TypeExtensionDocRenderer extends BaseSheetRenderer<Collection<TypeE
 	}
 	
 	private void renderTypeExtension(TypeExtensionD1 te) {
-		renderLabelValueSectionHeader(typeExtensionD1DisplayAdapter);
-		renderLabelValueSection(te, typeExtensionD1DisplayAdapter);
+		renderHeaderRow(typeExtensionD1DisplayAdapter);
+		renderValueRows(te, typeExtensionD1DisplayAdapter);
 	}
 
 }
