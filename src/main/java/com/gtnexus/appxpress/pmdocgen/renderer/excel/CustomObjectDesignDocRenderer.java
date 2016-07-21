@@ -34,6 +34,7 @@ import com.gtnexus.appxpress.pmdocgen.adapter.RoleSecurityDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.RuntimeSettingsAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScalarFieldDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.ScriptingFeatureDisplayAdapter;
+import com.gtnexus.appxpress.pmdocgen.adapter.VersioningFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.WorkflowFeatureDisplayAdapter;
 
 public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjectDesignV110>{
@@ -45,6 +46,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 	private final EventsDisplayAdapter eventsDisplayAdapter;
 	private final RoleSecurityDisplayAdapter roleSecurityDisplayAdapter;
 	private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
+	private final VersioningFeatureDisplayAdapter versioningFeatureDisplayAdapter;
 	private final ScriptingFeatureDisplayAdapter scriptingFeatureDisplayAdapter;
 	private final AttachmentFeatureDisplayAdapter attachmentFeatureDisplayAdapter;
 	private final PdfFeatureDisplayAdapter pdfFeatureDisplayAdapter;
@@ -67,6 +69,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		this.eventsDisplayAdapter = new EventsDisplayAdapter();
 		this.roleSecurityDisplayAdapter = new RoleSecurityDisplayAdapter();
 		this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
+		this.versioningFeatureDisplayAdapter = new VersioningFeatureDisplayAdapter();
 		this.scriptingFeatureDisplayAdapter = new ScriptingFeatureDisplayAdapter();
 		this.attachmentFeatureDisplayAdapter = new AttachmentFeatureDisplayAdapter();
 		this.pdfFeatureDisplayAdapter = new PdfFeatureDisplayAdapter();
@@ -99,6 +102,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 			renderPDFFeature(design);
 			renderReporting(design);
 			renderIntegration(design);
+			renderVersioningFeature(design);
 			renderWorkflow(design);
 			renderExtensionPoints(design);
 		}
@@ -128,6 +132,7 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 				eventsDisplayAdapter,
 				roleSecurityDisplayAdapter,
 				navFeatureDisplayAdapter,
+				versioningFeatureDisplayAdapter,
 				scriptingFeatureDisplayAdapter,
 				attachmentFeatureDisplayAdapter,
 				pdfFeatureDisplayAdapter,
@@ -241,6 +246,12 @@ public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjec
 		traverser.nextRow();
 		renderLabelValueSectionHeader("Integration", integrationFeatureDisplayAdapter);
 		renderLabelValueSection(design.getIntegrationFeature(), integrationFeatureDisplayAdapter);
+	}
+	
+	private void renderVersioningFeature(CustomObjectDesignV110 design) {
+		traverser.nextRow();
+		renderLabelValueSectionHeader("Versioning Feature", versioningFeatureDisplayAdapter);
+		renderLabelValueSection(design.getVersioningFeature(), versioningFeatureDisplayAdapter);
 	}
 
 	private void renderWorkflow(CustomObjectDesignV110 design) {
