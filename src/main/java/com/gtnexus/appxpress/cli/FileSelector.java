@@ -1,4 +1,4 @@
-package com.gtnexus.appxpress.pmbuilder;
+package com.gtnexus.appxpress.cli;
 
 import java.io.File;
 import java.io.InputStream;
@@ -14,22 +14,22 @@ import com.gtnexus.appxpress.cli.asker.SimpleAsker;
  * @author jdonovan
  *
  */
-public class PlatformSelector implements Select<File> {
+public class FileSelector implements Select<File> {
 
 	private final BoundIntegerAsker asker;
 
 	private static final String messageTemplate = "Please select one of the following:\n";
 	private static final String optionTemplate = "%s) %s";
 
-	public PlatformSelector(InputStream in, PrintStream out) {
+	public FileSelector(InputStream in, PrintStream out) {
 		this.asker = new BoundIntegerAsker(in, out);
 	}
 
-	public PlatformSelector(BoundIntegerAsker asker) {
+	public FileSelector(BoundIntegerAsker asker) {
 		this.asker = asker;
 	}
 
-	public PlatformSelector(SimpleAsker asker) {
+	public FileSelector(SimpleAsker asker) {
 		this.asker = new BoundIntegerAsker(asker);
 	}
 

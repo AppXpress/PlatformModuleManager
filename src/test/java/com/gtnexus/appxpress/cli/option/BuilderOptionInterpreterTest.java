@@ -12,11 +12,11 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
+import com.gtnexus.appxpress.cli.FileSelector;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
 import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.exception.AppXpressException;
-import com.gtnexus.appxpress.pmbuilder.PlatformSelector;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 import com.gtnexus.appxpress.pmbuilder.cli.BuilderOptionInterpreter;
 
@@ -30,7 +30,7 @@ public class BuilderOptionInterpreterTest {
 	@Mock
 	PMProperties properties;
 	@Mock
-	PlatformSelector selector;
+	FileSelector selector;
 
 	@Mock
 	AppXpressDirResolver resolver;

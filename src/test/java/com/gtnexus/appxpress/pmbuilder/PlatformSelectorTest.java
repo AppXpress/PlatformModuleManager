@@ -11,6 +11,7 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.gtnexus.appxpress.NullOutputStream;
+import com.gtnexus.appxpress.cli.FileSelector;
 import com.gtnexus.appxpress.cli.asker.BoundIntegerAsker;
 
 public class PlatformSelectorTest {
@@ -26,7 +27,7 @@ public class PlatformSelectorTest {
 			BoundIntegerAsker asker = Mockito.mock(BoundIntegerAsker.class);
 			Mockito.when(asker.ask(Matchers.anyString())).thenReturn(1);
 			out = new PrintStream(new NullOutputStream());
-			PlatformSelector selector = new PlatformSelector(asker);
+			FileSelector selector = new FileSelector(asker);
 			File f = selector.select(Arrays.asList(files));
 			assertEquals(files[0], f);
 		} finally {
