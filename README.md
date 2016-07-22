@@ -1,5 +1,9 @@
 Using `pmm`
 ============
+
+![TravisCI Buil Status](https://travis-ci.org/AppXpress/PlatformModuleManager.svg?branch=master)
+
+
 ## About
 
 `PlatformModuleManager`, or `pmm` for short, is a set of tools for working with AppXpress Modules. It plays nicely with [axus](https://github.com/AppXpress/axus), by allowing you to keep your modules under source control. Once extracted from the platform, new iterations of the module can be tested, built, and reuploaded to the platform.
@@ -33,7 +37,7 @@ folders. The lib folder contains reusable javascript files.
 ```
 
 ## Getting Started
-[Pick up the latest release here.](https://github.com/AppXpress/PlatformModuleBuilder/releases/latest) Or build from source!
+Please build from source.
 
 ### Installing
 
