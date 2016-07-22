@@ -42,7 +42,7 @@ public class ChangeLogRenderer extends BaseSheetRenderer<PlatformModuleXml> {
 	}
 	
 	@Override
-	public void render(PlatformModuleXml mod) {
+	public void renderNonNull(PlatformModuleXml mod) {
 		renderTitle(mod);
 		renderHeaderLevelDescriptors(mod);
 		renderChangeLogDetails();

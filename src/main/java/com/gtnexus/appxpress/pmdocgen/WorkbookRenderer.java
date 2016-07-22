@@ -14,8 +14,12 @@ import com.gtnexus.appxpress.platform.module.interpretation.CustomObjectDesignV1
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.ChangeLogRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomActionDocRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomLinkDocRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.CustomObjectDesignDocRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.TemplatesRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.TopicsRenderer;
 import com.gtnexus.appxpress.pmdocgen.renderer.excel.TypeExtensionDocRenderer;
+import com.gtnexus.appxpress.pmdocgen.renderer.excel.UserInterfacesRenderer;
 
 public class WorkbookRenderer {
 
@@ -29,8 +33,6 @@ public class WorkbookRenderer {
 	public XSSFWorkbook render(ModuleVO vo) {
 		XSSFWorkbook wb = new XSSFWorkbook();
 		new ChangeLogRenderer(wb).render(vo.getPlatformModuleXml());
-		new CustomActionDocRenderer(wb).render(vo.getCustomActions());
-		new TypeExtensionDocRenderer(wb).render(vo.getTypeExtensions());
 		List<CustomObjectDesignV110> designs = vo.getDesigns();
 		Collections.sort(designs, new CustomObjectDesignV110Comparator());
 		preProcessDesignNames(designs);
@@ -40,8 +42,13 @@ public class WorkbookRenderer {
 			} else {
 				new CustomObjectDesignDocRenderer(wb, nameWithoutPrefix).render(design);
 			}
-			
 		}
+		new TypeExtensionDocRenderer(wb).render(vo.getTypeExtensions());
+		new CustomActionDocRenderer(wb).render(vo.getCustomActions());
+		new CustomLinkDocRenderer(wb).render(vo.getCustomLinks());
+		new UserInterfacesRenderer(wb).render(vo.getPlatformModuleXml());
+		new TopicsRenderer(wb).render(vo.getPlatformModuleXml());
+		new TemplatesRenderer(wb).render(vo.getTemplates());
 		return wb;
 	}
 	

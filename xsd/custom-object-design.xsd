@@ -21,6 +21,7 @@
         <xs:element ref="reportingFeature"/>
         <xs:element ref="integrationFeature"/>
         <xs:element ref="navFeature"/>
+        <xs:element ref="versioningFeature"/>
         <xs:element ref="anchor"/>
         <xs:element ref="visibilityType"/>
         <xs:element maxOccurs="unbounded" ref="roleSecurity"/>
@@ -208,6 +209,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="versioningFeature">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="enabled"/>
+        <xs:element ref="draftCompletionState"/>
+        <xs:element ref="activeCompletionState"/>
+        <xs:element ref="transitionForNewDraft"/>
+        <xs:element ref="versionField"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+   <xs:element name="draftCompletionState" type="xs:string"/>
+   <xs:element name="activeCompletionState" type="xs:string"/>
+   <xs:element name="transitionForNewDraft" type="xs:string"/>
+   <xs:element name="versionField" type="xs:string"/>
    <xs:element name="anchor">
     <xs:complexType>
       <xs:sequence>

@@ -4,23 +4,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.gtnexus.appxpress.platform.module.model.customaction.CustomActionD1;
+import com.gtnexus.appxpress.platform.module.model.customlink.CustomLinkD1;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;
 import com.gtnexus.appxpress.platform.module.model.platformmodule.PlatformModuleXml;
+import com.gtnexus.appxpress.platform.module.model.template.TemplateMediaV110;
 import com.gtnexus.appxpress.platform.module.model.typeextension.TypeExtensionD1;
 
 public class ModuleVO {
 	
 	private final PlatformModuleXml platformModuleXml;
 	private final List<CustomActionD1> customActions;
+	private final List<CustomLinkD1> customLinks;
 	private final List<TypeExtensionD1> typeExtensions;
+	private final List<TemplateMediaV110> templates;
 	private final List<CustomObjectDesignV110> designs;
 	
-	public ModuleVO(PlatformModuleXml platformModuleXml, List<CustomActionD1> customActions, List<TypeExtensionD1> typeExtensions,
+	public ModuleVO(PlatformModuleXml platformModuleXml, List<CustomActionD1> customActions, List<CustomLinkD1> customLinks, List<TypeExtensionD1> typeExtensions, List<TemplateMediaV110> templates,
 			List<CustomObjectDesignV110> designs) {
 		super();
 		this.platformModuleXml = platformModuleXml;
 		this.customActions = customActions;
+		this.customLinks = customLinks;
 		this.typeExtensions = typeExtensions;
+		this.templates = templates;
 		this.designs = designs;
 	}
 
@@ -32,8 +38,16 @@ public class ModuleVO {
 		return customActions;
 	}
 	
+	public List<CustomLinkD1> getCustomLinks() {
+		return customLinks;
+	}
+	
 	public List<TypeExtensionD1> getTypeExtensions() {
 		return typeExtensions;
+	}
+	
+	public List<TemplateMediaV110> getTemplates() {
+		return templates;
 	}
 
 	public List<CustomObjectDesignV110> getDesigns() {
@@ -43,12 +57,16 @@ public class ModuleVO {
 	public static class Builder {
 		private  PlatformModuleXml platformModuleXml;
 		private  List<CustomActionD1> customActions;
+		private  List<CustomLinkD1> customLinks;
 		private  List<TypeExtensionD1> typeExtensions;
+		private  List<TemplateMediaV110> templates;
 		private  List<CustomObjectDesignV110> designs;
 		
 		public Builder() {
 			this.customActions = new LinkedList<>();
+			this.customLinks = new LinkedList<>();
 			this.typeExtensions = new LinkedList<>();
+			this.templates = new LinkedList<>();
 			this.designs = new LinkedList<>();
 		}
 		
@@ -57,8 +75,18 @@ public class ModuleVO {
 			return this;
 		}
 		
+		public Builder addCustomLink(CustomLinkD1 cl) {
+			this.customLinks.add(cl);
+			return this;
+		}
+		
 		public Builder addTypeExtension(TypeExtensionD1 te) {
 			this.typeExtensions.add(te);
+			return this;
+		}
+		
+		public Builder addTemplate(TemplateMediaV110 template) {
+			this.templates.add(template);
 			return this;
 		}
 		
@@ -73,7 +101,7 @@ public class ModuleVO {
 		}
 		
 		public ModuleVO build() {
-			return new ModuleVO(platformModuleXml, customActions, typeExtensions, designs);
+			return new ModuleVO(platformModuleXml, customActions, customLinks, typeExtensions, templates, designs);
 		}
 	}
 }

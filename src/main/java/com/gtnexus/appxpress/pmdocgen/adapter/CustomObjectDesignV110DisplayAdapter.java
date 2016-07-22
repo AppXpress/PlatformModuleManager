@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.pmdocgen.adapter;
 
-import java.math.BigInteger;
 import java.util.Map;
 
 import com.google.common.base.Function;
@@ -76,8 +75,7 @@ public abstract class CustomObjectDesignV110DisplayAdapter extends DisplayAdapte
 		public String applyToNonNull(CustomObjectDesignV110 design) {
 			CodSection codSection = design.getCodSection();
 			if (codSection != null) {
-				BigInteger numberOfDisplayColumns = codSection.getNumberOfDisplayColumns();
-				return numberOfDisplayColumns == null ? "" : numberOfDisplayColumns.toString();
+				return codSection.getNumberOfDisplayColumns() == null ? "" : codSection.getNumberOfDisplayColumns().toString();
 			}
 			return null;
 		}
