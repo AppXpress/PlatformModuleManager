@@ -17,7 +17,7 @@ public class PlatformModuleInterpreter {
 	
 	private static final Pattern CA_FILENAME_REGEX = Pattern.compile("\\d+.xml$");
 	private static final Pattern CL_FILENAME_REGEX = Pattern.compile("\\d+.xml$");
-	private static final Pattern TE_FILENAME_REGEX = Pattern.compile("[a-zA-Z-_]+__Rank-\\d+\\.xml$");
+	private static final Pattern TE_FILENAME_REGEX = Pattern.compile("[a-zA-z-_0-9]+__Rank-\\d+\\.xml$");
 	private static final Pattern TM_FILENAME_REGEX = Pattern.compile("^templateMedia.xml$");
 	private static final Pattern DESIGN_FILENAME_REGEX = Pattern.compile("^Design_\\w+\\.xml$");
 	
