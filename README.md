@@ -48,7 +48,7 @@ From the project root:
 ```bash
 $ ./gradlew fatjar
 ```
-After building, `pmm` needs to be added to your path, or put in a directory that is in already on your path.
+After building, the `pmm` script file needs to be added to your path, or put in a directory that is in already on your path. This file is contained inn the scripts folder.:
 
 e.g.:
 
@@ -56,7 +56,7 @@ e.g.:
 $ mv pmm ~/bin
 ```
 
-And `$APPXPRESS_HOME` environment variable must be declared. This variable should point to the parent directory of `pmm-all.jar`.
+And `$APPXPRESS_HOME` environment variable must be declared. This variable should point to the parent directory of `pmm-all.jar`. `./gradlew fatjar` will deposit the `pmm-all.jar` in `build/libs`.
 
 e.g:
 ```bash
