@@ -26,5 +26,11 @@ public class AppXpressDirResolver {
 		 String cwd = System.getProperty(CURRENT_DIR);
 		 return Paths.get(cwd).toAbsolutePath(); 
 	 }
+	 
+	 public static class Helper {
+		 public static Path resolveAppxpressDir() {
+			 return new File(String.format(DIR_TEMPLATE, System.getProperty(USER_HOME))).toPath();
+		 }
+	 }
 
 }

@@ -85,4 +85,8 @@ public class FileFilterFactory {
 		};
 	}
 	
+	public static FileFilter isJar() {
+		return endsWith(".jar");
+	}
+	
 }
