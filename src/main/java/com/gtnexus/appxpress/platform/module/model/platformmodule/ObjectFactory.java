@@ -33,6 +33,9 @@ import javax.xml.namespace.QName;
  */
 @XmlRegistry
 public class ObjectFactory {
+    
+    private final static QName _PlatformModule_QNAME = new QName("", "PlatformModule");
+    private final static QName _PlatformModule400_QNAME = new QName("", "PlatformModule400");
 
     private final static QName _OwnerType_QNAME = new QName("", "ownerType");
     private final static QName _Role_QNAME = new QName("", "role");
@@ -85,9 +88,9 @@ public class ObjectFactory {
      * Create an instance of {@link PlatformModuleXml }
      * 
      */
-    public PlatformModuleXml createPlatformModule() {
-        return new PlatformModuleXml();
-    }
+//    public PlatformModuleXml createPlatformModule() {
+//        return new PlatformModuleXml();
+//    }
 
     /**
      * Create an instance of {@link CustomUiConfiguration }
@@ -103,6 +106,16 @@ public class ObjectFactory {
      */
     public NotificationTopic createNotificationTopic() {
         return new NotificationTopic();
+    }
+    
+    @XmlElementDecl(namespace = "", name = "PlatformModule")
+    public JAXBElement<PlatformModuleXml> createPlatformModule(PlatformModuleXml value) {
+	return new JAXBElement<PlatformModuleXml>(_PlatformModule_QNAME, PlatformModuleXml.class, null, value);
+    }
+    
+    @XmlElementDecl(namespace = "", name = "PlatformModule400")
+    public JAXBElement<PlatformModuleXml> createPlatformModule400(PlatformModuleXml value) {
+	return new JAXBElement<PlatformModuleXml>(_PlatformModule400_QNAME, PlatformModuleXml.class, null, value);
     }
 
     /**

@@ -68,7 +68,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "notificationTopic",
     "userVersion"
 })
-@XmlRootElement(name = "PlatformModule")
 public class PlatformModuleXml {
 
     @XmlElement(name = "__metadata", required = true)
