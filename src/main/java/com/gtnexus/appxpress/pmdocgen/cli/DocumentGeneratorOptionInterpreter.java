@@ -59,7 +59,7 @@ public class DocumentGeneratorOptionInterpreter extends CLICommandOptionInterpre
 			throws AppXpressException {
 		if (!isCustomerFolder(cwd, PlatformModuleDocumentGenerator.localDirOpt)) {
 			throw new AppXpressException(
-					"The select option must be run from a cutomer folder.");
+					"The select option must be run from a customer folder.");
 		}
 		Collection<File> choices = getCandidates(cwd);
 		if (choices.isEmpty()) {

@@ -59,7 +59,7 @@ public class BuilderOptionInterpreter extends
 			throws AppXpressException, PMBuilderException {
 		if (!isCustomerFolder(cwd, BuilderOption.LOCAL_DIR)) {
 			throw new PMBuilderException(
-					"The select option must be run from a cutomer folder.");
+					"The select option must be run from a customer folder.");
 		}
 		Collection<File> choices = getCandidates(cwd);
 		if (choices.isEmpty()) {
