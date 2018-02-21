@@ -18,32 +18,30 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 
 public class ContextFactory {
 
-	private final AppXpressDirResolver resolver;
-	private final InterpreterFactory interpreterFac;
+    private final AppXpressDirResolver resolver;
+    private final InterpreterFactory interpreterFac;
 
-	public ContextFactory() {
-		this.resolver = new AppXpressDirResolver();
-		this.interpreterFac = new InterpreterFactory(resolver);
-	}
+    public ContextFactory() {
+	this.resolver = new AppXpressDirResolver();
+	this.interpreterFac = new InterpreterFactory(resolver);
+    }
 
-	public <M extends CLICommandOption> AppXpressContext<M> createContext(
-			PMMCommandInfo app, String[] args) throws AppXpressException {
-		DirectoryHelper dHelper = new DirectoryHelper();
-		dHelper.ensureAppXpress();
-		PMProperties pmProperties = dHelper.getPmProperties();
-		Set<M> options = app.getOptions();
-		CLIOptionParser<M> parser = CLIOptionParser.createParser(options, args);
-		ParsedOptions<M> parsedOptions = parser.parse();
-		SimpleShutdown shutdown = new SimpleShutdownImpl();
-		CLIOptionInterpreter<M> interpreter = interpreterFac.createInterpreter(
-				app, shutdown, parsedOptions, pmProperties);
-		Map<M, String> interpretedOptions = interpreter.interpret();
-		CLIOptsAndPropConsolidator<M> consolidator = new CLIOptsAndPropConsolidator<>(
-				interpretedOptions, parsedOptions.getCliOptionSet(),
-				pmProperties);
-		Map<M, String> optMap = consolidator.consolidate();
-		return new AppXpressContext<>(app, shutdown,
-				dHelper, parser.getOptions(), pmProperties, optMap);
-	}
+    public <M extends CLICommandOption> AppXpressContext<M> createContext(PMMCommandInfo app, String[] args)
+	    throws AppXpressException {
+	DirectoryHelper dHelper = new DirectoryHelper();
+	dHelper.ensureAppXpress();
+	PMProperties pmProperties = dHelper.getPmProperties();
+	Set<M> options = app.getOptions();
+	CLIOptionParser<M> parser = CLIOptionParser.createParser(options, args);
+	ParsedOptions<M> parsedOptions = parser.parse();
+	SimpleShutdown shutdown = new SimpleShutdownImpl();
+	CLIOptionInterpreter<M> interpreter = interpreterFac.createInterpreter(app, shutdown, parsedOptions,
+		pmProperties);
+	Map<M, String> interpretedOptions = interpreter.interpret();
+	CLIOptsAndPropConsolidator<M> consolidator = new CLIOptsAndPropConsolidator<>(interpretedOptions,
+		parsedOptions.getCliOptionSet(), pmProperties);
+	Map<M, String> optMap = consolidator.consolidate();
+	return new AppXpressContext<>(app, shutdown, dHelper, parser.getOptions(), pmProperties, optMap);
+    }
 
 }

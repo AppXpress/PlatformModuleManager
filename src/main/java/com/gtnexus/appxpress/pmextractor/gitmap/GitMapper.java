@@ -37,137 +37,122 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  */
 public class GitMapper implements Mapper {
 
-	private final AppXpressContext<ExtractorOption> ctx;
-	private final GitMapVO vo;
-	private List<Path> overwrittenScripts;
-	private final Preparation<GitMapVO> prep;
-	private final FileService fs;
+    private final AppXpressContext<ExtractorOption> ctx;
+    private final GitMapVO vo;
+    private List<Path> overwrittenScripts;
+    private final Preparation<GitMapVO> prep;
+    private final FileService fs;
 
-	
-	public static GitMapper createMapper(AppXpressContext<ExtractorOption> context) {
-		Map<ExtractorOption, String> optionMap = context.getOptMap();
-		if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
-			String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
-			if (!platformZip.endsWith(ZIP_EXTENSION)) {
-				platformZip = platformZip + ZIP_EXTENSION;
-				optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
-			}
-		}
-		return new GitMapper(context);
+    public static GitMapper createMapper(AppXpressContext<ExtractorOption> context) {
+	Map<ExtractorOption, String> optionMap = context.getOptMap();
+	if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
+	    String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
+	    if (!platformZip.endsWith(ZIP_EXTENSION)) {
+		platformZip = platformZip + ZIP_EXTENSION;
+		optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
+	    }
 	}
-	
-	public GitMapper(AppXpressContext<ExtractorOption> context) {
-		this.ctx = context;
-		this.vo = new GitMapVO(context.getOptMap());
-		this.overwrittenScripts = new ArrayList<>();
-		this.prep = new GitMapPrep(ctx);
-		this.fs = new FileService();
-	}
+	return new GitMapper(context);
+    }
 
-	/**
-	 * Performs the appropriate actions for module extraction
-	 */
-	@Override
-	public void doMapping() throws AppXpressException {
+    public GitMapper(AppXpressContext<ExtractorOption> context) {
+	this.ctx = context;
+	this.vo = new GitMapVO(context.getOptMap());
+	this.overwrittenScripts = new ArrayList<>();
+	this.prep = new GitMapPrep(ctx);
+	this.fs = new FileService();
+    }
+
+    /**
+     * Performs the appropriate actions for module extraction
+     */
+    @Override
+    public void doMapping() throws AppXpressException {
+	try {
+	    prep.prepare(vo);
+	    mapCustomObjectDesign();
+	    mapFolders(vo.getUnzipDir(), vo.getPlatformDir());
+	    if (vo.isOverwriteScripts() && overwrittenScripts.size() > 0) {
+		printOverwrittenScripts();
+	    }
+	} catch (AppXpressException e) {
+	    throw new AppXpressException("Exception when performing mapping!", e);
+	}
+    }
+
+    /**
+     * Map folder export to folder destination
+     * 
+     * @param exportedPlatform
+     *            Folder where unzipped exported platform module is
+     * @param destinationPlatform
+     *            Folder where platform module is in local git directory
+     * @throws PMExtractorException
+     */
+    private void mapFolders(File exportedPlatform, File destinationPlatform) throws PMExtractorException {
+	GitMapVisitor visitor = new GitMapVisitor(vo, exportedPlatform.toPath(), destinationPlatform.toPath());
+	try {
+	    Files.walkFileTree(exportedPlatform.toPath(), visitor);
+	    overwrittenScripts = visitor.getOverwrittenScripts();
+	} catch (IOException e) {
+	    throw new PMExtractorException("Exception when mapping the exportedPlatform", e);
+	}
+    }
+
+    /**
+     * In the exported unzipped platform module, move around the custom object
+     * design scripts so they can be smoothly mapped 1=1 into git directory. This
+     * method moves their location and removes $ from their names
+     * 
+     * @param path
+     *            Path of Unzipped Exported platform module
+     * @throws AppXpressException
+     */
+    private void mapCustomObjectDesign() throws AppXpressException {
+	Path scriptsPath = vo.getUnzipDir().toPath().resolve(CUSTOM_OBJECT_MODULE).resolve(DESIGNS).resolve(SCRIPTS);
+	if (!Files.exists(scriptsPath)) {
+	    System.out.println("Cannot find script folder: " + scriptsPath.toString());
+	    System.out.println("\tAssuming this module contains no scripts for custom objects.");
+	    return;
+	}
+	File scripts = scriptsPath.toFile();
+	for (File co : scripts.listFiles()) {
+	    if (co.isDirectory()) {
 		try {
-			prep.prepare(vo);
-			mapCustomObjectDesign();
-			mapFolders(vo.getUnzipDir(),
-					vo.getPlatformDir());
-			if (vo.isOverwriteScripts() && overwrittenScripts.size() > 0) {
-				printOverwrittenScripts();
-			}
-		} catch (AppXpressException e) {
-			throw new AppXpressException("Exception when performing mapping!",
-					e);
-		}
-	}
-
-	/**
-	 * Map folder export to folder destination
-	 * 
-	 * @param exportedPlatform
-	 *            Folder where unzipped exported platform module is
-	 * @param destinationPlatform
-	 *            Folder where platform module is in local git directory
-	 * @throws PMExtractorException
-	 */
-	private void mapFolders(File exportedPlatform, File destinationPlatform)
-			throws PMExtractorException {
-		GitMapVisitor visitor = new GitMapVisitor(vo,
-				exportedPlatform.toPath(), destinationPlatform.toPath());
-		try {
-			Files.walkFileTree(exportedPlatform.toPath(), visitor);
-			overwrittenScripts = visitor.getOverwrittenScripts();
+		    fs.renameFile(co, co.getName().replace(SCRIPT_DESIGN + $, ""));
 		} catch (IOException e) {
-			throw new PMExtractorException(
-					"Exception when mapping the exportedPlatform", e);
+		    throw new AppXpressException("Exception when renaming script!", e);
 		}
+	    } else {
+		String dirName = co.getName().replace(SCRIPT_DESIGN + $, "").replace(JS_EXTENSION, "");
+		Path p = scriptsPath.resolve(dirName);
+		try {
+		    if (!Files.exists(p)) {
+			Files.createDirectory(p);
+		    }
+		    Path destination = p.resolve(co.getName());
+		    Files.move(co.toPath(), destination, REPLACE_EXISTING);
+		} catch (IOException e) {
+		    System.err.println("Failed to map custom object design: " + co.getName());
+		}
+	    }
 	}
+    }
 
-	/**
-	 * In the exported unzipped platform module, move around the custom object
-	 * design scripts so they can be smoothly mapped 1=1 into git directory.
-	 * This method moves their location and removes $ from their names
-	 * 
-	 * @param path
-	 *            Path of Unzipped Exported platform module
-	 * @throws AppXpressException
-	 */
-	private void mapCustomObjectDesign() throws AppXpressException {
-		Path scriptsPath = vo.getUnzipDir().toPath()
-				.resolve(CUSTOM_OBJECT_MODULE).resolve(DESIGNS)
-				.resolve(SCRIPTS);
-		if (!Files.exists(scriptsPath)) {
-			System.out.println("Cannot find script folder: "
-					+ scriptsPath.toString());
-			System.out
-					.println("\tAssuming this module contains no scripts for custom objects.");
-			return;
-		}
-		File scripts = scriptsPath.toFile();
-		for (File co : scripts.listFiles()) {
-			if (co.isDirectory()) {
-				try {
-					fs.renameFile(co,
-							co.getName().replace(SCRIPT_DESIGN + $, ""));
-				} catch (IOException e) {
-					throw new AppXpressException(
-							"Exception when renaming script!", e);
-				}
-			} else {
-				String dirName = co.getName()
-						.replace(SCRIPT_DESIGN + $, "")
-						.replace(JS_EXTENSION, "");
-				Path p = scriptsPath.resolve(dirName);
-				try {
-					if (!Files.exists(p)) {
-						Files.createDirectory(p);
-					}
-					Path destination = p.resolve(co.getName());
-					Files.move(co.toPath(), destination, REPLACE_EXISTING);
-				} catch (IOException e) {
-					System.err.println("Failed to map custom object design: "
-							+ co.getName());
-				}
-			}
-		}
+    /**
+     * Prints the scripts that were overwritten so the user can quickly noticed if
+     * unwanted actions were performed on local git dir
+     */
+    private void printOverwrittenScripts() {
+	final StringBuilder sb = new StringBuilder();
+	System.out.print("You over wrote these scripts -> ");
+	for (Path script : overwrittenScripts) {
+	    if (sb.length() > 0) {
+		sb.append("\n");
+	    }
+	    sb.append(script.toString());
 	}
-
-	/**
-	 * Prints the scripts that were overwritten so the user can quickly noticed
-	 * if unwanted actions were performed on local git dir
-	 */
-	private void printOverwrittenScripts() {
-		final StringBuilder sb = new StringBuilder();
-		System.out.print("You over wrote these scripts -> ");
-		for (Path script : overwrittenScripts) {
-			if (sb.length() > 0) {
-				sb.append("\n");
-			}
-			sb.append(script.toString());
-		}
-		System.out.println(sb.toString());
-	}
+	System.out.println(sb.toString());
+    }
 
 }

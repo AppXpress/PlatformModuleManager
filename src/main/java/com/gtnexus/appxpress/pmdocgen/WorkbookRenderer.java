@@ -23,80 +23,80 @@ import com.gtnexus.appxpress.pmdocgen.renderer.excel.UserInterfacesRenderer;
 
 public class WorkbookRenderer {
 
-	private static final int MAX_SHEET_NAME_LENGTH = 31;
-	private boolean useFullNames = true;
-	private Map<String, String> nameWithoutPrefix;
-	
-	public WorkbookRenderer() {
-	}
+    private static final int MAX_SHEET_NAME_LENGTH = 31;
+    private boolean useFullNames = true;
+    private Map<String, String> nameWithoutPrefix;
 
-	public XSSFWorkbook render(ModuleVO vo) {
-		XSSFWorkbook wb = new XSSFWorkbook();
-		new ChangeLogRenderer(wb).render(vo.getPlatformModuleXml());
-		List<CustomObjectDesignV110> designs = vo.getDesigns();
-		Collections.sort(designs, new CustomObjectDesignV110Comparator());
-		preProcessDesignNames(designs);
-		for(CustomObjectDesignV110 design : designs) {
-			if(useFullNames) {
-				new CustomObjectDesignDocRenderer(wb).render(design);
-			} else {
-				new CustomObjectDesignDocRenderer(wb, nameWithoutPrefix).render(design);
-			}
-		}
-		new TypeExtensionDocRenderer(wb).render(vo.getTypeExtensions());
-		new CustomActionDocRenderer(wb).render(vo.getCustomActions());
-		new CustomLinkDocRenderer(wb).render(vo.getCustomLinks());
-		new UserInterfacesRenderer(wb).render(vo.getPlatformModuleXml());
-		new TopicsRenderer(wb).render(vo.getPlatformModuleXml());
-		new TemplatesRenderer(wb).render(vo.getTemplates());
-		return wb;
-	}
-	
-	private void preProcessDesignNames(List<CustomObjectDesignV110> designs) {
-		if(designs.size() == 1) {
-			return;
-		}
-		List<String> longNames = new LinkedList<>();
-		for (CustomObjectDesignV110 design : designs) {
-			String name = design.getName();
-			if(name.length() >= MAX_SHEET_NAME_LENGTH) {
-				longNames.add(name);
-			}
-		}
-		if(longNames.size() < 2) {
-			return;
-		}
-		String lcp = longestCommonPrefix(longNames);
-		if(lcp.equals("")) { //TODO: this is too naive, we should have a threshold,
-							 //		 or check that the prefix makes sense.
-			useFullNames = true;
-		} else {
-			useFullNames = false;
-			buildNameWithoutPrefixMap(designs, lcp);
-		}
-	}
-	
-	private static String longestCommonPrefix(List<String> strings) {
-	    if (strings.isEmpty()){
-	    	return "";
+    public WorkbookRenderer() {
+    }
+
+    public XSSFWorkbook render(ModuleVO vo) {
+	XSSFWorkbook wb = new XSSFWorkbook();
+	new ChangeLogRenderer(wb).render(vo.getPlatformModuleXml());
+	List<CustomObjectDesignV110> designs = vo.getDesigns();
+	Collections.sort(designs, new CustomObjectDesignV110Comparator());
+	preProcessDesignNames(designs);
+	for (CustomObjectDesignV110 design : designs) {
+	    if (useFullNames) {
+		new CustomObjectDesignDocRenderer(wb).render(design);
+	    } else {
+		new CustomObjectDesignDocRenderer(wb, nameWithoutPrefix).render(design);
 	    }
-	    String prefix = strings.get(0);
-	    for (String s : strings)
-	        while (s.indexOf(prefix) != 0) {
-	            prefix = prefix.substring(0, prefix.length() - 1);
-	            if (prefix.isEmpty()){
-	            	return "";
-	            }
-	        }        
-	    return prefix;
 	}
-	
-	private void buildNameWithoutPrefixMap(List<CustomObjectDesignV110> designs, String lcp) {
-		Builder<String, String> builder = new ImmutableMap.Builder<String, String>();
-		for(CustomObjectDesignV110 design : designs) {
-			builder.put(design.getName(), design.getName().substring(lcp.length()));
+	new TypeExtensionDocRenderer(wb).render(vo.getTypeExtensions());
+	new CustomActionDocRenderer(wb).render(vo.getCustomActions());
+	new CustomLinkDocRenderer(wb).render(vo.getCustomLinks());
+	new UserInterfacesRenderer(wb).render(vo.getPlatformModuleXml());
+	new TopicsRenderer(wb).render(vo.getPlatformModuleXml());
+	new TemplatesRenderer(wb).render(vo.getTemplates());
+	return wb;
+    }
+
+    private void preProcessDesignNames(List<CustomObjectDesignV110> designs) {
+	if (designs.size() == 1) {
+	    return;
+	}
+	List<String> longNames = new LinkedList<>();
+	for (CustomObjectDesignV110 design : designs) {
+	    String name = design.getName();
+	    if (name.length() >= MAX_SHEET_NAME_LENGTH) {
+		longNames.add(name);
+	    }
+	}
+	if (longNames.size() < 2) {
+	    return;
+	}
+	String lcp = longestCommonPrefix(longNames);
+	if (lcp.equals("")) { // TODO: this is too naive, we should have a threshold,
+			      // or check that the prefix makes sense.
+	    useFullNames = true;
+	} else {
+	    useFullNames = false;
+	    buildNameWithoutPrefixMap(designs, lcp);
+	}
+    }
+
+    private static String longestCommonPrefix(List<String> strings) {
+	if (strings.isEmpty()) {
+	    return "";
+	}
+	String prefix = strings.get(0);
+	for (String s : strings)
+	    while (s.indexOf(prefix) != 0) {
+		prefix = prefix.substring(0, prefix.length() - 1);
+		if (prefix.isEmpty()) {
+		    return "";
 		}
-		nameWithoutPrefix = builder.build();
+	    }
+	return prefix;
+    }
+
+    private void buildNameWithoutPrefixMap(List<CustomObjectDesignV110> designs, String lcp) {
+	Builder<String, String> builder = new ImmutableMap.Builder<String, String>();
+	for (CustomObjectDesignV110 design : designs) {
+	    builder.put(design.getName(), design.getName().substring(lcp.length()));
 	}
-	
+	nameWithoutPrefix = builder.build();
+    }
+
 }

@@ -6,67 +6,67 @@ import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
 public class SelectOption implements CLICommandOption {
 
-	private  final OptionMessageProvider msgProvider = new OptionMessageProvider();
-	private  final ValidityProvider validityProvider = new ValidityProvider();
-	
-	@Override
-	public String getLongName() {
-		return "select";
-	}
+    private final OptionMessageProvider msgProvider = new OptionMessageProvider();
+    private final ValidityProvider validityProvider = new ValidityProvider();
 
-	@Override
-	public String getFlag() {
-		return "s";
-	}
+    @Override
+    public String getLongName() {
+	return "select";
+    }
 
-	@Override
-	public Class<?> getType() {
-		return Integer.class;
-	}
+    @Override
+    public String getFlag() {
+	return "s";
+    }
 
-	@Override
-	public String getDescription() {
-		return "Select module from the folders present in the cwd.";
-	}
+    @Override
+    public Class<?> getType() {
+	return Integer.class;
+    }
 
-	@Override
-	public boolean hasArg() {
-		return false;
-	}
+    @Override
+    public String getDescription() {
+	return "Select module from the folders present in the cwd.";
+    }
 
-	@Override
-	public boolean isHelpFlag() {
-		return false;
-	}
+    @Override
+    public boolean hasArg() {
+	return false;
+    }
 
-	@Override
-	public String getMessage() {
-		return msgProvider.getMessage(this.getType(), this.getLongName());
-	}
+    @Override
+    public boolean isHelpFlag() {
+	return false;
+    }
 
-	@Override
-	public boolean isAppXpressMandatory() {
-		return false;
-	}
+    @Override
+    public String getMessage() {
+	return msgProvider.getMessage(this.getType(), this.getLongName());
+    }
 
-	@Override
-	public boolean shouldBeOmitted() {
-		return true;
-	}
+    @Override
+    public boolean isAppXpressMandatory() {
+	return false;
+    }
 
-	@Override
-	public boolean isValid(String val) {
-		return validityProvider.isValid(val, this.getType());
-	}
+    @Override
+    public boolean shouldBeOmitted() {
+	return true;
+    }
 
-	@Override
-	public String getDefaultValue() {
-		return null;
-	}
+    @Override
+    public boolean isValid(String val) {
+	return validityProvider.isValid(val, this.getType());
+    }
 
-	@Override
-	public boolean isStoreableProperty() {
-		return false;
-	}
+    @Override
+    public String getDefaultValue() {
+	return null;
+    }
+
+    @Override
+    public boolean isStoreableProperty() {
+	return false;
+    }
 
 }

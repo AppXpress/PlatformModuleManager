@@ -37,319 +37,309 @@ import com.gtnexus.appxpress.pmdocgen.adapter.ScriptingFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.VersioningFeatureDisplayAdapter;
 import com.gtnexus.appxpress.pmdocgen.adapter.WorkflowFeatureDisplayAdapter;
 
-public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjectDesignV110>{
-	
-	private final CustomObjectDesignV110DisplayAdapter identificationDisplayAdapter;
-	private final CustomObjectDesignV110DisplayAdapter runtimeSettingsDisplayAdapter;
-	private final ScalarFieldDisplayAdapter scalarFieldDisplayAdapter;
-	private final EmbeddedFieldsDisplayAdapter embeddedFieldsDisplayAdapter;
-	private final EventsDisplayAdapter eventsDisplayAdapter;
-	private final RoleSecurityDisplayAdapter roleSecurityDisplayAdapter;
-	private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
-	private final VersioningFeatureDisplayAdapter versioningFeatureDisplayAdapter;
-	private final ScriptingFeatureDisplayAdapter scriptingFeatureDisplayAdapter;
-	private final AttachmentFeatureDisplayAdapter attachmentFeatureDisplayAdapter;
-	private final PdfFeatureDisplayAdapter pdfFeatureDisplayAdapter;
-	private final ReportingFeatureDisplayAdapter reportingFeatureDisplayAdapter;
-	private final IntegrationFeatureDisplayAdapter integrationFeatureDisplayAdapter;
-	private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
-	private final ExtensionPointDisplayAdapter extensionPointDisplayAdapter;
-	
-	private final Map<String, String> truncatedNames;
-	
-	private static final String SHEET_NAME = "Custom Object Design";
-	private static final String PRIMARY = "PRIMARY";
-	
-	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook, Map<String, String> namesWithoutPrefix) {
-		super(workBook, SHEET_NAME);
-		this.identificationDisplayAdapter = new IdentificationAdapter();
-		this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();
-		this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
-		this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
-		this.eventsDisplayAdapter = new EventsDisplayAdapter();
-		this.roleSecurityDisplayAdapter = new RoleSecurityDisplayAdapter();
-		this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
-		this.versioningFeatureDisplayAdapter = new VersioningFeatureDisplayAdapter();
-		this.scriptingFeatureDisplayAdapter = new ScriptingFeatureDisplayAdapter();
-		this.attachmentFeatureDisplayAdapter = new AttachmentFeatureDisplayAdapter();
-		this.pdfFeatureDisplayAdapter = new PdfFeatureDisplayAdapter();
-		this.reportingFeatureDisplayAdapter = new ReportingFeatureDisplayAdapter();
-		this.integrationFeatureDisplayAdapter = new IntegrationFeatureDisplayAdapter();
-		this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
-		this.extensionPointDisplayAdapter = new ExtensionPointDisplayAdapter();
-		this.truncatedNames = namesWithoutPrefix;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public CustomObjectDesignDocRenderer(XSSFWorkbook workBook) {
-		this(workBook, Collections.EMPTY_MAP);
-	}
+public class CustomObjectDesignDocRenderer extends BaseSheetRenderer<CustomObjectDesignV110> {
 
-	@Override
-	public void renderNonNull(CustomObjectDesignV110 design) {
-		renderSheetLevelDetails(design);
-		renderIdentification(design);
-		renderRuntimeSettings(design);
-		renderScalarFields(design);
-		renderEmbeddedFields(design);
-		
-		if (PRIMARY.equals(design.getDesignType())) {
-			renderEvents(design);
-			renderRolePermissions(design);
-			renderNavigation(design);
-			renderScripting(design);
-			renderAttachment(design);
-			renderPDFFeature(design);
-			renderReporting(design);
-			renderIntegration(design);
-			renderVersioningFeature(design);
-			renderWorkflow(design);
-			renderExtensionPoints(design);
-		}
-		autofit();
-	}
-	
-	@Override
-	public int getMaxWidth() {
-		return maximumWidth(allAdapters());
-	}
-	
-	private Integer maximumWidth(Collection<DisplayAdapter<?>> adapters) {
-		return Collections.max(Collections2.transform(adapters, new Function<DisplayAdapter<?>, Integer>() {
-			@Override
-			public Integer apply(DisplayAdapter<?> input) {
-				return input.size();
-			}
-		}));
-	}
-	
-	private Collection<DisplayAdapter<?>> allAdapters() {
-		return Arrays.asList(new DisplayAdapter<?>[]{
-				identificationDisplayAdapter,
-				runtimeSettingsDisplayAdapter,
-				scalarFieldDisplayAdapter,
-				embeddedFieldsDisplayAdapter,
-				eventsDisplayAdapter,
-				roleSecurityDisplayAdapter,
-				navFeatureDisplayAdapter,
-				versioningFeatureDisplayAdapter,
-				scriptingFeatureDisplayAdapter,
-				attachmentFeatureDisplayAdapter,
-				pdfFeatureDisplayAdapter,
-				reportingFeatureDisplayAdapter,
-				integrationFeatureDisplayAdapter,
-				workflowFeatureDisplayAdapter,
-				extensionPointDisplayAdapter,
-		});
-	}
-	
-	
-	private void renderSheetLevelDetails(CustomObjectDesignV110 source) {
-		workBook.setSheetName(workBook.getSheetIndex(sheet), getName(source));
-		short color = getTabColor(source);
-		sheet.setTabColor(color);
-	}
-	
-	private String getName(CustomObjectDesignV110 design) {
-		if(truncatedNames.isEmpty()) {
-			return design.getName();
-		}
-		return truncatedNames.get(design.getName());
-	}
-	
-	private short getTabColor(CustomObjectDesignV110 source) {
-		if("PRIMARY".equals(source.getDesignType())) {
-			return IndexedColors.DARK_BLUE.getIndex();
-		} 
-		return IndexedColors.LAVENDER.getIndex();
-	}
-	
-	private void renderIdentification(CustomObjectDesignV110 design) {
-		final int fieldCount = 3;
-		renderLabelValueSectionHeader("Identification", fieldCount);
-		renderLabelValueSection(design, identificationDisplayAdapter, fieldCount);
-	}
-	
-	private void renderRuntimeSettings(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		final int fieldCount = 2;
-		renderLabelValueSectionHeader("Runtime Settings", fieldCount);
-		renderLabelValueSection(design, runtimeSettingsDisplayAdapter, fieldCount);
-	}
-	
-	private void renderScalarFields(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderSectionHeader("Scalar Fields", scalarFieldDisplayAdapter);
-		renderTableHeader(scalarFieldDisplayAdapter);
-		renderTableBody(design.getScalarField(), scalarFieldDisplayAdapter);
-	}
-	
-	private void renderEmbeddedFields(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderSectionHeader("Embedded Fields", embeddedFieldsDisplayAdapter);
-		renderTableHeader(embeddedFieldsDisplayAdapter);
-		renderTableBody(design.getLinkField(), embeddedFieldsDisplayAdapter);
-	}
-	
-	private void renderEvents(CustomObjectDesignV110 design) {
-		if (design.getEventField() == null || design.getEventField().isEmpty()) {
-			return;
-		}
-		traverser.nextRow();
-		renderSectionHeader("Events", eventsDisplayAdapter);
-		renderTableHeader(eventsDisplayAdapter);
-		renderTableBody(design.getEventField(), eventsDisplayAdapter);
-	}
-	
-	private void renderRolePermissions(CustomObjectDesignV110 design) {
-		if (design.getRoleSecurity() == null || design.getRoleSecurity().isEmpty()) {
-			return;
-		}
-		List<NormalizedRoleSecurity> normalizedRoleSecurities = NormalizedRoleSecurity.normalizeRoleSecurities(design.getRoleSecurity());
-		traverser.nextRow();
-		renderSectionHeader("Role Permissions", roleSecurityDisplayAdapter);
-		renderTableHeader(roleSecurityDisplayAdapter);
-		renderTableBody(normalizedRoleSecurities, roleSecurityDisplayAdapter);
-	}
-	
-	private void renderNavigation(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("Navigation Feature", navFeatureDisplayAdapter);
-		renderLabelValueSection(design.getNavFeature(), navFeatureDisplayAdapter);
-	}
-	
-	private void renderScripting(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("Scripting", scriptingFeatureDisplayAdapter);
-		renderLabelValueSection(design.getScriptingFeature(), scriptingFeatureDisplayAdapter);
-	}
-	
-	private void renderAttachment(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("Attachment", attachmentFeatureDisplayAdapter);
-		renderLabelValueSection(design.getAttachmentFeature(), attachmentFeatureDisplayAdapter);
-	}
+    private final CustomObjectDesignV110DisplayAdapter identificationDisplayAdapter;
+    private final CustomObjectDesignV110DisplayAdapter runtimeSettingsDisplayAdapter;
+    private final ScalarFieldDisplayAdapter scalarFieldDisplayAdapter;
+    private final EmbeddedFieldsDisplayAdapter embeddedFieldsDisplayAdapter;
+    private final EventsDisplayAdapter eventsDisplayAdapter;
+    private final RoleSecurityDisplayAdapter roleSecurityDisplayAdapter;
+    private final NavFeatureDisplayAdapter navFeatureDisplayAdapter;
+    private final VersioningFeatureDisplayAdapter versioningFeatureDisplayAdapter;
+    private final ScriptingFeatureDisplayAdapter scriptingFeatureDisplayAdapter;
+    private final AttachmentFeatureDisplayAdapter attachmentFeatureDisplayAdapter;
+    private final PdfFeatureDisplayAdapter pdfFeatureDisplayAdapter;
+    private final ReportingFeatureDisplayAdapter reportingFeatureDisplayAdapter;
+    private final IntegrationFeatureDisplayAdapter integrationFeatureDisplayAdapter;
+    private final WorkflowFeatureDisplayAdapter workflowFeatureDisplayAdapter;
+    private final ExtensionPointDisplayAdapter extensionPointDisplayAdapter;
 
-	private void renderPDFFeature(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("PDF Feature", pdfFeatureDisplayAdapter);
-		renderLabelValueSection(design.getPdfFeature(), pdfFeatureDisplayAdapter);
-	}
-	
-	private void renderReporting(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("Reporting", reportingFeatureDisplayAdapter);
-		renderLabelValueSection(design.getReportingFeature(), reportingFeatureDisplayAdapter);
-	}
-	
-	private void renderIntegration(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("Integration", integrationFeatureDisplayAdapter);
-		renderLabelValueSection(design.getIntegrationFeature(), integrationFeatureDisplayAdapter);
-	}
-	
-	private void renderVersioningFeature(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		renderLabelValueSectionHeader("Versioning Feature", versioningFeatureDisplayAdapter);
-		renderLabelValueSection(design.getVersioningFeature(), versioningFeatureDisplayAdapter);
-	}
+    private final Map<String, String> truncatedNames;
 
-	private void renderWorkflow(CustomObjectDesignV110 design) {
-		traverser.nextRow();
-		WorkflowFeature wff = design.getWorkflowFeature();
-		if(wff == null) {
-			return;
-		}
-		renderLabelValueSectionHeader("Workflow Design", 3);
-		renderLabelValueSection(wff, workflowFeatureDisplayAdapter, 3);
-		List<EdgeDescriptorDisplayAdapter> edgeDesc = EdgeDescriptorDisplayAdapter.createDescriptors(wff.getWorkflow());
-		DisplayAdapter<EdgeDescriptorDisplayAdapter> adapter = edgeDesc.get(0);
-		renderSectionHeader("Workflow Steps", adapter);
-		renderTableHeader(adapter);
-		renderTableBody(edgeDesc, adapter);
+    private static final String SHEET_NAME = "Custom Object Design";
+    private static final String PRIMARY = "PRIMARY";
+
+    public CustomObjectDesignDocRenderer(XSSFWorkbook workBook, Map<String, String> namesWithoutPrefix) {
+	super(workBook, SHEET_NAME);
+	this.identificationDisplayAdapter = new IdentificationAdapter();
+	this.runtimeSettingsDisplayAdapter = new RuntimeSettingsAdapter();
+	this.scalarFieldDisplayAdapter = new ScalarFieldDisplayAdapter();
+	this.embeddedFieldsDisplayAdapter = new EmbeddedFieldsDisplayAdapter();
+	this.eventsDisplayAdapter = new EventsDisplayAdapter();
+	this.roleSecurityDisplayAdapter = new RoleSecurityDisplayAdapter();
+	this.navFeatureDisplayAdapter = new NavFeatureDisplayAdapter();
+	this.versioningFeatureDisplayAdapter = new VersioningFeatureDisplayAdapter();
+	this.scriptingFeatureDisplayAdapter = new ScriptingFeatureDisplayAdapter();
+	this.attachmentFeatureDisplayAdapter = new AttachmentFeatureDisplayAdapter();
+	this.pdfFeatureDisplayAdapter = new PdfFeatureDisplayAdapter();
+	this.reportingFeatureDisplayAdapter = new ReportingFeatureDisplayAdapter();
+	this.integrationFeatureDisplayAdapter = new IntegrationFeatureDisplayAdapter();
+	this.workflowFeatureDisplayAdapter = new WorkflowFeatureDisplayAdapter();
+	this.extensionPointDisplayAdapter = new ExtensionPointDisplayAdapter();
+	this.truncatedNames = namesWithoutPrefix;
+    }
+
+    @SuppressWarnings("unchecked")
+    public CustomObjectDesignDocRenderer(XSSFWorkbook workBook) {
+	this(workBook, Collections.EMPTY_MAP);
+    }
+
+    @Override
+    public void renderNonNull(CustomObjectDesignV110 design) {
+	renderSheetLevelDetails(design);
+	renderIdentification(design);
+	renderRuntimeSettings(design);
+	renderScalarFields(design);
+	renderEmbeddedFields(design);
+
+	if (PRIMARY.equals(design.getDesignType())) {
+	    renderEvents(design);
+	    renderRolePermissions(design);
+	    renderNavigation(design);
+	    renderScripting(design);
+	    renderAttachment(design);
+	    renderPDFFeature(design);
+	    renderReporting(design);
+	    renderIntegration(design);
+	    renderVersioningFeature(design);
+	    renderWorkflow(design);
+	    renderExtensionPoints(design);
 	}
-	
-	private void renderExtensionPoints(CustomObjectDesignV110 design) {
-		if (design.getCodExtensionPoint() == null || design.getCodExtensionPoint().isEmpty()) {
-			return;
-		}
-		traverser.nextRow();
-		renderSectionHeader("Extension Points", extensionPointDisplayAdapter);
-		renderTableHeader(extensionPointDisplayAdapter);
-		renderTableBody(design.getCodExtensionPoint(), extensionPointDisplayAdapter);
+	autofit();
+    }
+
+    @Override
+    public int getMaxWidth() {
+	return maximumWidth(allAdapters());
+    }
+
+    private Integer maximumWidth(Collection<DisplayAdapter<?>> adapters) {
+	return Collections.max(Collections2.transform(adapters, new Function<DisplayAdapter<?>, Integer>() {
+	    @Override
+	    public Integer apply(DisplayAdapter<?> input) {
+		return input.size();
+	    }
+	}));
+    }
+
+    private Collection<DisplayAdapter<?>> allAdapters() {
+	return Arrays.asList(new DisplayAdapter<?>[] { identificationDisplayAdapter, runtimeSettingsDisplayAdapter,
+		scalarFieldDisplayAdapter, embeddedFieldsDisplayAdapter, eventsDisplayAdapter,
+		roleSecurityDisplayAdapter, navFeatureDisplayAdapter, versioningFeatureDisplayAdapter,
+		scriptingFeatureDisplayAdapter, attachmentFeatureDisplayAdapter, pdfFeatureDisplayAdapter,
+		reportingFeatureDisplayAdapter, integrationFeatureDisplayAdapter, workflowFeatureDisplayAdapter,
+		extensionPointDisplayAdapter, });
+    }
+
+    private void renderSheetLevelDetails(CustomObjectDesignV110 source) {
+	workBook.setSheetName(workBook.getSheetIndex(sheet), getName(source));
+	short color = getTabColor(source);
+	sheet.setTabColor(color);
+    }
+
+    private String getName(CustomObjectDesignV110 design) {
+	if (truncatedNames.isEmpty()) {
+	    return design.getName();
 	}
-	
-	//-------------------------------------------------------------------------------------------------------------------------- 
-	private <X> void renderLabelValueSectionHeader(String sectionName, DisplayAdapter<X> adapter) {
-		int cellWidth = (adapter.size() * 2) - 1;
-		renderSectionHeader(sectionName, cellWidth);
+	return truncatedNames.get(design.getName());
+    }
+
+    private short getTabColor(CustomObjectDesignV110 source) {
+	if ("PRIMARY".equals(source.getDesignType())) {
+	    return IndexedColors.DARK_BLUE.getIndex();
 	}
-	
-	private void renderLabelValueSectionHeader(String sectionName, int fieldAndLabelPairCount) {
-		int cellWidth = (fieldAndLabelPairCount * 2) - 1;
-		renderSectionHeader(sectionName, cellWidth);
+	return IndexedColors.LAVENDER.getIndex();
+    }
+
+    private void renderIdentification(CustomObjectDesignV110 design) {
+	final int fieldCount = 3;
+	renderLabelValueSectionHeader("Identification", fieldCount);
+	renderLabelValueSection(design, identificationDisplayAdapter, fieldCount);
+    }
+
+    private void renderRuntimeSettings(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	final int fieldCount = 2;
+	renderLabelValueSectionHeader("Runtime Settings", fieldCount);
+	renderLabelValueSection(design, runtimeSettingsDisplayAdapter, fieldCount);
+    }
+
+    private void renderScalarFields(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderSectionHeader("Scalar Fields", scalarFieldDisplayAdapter);
+	renderTableHeader(scalarFieldDisplayAdapter);
+	renderTableBody(design.getScalarField(), scalarFieldDisplayAdapter);
+    }
+
+    private void renderEmbeddedFields(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderSectionHeader("Embedded Fields", embeddedFieldsDisplayAdapter);
+	renderTableHeader(embeddedFieldsDisplayAdapter);
+	renderTableBody(design.getLinkField(), embeddedFieldsDisplayAdapter);
+    }
+
+    private void renderEvents(CustomObjectDesignV110 design) {
+	if (design.getEventField() == null || design.getEventField().isEmpty()) {
+	    return;
 	}
-	
-	private <X> void renderSectionHeader(String sectionName, DisplayAdapter<X> adapter) {
-		renderSectionHeader(sectionName, adapter.size() - 1);
+	traverser.nextRow();
+	renderSectionHeader("Events", eventsDisplayAdapter);
+	renderTableHeader(eventsDisplayAdapter);
+	renderTableBody(design.getEventField(), eventsDisplayAdapter);
+    }
+
+    private void renderRolePermissions(CustomObjectDesignV110 design) {
+	if (design.getRoleSecurity() == null || design.getRoleSecurity().isEmpty()) {
+	    return;
 	}
-	
-	private void renderSectionHeader(String sectionName, int cellWidth) {
-		XSSFRow idHeaderRow = traverser.nextRow();
-		XSSFCell idHeaderCell = traverser.nextCell();
-		idHeaderCell.setCellValue(sectionName);
-		idHeaderCell.setCellStyle(styleProvider.getHeaderStyle());
-		CellRangeAddress headerRegion = new CellRangeAddress(idHeaderRow.getRowNum(), idHeaderRow.getRowNum(), 0, cellWidth);
-		sheet.addMergedRegion(headerRegion);
+	List<NormalizedRoleSecurity> normalizedRoleSecurities = NormalizedRoleSecurity
+		.normalizeRoleSecurities(design.getRoleSecurity());
+	traverser.nextRow();
+	renderSectionHeader("Role Permissions", roleSecurityDisplayAdapter);
+	renderTableHeader(roleSecurityDisplayAdapter);
+	renderTableBody(normalizedRoleSecurities, roleSecurityDisplayAdapter);
+    }
+
+    private void renderNavigation(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("Navigation Feature", navFeatureDisplayAdapter);
+	renderLabelValueSection(design.getNavFeature(), navFeatureDisplayAdapter);
+    }
+
+    private void renderScripting(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("Scripting", scriptingFeatureDisplayAdapter);
+	renderLabelValueSection(design.getScriptingFeature(), scriptingFeatureDisplayAdapter);
+    }
+
+    private void renderAttachment(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("Attachment", attachmentFeatureDisplayAdapter);
+	renderLabelValueSection(design.getAttachmentFeature(), attachmentFeatureDisplayAdapter);
+    }
+
+    private void renderPDFFeature(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("PDF Feature", pdfFeatureDisplayAdapter);
+	renderLabelValueSection(design.getPdfFeature(), pdfFeatureDisplayAdapter);
+    }
+
+    private void renderReporting(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("Reporting", reportingFeatureDisplayAdapter);
+	renderLabelValueSection(design.getReportingFeature(), reportingFeatureDisplayAdapter);
+    }
+
+    private void renderIntegration(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("Integration", integrationFeatureDisplayAdapter);
+	renderLabelValueSection(design.getIntegrationFeature(), integrationFeatureDisplayAdapter);
+    }
+
+    private void renderVersioningFeature(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	renderLabelValueSectionHeader("Versioning Feature", versioningFeatureDisplayAdapter);
+	renderLabelValueSection(design.getVersioningFeature(), versioningFeatureDisplayAdapter);
+    }
+
+    private void renderWorkflow(CustomObjectDesignV110 design) {
+	traverser.nextRow();
+	WorkflowFeature wff = design.getWorkflowFeature();
+	if (wff == null) {
+	    return;
 	}
-	
-	private final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter) {
-		renderLabelValueSection(target, adapter, adapter.size());
+	renderLabelValueSectionHeader("Workflow Design", 3);
+	renderLabelValueSection(wff, workflowFeatureDisplayAdapter, 3);
+	List<EdgeDescriptorDisplayAdapter> edgeDesc = EdgeDescriptorDisplayAdapter.createDescriptors(wff.getWorkflow());
+	DisplayAdapter<EdgeDescriptorDisplayAdapter> adapter = edgeDesc.get(0);
+	renderSectionHeader("Workflow Steps", adapter);
+	renderTableHeader(adapter);
+	renderTableBody(edgeDesc, adapter);
+    }
+
+    private void renderExtensionPoints(CustomObjectDesignV110 design) {
+	if (design.getCodExtensionPoint() == null || design.getCodExtensionPoint().isEmpty()) {
+	    return;
 	}
-	
-	private final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter, int width) {
-		Iterator<String> iterator = adapter.iterator();
-		while (iterator.hasNext()) {
-			traverser.nextRow();
-			renderLabelValueRow(target, adapter, width, iterator);
-		}
+	traverser.nextRow();
+	renderSectionHeader("Extension Points", extensionPointDisplayAdapter);
+	renderTableHeader(extensionPointDisplayAdapter);
+	renderTableBody(design.getCodExtensionPoint(), extensionPointDisplayAdapter);
+    }
+
+    // --------------------------------------------------------------------------------------------------------------------------
+    private <X> void renderLabelValueSectionHeader(String sectionName, DisplayAdapter<X> adapter) {
+	int cellWidth = (adapter.size() * 2) - 1;
+	renderSectionHeader(sectionName, cellWidth);
+    }
+
+    private void renderLabelValueSectionHeader(String sectionName, int fieldAndLabelPairCount) {
+	int cellWidth = (fieldAndLabelPairCount * 2) - 1;
+	renderSectionHeader(sectionName, cellWidth);
+    }
+
+    private <X> void renderSectionHeader(String sectionName, DisplayAdapter<X> adapter) {
+	renderSectionHeader(sectionName, adapter.size() - 1);
+    }
+
+    private void renderSectionHeader(String sectionName, int cellWidth) {
+	XSSFRow idHeaderRow = traverser.nextRow();
+	XSSFCell idHeaderCell = traverser.nextCell();
+	idHeaderCell.setCellValue(sectionName);
+	idHeaderCell.setCellStyle(styleProvider.getHeaderStyle());
+	CellRangeAddress headerRegion = new CellRangeAddress(idHeaderRow.getRowNum(), idHeaderRow.getRowNum(), 0,
+		cellWidth);
+	sheet.addMergedRegion(headerRegion);
+    }
+
+    private final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter) {
+	renderLabelValueSection(target, adapter, adapter.size());
+    }
+
+    private final <X> void renderLabelValueSection(X target, DisplayAdapter<X> adapter, int width) {
+	Iterator<String> iterator = adapter.iterator();
+	while (iterator.hasNext()) {
+	    traverser.nextRow();
+	    renderLabelValueRow(target, adapter, width, iterator);
 	}
-	 
-	private final <X> void renderLabelValueRow(X target, DisplayAdapter<X> adapter, int width,
-			Iterator<String> iterator) {
-		for (int i = 0; i < width; i++) {
-			if (!iterator.hasNext()) {
-				XSSFCell cell = traverser.nextCell();
-				cell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
-				traverser.nextCell();
-				continue;
-			}
-			String key = iterator.next();
-			XSSFCell cell = traverser.nextCell();
-			cell.setCellValue(key);
-			cell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
-			cell = traverser.nextCell();
-			cell.setCellValue(adapter.display(target, key));
-		}
+    }
+
+    private final <X> void renderLabelValueRow(X target, DisplayAdapter<X> adapter, int width,
+	    Iterator<String> iterator) {
+	for (int i = 0; i < width; i++) {
+	    if (!iterator.hasNext()) {
+		XSSFCell cell = traverser.nextCell();
+		cell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
+		traverser.nextCell();
+		continue;
+	    }
+	    String key = iterator.next();
+	    XSSFCell cell = traverser.nextCell();
+	    cell.setCellValue(key);
+	    cell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
+	    cell = traverser.nextCell();
+	    cell.setCellValue(adapter.display(target, key));
 	}
-	 
-	private void renderTableHeader(Iterable<String> labels) {
-		traverser.nextRow();
-		for(String label : labels) {
-			XSSFCell nextCell = traverser.nextCell();
-			nextCell.setCellValue(label);
-			nextCell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
-		}
+    }
+
+    private void renderTableHeader(Iterable<String> labels) {
+	traverser.nextRow();
+	for (String label : labels) {
+	    XSSFCell nextCell = traverser.nextCell();
+	    nextCell.setCellValue(label);
+	    nextCell.setCellStyle(styleProvider.getSecondaryHeaderStyle());
 	}
-	
-	private <X> void renderTableBody(Collection<X> entries, DisplayAdapter<X> adapter) {
-		for(X entry : entries) {
-			traverser.nextRow();
-			for(String k : adapter) {
-				XSSFCell cell = traverser.nextCell();
-				cell.setCellValue(adapter.display(entry, k));
-			}
-		}
+    }
+
+    private <X> void renderTableBody(Collection<X> entries, DisplayAdapter<X> adapter) {
+	for (X entry : entries) {
+	    traverser.nextRow();
+	    for (String k : adapter) {
+		XSSFCell cell = traverser.nextCell();
+		cell.setCellValue(adapter.display(entry, k));
+	    }
 	}
+    }
 
 }

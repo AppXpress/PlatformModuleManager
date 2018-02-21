@@ -5,7 +5,6 @@
 // Generated on: 2016.06.22 at 04:47:37 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.platformmodule;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -39,10 +40,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "topicName",
-    "notificationConfiguration"
-})
+@XmlType(name = "", propOrder = { "topicName", "notificationConfiguration" })
 @XmlRootElement(name = "notificationTopic")
 public class NotificationTopic {
 
@@ -56,49 +54,43 @@ public class NotificationTopic {
     /**
      * Gets the value of the topicName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getTopicName() {
-        return topicName;
+	return topicName;
     }
 
     /**
      * Sets the value of the topicName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setTopicName(String value) {
-        this.topicName = value;
+	this.topicName = value;
     }
 
     /**
      * Gets the value of the notificationConfiguration property.
      * 
-     * @return
-     *     possible object is
-     *     {@link NotificationConfiguration }
-     *     
+     * @return possible object is {@link NotificationConfiguration }
+     * 
      */
     public NotificationConfiguration getNotificationConfiguration() {
-        return notificationConfiguration;
+	return notificationConfiguration;
     }
 
     /**
      * Sets the value of the notificationConfiguration property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link NotificationConfiguration }
-     *     
+     *            allowed object is {@link NotificationConfiguration }
+     * 
      */
     public void setNotificationConfiguration(NotificationConfiguration value) {
-        this.notificationConfiguration = value;
+	this.notificationConfiguration = value;
     }
 
 }

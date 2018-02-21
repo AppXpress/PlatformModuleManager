@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -36,9 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "numberOfDisplayColumns"
-})
+@XmlType(name = "", propOrder = { "numberOfDisplayColumns" })
 @XmlRootElement(name = "codSection")
 public class CodSection {
 
@@ -48,25 +47,22 @@ public class CodSection {
     /**
      * Gets the value of the numberOfDisplayColumns property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getNumberOfDisplayColumns() {
-        return numberOfDisplayColumns;
+	return numberOfDisplayColumns;
     }
 
     /**
      * Sets the value of the numberOfDisplayColumns property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setNumberOfDisplayColumns(BigInteger value) {
-        this.numberOfDisplayColumns = value;
+	this.numberOfDisplayColumns = value;
     }
 
 }

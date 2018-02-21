@@ -5,7 +5,6 @@
 // Generated on: 2016.06.23 at 01:15:37 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.customaction;
 
 import java.math.BigInteger;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -50,23 +51,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "metadata",
-    "type",
-    "uid",
-    "customActionId",
-    "platformModuleId",
-    "platformModuleType",
-    "name",
-    "status",
-    "docType",
-    "apiVersion",
-    "roles",
-    "oql",
-    "hasActionFn",
-    "executeFn",
-    "fingerprint"
-})
+@XmlType(name = "", propOrder = { "metadata", "type", "uid", "customActionId", "platformModuleId", "platformModuleType",
+	"name", "status", "docType", "apiVersion", "roles", "oql", "hasActionFn", "executeFn", "fingerprint" })
 @XmlRootElement(name = "CUSTOMACTIOND1")
 public class CustomActionD1 {
 
@@ -104,361 +90,316 @@ public class CustomActionD1 {
     /**
      * Gets the value of the metadata property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Metadata }
-     *     
+     * @return possible object is {@link Metadata }
+     * 
      */
     public Metadata getMetadata() {
-        return metadata;
+	return metadata;
     }
 
     /**
      * Sets the value of the metadata property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Metadata }
-     *     
+     *            allowed object is {@link Metadata }
+     * 
      */
     public void setMetadata(Metadata value) {
-        this.metadata = value;
+	this.metadata = value;
     }
 
     /**
      * Gets the value of the type property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getType() {
-        return type;
+	return type;
     }
 
     /**
      * Sets the value of the type property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setType(String value) {
-        this.type = value;
+	this.type = value;
     }
 
     /**
      * Gets the value of the uid property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getUid() {
-        return uid;
+	return uid;
     }
 
     /**
      * Sets the value of the uid property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setUid(BigInteger value) {
-        this.uid = value;
+	this.uid = value;
     }
 
     /**
      * Gets the value of the customActionId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getCustomActionId() {
-        return customActionId;
+	return customActionId;
     }
 
     /**
      * Sets the value of the customActionId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setCustomActionId(BigInteger value) {
-        this.customActionId = value;
+	this.customActionId = value;
     }
 
     /**
      * Gets the value of the platformModuleId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getPlatformModuleId() {
-        return platformModuleId;
+	return platformModuleId;
     }
 
     /**
      * Sets the value of the platformModuleId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setPlatformModuleId(BigInteger value) {
-        this.platformModuleId = value;
+	this.platformModuleId = value;
     }
 
     /**
      * Gets the value of the platformModuleType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getPlatformModuleType() {
-        return platformModuleType;
+	return platformModuleType;
     }
 
     /**
      * Sets the value of the platformModuleType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setPlatformModuleType(String value) {
-        this.platformModuleType = value;
+	this.platformModuleType = value;
     }
 
     /**
      * Gets the value of the name property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getName() {
-        return name;
+	return name;
     }
 
     /**
      * Sets the value of the name property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setName(String value) {
-        this.name = value;
+	this.name = value;
     }
 
     /**
      * Gets the value of the status property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getStatus() {
-        return status;
+	return status;
     }
 
     /**
      * Sets the value of the status property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setStatus(String value) {
-        this.status = value;
+	this.status = value;
     }
 
     /**
      * Gets the value of the docType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDocType() {
-        return docType;
+	return docType;
     }
 
     /**
      * Sets the value of the docType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDocType(String value) {
-        this.docType = value;
+	this.docType = value;
     }
 
     /**
      * Gets the value of the apiVersion property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getApiVersion() {
-        return apiVersion;
+	return apiVersion;
     }
 
     /**
      * Sets the value of the apiVersion property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setApiVersion(BigInteger value) {
-        this.apiVersion = value;
+	this.apiVersion = value;
     }
 
     /**
      * Gets the value of the roles property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRoles() {
-        return roles;
+	return roles;
     }
 
     /**
      * Sets the value of the roles property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRoles(String value) {
-        this.roles = value;
+	this.roles = value;
     }
 
     /**
      * Gets the value of the oql property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getOql() {
-        return oql;
+	return oql;
     }
 
     /**
      * Sets the value of the oql property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setOql(String value) {
-        this.oql = value;
+	this.oql = value;
     }
 
     /**
      * Gets the value of the hasActionFn property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getHasActionFn() {
-        return hasActionFn;
+	return hasActionFn;
     }
 
     /**
      * Sets the value of the hasActionFn property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setHasActionFn(String value) {
-        this.hasActionFn = value;
+	this.hasActionFn = value;
     }
 
     /**
      * Gets the value of the executeFn property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getExecuteFn() {
-        return executeFn;
+	return executeFn;
     }
 
     /**
      * Sets the value of the executeFn property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setExecuteFn(String value) {
-        this.executeFn = value;
+	this.executeFn = value;
     }
 
     /**
      * Gets the value of the fingerprint property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFingerprint() {
-        return fingerprint;
+	return fingerprint;
     }
 
     /**
      * Sets the value of the fingerprint property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFingerprint(String value) {
-        this.fingerprint = value;
+	this.fingerprint = value;
     }
 
 }

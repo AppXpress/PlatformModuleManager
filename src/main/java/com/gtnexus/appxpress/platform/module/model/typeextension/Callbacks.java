@@ -5,7 +5,6 @@
 // Generated on: 2016.04.26 at 06:23:51 PM PDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.typeextension;
 
 import java.math.BigInteger;
@@ -19,11 +18,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -43,12 +44,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "uid",
-    "event",
-    "role",
-    "functionName"
-})
+@XmlType(name = "", propOrder = { "uid", "event", "role", "functionName" })
 @XmlRootElement(name = "callbacks")
 public class Callbacks {
 
@@ -70,97 +66,85 @@ public class Callbacks {
     /**
      * Gets the value of the uid property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getUid() {
-        return uid;
+	return uid;
     }
 
     /**
      * Sets the value of the uid property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setUid(BigInteger value) {
-        this.uid = value;
+	this.uid = value;
     }
 
     /**
      * Gets the value of the event property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getEvent() {
-        return event;
+	return event;
     }
 
     /**
      * Sets the value of the event property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setEvent(String value) {
-        this.event = value;
+	this.event = value;
     }
 
     /**
      * Gets the value of the role property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRole() {
-        return role;
+	return role;
     }
 
     /**
      * Sets the value of the role property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRole(String value) {
-        this.role = value;
+	this.role = value;
     }
 
     /**
      * Gets the value of the functionName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFunctionName() {
-        return functionName;
+	return functionName;
     }
 
     /**
      * Sets the value of the functionName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFunctionName(String value) {
-        this.functionName = value;
+	this.functionName = value;
     }
 
 }

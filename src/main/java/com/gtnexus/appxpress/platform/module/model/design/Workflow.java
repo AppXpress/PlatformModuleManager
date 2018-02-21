@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.util.ArrayList;
@@ -19,11 +18,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -43,12 +44,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "name",
-    "initialStatus",
-    "step",
-    "transition"
-})
+@XmlType(name = "", propOrder = { "name", "initialStatus", "step", "transition" })
 @XmlRootElement(name = "workflow")
 public class Workflow {
 
@@ -66,107 +62,101 @@ public class Workflow {
     /**
      * Gets the value of the name property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getName() {
-        return name;
+	return name;
     }
 
     /**
      * Sets the value of the name property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setName(String value) {
-        this.name = value;
+	this.name = value;
     }
 
     /**
      * Gets the value of the initialStatus property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getInitialStatus() {
-        return initialStatus;
+	return initialStatus;
     }
 
     /**
      * Sets the value of the initialStatus property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setInitialStatus(String value) {
-        this.initialStatus = value;
+	this.initialStatus = value;
     }
 
     /**
      * Gets the value of the step property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the step property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the step property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getStep().add(newItem);
+     * getStep().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Step }
+     * Objects of the following type(s) are allowed in the list {@link Step }
      * 
      * 
      */
     public List<Step> getStep() {
-        if (step == null) {
-            step = new ArrayList<Step>();
-        }
-        return this.step;
+	if (step == null) {
+	    step = new ArrayList<Step>();
+	}
+	return this.step;
     }
 
     /**
      * Gets the value of the transition property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transition property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the transition property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getTransition().add(newItem);
+     * getTransition().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Transition }
+     * Objects of the following type(s) are allowed in the list {@link Transition }
      * 
      * 
      */
     public List<Transition> getTransition() {
-        if (transition == null) {
-            transition = new ArrayList<Transition>();
-        }
-        return this.transition;
+	if (transition == null) {
+	    transition = new ArrayList<Transition>();
+	}
+	return this.transition;
     }
 
 }

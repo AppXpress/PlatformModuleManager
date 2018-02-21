@@ -13,16 +13,16 @@ import com.gtnexus.appxpress.commons.properties.PMProperties;
 
 public class PMPropertiesTest {
 
-	@Rule
-	public TemporaryFolder sourceDir = new TemporaryFolder();
-	
-	@Test
-	public void testPropertiesChange() throws IOException {
-		Properties raw = new Properties();
-		raw.put("foo", "bar");
-		PMProperties pmProperties= new PMProperties(raw, sourceDir.newFile());
-		pmProperties.put("foo", "bar");
-		assertFalse("Expected no change to properties file", pmProperties.haveChanged());
-	}
+    @Rule
+    public TemporaryFolder sourceDir = new TemporaryFolder();
+
+    @Test
+    public void testPropertiesChange() throws IOException {
+	Properties raw = new Properties();
+	raw.put("foo", "bar");
+	PMProperties pmProperties = new PMProperties(raw, sourceDir.newFile());
+	pmProperties.put("foo", "bar");
+	assertFalse("Expected no change to properties file", pmProperties.haveChanged());
+    }
 
 }

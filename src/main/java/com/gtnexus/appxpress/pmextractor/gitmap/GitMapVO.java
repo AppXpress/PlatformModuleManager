@@ -9,65 +9,62 @@ import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
 public class GitMapVO {
 
-	private final File platformZip;
-	private final File localDir;
-	private final String customer;
-	private final String platform;
-	private final File customerDir;
-	private final File platformDir;
-	private final File unzipDir;
-	private final boolean overwriteScripts;
-	private final boolean overwriteFef;
-	
+    private final File platformZip;
+    private final File localDir;
+    private final String customer;
+    private final String platform;
+    private final File customerDir;
+    private final File platformDir;
+    private final File unzipDir;
+    private final boolean overwriteScripts;
+    private final boolean overwriteFef;
 
-	public GitMapVO(Map<ExtractorOption, String> optionMap) {
-		this.localDir = new File(optionMap.get(ExtractorOption.LOCAL_DIR));
-		this.customer = optionMap.get(ExtractorOption.CUSTOMER);
-		this.platform = optionMap.get(ExtractorOption.MODULE);
-		this.customerDir = localDir.toPath().resolve(customer).toFile();
-		this.platformDir = customerDir.toPath().resolve(platform).toFile();
-		this.platformZip = new File(optionMap.get(ExtractorOption.PLATFORM_ZIP));
-		this.unzipDir = new File(PLATFORM_MODULE_UNZIP_NAME);
-		this.overwriteScripts = optionMap
-				.get(ExtractorOption.OVERWRITE_SCRIPTS).equalsIgnoreCase("y");
-		this.overwriteFef = optionMap.get(ExtractorOption.OVERWRITE_FEF)
-				.equalsIgnoreCase("y");
-	}
-	
-	public File getPlatformZip() {
-		return platformZip;
-	}
+    public GitMapVO(Map<ExtractorOption, String> optionMap) {
+	this.localDir = new File(optionMap.get(ExtractorOption.LOCAL_DIR));
+	this.customer = optionMap.get(ExtractorOption.CUSTOMER);
+	this.platform = optionMap.get(ExtractorOption.MODULE);
+	this.customerDir = localDir.toPath().resolve(customer).toFile();
+	this.platformDir = customerDir.toPath().resolve(platform).toFile();
+	this.platformZip = new File(optionMap.get(ExtractorOption.PLATFORM_ZIP));
+	this.unzipDir = new File(PLATFORM_MODULE_UNZIP_NAME);
+	this.overwriteScripts = optionMap.get(ExtractorOption.OVERWRITE_SCRIPTS).equalsIgnoreCase("y");
+	this.overwriteFef = optionMap.get(ExtractorOption.OVERWRITE_FEF).equalsIgnoreCase("y");
+    }
 
-	public File getLocalDir() {
-		return localDir;
-	}
+    public File getPlatformZip() {
+	return platformZip;
+    }
 
-	public String getCustomer() {
-		return customer;
-	}
+    public File getLocalDir() {
+	return localDir;
+    }
 
-	public String getPlatform() {
-		return platform;
-	}
+    public String getCustomer() {
+	return customer;
+    }
 
-	public File getCustomerDir() {
-		return customerDir;
-	}
+    public String getPlatform() {
+	return platform;
+    }
 
-	public File getPlatformDir() {
-		return platformDir;
-	}
-	
-	public File getUnzipDir() {
-		return unzipDir;
-	}
+    public File getCustomerDir() {
+	return customerDir;
+    }
 
-	public boolean isOverwriteScripts() {
-		return overwriteScripts;
-	}
+    public File getPlatformDir() {
+	return platformDir;
+    }
 
-	public boolean isOverwriteFef() {
-		return overwriteFef;
-	}
+    public File getUnzipDir() {
+	return unzipDir;
+    }
+
+    public boolean isOverwriteScripts() {
+	return overwriteScripts;
+    }
+
+    public boolean isOverwriteFef() {
+	return overwriteFef;
+    }
 
 }

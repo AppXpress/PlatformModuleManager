@@ -5,7 +5,6 @@
 // Generated on: 2016.04.26 at 06:23:51 PM PDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.typeextension;
 
 import java.math.BigInteger;
@@ -19,11 +18,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -49,18 +50,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "apiVersion",
-    "type",
-    "uid",
-    "createTimestamp",
-    "modifyTimestamp",
-    "status",
-    "userModRev",
-    "creatorId",
-    "fingerprint",
-    "redirectUrl"
-})
+@XmlType(name = "", propOrder = { "apiVersion", "type", "uid", "createTimestamp", "modifyTimestamp", "status",
+	"userModRev", "creatorId", "fingerprint", "redirectUrl" })
 @XmlRootElement(name = "__metadata")
 public class Metadata {
 
@@ -91,241 +82,211 @@ public class Metadata {
     /**
      * Gets the value of the apiVersion property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getApiVersion() {
-        return apiVersion;
+	return apiVersion;
     }
 
     /**
      * Sets the value of the apiVersion property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setApiVersion(BigInteger value) {
-        this.apiVersion = value;
+	this.apiVersion = value;
     }
 
     /**
      * Gets the value of the type property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getType() {
-        return type;
+	return type;
     }
 
     /**
      * Sets the value of the type property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setType(String value) {
-        this.type = value;
+	this.type = value;
     }
 
     /**
      * Gets the value of the uid property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getUid() {
-        return uid;
+	return uid;
     }
 
     /**
      * Sets the value of the uid property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setUid(BigInteger value) {
-        this.uid = value;
+	this.uid = value;
     }
 
     /**
      * Gets the value of the createTimestamp property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getCreateTimestamp() {
-        return createTimestamp;
+	return createTimestamp;
     }
 
     /**
      * Sets the value of the createTimestamp property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setCreateTimestamp(String value) {
-        this.createTimestamp = value;
+	this.createTimestamp = value;
     }
 
     /**
      * Gets the value of the modifyTimestamp property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getModifyTimestamp() {
-        return modifyTimestamp;
+	return modifyTimestamp;
     }
 
     /**
      * Sets the value of the modifyTimestamp property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setModifyTimestamp(String value) {
-        this.modifyTimestamp = value;
+	this.modifyTimestamp = value;
     }
 
     /**
      * Gets the value of the status property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getStatus() {
-        return status;
+	return status;
     }
 
     /**
      * Sets the value of the status property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setStatus(String value) {
-        this.status = value;
+	this.status = value;
     }
 
     /**
      * Gets the value of the userModRev property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getUserModRev() {
-        return userModRev;
+	return userModRev;
     }
 
     /**
      * Sets the value of the userModRev property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setUserModRev(BigInteger value) {
-        this.userModRev = value;
+	this.userModRev = value;
     }
 
     /**
      * Gets the value of the creatorId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getCreatorId() {
-        return creatorId;
+	return creatorId;
     }
 
     /**
      * Sets the value of the creatorId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setCreatorId(BigInteger value) {
-        this.creatorId = value;
+	this.creatorId = value;
     }
 
     /**
      * Gets the value of the fingerprint property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFingerprint() {
-        return fingerprint;
+	return fingerprint;
     }
 
     /**
      * Sets the value of the fingerprint property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFingerprint(String value) {
-        this.fingerprint = value;
+	this.fingerprint = value;
     }
 
     /**
      * Gets the value of the redirectUrl property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRedirectUrl() {
-        return redirectUrl;
+	return redirectUrl;
     }
 
     /**
      * Sets the value of the redirectUrl property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRedirectUrl(String value) {
-        this.redirectUrl = value;
+	this.redirectUrl = value;
     }
 
 }

@@ -5,7 +5,6 @@
 // Generated on: 2016.06.24 at 04:32:19 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.platformmodule;
 
 import java.math.BigInteger;
@@ -20,11 +19,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -53,21 +54,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "metadata",
-    "moduleId",
-    "createTimestamp",
-    "modifyTimestamp",
-    "authorId",
-    "authorType",
-    "ownerId",
-    "ownerType",
-    "name",
-    "description",
-    "customUiConfiguration",
-    "notificationTopic",
-    "userVersion"
-})
+@XmlType(name = "", propOrder = { "metadata", "moduleId", "createTimestamp", "modifyTimestamp", "authorId",
+	"authorType", "ownerId", "ownerType", "name", "description", "customUiConfiguration", "notificationTopic",
+	"userVersion" })
 public class PlatformModuleXml {
 
     @XmlElement(name = "__metadata", required = true)
@@ -108,256 +97,227 @@ public class PlatformModuleXml {
     /**
      * Gets the value of the metadata property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Metadata }
-     *     
+     * @return possible object is {@link Metadata }
+     * 
      */
     public Metadata getMetadata() {
-        return metadata;
+	return metadata;
     }
 
     /**
      * Sets the value of the metadata property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Metadata }
-     *     
+     *            allowed object is {@link Metadata }
+     * 
      */
     public void setMetadata(Metadata value) {
-        this.metadata = value;
+	this.metadata = value;
     }
 
     /**
      * Gets the value of the moduleId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getModuleId() {
-        return moduleId;
+	return moduleId;
     }
 
     /**
      * Sets the value of the moduleId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setModuleId(BigInteger value) {
-        this.moduleId = value;
+	this.moduleId = value;
     }
 
     /**
      * Gets the value of the createTimestamp property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getCreateTimestamp() {
-        return createTimestamp;
+	return createTimestamp;
     }
 
     /**
      * Sets the value of the createTimestamp property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setCreateTimestamp(String value) {
-        this.createTimestamp = value;
+	this.createTimestamp = value;
     }
 
     /**
      * Gets the value of the modifyTimestamp property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getModifyTimestamp() {
-        return modifyTimestamp;
+	return modifyTimestamp;
     }
 
     /**
      * Sets the value of the modifyTimestamp property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setModifyTimestamp(String value) {
-        this.modifyTimestamp = value;
+	this.modifyTimestamp = value;
     }
 
     /**
      * Gets the value of the authorId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getAuthorId() {
-        return authorId;
+	return authorId;
     }
 
     /**
      * Sets the value of the authorId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setAuthorId(BigInteger value) {
-        this.authorId = value;
+	this.authorId = value;
     }
 
     /**
      * Gets the value of the authorType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getAuthorType() {
-        return authorType;
+	return authorType;
     }
 
     /**
      * Sets the value of the authorType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setAuthorType(String value) {
-        this.authorType = value;
+	this.authorType = value;
     }
 
     /**
      * Gets the value of the ownerId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getOwnerId() {
-        return ownerId;
+	return ownerId;
     }
 
     /**
      * Sets the value of the ownerId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setOwnerId(BigInteger value) {
-        this.ownerId = value;
+	this.ownerId = value;
     }
 
     /**
      * Gets the value of the ownerType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getOwnerType() {
-        return ownerType;
+	return ownerType;
     }
 
     /**
      * Sets the value of the ownerType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setOwnerType(String value) {
-        this.ownerType = value;
+	this.ownerType = value;
     }
 
     /**
      * Gets the value of the name property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getName() {
-        return name;
+	return name;
     }
 
     /**
      * Sets the value of the name property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setName(String value) {
-        this.name = value;
+	this.name = value;
     }
 
     /**
      * Gets the value of the description property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDescription(String value) {
-        this.description = value;
+	this.description = value;
     }
 
     /**
      * Gets the value of the customUiConfiguration property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the customUiConfiguration property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the customUiConfiguration property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getCustomUiConfiguration().add(newItem);
+     * getCustomUiConfiguration().add(newItem);
      * </pre>
      * 
      * 
@@ -368,25 +328,26 @@ public class PlatformModuleXml {
      * 
      */
     public List<CustomUiConfiguration> getCustomUiConfiguration() {
-        if (customUiConfiguration == null) {
-            customUiConfiguration = new ArrayList<CustomUiConfiguration>();
-        }
-        return this.customUiConfiguration;
+	if (customUiConfiguration == null) {
+	    customUiConfiguration = new ArrayList<CustomUiConfiguration>();
+	}
+	return this.customUiConfiguration;
     }
 
     /**
      * Gets the value of the notificationTopic property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the notificationTopic property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the notificationTopic property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getNotificationTopic().add(newItem);
+     * getNotificationTopic().add(newItem);
      * </pre>
      * 
      * 
@@ -397,34 +358,31 @@ public class PlatformModuleXml {
      * 
      */
     public List<NotificationTopic> getNotificationTopic() {
-        if (notificationTopic == null) {
-            notificationTopic = new ArrayList<NotificationTopic>();
-        }
-        return this.notificationTopic;
+	if (notificationTopic == null) {
+	    notificationTopic = new ArrayList<NotificationTopic>();
+	}
+	return this.notificationTopic;
     }
 
     /**
      * Gets the value of the userVersion property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getUserVersion() {
-        return userVersion;
+	return userVersion;
     }
 
     /**
      * Sets the value of the userVersion property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setUserVersion(String value) {
-        this.userVersion = value;
+	this.userVersion = value;
     }
 
 }

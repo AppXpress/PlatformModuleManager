@@ -9,17 +9,17 @@ import com.gtnexus.appxpress.pmbuilder.bundle.Bundler;
 
 public class PlatformModuleBundler implements Bundler {
 
-	private final ZipService zs;
-	private final File root;
+    private final ZipService zs;
+    private final File root;
 
-	public PlatformModuleBundler(File root) {
-		this.zs = new ZipService(AppXpressConstants.IGNORE_SET);
-		this.root = root;
-	}
+    public PlatformModuleBundler(File root) {
+	this.zs = new ZipService(AppXpressConstants.IGNORE_SET);
+	this.root = root;
+    }
 
-	@Override
-	public void bundle(File dir) throws AppXpressException {
-		zs.zipDirectory(dir, root);
-	}
+    @Override
+    public void bundle(File dir) throws AppXpressException {
+	zs.zipDirectory(dir, root);
+    }
 
 }

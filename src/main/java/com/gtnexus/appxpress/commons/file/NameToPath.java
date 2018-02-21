@@ -4,6 +4,6 @@ import java.nio.file.Path;
 
 public interface NameToPath {
 
-	public Path resolve(String name);
-	
+    public Path resolve(String name);
+
 }

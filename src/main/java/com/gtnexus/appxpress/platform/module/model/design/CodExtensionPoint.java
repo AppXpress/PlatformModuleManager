@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -41,14 +42,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "code",
-    "roles",
-    "fieldPosition",
-    "objectQueryEnabled",
-    "mutateSelfEnabled",
-    "mutateOthersEnabled"
-})
+@XmlType(name = "", propOrder = { "code", "roles", "fieldPosition", "objectQueryEnabled", "mutateSelfEnabled",
+	"mutateOthersEnabled" })
 @XmlRootElement(name = "codExtensionPoint")
 public class CodExtensionPoint {
 
@@ -68,145 +63,127 @@ public class CodExtensionPoint {
     /**
      * Gets the value of the code property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getCode() {
-        return code;
+	return code;
     }
 
     /**
      * Sets the value of the code property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setCode(String value) {
-        this.code = value;
+	this.code = value;
     }
 
     /**
      * Gets the value of the roles property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRoles() {
-        return roles;
+	return roles;
     }
 
     /**
      * Sets the value of the roles property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRoles(String value) {
-        this.roles = value;
+	this.roles = value;
     }
 
     /**
      * Gets the value of the fieldPosition property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldPosition() {
-        return fieldPosition;
+	return fieldPosition;
     }
 
     /**
      * Sets the value of the fieldPosition property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldPosition(BigInteger value) {
-        this.fieldPosition = value;
+	this.fieldPosition = value;
     }
 
     /**
      * Gets the value of the objectQueryEnabled property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getObjectQueryEnabled() {
-        return objectQueryEnabled;
+	return objectQueryEnabled;
     }
 
     /**
      * Sets the value of the objectQueryEnabled property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setObjectQueryEnabled(String value) {
-        this.objectQueryEnabled = value;
+	this.objectQueryEnabled = value;
     }
 
     /**
      * Gets the value of the mutateSelfEnabled property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getMutateSelfEnabled() {
-        return mutateSelfEnabled;
+	return mutateSelfEnabled;
     }
 
     /**
      * Sets the value of the mutateSelfEnabled property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setMutateSelfEnabled(String value) {
-        this.mutateSelfEnabled = value;
+	this.mutateSelfEnabled = value;
     }
 
     /**
      * Gets the value of the mutateOthersEnabled property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getMutateOthersEnabled() {
-        return mutateOthersEnabled;
+	return mutateOthersEnabled;
     }
 
     /**
      * Sets the value of the mutateOthersEnabled property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setMutateOthersEnabled(String value) {
-        this.mutateOthersEnabled = value;
+	this.mutateOthersEnabled = value;
     }
 
 }

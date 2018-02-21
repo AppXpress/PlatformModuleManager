@@ -14,48 +14,48 @@ import com.google.common.collect.Lists;
 
 public abstract class FileFilterChain implements FileFilter {
 
-	protected List<FileFilter> filters;
-	
-	public FileFilterChain() {
-		filters = new LinkedList<>();
-	}
+    protected List<FileFilter> filters;
 
-	public FileFilterChain(FileFilter filter) {
-		this();
-		add(filter);
-	}
+    public FileFilterChain() {
+	filters = new LinkedList<>();
+    }
 
-	public FileFilterChain(List<FileFilter> filters) {
-		this();
-		filters.addAll(filters);
-	}
+    public FileFilterChain(FileFilter filter) {
+	this();
+	add(filter);
+    }
 
-	public FileFilterChain(FileFilter... filters) {
-		this();
-		this.filters.addAll(Arrays.asList(filters));
-	}
+    public FileFilterChain(List<FileFilter> filters) {
+	this();
+	filters.addAll(filters);
+    }
 
-	public void add(FileFilter filter) {
-		filters.add(filter);
-	}
-	
-	public int size(File dir) {
-		return dir.listFiles(this).length;
-	}
-	
-	public boolean hasResults(File dir) {
-		return this.size(dir) > 0;
-	}
-	
-	public Collection<Path> listPaths(File dir) {
-		return Collections2.transform(Lists.newArrayList(dir.listFiles(this)), new Function<File, Path>() {
-			@Override
-			public Path apply(File input) {
-				return input.toPath();
-			}
-		});
-	}
-	
-	@Override
-	public abstract boolean accept(File file);
+    public FileFilterChain(FileFilter... filters) {
+	this();
+	this.filters.addAll(Arrays.asList(filters));
+    }
+
+    public void add(FileFilter filter) {
+	filters.add(filter);
+    }
+
+    public int size(File dir) {
+	return dir.listFiles(this).length;
+    }
+
+    public boolean hasResults(File dir) {
+	return this.size(dir) > 0;
+    }
+
+    public Collection<Path> listPaths(File dir) {
+	return Collections2.transform(Lists.newArrayList(dir.listFiles(this)), new Function<File, Path>() {
+	    @Override
+	    public Path apply(File input) {
+		return input.toPath();
+	    }
+	});
+    }
+
+    @Override
+    public abstract boolean accept(File file);
 }

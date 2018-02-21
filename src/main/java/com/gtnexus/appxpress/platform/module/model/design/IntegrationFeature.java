@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -36,11 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "enabled",
-    "downloadRuntimeEnabled",
-    "uploadRuntimeEnabled"
-})
+@XmlType(name = "", propOrder = { "enabled", "downloadRuntimeEnabled", "uploadRuntimeEnabled" })
 @XmlRootElement(name = "integrationFeature")
 public class IntegrationFeature {
 
@@ -53,7 +50,7 @@ public class IntegrationFeature {
      * 
      */
     public boolean isEnabled() {
-        return enabled;
+	return enabled;
     }
 
     /**
@@ -61,7 +58,7 @@ public class IntegrationFeature {
      * 
      */
     public void setEnabled(boolean value) {
-        this.enabled = value;
+	this.enabled = value;
     }
 
     /**
@@ -69,7 +66,7 @@ public class IntegrationFeature {
      * 
      */
     public boolean isDownloadRuntimeEnabled() {
-        return downloadRuntimeEnabled;
+	return downloadRuntimeEnabled;
     }
 
     /**
@@ -77,7 +74,7 @@ public class IntegrationFeature {
      * 
      */
     public void setDownloadRuntimeEnabled(boolean value) {
-        this.downloadRuntimeEnabled = value;
+	this.downloadRuntimeEnabled = value;
     }
 
     /**
@@ -85,7 +82,7 @@ public class IntegrationFeature {
      * 
      */
     public boolean isUploadRuntimeEnabled() {
-        return uploadRuntimeEnabled;
+	return uploadRuntimeEnabled;
     }
 
     /**
@@ -93,7 +90,7 @@ public class IntegrationFeature {
      * 
      */
     public void setUploadRuntimeEnabled(boolean value) {
-        this.uploadRuntimeEnabled = value;
+	this.uploadRuntimeEnabled = value;
     }
 
 }

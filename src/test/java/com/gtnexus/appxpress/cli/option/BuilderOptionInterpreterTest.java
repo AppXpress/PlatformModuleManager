@@ -23,47 +23,45 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOptionInterpreter;
 @RunWith(MockitoJUnitRunner.class)
 public class BuilderOptionInterpreterTest {
 
-	@Mock
-	PMMCommandInfo app;
-	@Mock
-	SimpleShutdown shutdown;
-	@Mock
-	PMProperties properties;
-	@Mock
-	FileSelector selector;
+    @Mock
+    PMMCommandInfo app;
+    @Mock
+    SimpleShutdown shutdown;
+    @Mock
+    PMProperties properties;
+    @Mock
+    FileSelector selector;
 
-	@Mock
-	AppXpressDirResolver resolver;
+    @Mock
+    AppXpressDirResolver resolver;
 
-	BuilderOptionInterpreter interpreter;
-	HashMap<BuilderOption, String> optMap = new HashMap<>();
+    BuilderOptionInterpreter interpreter;
+    HashMap<BuilderOption, String> optMap = new HashMap<>();
 
-	@Before
-	public void setup() {
+    @Before
+    public void setup() {
 
-	}
+    }
 
-	@Test(expected = NullPointerException.class)
-	public void testPerformCustomInterpretationWithNull() throws Exception {
-		interpreter.performCustomInterpretation(null);
-	}
+    @Test(expected = NullPointerException.class)
+    public void testPerformCustomInterpretationWithNull() throws Exception {
+	interpreter.performCustomInterpretation(null);
+    }
 
-	@Ignore("Not yet implemented")
-	@Test
-	public void testPerformCustomInterpretationWithoutSPFlag()
-			throws AppXpressException {
-//		ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
-//				new Options(), new HashMap<BuilderOption, String>(),
-//				EnumSet.allOf(BuilderOption.class));
-//		BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
-//				shutdown, parsedOptions, properties, selector, resolver);
-		fail("unimplemented");
-	}
+    @Ignore("Not yet implemented")
+    @Test
+    public void testPerformCustomInterpretationWithoutSPFlag() throws AppXpressException {
+	// ParsedOptions<BuilderOption> parsedOptions = new ParsedOptions<>(
+	// new Options(), new HashMap<BuilderOption, String>(),
+	// EnumSet.allOf(BuilderOption.class));
+	// BuilderOptionInterpreter interpeter = new BuilderOptionInterpreter(app,
+	// shutdown, parsedOptions, properties, selector, resolver);
+	fail("unimplemented");
+    }
 
-	@Ignore("Not yet implemented")
-	@Test
-	public void testPerformCustomInterpretationWithSPFlag()
-			throws AppXpressException {
-		
-	}
+    @Ignore("Not yet implemented")
+    @Test
+    public void testPerformCustomInterpretationWithSPFlag() throws AppXpressException {
+
+    }
 }

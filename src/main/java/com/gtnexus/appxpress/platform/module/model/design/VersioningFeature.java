@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -39,13 +40,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "enabled",
-    "draftCompletionState",
-    "activeCompletionState",
-    "transitionForNewDraft",
-    "versionField"
-})
+@XmlType(name = "", propOrder = { "enabled", "draftCompletionState", "activeCompletionState", "transitionForNewDraft",
+	"versionField" })
 @XmlRootElement(name = "versioningFeature")
 public class VersioningFeature {
 
@@ -64,7 +60,7 @@ public class VersioningFeature {
      * 
      */
     public boolean isEnabled() {
-        return enabled;
+	return enabled;
     }
 
     /**
@@ -72,103 +68,91 @@ public class VersioningFeature {
      * 
      */
     public void setEnabled(boolean value) {
-        this.enabled = value;
+	this.enabled = value;
     }
 
     /**
      * Gets the value of the draftCompletionState property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDraftCompletionState() {
-        return draftCompletionState;
+	return draftCompletionState;
     }
 
     /**
      * Sets the value of the draftCompletionState property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDraftCompletionState(String value) {
-        this.draftCompletionState = value;
+	this.draftCompletionState = value;
     }
 
     /**
      * Gets the value of the activeCompletionState property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getActiveCompletionState() {
-        return activeCompletionState;
+	return activeCompletionState;
     }
 
     /**
      * Sets the value of the activeCompletionState property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setActiveCompletionState(String value) {
-        this.activeCompletionState = value;
+	this.activeCompletionState = value;
     }
 
     /**
      * Gets the value of the transitionForNewDraft property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getTransitionForNewDraft() {
-        return transitionForNewDraft;
+	return transitionForNewDraft;
     }
 
     /**
      * Sets the value of the transitionForNewDraft property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setTransitionForNewDraft(String value) {
-        this.transitionForNewDraft = value;
+	this.transitionForNewDraft = value;
     }
 
     /**
      * Gets the value of the versionField property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getVersionField() {
-        return versionField;
+	return versionField;
     }
 
     /**
      * Sets the value of the versionField property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setVersionField(String value) {
-        this.versionField = value;
+	this.versionField = value;
     }
 
 }

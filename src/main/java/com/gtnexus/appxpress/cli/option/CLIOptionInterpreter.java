@@ -6,6 +6,6 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 
 public interface CLIOptionInterpreter<T extends CLIOption> {
 
-	public Map<T, String> interpret() throws AppXpressException;
-	
+    public Map<T, String> interpret() throws AppXpressException;
+
 }

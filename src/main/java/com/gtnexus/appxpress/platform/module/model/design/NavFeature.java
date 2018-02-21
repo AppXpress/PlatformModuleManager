@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -40,11 +41,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "enabled",
-    "navHeading",
-    "landingOQL"
-})
+@XmlType(name = "", propOrder = { "enabled", "navHeading", "landingOQL" })
 @XmlRootElement(name = "navFeature")
 public class NavFeature {
 
@@ -61,7 +58,7 @@ public class NavFeature {
      * 
      */
     public boolean isEnabled() {
-        return enabled;
+	return enabled;
     }
 
     /**
@@ -69,55 +66,49 @@ public class NavFeature {
      * 
      */
     public void setEnabled(boolean value) {
-        this.enabled = value;
+	this.enabled = value;
     }
 
     /**
      * Gets the value of the navHeading property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getNavHeading() {
-        return navHeading;
+	return navHeading;
     }
 
     /**
      * Sets the value of the navHeading property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setNavHeading(String value) {
-        this.navHeading = value;
+	this.navHeading = value;
     }
 
     /**
      * Gets the value of the landingOQL property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLandingOQL() {
-        return landingOQL;
+	return landingOQL;
     }
 
     /**
      * Sets the value of the landingOQL property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLandingOQL(String value) {
-        this.landingOQL = value;
+	this.landingOQL = value;
     }
 
 }

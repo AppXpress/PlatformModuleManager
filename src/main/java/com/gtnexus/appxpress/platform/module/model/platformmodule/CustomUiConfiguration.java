@@ -5,7 +5,6 @@
 // Generated on: 2016.06.22 at 04:47:37 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.platformmodule;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -40,11 +41,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "globalObjectType",
-    "directoryName",
-    "uiType"
-})
+@XmlType(name = "", propOrder = { "globalObjectType", "directoryName", "uiType" })
 @XmlRootElement(name = "customUiConfiguration")
 public class CustomUiConfiguration {
 
@@ -60,73 +57,64 @@ public class CustomUiConfiguration {
     /**
      * Gets the value of the globalObjectType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getGlobalObjectType() {
-        return globalObjectType;
+	return globalObjectType;
     }
 
     /**
      * Sets the value of the globalObjectType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setGlobalObjectType(String value) {
-        this.globalObjectType = value;
+	this.globalObjectType = value;
     }
 
     /**
      * Gets the value of the directoryName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDirectoryName() {
-        return directoryName;
+	return directoryName;
     }
 
     /**
      * Sets the value of the directoryName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDirectoryName(String value) {
-        this.directoryName = value;
+	this.directoryName = value;
     }
 
     /**
      * Gets the value of the uiType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getUiType() {
-        return uiType;
+	return uiType;
     }
 
     /**
      * Sets the value of the uiType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setUiType(String value) {
-        this.uiType = value;
+	this.uiType = value;
     }
 
 }

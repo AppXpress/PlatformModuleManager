@@ -18,51 +18,50 @@ import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
  */
 public class PlatformModuleExtractor implements PMMCommandInfo {
 
-	private static final String NAME = "pmextractor";
+    private static final String NAME = "pmextractor";
 
-	public PlatformModuleExtractor() {}
-	
-	public void extract(AppXpressContext<ExtractorOption> context)
-			throws AppXpressException {
-		attachCleanUpHook(context);
-		Mapper tool = GitMapper.createMapper(context);
-		try {
-			tool.doMapping();
-			System.out.println("Success!");
-		} catch (AppXpressException e) {
-			context.setTerminatedRegulary(false);
-			throw new AppXpressException("Failure when running pmextractor.", e);
-		}
-	}
-	
-	private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {
-		Runtime.getRuntime().addShutdownHook(
-				new Thread(new ContextBasedCleanUp<>(ctx)));
-	}
-	
-	@Override
-	public String getName() {
-		return NAME;
-	}
+    public PlatformModuleExtractor() {
+    }
 
-	@Override
-	public String getHelpHeader() {
-		return "";
+    public void extract(AppXpressContext<ExtractorOption> context) throws AppXpressException {
+	attachCleanUpHook(context);
+	Mapper tool = GitMapper.createMapper(context);
+	try {
+	    tool.doMapping();
+	    System.out.println("Success!");
+	} catch (AppXpressException e) {
+	    context.setTerminatedRegulary(false);
+	    throw new AppXpressException("Failure when running pmextractor.", e);
 	}
+    }
 
-	@Override
-	public String getHelpFooter() {
-		return "";
-	}
+    private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {
+	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
+    }
 
-	@Override
-	public  Class<?> getContextType() {
-		return ExtractorOption.class;
-	}
+    @Override
+    public String getName() {
+	return NAME;
+    }
 
-	@Override
-	public Set<CLICommandOption> getOptions() {
-		return ExtractorOption.getAllOptions();
-	}
+    @Override
+    public String getHelpHeader() {
+	return "";
+    }
+
+    @Override
+    public String getHelpFooter() {
+	return "";
+    }
+
+    @Override
+    public Class<?> getContextType() {
+	return ExtractorOption.class;
+    }
+
+    @Override
+    public Set<CLICommandOption> getOptions() {
+	return ExtractorOption.getAllOptions();
+    }
 
 }

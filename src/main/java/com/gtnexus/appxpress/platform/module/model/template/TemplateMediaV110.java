@@ -5,7 +5,6 @@
 // Generated on: 2016.06.27 at 10:43:26 AM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.template;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -39,13 +40,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "description",
-    "templateName",
-    "dataMarkupType",
-    "renderMarkupType",
-    "memo"
-})
+@XmlType(name = "", propOrder = { "description", "templateName", "dataMarkupType", "renderMarkupType", "memo" })
 @XmlRootElement(name = "TemplateMediaV110")
 public class TemplateMediaV110 {
 
@@ -63,121 +58,106 @@ public class TemplateMediaV110 {
     /**
      * Gets the value of the description property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDescription(String value) {
-        this.description = value;
+	this.description = value;
     }
 
     /**
      * Gets the value of the templateName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getTemplateName() {
-        return templateName;
+	return templateName;
     }
 
     /**
      * Sets the value of the templateName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setTemplateName(String value) {
-        this.templateName = value;
+	this.templateName = value;
     }
 
     /**
      * Gets the value of the dataMarkupType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDataMarkupType() {
-        return dataMarkupType;
+	return dataMarkupType;
     }
 
     /**
      * Sets the value of the dataMarkupType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDataMarkupType(String value) {
-        this.dataMarkupType = value;
+	this.dataMarkupType = value;
     }
 
     /**
      * Gets the value of the renderMarkupType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRenderMarkupType() {
-        return renderMarkupType;
+	return renderMarkupType;
     }
 
     /**
      * Sets the value of the renderMarkupType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRenderMarkupType(String value) {
-        this.renderMarkupType = value;
+	this.renderMarkupType = value;
     }
 
     /**
      * Gets the value of the memo property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getMemo() {
-        return memo;
+	return memo;
     }
 
     /**
      * Sets the value of the memo property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setMemo(String value) {
-        this.memo = value;
+	this.memo = value;
     }
 
 }

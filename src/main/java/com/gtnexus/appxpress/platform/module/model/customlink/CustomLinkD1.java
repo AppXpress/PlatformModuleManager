@@ -5,7 +5,6 @@
 // Generated on: 2016.06.24 at 05:19:55 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.customlink;
 
 import java.math.BigInteger;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -49,22 +50,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "metadata",
-    "type",
-    "uid",
-    "customLinkId",
-    "platformModuleId",
-    "platformModuleType",
-    "name",
-    "url",
-    "status",
-    "localizationKey",
-    "licenseeOnly",
-    "linkType",
-    "location",
-    "fingerprint"
-})
+@XmlType(name = "", propOrder = { "metadata", "type", "uid", "customLinkId", "platformModuleId", "platformModuleType",
+	"name", "url", "status", "localizationKey", "licenseeOnly", "linkType", "location", "fingerprint" })
 @XmlRootElement(name = "CUSTOMLINKD1")
 public class CustomLinkD1 {
 
@@ -100,337 +87,295 @@ public class CustomLinkD1 {
     /**
      * Gets the value of the metadata property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Metadata }
-     *     
+     * @return possible object is {@link Metadata }
+     * 
      */
     public Metadata getMetadata() {
-        return metadata;
+	return metadata;
     }
 
     /**
      * Sets the value of the metadata property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Metadata }
-     *     
+     *            allowed object is {@link Metadata }
+     * 
      */
     public void setMetadata(Metadata value) {
-        this.metadata = value;
+	this.metadata = value;
     }
 
     /**
      * Gets the value of the type property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getType() {
-        return type;
+	return type;
     }
 
     /**
      * Sets the value of the type property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setType(String value) {
-        this.type = value;
+	this.type = value;
     }
 
     /**
      * Gets the value of the uid property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getUid() {
-        return uid;
+	return uid;
     }
 
     /**
      * Sets the value of the uid property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setUid(BigInteger value) {
-        this.uid = value;
+	this.uid = value;
     }
 
     /**
      * Gets the value of the customLinkId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getCustomLinkId() {
-        return customLinkId;
+	return customLinkId;
     }
 
     /**
      * Sets the value of the customLinkId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setCustomLinkId(BigInteger value) {
-        this.customLinkId = value;
+	this.customLinkId = value;
     }
 
     /**
      * Gets the value of the platformModuleId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getPlatformModuleId() {
-        return platformModuleId;
+	return platformModuleId;
     }
 
     /**
      * Sets the value of the platformModuleId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setPlatformModuleId(BigInteger value) {
-        this.platformModuleId = value;
+	this.platformModuleId = value;
     }
 
     /**
      * Gets the value of the platformModuleType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getPlatformModuleType() {
-        return platformModuleType;
+	return platformModuleType;
     }
 
     /**
      * Sets the value of the platformModuleType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setPlatformModuleType(String value) {
-        this.platformModuleType = value;
+	this.platformModuleType = value;
     }
 
     /**
      * Gets the value of the name property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getName() {
-        return name;
+	return name;
     }
 
     /**
      * Sets the value of the name property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setName(String value) {
-        this.name = value;
+	this.name = value;
     }
 
     /**
      * Gets the value of the url property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getUrl() {
-        return url;
+	return url;
     }
 
     /**
      * Sets the value of the url property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setUrl(String value) {
-        this.url = value;
+	this.url = value;
     }
 
     /**
      * Gets the value of the status property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getStatus() {
-        return status;
+	return status;
     }
 
     /**
      * Sets the value of the status property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setStatus(String value) {
-        this.status = value;
+	this.status = value;
     }
 
     /**
      * Gets the value of the localizationKey property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLocalizationKey() {
-        return localizationKey;
+	return localizationKey;
     }
 
     /**
      * Sets the value of the localizationKey property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLocalizationKey(String value) {
-        this.localizationKey = value;
+	this.localizationKey = value;
     }
 
     /**
      * Gets the value of the licenseeOnly property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLicenseeOnly() {
-        return licenseeOnly;
+	return licenseeOnly;
     }
 
     /**
      * Sets the value of the licenseeOnly property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLicenseeOnly(String value) {
-        this.licenseeOnly = value;
+	this.licenseeOnly = value;
     }
 
     /**
      * Gets the value of the linkType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLinkType() {
-        return linkType;
+	return linkType;
     }
 
     /**
      * Sets the value of the linkType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLinkType(String value) {
-        this.linkType = value;
+	this.linkType = value;
     }
 
     /**
      * Gets the value of the location property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLocation() {
-        return location;
+	return location;
     }
 
     /**
      * Sets the value of the location property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLocation(String value) {
-        this.location = value;
+	this.location = value;
     }
 
     /**
      * Gets the value of the fingerprint property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFingerprint() {
-        return fingerprint;
+	return fingerprint;
     }
 
     /**
      * Sets the value of the fingerprint property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFingerprint(String value) {
-        this.fingerprint = value;
+	this.fingerprint = value;
     }
 
 }

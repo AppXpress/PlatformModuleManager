@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -40,11 +41,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "enabled",
-    "businessStatusField",
-    "workflow"
-})
+@XmlType(name = "", propOrder = { "enabled", "businessStatusField", "workflow" })
 @XmlRootElement(name = "workflowFeature")
 public class WorkflowFeature {
 
@@ -61,7 +58,7 @@ public class WorkflowFeature {
      * 
      */
     public boolean isEnabled() {
-        return enabled;
+	return enabled;
     }
 
     /**
@@ -69,55 +66,49 @@ public class WorkflowFeature {
      * 
      */
     public void setEnabled(boolean value) {
-        this.enabled = value;
+	this.enabled = value;
     }
 
     /**
      * Gets the value of the businessStatusField property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getBusinessStatusField() {
-        return businessStatusField;
+	return businessStatusField;
     }
 
     /**
      * Sets the value of the businessStatusField property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setBusinessStatusField(String value) {
-        this.businessStatusField = value;
+	this.businessStatusField = value;
     }
 
     /**
      * Gets the value of the workflow property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Workflow }
-     *     
+     * @return possible object is {@link Workflow }
+     * 
      */
     public Workflow getWorkflow() {
-        return workflow;
+	return workflow;
     }
 
     /**
      * Sets the value of the workflow property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Workflow }
-     *     
+     *            allowed object is {@link Workflow }
+     * 
      */
     public void setWorkflow(Workflow value) {
-        this.workflow = value;
+	this.workflow = value;
     }
 
 }

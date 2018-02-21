@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -20,11 +19,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -51,19 +52,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "fieldName",
-    "fieldNumber",
-    "description",
-    "fieldPosition",
-    "dataType",
-    "detailedDataType",
-    "indexed",
-    "summaryField",
-    "maxLength",
-    "renderedOnUi",
-    "extendedData"
-})
+@XmlType(name = "", propOrder = { "fieldName", "fieldNumber", "description", "fieldPosition", "dataType",
+	"detailedDataType", "indexed", "summaryField", "maxLength", "renderedOnUi", "extendedData" })
 @XmlRootElement(name = "scalarField")
 public class ScalarField {
 
@@ -98,145 +88,127 @@ public class ScalarField {
     /**
      * Gets the value of the fieldName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFieldName() {
-        return fieldName;
+	return fieldName;
     }
 
     /**
      * Sets the value of the fieldName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFieldName(String value) {
-        this.fieldName = value;
+	this.fieldName = value;
     }
 
     /**
      * Gets the value of the fieldNumber property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldNumber() {
-        return fieldNumber;
+	return fieldNumber;
     }
 
     /**
      * Sets the value of the fieldNumber property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldNumber(BigInteger value) {
-        this.fieldNumber = value;
+	this.fieldNumber = value;
     }
 
     /**
      * Gets the value of the description property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDescription(String value) {
-        this.description = value;
+	this.description = value;
     }
 
     /**
      * Gets the value of the fieldPosition property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldPosition() {
-        return fieldPosition;
+	return fieldPosition;
     }
 
     /**
      * Sets the value of the fieldPosition property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldPosition(BigInteger value) {
-        this.fieldPosition = value;
+	this.fieldPosition = value;
     }
 
     /**
      * Gets the value of the dataType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDataType() {
-        return dataType;
+	return dataType;
     }
 
     /**
      * Sets the value of the dataType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDataType(String value) {
-        this.dataType = value;
+	this.dataType = value;
     }
 
     /**
      * Gets the value of the detailedDataType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDetailedDataType() {
-        return detailedDataType;
+	return detailedDataType;
     }
 
     /**
      * Sets the value of the detailedDataType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDetailedDataType(String value) {
-        this.detailedDataType = value;
+	this.detailedDataType = value;
     }
 
     /**
@@ -244,7 +216,7 @@ public class ScalarField {
      * 
      */
     public boolean isIndexed() {
-        return indexed;
+	return indexed;
     }
 
     /**
@@ -252,7 +224,7 @@ public class ScalarField {
      * 
      */
     public void setIndexed(boolean value) {
-        this.indexed = value;
+	this.indexed = value;
     }
 
     /**
@@ -260,7 +232,7 @@ public class ScalarField {
      * 
      */
     public boolean isSummaryField() {
-        return summaryField;
+	return summaryField;
     }
 
     /**
@@ -268,84 +240,79 @@ public class ScalarField {
      * 
      */
     public void setSummaryField(boolean value) {
-        this.summaryField = value;
+	this.summaryField = value;
     }
 
     /**
      * Gets the value of the maxLength property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getMaxLength() {
-        return maxLength;
+	return maxLength;
     }
 
     /**
      * Sets the value of the maxLength property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setMaxLength(BigInteger value) {
-        this.maxLength = value;
+	this.maxLength = value;
     }
 
     /**
      * Gets the value of the renderedOnUi property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRenderedOnUi() {
-        return renderedOnUi;
+	return renderedOnUi;
     }
 
     /**
      * Sets the value of the renderedOnUi property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRenderedOnUi(String value) {
-        this.renderedOnUi = value;
+	this.renderedOnUi = value;
     }
 
     /**
      * Gets the value of the extendedData property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the extendedData property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the extendedData property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getExtendedData().add(newItem);
+     * getExtendedData().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ExtendedData }
+     * Objects of the following type(s) are allowed in the list {@link ExtendedData
+     * }
      * 
      * 
      */
     public List<ExtendedData> getExtendedData() {
-        if (extendedData == null) {
-            extendedData = new ArrayList<ExtendedData>();
-        }
-        return this.extendedData;
+	if (extendedData == null) {
+	    extendedData = new ArrayList<ExtendedData>();
+	}
+	return this.extendedData;
     }
 
 }

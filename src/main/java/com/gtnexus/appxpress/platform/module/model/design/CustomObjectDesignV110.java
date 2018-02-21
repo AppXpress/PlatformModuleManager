@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -20,11 +19,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -66,34 +67,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "version",
-    "globalObjectType",
-    "name",
-    "description",
-    "uniqueIdentifier",
-    "licenseeField",
-    "useTableSupport",
-    "designType",
-    "scalarField",
-    "linkField",
-    "eventField",
-    "workflowFeature",
-    "scriptingFeature",
-    "attachmentFeature",
-    "pdfFeature",
-    "reportingFeature",
-    "integrationFeature",
-    "navFeature",
-    "versioningFeature",
-    "anchor",
-    "visibilityType",
-    "roleSecurity",
-    "codSection",
-    "codExtensionPoint",
-    "schemaVers",
-    "apiVersion"
-})
+@XmlType(name = "", propOrder = { "version", "globalObjectType", "name", "description", "uniqueIdentifier",
+	"licenseeField", "useTableSupport", "designType", "scalarField", "linkField", "eventField", "workflowFeature",
+	"scriptingFeature", "attachmentFeature", "pdfFeature", "reportingFeature", "integrationFeature", "navFeature",
+	"versioningFeature", "anchor", "visibilityType", "roleSecurity", "codSection", "codExtensionPoint",
+	"schemaVers", "apiVersion" })
 @XmlRootElement(name = "CustomObjectDesignV110")
 public class CustomObjectDesignV110 {
 
@@ -162,145 +140,127 @@ public class CustomObjectDesignV110 {
     /**
      * Gets the value of the version property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getVersion() {
-        return version;
+	return version;
     }
 
     /**
      * Sets the value of the version property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setVersion(BigInteger value) {
-        this.version = value;
+	this.version = value;
     }
 
     /**
      * Gets the value of the globalObjectType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getGlobalObjectType() {
-        return globalObjectType;
+	return globalObjectType;
     }
 
     /**
      * Sets the value of the globalObjectType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setGlobalObjectType(String value) {
-        this.globalObjectType = value;
+	this.globalObjectType = value;
     }
 
     /**
      * Gets the value of the name property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getName() {
-        return name;
+	return name;
     }
 
     /**
      * Sets the value of the name property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setName(String value) {
-        this.name = value;
+	this.name = value;
     }
 
     /**
      * Gets the value of the description property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDescription(String value) {
-        this.description = value;
+	this.description = value;
     }
 
     /**
      * Gets the value of the uniqueIdentifier property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getUniqueIdentifier() {
-        return uniqueIdentifier;
+	return uniqueIdentifier;
     }
 
     /**
      * Sets the value of the uniqueIdentifier property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setUniqueIdentifier(String value) {
-        this.uniqueIdentifier = value;
+	this.uniqueIdentifier = value;
     }
 
     /**
      * Gets the value of the licenseeField property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLicenseeField() {
-        return licenseeField;
+	return licenseeField;
     }
 
     /**
      * Sets the value of the licenseeField property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLicenseeField(String value) {
-        this.licenseeField = value;
+	this.licenseeField = value;
     }
 
     /**
@@ -308,7 +268,7 @@ public class CustomObjectDesignV110 {
      * 
      */
     public boolean isUseTableSupport() {
-        return useTableSupport;
+	return useTableSupport;
     }
 
     /**
@@ -316,426 +276,392 @@ public class CustomObjectDesignV110 {
      * 
      */
     public void setUseTableSupport(boolean value) {
-        this.useTableSupport = value;
+	this.useTableSupport = value;
     }
 
     /**
      * Gets the value of the designType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDesignType() {
-        return designType;
+	return designType;
     }
 
     /**
      * Sets the value of the designType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDesignType(String value) {
-        this.designType = value;
+	this.designType = value;
     }
 
     /**
      * Gets the value of the scalarField property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the scalarField property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the scalarField property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getScalarField().add(newItem);
+     * getScalarField().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ScalarField }
+     * Objects of the following type(s) are allowed in the list {@link ScalarField }
      * 
      * 
      */
     public List<ScalarField> getScalarField() {
-        if (scalarField == null) {
-            scalarField = new ArrayList<ScalarField>();
-        }
-        return this.scalarField;
+	if (scalarField == null) {
+	    scalarField = new ArrayList<ScalarField>();
+	}
+	return this.scalarField;
     }
 
     /**
      * Gets the value of the linkField property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the linkField property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the linkField property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getLinkField().add(newItem);
+     * getLinkField().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link LinkField }
+     * Objects of the following type(s) are allowed in the list {@link LinkField }
      * 
      * 
      */
     public List<LinkField> getLinkField() {
-        if (linkField == null) {
-            linkField = new ArrayList<LinkField>();
-        }
-        return this.linkField;
+	if (linkField == null) {
+	    linkField = new ArrayList<LinkField>();
+	}
+	return this.linkField;
     }
 
     /**
      * Gets the value of the eventField property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the eventField property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the eventField property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getEventField().add(newItem);
+     * getEventField().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link EventField }
+     * Objects of the following type(s) are allowed in the list {@link EventField }
      * 
      * 
      */
     public List<EventField> getEventField() {
-        if (eventField == null) {
-            eventField = new ArrayList<EventField>();
-        }
-        return this.eventField;
+	if (eventField == null) {
+	    eventField = new ArrayList<EventField>();
+	}
+	return this.eventField;
     }
 
     /**
      * Gets the value of the workflowFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link WorkflowFeature }
-     *     
+     * @return possible object is {@link WorkflowFeature }
+     * 
      */
     public WorkflowFeature getWorkflowFeature() {
-        return workflowFeature;
+	return workflowFeature;
     }
 
     /**
      * Sets the value of the workflowFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link WorkflowFeature }
-     *     
+     *            allowed object is {@link WorkflowFeature }
+     * 
      */
     public void setWorkflowFeature(WorkflowFeature value) {
-        this.workflowFeature = value;
+	this.workflowFeature = value;
     }
 
     /**
      * Gets the value of the scriptingFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link ScriptingFeature }
-     *     
+     * @return possible object is {@link ScriptingFeature }
+     * 
      */
     public ScriptingFeature getScriptingFeature() {
-        return scriptingFeature;
+	return scriptingFeature;
     }
 
     /**
      * Sets the value of the scriptingFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link ScriptingFeature }
-     *     
+     *            allowed object is {@link ScriptingFeature }
+     * 
      */
     public void setScriptingFeature(ScriptingFeature value) {
-        this.scriptingFeature = value;
+	this.scriptingFeature = value;
     }
 
     /**
      * Gets the value of the attachmentFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link AttachmentFeature }
-     *     
+     * @return possible object is {@link AttachmentFeature }
+     * 
      */
     public AttachmentFeature getAttachmentFeature() {
-        return attachmentFeature;
+	return attachmentFeature;
     }
 
     /**
      * Sets the value of the attachmentFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link AttachmentFeature }
-     *     
+     *            allowed object is {@link AttachmentFeature }
+     * 
      */
     public void setAttachmentFeature(AttachmentFeature value) {
-        this.attachmentFeature = value;
+	this.attachmentFeature = value;
     }
 
     /**
      * Gets the value of the pdfFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link PdfFeature }
-     *     
+     * @return possible object is {@link PdfFeature }
+     * 
      */
     public PdfFeature getPdfFeature() {
-        return pdfFeature;
+	return pdfFeature;
     }
 
     /**
      * Sets the value of the pdfFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link PdfFeature }
-     *     
+     *            allowed object is {@link PdfFeature }
+     * 
      */
     public void setPdfFeature(PdfFeature value) {
-        this.pdfFeature = value;
+	this.pdfFeature = value;
     }
 
     /**
      * Gets the value of the reportingFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link ReportingFeature }
-     *     
+     * @return possible object is {@link ReportingFeature }
+     * 
      */
     public ReportingFeature getReportingFeature() {
-        return reportingFeature;
+	return reportingFeature;
     }
 
     /**
      * Sets the value of the reportingFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link ReportingFeature }
-     *     
+     *            allowed object is {@link ReportingFeature }
+     * 
      */
     public void setReportingFeature(ReportingFeature value) {
-        this.reportingFeature = value;
+	this.reportingFeature = value;
     }
 
     /**
      * Gets the value of the integrationFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link IntegrationFeature }
-     *     
+     * @return possible object is {@link IntegrationFeature }
+     * 
      */
     public IntegrationFeature getIntegrationFeature() {
-        return integrationFeature;
+	return integrationFeature;
     }
 
     /**
      * Sets the value of the integrationFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link IntegrationFeature }
-     *     
+     *            allowed object is {@link IntegrationFeature }
+     * 
      */
     public void setIntegrationFeature(IntegrationFeature value) {
-        this.integrationFeature = value;
+	this.integrationFeature = value;
     }
 
     /**
      * Gets the value of the navFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link NavFeature }
-     *     
+     * @return possible object is {@link NavFeature }
+     * 
      */
     public NavFeature getNavFeature() {
-        return navFeature;
+	return navFeature;
     }
 
     /**
      * Sets the value of the navFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link NavFeature }
-     *     
+     *            allowed object is {@link NavFeature }
+     * 
      */
     public void setNavFeature(NavFeature value) {
-        this.navFeature = value;
+	this.navFeature = value;
     }
 
     /**
      * Gets the value of the versioningFeature property.
      * 
-     * @return
-     *     possible object is
-     *     {@link VersioningFeature }
-     *     
+     * @return possible object is {@link VersioningFeature }
+     * 
      */
     public VersioningFeature getVersioningFeature() {
-        return versioningFeature;
+	return versioningFeature;
     }
 
     /**
      * Sets the value of the versioningFeature property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link VersioningFeature }
-     *     
+     *            allowed object is {@link VersioningFeature }
+     * 
      */
     public void setVersioningFeature(VersioningFeature value) {
-        this.versioningFeature = value;
+	this.versioningFeature = value;
     }
 
     /**
      * Gets the value of the anchor property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Anchor }
-     *     
+     * @return possible object is {@link Anchor }
+     * 
      */
     public Anchor getAnchor() {
-        return anchor;
+	return anchor;
     }
 
     /**
      * Sets the value of the anchor property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Anchor }
-     *     
+     *            allowed object is {@link Anchor }
+     * 
      */
     public void setAnchor(Anchor value) {
-        this.anchor = value;
+	this.anchor = value;
     }
 
     /**
      * Gets the value of the visibilityType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getVisibilityType() {
-        return visibilityType;
+	return visibilityType;
     }
 
     /**
      * Sets the value of the visibilityType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setVisibilityType(String value) {
-        this.visibilityType = value;
+	this.visibilityType = value;
     }
 
     /**
      * Gets the value of the roleSecurity property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the roleSecurity property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the roleSecurity property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getRoleSecurity().add(newItem);
+     * getRoleSecurity().add(newItem);
      * </pre>
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link RoleSecurity }
+     * Objects of the following type(s) are allowed in the list {@link RoleSecurity
+     * }
      * 
      * 
      */
     public List<RoleSecurity> getRoleSecurity() {
-        if (roleSecurity == null) {
-            roleSecurity = new ArrayList<RoleSecurity>();
-        }
-        return this.roleSecurity;
+	if (roleSecurity == null) {
+	    roleSecurity = new ArrayList<RoleSecurity>();
+	}
+	return this.roleSecurity;
     }
 
     /**
      * Gets the value of the codSection property.
      * 
-     * @return
-     *     possible object is
-     *     {@link CodSection }
-     *     
+     * @return possible object is {@link CodSection }
+     * 
      */
     public CodSection getCodSection() {
-        return codSection;
+	return codSection;
     }
 
     /**
      * Sets the value of the codSection property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link CodSection }
-     *     
+     *            allowed object is {@link CodSection }
+     * 
      */
     public void setCodSection(CodSection value) {
-        this.codSection = value;
+	this.codSection = value;
     }
 
     /**
      * Gets the value of the codExtensionPoint property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the codExtensionPoint property.
+     * This accessor method returns a reference to the live list, not a snapshot.
+     * Therefore any modification you make to the returned list will be present
+     * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+     * for the codExtensionPoint property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
+     * 
      * <pre>
-     *    getCodExtensionPoint().add(newItem);
+     * getCodExtensionPoint().add(newItem);
      * </pre>
      * 
      * 
@@ -746,58 +672,52 @@ public class CustomObjectDesignV110 {
      * 
      */
     public List<CodExtensionPoint> getCodExtensionPoint() {
-        if (codExtensionPoint == null) {
-            codExtensionPoint = new ArrayList<CodExtensionPoint>();
-        }
-        return this.codExtensionPoint;
+	if (codExtensionPoint == null) {
+	    codExtensionPoint = new ArrayList<CodExtensionPoint>();
+	}
+	return this.codExtensionPoint;
     }
 
     /**
      * Gets the value of the schemaVers property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getSchemaVers() {
-        return schemaVers;
+	return schemaVers;
     }
 
     /**
      * Sets the value of the schemaVers property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setSchemaVers(String value) {
-        this.schemaVers = value;
+	this.schemaVers = value;
     }
 
     /**
      * Gets the value of the apiVersion property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getApiVersion() {
-        return apiVersion;
+	return apiVersion;
     }
 
     /**
      * Sets the value of the apiVersion property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setApiVersion(BigInteger value) {
-        this.apiVersion = value;
+	this.apiVersion = value;
     }
 
 }

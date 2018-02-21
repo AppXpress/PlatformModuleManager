@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -34,9 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "enabled"
-})
+@XmlType(name = "", propOrder = { "enabled" })
 @XmlRootElement(name = "reportingFeature")
 public class ReportingFeature {
 
@@ -47,7 +46,7 @@ public class ReportingFeature {
      * 
      */
     public boolean isEnabled() {
-        return enabled;
+	return enabled;
     }
 
     /**
@@ -55,7 +54,7 @@ public class ReportingFeature {
      * 
      */
     public void setEnabled(boolean value) {
-        this.enabled = value;
+	this.enabled = value;
     }
 
 }

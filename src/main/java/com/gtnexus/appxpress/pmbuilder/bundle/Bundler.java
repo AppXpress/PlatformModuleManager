@@ -6,6 +6,6 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 
 public interface Bundler {
 
-	public void bundle(File directory) throws AppXpressException;
-	
+    public void bundle(File directory) throws AppXpressException;
+
 }

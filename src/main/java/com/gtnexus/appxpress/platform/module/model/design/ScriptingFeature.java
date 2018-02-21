@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -41,15 +42,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "enabled",
-    "mimeType",
-    "description",
-    "fileName",
-    "fieldMaskingEnabled",
-    "fieldMaskFunctionName",
-    "revisionIncrementFunctionName"
-})
+@XmlType(name = "", propOrder = { "enabled", "mimeType", "description", "fileName", "fieldMaskingEnabled",
+	"fieldMaskFunctionName", "revisionIncrementFunctionName" })
 @XmlRootElement(name = "scriptingFeature")
 public class ScriptingFeature {
 
@@ -72,7 +66,7 @@ public class ScriptingFeature {
      * 
      */
     public boolean isEnabled() {
-        return enabled;
+	return enabled;
     }
 
     /**
@@ -80,151 +74,133 @@ public class ScriptingFeature {
      * 
      */
     public void setEnabled(boolean value) {
-        this.enabled = value;
+	this.enabled = value;
     }
 
     /**
      * Gets the value of the mimeType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getMimeType() {
-        return mimeType;
+	return mimeType;
     }
 
     /**
      * Sets the value of the mimeType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setMimeType(String value) {
-        this.mimeType = value;
+	this.mimeType = value;
     }
 
     /**
      * Gets the value of the description property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDescription(String value) {
-        this.description = value;
+	this.description = value;
     }
 
     /**
      * Gets the value of the fileName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFileName() {
-        return fileName;
+	return fileName;
     }
 
     /**
      * Sets the value of the fileName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFileName(String value) {
-        this.fileName = value;
+	this.fileName = value;
     }
 
     /**
      * Gets the value of the fieldMaskingEnabled property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFieldMaskingEnabled() {
-        return fieldMaskingEnabled;
+	return fieldMaskingEnabled;
     }
 
     /**
      * Sets the value of the fieldMaskingEnabled property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFieldMaskingEnabled(String value) {
-        this.fieldMaskingEnabled = value;
+	this.fieldMaskingEnabled = value;
     }
 
     /**
      * Gets the value of the fieldMaskFunctionName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFieldMaskFunctionName() {
-        return fieldMaskFunctionName;
+	return fieldMaskFunctionName;
     }
 
     /**
      * Sets the value of the fieldMaskFunctionName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFieldMaskFunctionName(String value) {
-        this.fieldMaskFunctionName = value;
+	this.fieldMaskFunctionName = value;
     }
 
     /**
      * Gets the value of the revisionIncrementFunctionName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRevisionIncrementFunctionName() {
-        return revisionIncrementFunctionName;
+	return revisionIncrementFunctionName;
     }
 
     /**
      * Sets the value of the revisionIncrementFunctionName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRevisionIncrementFunctionName(String value) {
-        this.revisionIncrementFunctionName = value;
+	this.revisionIncrementFunctionName = value;
     }
 
 }

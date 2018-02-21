@@ -12,31 +12,31 @@ import java.util.Iterator;
  */
 public class FileCleanup {
 
-	private final FileService fs;
+    private final FileService fs;
 
-	public FileCleanup() {
-		this.fs = new FileService();
-	}
+    public FileCleanup() {
+	this.fs = new FileService();
+    }
 
-	public void cleanup(Collection<File> files) {
-		if (files.isEmpty())
-			return;
-		Iterator<File> fIter = files.iterator();
-		while (fIter.hasNext()) {
-			File f = fIter.next();
-			try {
-				del(f);
-				fIter.remove();
-			} catch (IOException e) {
-			}
-		}
+    public void cleanup(Collection<File> files) {
+	if (files.isEmpty())
+	    return;
+	Iterator<File> fIter = files.iterator();
+	while (fIter.hasNext()) {
+	    File f = fIter.next();
+	    try {
+		del(f);
+		fIter.remove();
+	    } catch (IOException e) {
+	    }
 	}
+    }
 
-	private void del(File f) throws IOException {
-		if (f.isDirectory()) {
-			fs.emptyDir(f, true);
-		} else {
-			f.delete();
-		}
+    private void del(File f) throws IOException {
+	if (f.isDirectory()) {
+	    fs.emptyDir(f, true);
+	} else {
+	    f.delete();
 	}
+    }
 }

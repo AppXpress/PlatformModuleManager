@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -18,11 +17,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -44,14 +45,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "fieldName",
-    "fieldNumber",
-    "fieldPosition",
-    "linkToDesign",
-    "renderedOnUi",
-    "isCollection"
-})
+@XmlType(name = "", propOrder = { "fieldName", "fieldNumber", "fieldPosition", "linkToDesign", "renderedOnUi",
+	"isCollection" })
 @XmlRootElement(name = "linkField")
 public class LinkField {
 
@@ -76,121 +71,106 @@ public class LinkField {
     /**
      * Gets the value of the fieldName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFieldName() {
-        return fieldName;
+	return fieldName;
     }
 
     /**
      * Sets the value of the fieldName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFieldName(String value) {
-        this.fieldName = value;
+	this.fieldName = value;
     }
 
     /**
      * Gets the value of the fieldNumber property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldNumber() {
-        return fieldNumber;
+	return fieldNumber;
     }
 
     /**
      * Sets the value of the fieldNumber property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldNumber(BigInteger value) {
-        this.fieldNumber = value;
+	this.fieldNumber = value;
     }
 
     /**
      * Gets the value of the fieldPosition property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldPosition() {
-        return fieldPosition;
+	return fieldPosition;
     }
 
     /**
      * Sets the value of the fieldPosition property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldPosition(BigInteger value) {
-        this.fieldPosition = value;
+	this.fieldPosition = value;
     }
 
     /**
      * Gets the value of the linkToDesign property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getLinkToDesign() {
-        return linkToDesign;
+	return linkToDesign;
     }
 
     /**
      * Sets the value of the linkToDesign property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setLinkToDesign(String value) {
-        this.linkToDesign = value;
+	this.linkToDesign = value;
     }
 
     /**
      * Gets the value of the renderedOnUi property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRenderedOnUi() {
-        return renderedOnUi;
+	return renderedOnUi;
     }
 
     /**
      * Sets the value of the renderedOnUi property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRenderedOnUi(String value) {
-        this.renderedOnUi = value;
+	this.renderedOnUi = value;
     }
 
     /**
@@ -198,7 +178,7 @@ public class LinkField {
      * 
      */
     public boolean isIsCollection() {
-        return isCollection;
+	return isCollection;
     }
 
     /**
@@ -206,7 +186,7 @@ public class LinkField {
      * 
      */
     public void setIsCollection(boolean value) {
-        this.isCollection = value;
+	this.isCollection = value;
     }
 
 }

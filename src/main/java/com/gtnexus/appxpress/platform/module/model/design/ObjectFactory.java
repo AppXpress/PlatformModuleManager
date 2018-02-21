@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -16,19 +15,16 @@ import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
-
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the com.gtnexus.appxpress.platform.module.model.design package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
- * provided in this class.
+ * This object contains factory methods for each Java content interface and Java
+ * element interface generated in the
+ * com.gtnexus.appxpress.platform.module.model.design package.
+ * <p>
+ * An ObjectFactory allows you to programatically construct new instances of the
+ * Java representation for XML content. The Java representation of XML content
+ * can consist of schema derived interfaces and classes representing the binding
+ * of schema type definitions, element declarations and model groups. Factory
+ * methods for each of these are provided in this class.
  * 
  */
 @XmlRegistry
@@ -97,7 +93,9 @@ public class ObjectFactory {
     private final static QName _ObjectQueryEnabled_QNAME = new QName("", "objectQueryEnabled");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.gtnexus.appxpress.platform.module.model.design
+     * Create a new ObjectFactory that can be used to create new instances of schema
+     * derived classes for package:
+     * com.gtnexus.appxpress.platform.module.model.design
      * 
      */
     public ObjectFactory() {
@@ -108,7 +106,7 @@ public class ObjectFactory {
      * 
      */
     public ScriptingFeature createScriptingFeature() {
-        return new ScriptingFeature();
+	return new ScriptingFeature();
     }
 
     /**
@@ -116,7 +114,7 @@ public class ObjectFactory {
      * 
      */
     public ScalarField createScalarField() {
-        return new ScalarField();
+	return new ScalarField();
     }
 
     /**
@@ -124,7 +122,7 @@ public class ObjectFactory {
      * 
      */
     public ExtendedData createExtendedData() {
-        return new ExtendedData();
+	return new ExtendedData();
     }
 
     /**
@@ -132,7 +130,7 @@ public class ObjectFactory {
      * 
      */
     public Workflow createWorkflow() {
-        return new Workflow();
+	return new Workflow();
     }
 
     /**
@@ -140,7 +138,7 @@ public class ObjectFactory {
      * 
      */
     public Step createStep() {
-        return new Step();
+	return new Step();
     }
 
     /**
@@ -148,7 +146,7 @@ public class ObjectFactory {
      * 
      */
     public Transition createTransition() {
-        return new Transition();
+	return new Transition();
     }
 
     /**
@@ -156,7 +154,7 @@ public class ObjectFactory {
      * 
      */
     public AttachmentFeature createAttachmentFeature() {
-        return new AttachmentFeature();
+	return new AttachmentFeature();
     }
 
     /**
@@ -164,7 +162,7 @@ public class ObjectFactory {
      * 
      */
     public WorkflowFeature createWorkflowFeature() {
-        return new WorkflowFeature();
+	return new WorkflowFeature();
     }
 
     /**
@@ -172,7 +170,7 @@ public class ObjectFactory {
      * 
      */
     public VersioningFeature createVersioningFeature() {
-        return new VersioningFeature();
+	return new VersioningFeature();
     }
 
     /**
@@ -180,7 +178,7 @@ public class ObjectFactory {
      * 
      */
     public EventField createEventField() {
-        return new EventField();
+	return new EventField();
     }
 
     /**
@@ -188,7 +186,7 @@ public class ObjectFactory {
      * 
      */
     public PdfFeature createPdfFeature() {
-        return new PdfFeature();
+	return new PdfFeature();
     }
 
     /**
@@ -196,7 +194,7 @@ public class ObjectFactory {
      * 
      */
     public CustomObjectDesignV110 createCustomObjectDesignV110() {
-        return new CustomObjectDesignV110();
+	return new CustomObjectDesignV110();
     }
 
     /**
@@ -204,7 +202,7 @@ public class ObjectFactory {
      * 
      */
     public LinkField createLinkField() {
-        return new LinkField();
+	return new LinkField();
     }
 
     /**
@@ -212,7 +210,7 @@ public class ObjectFactory {
      * 
      */
     public ReportingFeature createReportingFeature() {
-        return new ReportingFeature();
+	return new ReportingFeature();
     }
 
     /**
@@ -220,7 +218,7 @@ public class ObjectFactory {
      * 
      */
     public IntegrationFeature createIntegrationFeature() {
-        return new IntegrationFeature();
+	return new IntegrationFeature();
     }
 
     /**
@@ -228,7 +226,7 @@ public class ObjectFactory {
      * 
      */
     public NavFeature createNavFeature() {
-        return new NavFeature();
+	return new NavFeature();
     }
 
     /**
@@ -236,7 +234,7 @@ public class ObjectFactory {
      * 
      */
     public Anchor createAnchor() {
-        return new Anchor();
+	return new Anchor();
     }
 
     /**
@@ -244,7 +242,7 @@ public class ObjectFactory {
      * 
      */
     public RoleSecurity createRoleSecurity() {
-        return new RoleSecurity();
+	return new RoleSecurity();
     }
 
     /**
@@ -252,7 +250,7 @@ public class ObjectFactory {
      * 
      */
     public CodSection createCodSection() {
-        return new CodSection();
+	return new CodSection();
     }
 
     /**
@@ -260,7 +258,7 @@ public class ObjectFactory {
      * 
      */
     public CodExtensionPoint createCodExtensionPoint() {
-        return new CodExtensionPoint();
+	return new CodExtensionPoint();
     }
 
     /**
@@ -269,7 +267,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "downloadRuntimeEnabled")
     public JAXBElement<Boolean> createDownloadRuntimeEnabled(Boolean value) {
-        return new JAXBElement<Boolean>(_DownloadRuntimeEnabled_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_DownloadRuntimeEnabled_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -278,7 +276,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "fileName")
     public JAXBElement<String> createFileName(String value) {
-        return new JAXBElement<String>(_FileName_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_FileName_QNAME, String.class, null, value);
     }
 
     /**
@@ -287,7 +285,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "activeCompletionState")
     public JAXBElement<String> createActiveCompletionState(String value) {
-        return new JAXBElement<String>(_ActiveCompletionState_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_ActiveCompletionState_QNAME, String.class, null, value);
     }
 
     /**
@@ -297,25 +295,27 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "initialStatus")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createInitialStatus(String value) {
-        return new JAXBElement<String>(_InitialStatus_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_InitialStatus_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger
+     * }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "fieldNumber")
     public JAXBElement<BigInteger> createFieldNumber(BigInteger value) {
-        return new JAXBElement<BigInteger>(_FieldNumber_QNAME, BigInteger.class, null, value);
+	return new JAXBElement<BigInteger>(_FieldNumber_QNAME, BigInteger.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger
+     * }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "numberOfDisplayColumns")
     public JAXBElement<BigInteger> createNumberOfDisplayColumns(BigInteger value) {
-        return new JAXBElement<BigInteger>(_NumberOfDisplayColumns_QNAME, BigInteger.class, null, value);
+	return new JAXBElement<BigInteger>(_NumberOfDisplayColumns_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -324,7 +324,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "mimeType")
     public JAXBElement<String> createMimeType(String value) {
-        return new JAXBElement<String>(_MimeType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_MimeType_QNAME, String.class, null, value);
     }
 
     /**
@@ -334,16 +334,17 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "stringValue")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createStringValue(String value) {
-        return new JAXBElement<String>(_StringValue_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_StringValue_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger
+     * }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "apiVersion")
     public JAXBElement<BigInteger> createApiVersion(BigInteger value) {
-        return new JAXBElement<BigInteger>(_ApiVersion_QNAME, BigInteger.class, null, value);
+	return new JAXBElement<BigInteger>(_ApiVersion_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -353,7 +354,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "businessStatusField")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createBusinessStatusField(String value) {
-        return new JAXBElement<String>(_BusinessStatusField_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_BusinessStatusField_QNAME, String.class, null, value);
     }
 
     /**
@@ -363,7 +364,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "action")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createAction(String value) {
-        return new JAXBElement<String>(_Action_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_Action_QNAME, String.class, null, value);
     }
 
     /**
@@ -373,7 +374,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "state")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createState(String value) {
-        return new JAXBElement<String>(_State_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_State_QNAME, String.class, null, value);
     }
 
     /**
@@ -382,7 +383,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "revisionIncrementFunctionName")
     public JAXBElement<String> createRevisionIncrementFunctionName(String value) {
-        return new JAXBElement<String>(_RevisionIncrementFunctionName_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_RevisionIncrementFunctionName_QNAME, String.class, null, value);
     }
 
     /**
@@ -392,7 +393,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "visibilityType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createVisibilityType(String value) {
-        return new JAXBElement<String>(_VisibilityType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_VisibilityType_QNAME, String.class, null, value);
     }
 
     /**
@@ -401,7 +402,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "fieldMaskFunctionName")
     public JAXBElement<String> createFieldMaskFunctionName(String value) {
-        return new JAXBElement<String>(_FieldMaskFunctionName_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_FieldMaskFunctionName_QNAME, String.class, null, value);
     }
 
     /**
@@ -411,7 +412,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "fromState")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createFromState(String value) {
-        return new JAXBElement<String>(_FromState_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_FromState_QNAME, String.class, null, value);
     }
 
     /**
@@ -420,7 +421,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "mutateOthersEnabled")
     public JAXBElement<String> createMutateOthersEnabled(String value) {
-        return new JAXBElement<String>(_MutateOthersEnabled_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_MutateOthersEnabled_QNAME, String.class, null, value);
     }
 
     /**
@@ -429,7 +430,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "indexed")
     public JAXBElement<Boolean> createIndexed(Boolean value) {
-        return new JAXBElement<Boolean>(_Indexed_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_Indexed_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -438,7 +439,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "fieldMaskingEnabled")
     public JAXBElement<String> createFieldMaskingEnabled(String value) {
-        return new JAXBElement<String>(_FieldMaskingEnabled_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_FieldMaskingEnabled_QNAME, String.class, null, value);
     }
 
     /**
@@ -448,7 +449,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "designType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createDesignType(String value) {
-        return new JAXBElement<String>(_DesignType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_DesignType_QNAME, String.class, null, value);
     }
 
     /**
@@ -458,7 +459,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "dataType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createDataType(String value) {
-        return new JAXBElement<String>(_DataType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_DataType_QNAME, String.class, null, value);
     }
 
     /**
@@ -468,7 +469,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "eventType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createEventType(String value) {
-        return new JAXBElement<String>(_EventType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_EventType_QNAME, String.class, null, value);
     }
 
     /**
@@ -477,25 +478,27 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "transitionForNewDraft")
     public JAXBElement<String> createTransitionForNewDraft(String value) {
-        return new JAXBElement<String>(_TransitionForNewDraft_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_TransitionForNewDraft_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger
+     * }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "version")
     public JAXBElement<BigInteger> createVersion(BigInteger value) {
-        return new JAXBElement<BigInteger>(_Version_QNAME, BigInteger.class, null, value);
+	return new JAXBElement<BigInteger>(_Version_QNAME, BigInteger.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger
+     * }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "fieldPosition")
     public JAXBElement<BigInteger> createFieldPosition(BigInteger value) {
-        return new JAXBElement<BigInteger>(_FieldPosition_QNAME, BigInteger.class, null, value);
+	return new JAXBElement<BigInteger>(_FieldPosition_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -504,7 +507,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "systemDelete")
     public JAXBElement<Boolean> createSystemDelete(Boolean value) {
-        return new JAXBElement<Boolean>(_SystemDelete_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_SystemDelete_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -514,7 +517,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "schemaVers")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createSchemaVers(String value) {
-        return new JAXBElement<String>(_SchemaVers_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_SchemaVers_QNAME, String.class, null, value);
     }
 
     /**
@@ -523,7 +526,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "landingOQL")
     public JAXBElement<String> createLandingOQL(String value) {
-        return new JAXBElement<String>(_LandingOQL_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_LandingOQL_QNAME, String.class, null, value);
     }
 
     /**
@@ -532,7 +535,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "name")
     public JAXBElement<String> createName(String value) {
-        return new JAXBElement<String>(_Name_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_Name_QNAME, String.class, null, value);
     }
 
     /**
@@ -542,7 +545,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "navHeading")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createNavHeading(String value) {
-        return new JAXBElement<String>(_NavHeading_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_NavHeading_QNAME, String.class, null, value);
     }
 
     /**
@@ -552,16 +555,17 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "preconditionFn")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createPreconditionFn(String value) {
-        return new JAXBElement<String>(_PreconditionFn_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_PreconditionFn_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger
+     * }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "maxLength")
     public JAXBElement<BigInteger> createMaxLength(BigInteger value) {
-        return new JAXBElement<BigInteger>(_MaxLength_QNAME, BigInteger.class, null, value);
+	return new JAXBElement<BigInteger>(_MaxLength_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -571,7 +575,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "licenseeField")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createLicenseeField(String value) {
-        return new JAXBElement<String>(_LicenseeField_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_LicenseeField_QNAME, String.class, null, value);
     }
 
     /**
@@ -580,7 +584,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "useTableSupport")
     public JAXBElement<Boolean> createUseTableSupport(Boolean value) {
-        return new JAXBElement<Boolean>(_UseTableSupport_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_UseTableSupport_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -590,7 +594,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "fieldName")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createFieldName(String value) {
-        return new JAXBElement<String>(_FieldName_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_FieldName_QNAME, String.class, null, value);
     }
 
     /**
@@ -599,7 +603,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "requiredDocStates")
     public JAXBElement<String> createRequiredDocStates(String value) {
-        return new JAXBElement<String>(_RequiredDocStates_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_RequiredDocStates_QNAME, String.class, null, value);
     }
 
     /**
@@ -608,7 +612,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "code")
     public JAXBElement<String> createCode(String value) {
-        return new JAXBElement<String>(_Code_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_Code_QNAME, String.class, null, value);
     }
 
     /**
@@ -618,7 +622,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "role")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createRole(String value) {
-        return new JAXBElement<String>(_Role_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_Role_QNAME, String.class, null, value);
     }
 
     /**
@@ -627,7 +631,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "roles")
     public JAXBElement<String> createRoles(String value) {
-        return new JAXBElement<String>(_Roles_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_Roles_QNAME, String.class, null, value);
     }
 
     /**
@@ -636,7 +640,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "isCollection")
     public JAXBElement<Boolean> createIsCollection(Boolean value) {
-        return new JAXBElement<Boolean>(_IsCollection_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_IsCollection_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -645,7 +649,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "mutateSelfEnabled")
     public JAXBElement<String> createMutateSelfEnabled(String value) {
-        return new JAXBElement<String>(_MutateSelfEnabled_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_MutateSelfEnabled_QNAME, String.class, null, value);
     }
 
     /**
@@ -654,7 +658,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "description")
     public JAXBElement<String> createDescription(String value) {
-        return new JAXBElement<String>(_Description_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_Description_QNAME, String.class, null, value);
     }
 
     /**
@@ -664,7 +668,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "onStateFn")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createOnStateFn(String value) {
-        return new JAXBElement<String>(_OnStateFn_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_OnStateFn_QNAME, String.class, null, value);
     }
 
     /**
@@ -673,7 +677,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "enabled")
     public JAXBElement<Boolean> createEnabled(Boolean value) {
-        return new JAXBElement<Boolean>(_Enabled_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_Enabled_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -683,7 +687,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "dataKey")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createDataKey(String value) {
-        return new JAXBElement<String>(_DataKey_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_DataKey_QNAME, String.class, null, value);
     }
 
     /**
@@ -693,7 +697,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "toState")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createToState(String value) {
-        return new JAXBElement<String>(_ToState_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_ToState_QNAME, String.class, null, value);
     }
 
     /**
@@ -702,7 +706,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "anchorOQL")
     public JAXBElement<String> createAnchorOQL(String value) {
-        return new JAXBElement<String>(_AnchorOQL_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_AnchorOQL_QNAME, String.class, null, value);
     }
 
     /**
@@ -712,7 +716,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "renderedOnUi")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createRenderedOnUi(String value) {
-        return new JAXBElement<String>(_RenderedOnUi_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_RenderedOnUi_QNAME, String.class, null, value);
     }
 
     /**
@@ -721,7 +725,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "draftCompletionState")
     public JAXBElement<String> createDraftCompletionState(String value) {
-        return new JAXBElement<String>(_DraftCompletionState_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_DraftCompletionState_QNAME, String.class, null, value);
     }
 
     /**
@@ -730,7 +734,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "uploadRuntimeEnabled")
     public JAXBElement<Boolean> createUploadRuntimeEnabled(Boolean value) {
-        return new JAXBElement<Boolean>(_UploadRuntimeEnabled_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_UploadRuntimeEnabled_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -739,7 +743,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "globalObjectType")
     public JAXBElement<String> createGlobalObjectType(String value) {
-        return new JAXBElement<String>(_GlobalObjectType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_GlobalObjectType_QNAME, String.class, null, value);
     }
 
     /**
@@ -748,7 +752,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "editRoles")
     public JAXBElement<String> createEditRoles(String value) {
-        return new JAXBElement<String>(_EditRoles_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_EditRoles_QNAME, String.class, null, value);
     }
 
     /**
@@ -758,7 +762,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "linkToDesign")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createLinkToDesign(String value) {
-        return new JAXBElement<String>(_LinkToDesign_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_LinkToDesign_QNAME, String.class, null, value);
     }
 
     /**
@@ -768,7 +772,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "uniqueIdentifier")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createUniqueIdentifier(String value) {
-        return new JAXBElement<String>(_UniqueIdentifier_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_UniqueIdentifier_QNAME, String.class, null, value);
     }
 
     /**
@@ -778,7 +782,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "functionName")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createFunctionName(String value) {
-        return new JAXBElement<String>(_FunctionName_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_FunctionName_QNAME, String.class, null, value);
     }
 
     /**
@@ -788,7 +792,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "postTransitionFn")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createPostTransitionFn(String value) {
-        return new JAXBElement<String>(_PostTransitionFn_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_PostTransitionFn_QNAME, String.class, null, value);
     }
 
     /**
@@ -797,7 +801,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "summaryField")
     public JAXBElement<Boolean> createSummaryField(Boolean value) {
-        return new JAXBElement<Boolean>(_SummaryField_QNAME, Boolean.class, null, value);
+	return new JAXBElement<Boolean>(_SummaryField_QNAME, Boolean.class, null, value);
     }
 
     /**
@@ -807,7 +811,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "detailedDataType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createDetailedDataType(String value) {
-        return new JAXBElement<String>(_DetailedDataType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_DetailedDataType_QNAME, String.class, null, value);
     }
 
     /**
@@ -817,7 +821,7 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "transactionType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public JAXBElement<String> createTransactionType(String value) {
-        return new JAXBElement<String>(_TransactionType_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_TransactionType_QNAME, String.class, null, value);
     }
 
     /**
@@ -826,7 +830,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "versionField")
     public JAXBElement<String> createVersionField(String value) {
-        return new JAXBElement<String>(_VersionField_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_VersionField_QNAME, String.class, null, value);
     }
 
     /**
@@ -835,7 +839,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "", name = "objectQueryEnabled")
     public JAXBElement<String> createObjectQueryEnabled(String value) {
-        return new JAXBElement<String>(_ObjectQueryEnabled_QNAME, String.class, null, value);
+	return new JAXBElement<String>(_ObjectQueryEnabled_QNAME, String.class, null, value);
     }
 
 }

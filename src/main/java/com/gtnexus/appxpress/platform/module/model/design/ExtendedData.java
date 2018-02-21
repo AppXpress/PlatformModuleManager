@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -39,10 +40,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "dataKey",
-    "stringValue"
-})
+@XmlType(name = "", propOrder = { "dataKey", "stringValue" })
 @XmlRootElement(name = "extendedData")
 public class ExtendedData {
 
@@ -57,49 +55,43 @@ public class ExtendedData {
     /**
      * Gets the value of the dataKey property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDataKey() {
-        return dataKey;
+	return dataKey;
     }
 
     /**
      * Sets the value of the dataKey property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDataKey(String value) {
-        this.dataKey = value;
+	this.dataKey = value;
     }
 
     /**
      * Gets the value of the stringValue property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getStringValue() {
-        return stringValue;
+	return stringValue;
     }
 
     /**
      * Sets the value of the stringValue property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setStringValue(String value) {
-        this.stringValue = value;
+	this.stringValue = value;
     }
 
 }

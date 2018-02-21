@@ -5,7 +5,6 @@
 // Generated on: 2016.06.22 at 04:47:37 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.platformmodule;
 
 import java.math.BigInteger;
@@ -18,11 +17,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -43,13 +44,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "targetType",
-    "apiVersion",
-    "notificationDeliveryMethod",
-    "suppressible",
-    "role"
-})
+@XmlType(name = "", propOrder = { "targetType", "apiVersion", "notificationDeliveryMethod", "suppressible", "role" })
 @XmlRootElement(name = "notificationConfiguration")
 public class NotificationConfiguration {
 
@@ -70,73 +65,64 @@ public class NotificationConfiguration {
     /**
      * Gets the value of the targetType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getTargetType() {
-        return targetType;
+	return targetType;
     }
 
     /**
      * Sets the value of the targetType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setTargetType(String value) {
-        this.targetType = value;
+	this.targetType = value;
     }
 
     /**
      * Gets the value of the apiVersion property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getApiVersion() {
-        return apiVersion;
+	return apiVersion;
     }
 
     /**
      * Sets the value of the apiVersion property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setApiVersion(BigInteger value) {
-        this.apiVersion = value;
+	this.apiVersion = value;
     }
 
     /**
      * Gets the value of the notificationDeliveryMethod property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getNotificationDeliveryMethod() {
-        return notificationDeliveryMethod;
+	return notificationDeliveryMethod;
     }
 
     /**
      * Sets the value of the notificationDeliveryMethod property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setNotificationDeliveryMethod(String value) {
-        this.notificationDeliveryMethod = value;
+	this.notificationDeliveryMethod = value;
     }
 
     /**
@@ -144,7 +130,7 @@ public class NotificationConfiguration {
      * 
      */
     public boolean isSuppressible() {
-        return suppressible;
+	return suppressible;
     }
 
     /**
@@ -152,31 +138,28 @@ public class NotificationConfiguration {
      * 
      */
     public void setSuppressible(boolean value) {
-        this.suppressible = value;
+	this.suppressible = value;
     }
 
     /**
      * Gets the value of the role property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRole() {
-        return role;
+	return role;
     }
 
     /**
      * Sets the value of the role property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRole(String value) {
-        this.role = value;
+	this.role = value;
     }
 
 }

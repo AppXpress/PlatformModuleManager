@@ -15,55 +15,53 @@ import com.gtnexus.appxpress.exception.AppXpressException;
  */
 public class PMProperties {
 
-	private File propertiesFile;
-	private Properties properties;
-	private boolean propertiesHaveChanged;
+    private File propertiesFile;
+    private Properties properties;
+    private boolean propertiesHaveChanged;
 
-	public PMProperties(Properties properties, File propertiesFile) {
-		this.properties = properties;
-		this.propertiesFile = propertiesFile;
-		this.propertiesHaveChanged = false;
-	}
+    public PMProperties(Properties properties, File propertiesFile) {
+	this.properties = properties;
+	this.propertiesFile = propertiesFile;
+	this.propertiesHaveChanged = false;
+    }
 
-	public File getPropertiesFile() {
-		return propertiesFile;
-	}
+    public File getPropertiesFile() {
+	return propertiesFile;
+    }
 
-	public String getPropertiesPath() {
-		return propertiesFile.getAbsolutePath();
-	}
+    public String getPropertiesPath() {
+	return propertiesFile.getAbsolutePath();
+    }
 
-	public Properties getProperties() {
-		return properties;
-	}
+    public Properties getProperties() {
+	return properties;
+    }
 
-	public String getProperty(String property) {
-		return properties.getProperty(property);
-	}
-	
-	public String getProperty(CLICommandOption opt) {
-		return properties.getProperty(opt.getLongName());
-	}
+    public String getProperty(String property) {
+	return properties.getProperty(property);
+    }
 
-	public void put(String key, String value) {
-		if(properties.containsKey(key)  && !properties.get(key).equals(value)) {
-			propertiesHaveChanged = true;
-		}
-		properties.put(key, value);
-	}
+    public String getProperty(CLICommandOption opt) {
+	return properties.getProperty(opt.getLongName());
+    }
 
-	public void store() throws AppXpressException {
-		try (FileOutputStream settingsOutputStream = new FileOutputStream(
-				propertiesFile)) {
-			properties.store(settingsOutputStream, null);
-		} catch (IOException e) {
-			throw new AppXpressException("Failed to write properties file!",
-					e);
-		}
+    public void put(String key, String value) {
+	if (properties.containsKey(key) && !properties.get(key).equals(value)) {
+	    propertiesHaveChanged = true;
 	}
+	properties.put(key, value);
+    }
 
-	public boolean haveChanged() {
-		return propertiesHaveChanged;
+    public void store() throws AppXpressException {
+	try (FileOutputStream settingsOutputStream = new FileOutputStream(propertiesFile)) {
+	    properties.store(settingsOutputStream, null);
+	} catch (IOException e) {
+	    throw new AppXpressException("Failed to write properties file!", e);
 	}
+    }
+
+    public boolean haveChanged() {
+	return propertiesHaveChanged;
+    }
 
 }

@@ -41,11 +41,11 @@ public class ModuleUnmarshaller {
 	    }
 	    for (File f : vo.getTemplates()) {
 		builder.addTemplate(unmarshallTM(f));
-	    } 
-	    for(File f : vo.getDesigns()) {
+	    }
+	    for (File f : vo.getDesigns()) {
 		builder.addDesign(unmarshallCustomObjectDesignV110(f));
 	    }
-	} catch (JAXBException | IOException e ) {
+	} catch (JAXBException | IOException e) {
 	    throw new AppXpressException("Failed to unmarshall the platform module", e);
 	}
 	return builder.build();
@@ -53,9 +53,10 @@ public class ModuleUnmarshaller {
 
     private PlatformModuleXml unmarshallPlatMod(File f) throws JAXBException, FileNotFoundException, IOException {
 	try (FileReader reader = new FileReader(f)) {
-	    JAXBContext context = JAXBContext.newInstance("com.gtnexus.appxpress.platform.module.model.platformmodule"); 
+	    JAXBContext context = JAXBContext.newInstance("com.gtnexus.appxpress.platform.module.model.platformmodule");
 	    Unmarshaller unmarshaller = context.createUnmarshaller();
-	    PlatformModuleXml platformMod = (PlatformModuleXml) JAXBIntrospector.getValue(unmarshaller.unmarshal(reader));
+	    PlatformModuleXml platformMod = (PlatformModuleXml) JAXBIntrospector
+		    .getValue(unmarshaller.unmarshal(reader));
 	    return platformMod;
 	}
     }
@@ -76,14 +77,14 @@ public class ModuleUnmarshaller {
 	return unmarshall(TemplateMediaV110.class, f);
     }
 
-    private CustomObjectDesignV110 unmarshallCustomObjectDesignV110(File f)
-	    throws JAXBException, IOException {
+    private CustomObjectDesignV110 unmarshallCustomObjectDesignV110(File f) throws JAXBException, IOException {
 	return unmarshall(CustomObjectDesignV110.class, f);
     }
 
     private <X> X unmarshall(Class<X> type, File f) throws JAXBException, FileNotFoundException, IOException {
 	try (FileReader reader = new FileReader(f)) {
-	    JAXBContext context = JAXBContext.newInstance(type); //we can check if we've created this context type before. 
+	    JAXBContext context = JAXBContext.newInstance(type); // we can check if we've created this context type
+								 // before.
 	    Unmarshaller unmarshaller = context.createUnmarshaller();
 	    return type.cast(unmarshaller.unmarshal(reader));
 	}

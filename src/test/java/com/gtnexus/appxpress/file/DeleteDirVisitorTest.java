@@ -16,47 +16,43 @@ import com.gtnexus.appxpress.commons.file.DeleteDirVisitor;
 
 public class DeleteDirVisitorTest {
 
-	@Rule
-	public TemporaryFolder tmp = new TemporaryFolder();
+    @Rule
+    public TemporaryFolder tmp = new TemporaryFolder();
 
-	@Test
-	public void testVisitFile() throws IOException {
-		File f = tmp.newFile();
-		Path p = f.toPath();
-		DeleteDirVisitor vis = new DeleteDirVisitor(tmp.getRoot().toPath(),
-				false);
-		BasicFileAttributes attributes = Files.readAttributes(p, BasicFileAttributes.class);
-		assertEquals(true, Files.exists(p));
-		vis.visitFile(p, attributes);
-		assertEquals(false, Files.exists(p));
-	}
+    @Test
+    public void testVisitFile() throws IOException {
+	File f = tmp.newFile();
+	Path p = f.toPath();
+	DeleteDirVisitor vis = new DeleteDirVisitor(tmp.getRoot().toPath(), false);
+	BasicFileAttributes attributes = Files.readAttributes(p, BasicFileAttributes.class);
+	assertEquals(true, Files.exists(p));
+	vis.visitFile(p, attributes);
+	assertEquals(false, Files.exists(p));
+    }
 
-	@Test
-	public void testPostVisitDirectory() throws IOException {
-		File f = tmp.newFolder();
-		Path p = f.toPath();
-		DeleteDirVisitor vis = new DeleteDirVisitor(tmp.getRoot().toPath(),
-				false);
-		vis.postVisitDirectory(p, null);
-		assertEquals(false, Files.exists(p));
-	}
+    @Test
+    public void testPostVisitDirectory() throws IOException {
+	File f = tmp.newFolder();
+	Path p = f.toPath();
+	DeleteDirVisitor vis = new DeleteDirVisitor(tmp.getRoot().toPath(), false);
+	vis.postVisitDirectory(p, null);
+	assertEquals(false, Files.exists(p));
+    }
 
-	@Test
-	public void testPostVisitRoot() throws IOException {
-		Path path = tmp.getRoot().toPath();
-		DeleteDirVisitor vis = new DeleteDirVisitor(path,
-				false);
-		vis.postVisitDirectory(path, null);
-		assertEquals(true, Files.exists(path));
-	}
-	
-	@Test
-	public void testPostVisitAndDeleteRoot() throws IOException {
-		Path path = tmp.getRoot().toPath();
-		DeleteDirVisitor vis = new DeleteDirVisitor(path,
-				true);
-		vis.postVisitDirectory(path, null);
-		assertEquals(false, Files.exists(path));
-	}
+    @Test
+    public void testPostVisitRoot() throws IOException {
+	Path path = tmp.getRoot().toPath();
+	DeleteDirVisitor vis = new DeleteDirVisitor(path, false);
+	vis.postVisitDirectory(path, null);
+	assertEquals(true, Files.exists(path));
+    }
+
+    @Test
+    public void testPostVisitAndDeleteRoot() throws IOException {
+	Path path = tmp.getRoot().toPath();
+	DeleteDirVisitor vis = new DeleteDirVisitor(path, true);
+	vis.postVisitDirectory(path, null);
+	assertEquals(false, Files.exists(path));
+    }
 
 }

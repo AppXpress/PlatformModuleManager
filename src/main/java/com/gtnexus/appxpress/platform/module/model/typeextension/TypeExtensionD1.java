@@ -5,7 +5,6 @@
 // Generated on: 2016.04.26 at 06:23:51 PM PDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.typeextension;
 
 import java.math.BigInteger;
@@ -19,11 +18,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -50,19 +51,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "metadata",
-    "type",
-    "uid",
-    "platformModuleId",
-    "platformModuleType",
-    "documentType",
-    "apiVersion",
-    "status",
-    "rank",
-    "callbacks",
-    "fingerprint"
-})
+@XmlType(name = "", propOrder = { "metadata", "type", "uid", "platformModuleId", "platformModuleType", "documentType",
+	"apiVersion", "status", "rank", "callbacks", "fingerprint" })
 @XmlRootElement(name = "TYPEEXTENSIOND1")
 public class TypeExtensionD1 {
 
@@ -98,265 +88,232 @@ public class TypeExtensionD1 {
     /**
      * Gets the value of the metadata property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Metadata }
-     *     
+     * @return possible object is {@link Metadata }
+     * 
      */
     public Metadata getMetadata() {
-        return metadata;
+	return metadata;
     }
 
     /**
      * Sets the value of the metadata property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Metadata }
-     *     
+     *            allowed object is {@link Metadata }
+     * 
      */
     public void setMetadata(Metadata value) {
-        this.metadata = value;
+	this.metadata = value;
     }
 
     /**
      * Gets the value of the type property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getType() {
-        return type;
+	return type;
     }
 
     /**
      * Sets the value of the type property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setType(String value) {
-        this.type = value;
+	this.type = value;
     }
 
     /**
      * Gets the value of the uid property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getUid() {
-        return uid;
+	return uid;
     }
 
     /**
      * Sets the value of the uid property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setUid(BigInteger value) {
-        this.uid = value;
+	this.uid = value;
     }
 
     /**
      * Gets the value of the platformModuleId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getPlatformModuleId() {
-        return platformModuleId;
+	return platformModuleId;
     }
 
     /**
      * Sets the value of the platformModuleId property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setPlatformModuleId(BigInteger value) {
-        this.platformModuleId = value;
+	this.platformModuleId = value;
     }
 
     /**
      * Gets the value of the platformModuleType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getPlatformModuleType() {
-        return platformModuleType;
+	return platformModuleType;
     }
 
     /**
      * Sets the value of the platformModuleType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setPlatformModuleType(String value) {
-        this.platformModuleType = value;
+	this.platformModuleType = value;
     }
 
     /**
      * Gets the value of the documentType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDocumentType() {
-        return documentType;
+	return documentType;
     }
 
     /**
      * Sets the value of the documentType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDocumentType(String value) {
-        this.documentType = value;
+	this.documentType = value;
     }
 
     /**
      * Gets the value of the apiVersion property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getApiVersion() {
-        return apiVersion;
+	return apiVersion;
     }
 
     /**
      * Sets the value of the apiVersion property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setApiVersion(BigInteger value) {
-        this.apiVersion = value;
+	this.apiVersion = value;
     }
 
     /**
      * Gets the value of the status property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getStatus() {
-        return status;
+	return status;
     }
 
     /**
      * Sets the value of the status property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setStatus(String value) {
-        this.status = value;
+	this.status = value;
     }
 
     /**
      * Gets the value of the rank property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getRank() {
-        return rank;
+	return rank;
     }
 
     /**
      * Sets the value of the rank property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setRank(BigInteger value) {
-        this.rank = value;
+	this.rank = value;
     }
 
     /**
      * Gets the value of the callbacks property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Callbacks }
-     *     
+     * @return possible object is {@link Callbacks }
+     * 
      */
     public Callbacks getCallbacks() {
-        return callbacks;
+	return callbacks;
     }
 
     /**
      * Sets the value of the callbacks property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Callbacks }
-     *     
+     *            allowed object is {@link Callbacks }
+     * 
      */
     public void setCallbacks(Callbacks value) {
-        this.callbacks = value;
+	this.callbacks = value;
     }
 
     /**
      * Gets the value of the fingerprint property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFingerprint() {
-        return fingerprint;
+	return fingerprint;
     }
 
     /**
      * Sets the value of the fingerprint property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFingerprint(String value) {
-        this.fingerprint = value;
+	this.fingerprint = value;
     }
 
 }

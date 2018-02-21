@@ -16,22 +16,22 @@ import com.gtnexus.appxpress.cli.asker.BoundIntegerAsker;
 
 public class PlatformSelectorTest {
 
-	@Test
-	public void testSelect() {
-		PrintStream out = null;
-		try {
-			File[] files = new File[10];
-			for (int i = 0; i < 10; i++) {
-				files[i] = new File("File" + i);
-			}
-			BoundIntegerAsker asker = Mockito.mock(BoundIntegerAsker.class);
-			Mockito.when(asker.ask(Matchers.anyString())).thenReturn(1);
-			out = new PrintStream(new NullOutputStream());
-			FileSelector selector = new FileSelector(asker);
-			File f = selector.select(Arrays.asList(files));
-			assertEquals(files[0], f);
-		} finally {
-			out.close();
-		}
+    @Test
+    public void testSelect() {
+	PrintStream out = null;
+	try {
+	    File[] files = new File[10];
+	    for (int i = 0; i < 10; i++) {
+		files[i] = new File("File" + i);
+	    }
+	    BoundIntegerAsker asker = Mockito.mock(BoundIntegerAsker.class);
+	    Mockito.when(asker.ask(Matchers.anyString())).thenReturn(1);
+	    out = new PrintStream(new NullOutputStream());
+	    FileSelector selector = new FileSelector(asker);
+	    File f = selector.select(Arrays.asList(files));
+	    assertEquals(files[0], f);
+	} finally {
+	    out.close();
 	}
+    }
 }

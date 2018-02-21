@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
@@ -18,11 +17,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -44,14 +45,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "fieldName",
-    "fieldNumber",
-    "description",
-    "fieldPosition",
-    "eventType",
-    "functionName"
-})
+@XmlType(name = "", propOrder = { "fieldName", "fieldNumber", "description", "fieldPosition", "eventType",
+	"functionName" })
 @XmlRootElement(name = "eventField")
 public class EventField {
 
@@ -77,145 +72,127 @@ public class EventField {
     /**
      * Gets the value of the fieldName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFieldName() {
-        return fieldName;
+	return fieldName;
     }
 
     /**
      * Sets the value of the fieldName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFieldName(String value) {
-        this.fieldName = value;
+	this.fieldName = value;
     }
 
     /**
      * Gets the value of the fieldNumber property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldNumber() {
-        return fieldNumber;
+	return fieldNumber;
     }
 
     /**
      * Sets the value of the fieldNumber property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldNumber(BigInteger value) {
-        this.fieldNumber = value;
+	this.fieldNumber = value;
     }
 
     /**
      * Gets the value of the description property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getDescription() {
-        return description;
+	return description;
     }
 
     /**
      * Sets the value of the description property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setDescription(String value) {
-        this.description = value;
+	this.description = value;
     }
 
     /**
      * Gets the value of the fieldPosition property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     * @return possible object is {@link BigInteger }
+     * 
      */
     public BigInteger getFieldPosition() {
-        return fieldPosition;
+	return fieldPosition;
     }
 
     /**
      * Sets the value of the fieldPosition property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is {@link BigInteger }
+     * 
      */
     public void setFieldPosition(BigInteger value) {
-        this.fieldPosition = value;
+	this.fieldPosition = value;
     }
 
     /**
      * Gets the value of the eventType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getEventType() {
-        return eventType;
+	return eventType;
     }
 
     /**
      * Sets the value of the eventType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setEventType(String value) {
-        this.eventType = value;
+	this.eventType = value;
     }
 
     /**
      * Gets the value of the functionName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFunctionName() {
-        return functionName;
+	return functionName;
     }
 
     /**
      * Sets the value of the functionName property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setFunctionName(String value) {
-        this.functionName = value;
+	this.functionName = value;
     }
 
 }

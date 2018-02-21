@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -41,12 +42,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "transactionType",
-    "isCollection",
-    "anchorOQL",
-    "requiredDocStates"
-})
+@XmlType(name = "", propOrder = { "transactionType", "isCollection", "anchorOQL", "requiredDocStates" })
 @XmlRootElement(name = "anchor")
 public class Anchor {
 
@@ -63,25 +59,22 @@ public class Anchor {
     /**
      * Gets the value of the transactionType property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getTransactionType() {
-        return transactionType;
+	return transactionType;
     }
 
     /**
      * Sets the value of the transactionType property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setTransactionType(String value) {
-        this.transactionType = value;
+	this.transactionType = value;
     }
 
     /**
@@ -89,7 +82,7 @@ public class Anchor {
      * 
      */
     public boolean isIsCollection() {
-        return isCollection;
+	return isCollection;
     }
 
     /**
@@ -97,55 +90,49 @@ public class Anchor {
      * 
      */
     public void setIsCollection(boolean value) {
-        this.isCollection = value;
+	this.isCollection = value;
     }
 
     /**
      * Gets the value of the anchorOQL property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getAnchorOQL() {
-        return anchorOQL;
+	return anchorOQL;
     }
 
     /**
      * Sets the value of the anchorOQL property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setAnchorOQL(String value) {
-        this.anchorOQL = value;
+	this.anchorOQL = value;
     }
 
     /**
      * Gets the value of the requiredDocStates property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getRequiredDocStates() {
-        return requiredDocStates;
+	return requiredDocStates;
     }
 
     /**
      * Sets the value of the requiredDocStates property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setRequiredDocStates(String value) {
-        this.requiredDocStates = value;
+	this.requiredDocStates = value;
     }
 
 }

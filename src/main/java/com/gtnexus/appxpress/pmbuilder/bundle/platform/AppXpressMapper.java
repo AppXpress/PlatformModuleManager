@@ -20,28 +20,27 @@ import com.gtnexus.appxpress.pmbuilder.bundle.scripts.ScriptBundler;
  */
 public class AppXpressMapper implements Mapper {
 
-	private final File root;
-	private final Bundler bundler;
-	private final Preparation<File> prep;
+    private final File root;
+    private final Bundler bundler;
+    private final Preparation<File> prep;
 
-	public AppXpressMapper(File root) {
-		this.root = root;
-		this.bundler = new ScriptBundler();
-		this.prep = new FolderPrep();
-	}
+    public AppXpressMapper(File root) {
+	this.root = root;
+	this.bundler = new ScriptBundler();
+	this.prep = new FolderPrep();
+    }
 
-	/**
-	 * Performs the directory mappings (renaming, moving, etc.)
-	 */
-	@Override
-	public void doMapping() throws AppXpressException {
-		if (root == null || !root.isDirectory()) {
-			System.err.println("Module root cannot be found, or is empty. "
-					+ "No mapping can be performed.");
-			return;
-		}
-		prep.prepare(root);
-		bundler.bundle(root);
+    /**
+     * Performs the directory mappings (renaming, moving, etc.)
+     */
+    @Override
+    public void doMapping() throws AppXpressException {
+	if (root == null || !root.isDirectory()) {
+	    System.err.println("Module root cannot be found, or is empty. " + "No mapping can be performed.");
+	    return;
 	}
-	
+	prep.prepare(root);
+	bundler.bundle(root);
+    }
+
 }

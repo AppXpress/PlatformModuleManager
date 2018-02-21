@@ -4,69 +4,69 @@ import com.gtnexus.appxpress.cli.asker.ValidityProvider;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
 
-public class LocalDirOpt implements CLICommandOption{
-	
-	private  final OptionMessageProvider msgProvider = new OptionMessageProvider();
-	private  final ValidityProvider validityProvider = new ValidityProvider();
+public class LocalDirOpt implements CLICommandOption {
 
-	@Override
-	public String getLongName() {
-		return "localDir";
-	}
+    private final OptionMessageProvider msgProvider = new OptionMessageProvider();
+    private final ValidityProvider validityProvider = new ValidityProvider();
 
-	@Override
-	public String getFlag() {
-		return "ld";
-	}
+    @Override
+    public String getLongName() {
+	return "localDir";
+    }
 
-	@Override
-	public Class<?> getType() {
-		return String.class;
-	}
+    @Override
+    public String getFlag() {
+	return "ld";
+    }
 
-	@Override
-	public String getDescription() {
-		return "Relative path of git staging folder.";
-	}
+    @Override
+    public Class<?> getType() {
+	return String.class;
+    }
 
-	@Override
-	public boolean hasArg() {
-		return true;
-	}
+    @Override
+    public String getDescription() {
+	return "Relative path of git staging folder.";
+    }
 
-	@Override
-	public boolean isHelpFlag() {
-		return false;
-	}
+    @Override
+    public boolean hasArg() {
+	return true;
+    }
 
-	@Override
-	public String getMessage() {
-		return msgProvider.getMessage(this.getType(), this.getLongName());
-	}
+    @Override
+    public boolean isHelpFlag() {
+	return false;
+    }
 
-	@Override
-	public boolean isAppXpressMandatory() {
-		return true;
-	}
+    @Override
+    public String getMessage() {
+	return msgProvider.getMessage(this.getType(), this.getLongName());
+    }
 
-	@Override
-	public boolean shouldBeOmitted() {
-		return false;
-	}
+    @Override
+    public boolean isAppXpressMandatory() {
+	return true;
+    }
 
-	@Override
-	public boolean isValid(String val) {
-		return validityProvider.isValid(val, this.getType());
-	}
+    @Override
+    public boolean shouldBeOmitted() {
+	return false;
+    }
 
-	@Override
-	public String getDefaultValue() {
-		return null;
-	}
+    @Override
+    public boolean isValid(String val) {
+	return validityProvider.isValid(val, this.getType());
+    }
 
-	@Override
-	public boolean isStoreableProperty() {
-		return true;
-	}
+    @Override
+    public String getDefaultValue() {
+	return null;
+    }
+
+    @Override
+    public boolean isStoreableProperty() {
+	return true;
+    }
 
 }

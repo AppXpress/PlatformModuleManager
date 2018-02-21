@@ -26,44 +26,39 @@ import com.gtnexus.appxpress.pmextractor.cli.ExtractorOptionInterpreter;
  */
 public class InterpreterFactory {
 
-	private final AppXpressDirResolver resolver;
+    private final AppXpressDirResolver resolver;
 
-	public InterpreterFactory(AppXpressDirResolver resolver) {
-		this.resolver = resolver;
-	}
+    public InterpreterFactory(AppXpressDirResolver resolver) {
+	this.resolver = resolver;
+    }
 
-	/**
-	 * 
-	 * @param contextType
-	 * @param optionss
-	 * @throws IllegalArgumentException
-	 *             if contextType is not supported.
-	 * @return
-	 * @throws PMBuilderException
-	 */
-	@SuppressWarnings("unchecked")
-	public <T extends CLICommandOption> CLIOptionInterpreter<T> createInterpreter(
-			PMMCommandInfo app, SimpleShutdown shutdown,
-			ParsedOptions<T> options, PMProperties properties)
-			throws PMBuilderException {
-		Class<?> contextType = app.getContextType();
-		Select<File> selector = new FileSelector(System.in, System.out);
-		if (contextType.equals(BuilderOption.class)) {
-			//TODO: we need to remove the unchecked conversion
-			return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app,
-					shutdown, (ParsedOptions<BuilderOption>) options,
-					properties, selector, resolver);
-		} else if(contextType.equals(ExtractorOption.class)) {
-			//TODO: we need to remove the unchecked conversion
-			return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app,
-					shutdown, (ParsedOptions<ExtractorOption>) options,
-					properties, selector, resolver);
-		} else if(contextType.equals(DocumentGeneratorOptions.class)) {
-			return (CLIOptionInterpreter<T>) new DocumentGeneratorOptionInterpreter(app,
-					shutdown, (ParsedOptions<CLICommandOption>) options,
-					properties, selector, resolver);
-		}
-		throw new IllegalArgumentException("Unsupported context type.");
+    /**
+     * 
+     * @param contextType
+     * @param optionss
+     * @throws IllegalArgumentException
+     *             if contextType is not supported.
+     * @return
+     * @throws PMBuilderException
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends CLICommandOption> CLIOptionInterpreter<T> createInterpreter(PMMCommandInfo app,
+	    SimpleShutdown shutdown, ParsedOptions<T> options, PMProperties properties) throws PMBuilderException {
+	Class<?> contextType = app.getContextType();
+	Select<File> selector = new FileSelector(System.in, System.out);
+	if (contextType.equals(BuilderOption.class)) {
+	    // TODO: we need to remove the unchecked conversion
+	    return (CLIOptionInterpreter<T>) new BuilderOptionInterpreter(app, shutdown,
+		    (ParsedOptions<BuilderOption>) options, properties, selector, resolver);
+	} else if (contextType.equals(ExtractorOption.class)) {
+	    // TODO: we need to remove the unchecked conversion
+	    return (CLIOptionInterpreter<T>) new ExtractorOptionInterpreter(app, shutdown,
+		    (ParsedOptions<ExtractorOption>) options, properties, selector, resolver);
+	} else if (contextType.equals(DocumentGeneratorOptions.class)) {
+	    return (CLIOptionInterpreter<T>) new DocumentGeneratorOptionInterpreter(app, shutdown,
+		    (ParsedOptions<CLICommandOption>) options, properties, selector, resolver);
 	}
+	throw new IllegalArgumentException("Unsupported context type.");
+    }
 
 }

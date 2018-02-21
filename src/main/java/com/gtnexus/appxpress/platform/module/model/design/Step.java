@@ -5,7 +5,6 @@
 // Generated on: 2016.07.21 at 02:11:26 PM EDT 
 //
 
-
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -41,12 +42,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "editRoles",
-    "onStateFn",
-    "state",
-    "systemDelete"
-})
+@XmlType(name = "", propOrder = { "editRoles", "onStateFn", "state", "systemDelete" })
 @XmlRootElement(name = "step")
 public class Step {
 
@@ -64,73 +60,64 @@ public class Step {
     /**
      * Gets the value of the editRoles property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getEditRoles() {
-        return editRoles;
+	return editRoles;
     }
 
     /**
      * Sets the value of the editRoles property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setEditRoles(String value) {
-        this.editRoles = value;
+	this.editRoles = value;
     }
 
     /**
      * Gets the value of the onStateFn property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getOnStateFn() {
-        return onStateFn;
+	return onStateFn;
     }
 
     /**
      * Sets the value of the onStateFn property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setOnStateFn(String value) {
-        this.onStateFn = value;
+	this.onStateFn = value;
     }
 
     /**
      * Gets the value of the state property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getState() {
-        return state;
+	return state;
     }
 
     /**
      * Sets the value of the state property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is {@link String }
+     * 
      */
     public void setState(String value) {
-        this.state = value;
+	this.state = value;
     }
 
     /**
@@ -138,7 +125,7 @@ public class Step {
      * 
      */
     public boolean isSystemDelete() {
-        return systemDelete;
+	return systemDelete;
     }
 
     /**
@@ -146,7 +133,7 @@ public class Step {
      * 
      */
     public void setSystemDelete(boolean value) {
-        this.systemDelete = value;
+	this.systemDelete = value;
     }
 
 }
