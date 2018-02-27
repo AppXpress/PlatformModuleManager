@@ -23,7 +23,7 @@ public class PlatformModuleExtractor implements PMMCommandInfo {
     public PlatformModuleExtractor() {
     }
 
-    public void extract(PmmContext<ExtractorOption> context) throws AppXpressException {
+    public void extract(PmmContext context) throws AppXpressException {
 	attachCleanUpHook(context);
 	Mapper tool = GitMapper.createMapper(context);
 	try {
@@ -35,8 +35,8 @@ public class PlatformModuleExtractor implements PMMCommandInfo {
 	}
     }
 
-    private void attachCleanUpHook(PmmContext<ExtractorOption> ctx) {
-	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
+    private void attachCleanUpHook(PmmContext ctx) {
+	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
     }
 
     @Override

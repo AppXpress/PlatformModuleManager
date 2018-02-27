@@ -7,8 +7,8 @@ import java.util.Collection;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.Select;
-import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreterImpl;
 import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreter;
+import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreterImpl;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
@@ -27,8 +27,11 @@ public class BuilderOptionInterpreter extends CLICommandOptionInterpreterImpl
     private final Select<File> selector;
     private final AppXpressDirResolver resolver;
 
-    public BuilderOptionInterpreter(PMMCommandInfo app, 
-	    ParsedOptions parsedOptions, PMProperties properties, Select<File> selector,
+    public BuilderOptionInterpreter(
+	    PMMCommandInfo app,
+	    ParsedOptions parsedOptions,
+	    PMProperties properties,
+	    Select<File> selector,
 	    AppXpressDirResolver resolver) {
 	super(app, parsedOptions, properties);
 	this.selector = selector;
@@ -51,8 +54,7 @@ public class BuilderOptionInterpreter extends CLICommandOptionInterpreterImpl
 	return parsedOpts;
     }
 
-    private void doSelect(ParsedOptions parsedOpts, Path cwd)
-	    throws AppXpressException, PMBuilderException {
+    private void doSelect(ParsedOptions parsedOpts, Path cwd) throws AppXpressException {
 	if (!isCustomerFolder(cwd, BuilderOption.LOCAL_DIR)) {
 	    throw new PMBuilderException("The select option must be run from a customer folder.");
 	}

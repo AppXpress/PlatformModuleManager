@@ -7,8 +7,8 @@ import java.util.Collection;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.Select;
-import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreterImpl;
 import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreter;
+import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreterImpl;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;

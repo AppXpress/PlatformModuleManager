@@ -51,7 +51,7 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 	this.renderer = new WorkbookRenderer();
     }
 
-    public void generateDocs(PmmContext<CLICommandOption> context) throws AppXpressException {
+    public void generateDocs(PmmContext context) throws AppXpressException {
 	attachCleanUpHook(context);
 	ModulePointer pointer = ModulePointer.make(context.getOptMap());
 	PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);
@@ -66,8 +66,8 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 	System.out.println("Success! Documentation written to " + file.toPath().toAbsolutePath().toString());
     }
 
-    private void attachCleanUpHook(PmmContext<CLICommandOption> ctx) {
-	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
+    private void attachCleanUpHook(PmmContext ctx) {
+	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
     }
 
     private String fileName(Map<CLICommandOption, String> optMap) {

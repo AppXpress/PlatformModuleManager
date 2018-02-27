@@ -5,7 +5,6 @@ import com.gtnexus.appxpress.commons.command.Command;
 import com.gtnexus.appxpress.context.ContextFactory;
 import com.gtnexus.appxpress.context.PmmContext;
 import com.gtnexus.appxpress.exception.AppXpressException;
-import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
 
 public class BuildCommand implements Command {
 
@@ -21,7 +20,7 @@ public class BuildCommand implements Command {
     @Override
     public void execute() throws AppXpressException {
 	PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-	PmmContext<BuilderOption> context;
+	PmmContext context;
 	try {
 	    context = contextFactory.createContext(pmb, args);
 	    pmb.build(context);

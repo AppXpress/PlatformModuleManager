@@ -1,6 +1,5 @@
 package com.gtnexus.appxpress.context;
 
-import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.file.FileCleanup;
 import com.gtnexus.appxpress.exception.AppXpressException;
 
@@ -12,12 +11,12 @@ import com.gtnexus.appxpress.exception.AppXpressException;
  * @param <T>
  *
  */
-public class ContextBasedCleanUp<T extends CLICommandOption> implements Runnable {
+public class ContextBasedCleanUp implements Runnable {
 
-    private final PmmContext<T> ctx;
+    private final PmmContext ctx;
     private final FileCleanup cleanup;
 
-    public ContextBasedCleanUp(PmmContext<T> context) {
+    public ContextBasedCleanUp(PmmContext context) {
 	this.ctx = context;
 	this.cleanup = new FileCleanup();
     }

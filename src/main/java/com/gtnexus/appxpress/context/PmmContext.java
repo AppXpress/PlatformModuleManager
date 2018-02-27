@@ -24,7 +24,7 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
  *
  * @param <T>
  */
-public class PmmContext<T extends CLICommandOption> {
+public class PmmContext {
 
     private final PMMCommandInfo app;
     private final DirectoryHelper dHelper;

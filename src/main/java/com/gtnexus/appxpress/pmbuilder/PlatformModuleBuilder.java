@@ -42,7 +42,7 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
     public PlatformModuleBuilder() {
     }
 
-    public void build(PmmContext<BuilderOption> context) throws AppXpressException {
+    public void build(PmmContext context) throws AppXpressException {
 	attachCleanUpHook(context);
 	PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
 	BuildPrep prep = new BuildPrep(context.getTempResourceHolder(), context.getLibPath());
@@ -56,8 +56,8 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
 	}
     }
 
-    private void attachCleanUpHook(PmmContext<BuilderOption> ctx) {
-	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
+    private void attachCleanUpHook(PmmContext ctx) {
+	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
     }
 
     @Override

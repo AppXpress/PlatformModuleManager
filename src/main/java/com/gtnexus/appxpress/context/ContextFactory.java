@@ -5,8 +5,8 @@ import java.util.Set;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
-import com.gtnexus.appxpress.cli.option.CLICommandOptionParser;
 import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreter;
+import com.gtnexus.appxpress.cli.option.CLICommandOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
@@ -25,7 +25,7 @@ public class ContextFactory {
 	this.interpreterFac = new InterpreterFactory(resolver);
     }
 
-    public <M extends CLICommandOption> PmmContext<M> createContext(PMMCommandInfo app, String[] args)
+    public PmmContext createContext(PMMCommandInfo app, String[] args)
 	    throws AppXpressException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();
@@ -37,7 +37,7 @@ public class ContextFactory {
 	CLICommandOptionInterpreter interpreter = interpreterFac.createInterpreter(app, parsedOptions,
 		pmProperties);
 	Map<CLICommandOption, String> interpretedOptions = interpreter.interpret();
-	return new PmmContext<>(app, shutdown, dHelper, parser.getOptions(), pmProperties, interpretedOptions);
+	return new PmmContext(app, shutdown, dHelper, parser.getOptions(), pmProperties, interpretedOptions);
     }
 
 }

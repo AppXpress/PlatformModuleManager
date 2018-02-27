@@ -38,13 +38,13 @@ import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
  */
 public class GitMapper implements Mapper {
 
-    private final PmmContext<ExtractorOption> ctx;
+    private final PmmContext ctx;
     private final GitMapVO vo;
     private List<Path> overwrittenScripts;
     private final Preparation<GitMapVO> prep;
     private final FileService fs;
 
-    public static GitMapper createMapper(PmmContext<ExtractorOption> context) {
+    public static GitMapper createMapper(PmmContext context) {
 	Map<CLICommandOption, String> optionMap = context.getOptMap();
 	if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 	    String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
@@ -56,7 +56,7 @@ public class GitMapper implements Mapper {
 	return new GitMapper(context);
     }
 
-    public GitMapper(PmmContext<ExtractorOption> context) {
+    public GitMapper(PmmContext context) {
 	this.ctx = context;
 	this.vo = new GitMapVO(context.getOptMap());
 	this.overwrittenScripts = new ArrayList<>();
