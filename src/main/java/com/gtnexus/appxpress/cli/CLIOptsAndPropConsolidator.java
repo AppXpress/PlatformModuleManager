@@ -20,10 +20,10 @@ import com.gtnexus.appxpress.commons.properties.PMProperties;
  *
  * @author jjdonov
  */
-public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
+public class CLIOptsAndPropConsolidator {
 
-    private final Map<T, String> userArgs;
-    private final Set<T> optSet;
+    private final Map<CLICommandOption, String> userArgs;
+    private final Set<CLICommandOption> optSet;
     private final PMProperties properties;
     private final SimpleAsker asker;
 
@@ -35,7 +35,7 @@ public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
      * @param properties
      *            Properties file read from user's AppXpress directory.
      */
-    public CLIOptsAndPropConsolidator(Map<T, String> userArgs, Set<T> optSet, PMProperties properties) {
+    public CLIOptsAndPropConsolidator(Map<CLICommandOption, String> userArgs, Set<CLICommandOption> optSet, PMProperties properties) {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
@@ -48,12 +48,11 @@ public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
      * @param properties
      *            Properties file read from user's AppXpress directory.
      * @param inputStream
-     *            The input stream that this consolidator should read from.
+     *            CLICommandOptionhe input stream that this consolidator should read from.
      * @param printStream
-     *            The printStream that this consolidator should write to.
+     *            CLICommandOptionhe printStream that this consolidator should write to.
      */
-    public CLIOptsAndPropConsolidator(Map<T, String> userArgs, Set<T> optSet, PMProperties properties,
-	    InputStream inputStream, PrintStream printStream) {
+    public CLIOptsAndPropConsolidator(Map<CLICommandOption, String> userArgs, Set<CLICommandOption> optSet, PMProperties properties, InputStream inputStream, PrintStream printStream) {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
@@ -63,9 +62,9 @@ public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
     /**
      * @return the map of consolidated ExtractorOptions and their values.
      */
-    public Map<T, String> consolidate() {
-	final Map<T, String> optMap = new HashMap<>();
-	for (T opt : optSet) {
+    public Map<CLICommandOption, String> consolidate() {
+	final Map<CLICommandOption, String> optMap = new HashMap<>();
+	for (CLICommandOption opt : optSet) {
 	    if (!opt.shouldBeOmitted()) {
 		String val = consolidateSingle(opt);
 		optMap.put(opt, val);
@@ -109,8 +108,8 @@ public class CLIOptsAndPropConsolidator<T extends CLICommandOption> {
 
     /**
      * @param option
-     *            The ExtractorOption to be query the user for.
-     * @return The value entered by the user.
+     *            CLICommandOptionhe ExtractorOption to be query the user for.
+     * @return CLICommandOptionhe value entered by the user.
      */
     private String getParameterFromUser(CLICommandOption option) {
 	String val = asker.ask(option.getMessage());

@@ -16,8 +16,8 @@ import com.gtnexus.appxpress.cli.option.options.LocalDirOpt;
 import com.gtnexus.appxpress.cli.option.options.ModuleOption;
 import com.gtnexus.appxpress.cli.option.options.SelectOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
-import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
+import com.gtnexus.appxpress.context.PmmContext;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.platform.module.ModulePointer;
 import com.gtnexus.appxpress.platform.module.ModuleVO;
@@ -51,7 +51,7 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 	this.renderer = new WorkbookRenderer();
     }
 
-    public void generateDocs(AppXpressContext<CLICommandOption> context) throws AppXpressException {
+    public void generateDocs(PmmContext<CLICommandOption> context) throws AppXpressException {
 	attachCleanUpHook(context);
 	ModulePointer pointer = ModulePointer.make(context.getOptMap());
 	PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);
@@ -66,7 +66,7 @@ public class PlatformModuleDocumentGenerator implements PMMCommandInfo {
 	System.out.println("Success! Documentation written to " + file.toPath().toAbsolutePath().toString());
     }
 
-    private void attachCleanUpHook(AppXpressContext<CLICommandOption> ctx) {
+    private void attachCleanUpHook(PmmContext<CLICommandOption> ctx) {
 	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
     }
 

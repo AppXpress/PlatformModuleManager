@@ -3,8 +3,8 @@ package com.gtnexus.appxpress.pmdocgen;
 import com.google.common.base.Preconditions;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.command.Command;
-import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
+import com.gtnexus.appxpress.context.PmmContext;
 import com.gtnexus.appxpress.exception.AppXpressException;
 
 public class PMDocGenCommand implements Command {
@@ -21,7 +21,7 @@ public class PMDocGenCommand implements Command {
     @Override
     public void execute() throws AppXpressException {
 	PlatformModuleDocumentGenerator pmdg = new PlatformModuleDocumentGenerator();
-	AppXpressContext<CLICommandOption> context;
+	PmmContext<CLICommandOption> context;
 	try {
 	    context = contextFactory.createContext(pmdg, args);
 	    pmdg.generateDocs(context);

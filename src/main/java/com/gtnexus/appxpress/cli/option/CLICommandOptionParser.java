@@ -13,25 +13,32 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.exception.PMExtractorException;
 
 /**
- * Wrapper to tie together CLIOptions and the Apache Commons CLI library.
+ * Wrapper to tie together CLICommandOptions and the Apache Commons CLI library.
  * 
  * @author jdonovan
  *
  */
-public class CLIOptionParser<T extends CLIOption> {
+public class CLICommandOptionParser {
 
     private final String[] userArgs;
-    private final Set<T> cliOptionSet;
+    private final Set<CLICommandOption> cliOptionSet;
     private final Options options;
     private CommandLine cmd;
 
-    public static <M extends CLIOption> CLIOptionParser<M> createParser(Set<M> cliOptSet, String[] userArgs) {
+    public static CLICommandOptionParser createParser(Set<CLICommandOption> cliOptSet, String[] userArgs) {
 	Options options = new Options();
-	for (CLIOption opt : cliOptSet) {
-	    options.addOption(Option.builder(opt.getFlag()).longOpt(opt.getLongName()).type(opt.getType())
-		    .desc(opt.getDescription()).hasArg(opt.hasArg()).required(false).build());
+	for (CLICommandOption opt : cliOptSet) {
+	    Option o = Option
+		    .builder(opt.getFlag())
+		    .longOpt(opt.getLongName())
+		    .type(opt.getType())
+		    .desc(opt.getDescription())
+		    .hasArg(opt.hasArg())
+		    .required(false)
+		    .build();
+	    options.addOption(o);
 	}
-	return new CLIOptionParser<>(userArgs, cliOptSet, options);
+	return new CLICommandOptionParser(userArgs, cliOptSet, options);
     }
 
     /**
@@ -41,7 +48,7 @@ public class CLIOptionParser<T extends CLIOption> {
      * @param cliOptionSet
      *            the option set defining what can be passed to this tool
      */
-    public CLIOptionParser(String[] userArgs, Set<T> cliOptionSet, Options options) {
+    public CLICommandOptionParser(String[] userArgs, Set<CLICommandOption> cliOptionSet, Options options) {
 	if (userArgs == null || cliOptionSet == null) {
 	    throw new NullPointerException("Cannot parse null args, or null option set.");
 	}
@@ -56,7 +63,7 @@ public class CLIOptionParser<T extends CLIOption> {
      * @throws PMExtractorException
      *             if input is not parasable.
      */
-    public ParsedOptions<T> parse() throws AppXpressException {
+    public ParsedOptions parse() throws AppXpressException {
 	CommandLineParser parser = new DefaultParser();
 	try {
 	    cmd = parser.parse(options, userArgs);
@@ -70,7 +77,7 @@ public class CLIOptionParser<T extends CLIOption> {
 	return cmd;
     }
 
-    public Set<T> getCliOptionSet() {
+    public Set<CLICommandOption> getCliOptionSet() {
 	return cliOptionSet;
     }
 

@@ -7,7 +7,21 @@ package com.gtnexus.appxpress.cli.option;
  * @author jdonovan
  *
  */
-public interface CLICommandOption extends CLIOption {
+public interface CLICommandOption {
+    @Override
+    public String toString();
+
+    public String getLongName();
+
+    public String getFlag();
+
+    public Class<?> getType();
+
+    public String getDescription();
+
+    public boolean hasArg();
+
+    public boolean isHelpFlag();
 
     public String getMessage();
 

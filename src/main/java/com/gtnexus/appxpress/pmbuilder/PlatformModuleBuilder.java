@@ -4,8 +4,8 @@ import java.util.Set;
 
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
-import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
+import com.gtnexus.appxpress.context.PmmContext;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.appxpress.pmbuilder.bundle.platform.PlatformModuleBundler;
@@ -42,10 +42,10 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
     public PlatformModuleBuilder() {
     }
 
-    public void build(AppXpressContext<BuilderOption> context) throws AppXpressException {
+    public void build(PmmContext<BuilderOption> context) throws AppXpressException {
 	attachCleanUpHook(context);
 	PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
-	BuildPrep prep = new BuildPrep(context, context.getLibPath());
+	BuildPrep prep = new BuildPrep(context.getTempResourceHolder(), context.getLibPath());
 	PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
 	try {
 	    prep.prepare(vo);
@@ -56,7 +56,7 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
 	}
     }
 
-    private void attachCleanUpHook(AppXpressContext<BuilderOption> ctx) {
+    private void attachCleanUpHook(PmmContext<BuilderOption> ctx) {
 	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
     }
 

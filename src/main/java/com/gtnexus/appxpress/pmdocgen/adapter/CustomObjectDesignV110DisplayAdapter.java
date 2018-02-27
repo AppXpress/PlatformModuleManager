@@ -3,7 +3,6 @@ package com.gtnexus.appxpress.pmdocgen.adapter;
 import java.util.Map;
 
 import com.google.common.base.Function;
-import com.gtnexus.appxpress.pmdocgen.adapter.PrimitiveDisplayFunction;
 import com.gtnexus.appxpress.platform.module.model.design.Anchor;
 import com.gtnexus.appxpress.platform.module.model.design.CodSection;
 import com.gtnexus.appxpress.platform.module.model.design.CustomObjectDesignV110;

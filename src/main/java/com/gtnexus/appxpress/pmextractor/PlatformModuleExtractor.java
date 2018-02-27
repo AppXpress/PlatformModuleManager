@@ -5,8 +5,8 @@ import java.util.Set;
 import com.gtnexus.appxpress.cli.option.CLICommandOption;
 import com.gtnexus.appxpress.commons.Mapper;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
-import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextBasedCleanUp;
+import com.gtnexus.appxpress.context.PmmContext;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 import com.gtnexus.appxpress.pmextractor.gitmap.GitMapper;
@@ -23,7 +23,7 @@ public class PlatformModuleExtractor implements PMMCommandInfo {
     public PlatformModuleExtractor() {
     }
 
-    public void extract(AppXpressContext<ExtractorOption> context) throws AppXpressException {
+    public void extract(PmmContext<ExtractorOption> context) throws AppXpressException {
 	attachCleanUpHook(context);
 	Mapper tool = GitMapper.createMapper(context);
 	try {
@@ -35,7 +35,7 @@ public class PlatformModuleExtractor implements PMMCommandInfo {
 	}
     }
 
-    private void attachCleanUpHook(AppXpressContext<ExtractorOption> ctx) {
+    private void attachCleanUpHook(PmmContext<ExtractorOption> ctx) {
 	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp<>(ctx)));
     }
 

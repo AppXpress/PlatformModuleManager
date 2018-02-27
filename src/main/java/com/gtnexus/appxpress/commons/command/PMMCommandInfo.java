@@ -14,6 +14,6 @@ public interface PMMCommandInfo {
 
     public Class<?> getContextType();
 
-    public <M extends CLICommandOption> Set<M> getOptions();
-
+    public  Set<CLICommandOption> getOptions();
+    
 }

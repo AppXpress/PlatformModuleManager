@@ -2,8 +2,8 @@ package com.gtnexus.appxpress.pmextractor;
 
 import com.google.common.base.Preconditions;
 import com.gtnexus.appxpress.commons.command.Command;
-import com.gtnexus.appxpress.context.AppXpressContext;
 import com.gtnexus.appxpress.context.ContextFactory;
+import com.gtnexus.appxpress.context.PmmContext;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
 
@@ -21,7 +21,7 @@ public class ExtractCommand implements Command {
     @Override
     public void execute() throws AppXpressException {
 	PlatformModuleExtractor extractor = new PlatformModuleExtractor();
-	AppXpressContext<ExtractorOption> context;
+	PmmContext<ExtractorOption> context;
 	try {
 	    context = contextFactory.createContext(extractor, args);
 	    extractor.extract(context);

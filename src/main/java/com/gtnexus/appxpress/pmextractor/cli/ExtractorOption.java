@@ -14,16 +14,14 @@ import com.gtnexus.appxpress.cli.option.OptionMessageProvider;
  */
 public enum ExtractorOption implements CLICommandOption {
 
-    HELP("h", "help", String.class, "Display usage for this tool", false, false, null), PLATFORM_ZIP("pz",
-	    "platformZip", String.class, "Exported Platform Module Name", true, true, null), LOCAL_DIR("ld", "localDir",
-		    String.class, "Relative Path of GIT staging folder", true, true, null), CUSTOMER("c", "customer",
-			    String.class, "Customer of Platform Module", true, true, null), SELECT("s", "select",
-				    Integer.class, "Select platform from the folders present in the cwd.", false, false,
-				    null), MODULE("m", "module", String.class, "Platform Module that is being exported",
-					    true, true, null), OVERWRITE_SCRIPTS("os", "overwriteScripts",
-						    Boolean.class, "If Y -> overwriteScripts = true", true, false,
-						    "Y"), OVERWRITE_FEF("of", "overwriteFef", Boolean.class,
-							    "If Y -> overwriteFEF = true", true, false, "Y");
+    HELP("h", "help", String.class, "Display usage for this tool", false, false, null),
+    PLATFORM_ZIP("pz", "platformZip", String.class, "Exported Platform Module Name", true, true, null),
+    LOCAL_DIR("ld", "localDir", String.class, "Relative Path of GIT staging folder", true, true, null),
+    CUSTOMER("c", "customer", String.class, "Customer of Platform Module", true, true, null),
+    SELECT("s", "select", Integer.class, "Select platform from the folders present in the cwd.", false, false, null),
+    MODULE("m", "module", String.class, "Platform Module that is being exported", true, true, null),
+    OVERWRITE_SCRIPTS("os", "overwriteScripts", Boolean.class, "If Y -> overwriteScripts = true", true, false, "Y"),
+    OVERWRITE_FEF("of", "overwriteFef", Boolean.class, "If Y -> overwriteFEF = true", true, false, "Y");
 
     private final String flag;
     private final String longName;

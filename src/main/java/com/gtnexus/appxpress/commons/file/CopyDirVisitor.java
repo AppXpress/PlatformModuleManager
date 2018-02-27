@@ -41,7 +41,7 @@ public class CopyDirVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
 	Path target = destination.resolve(source.relativize(file));
-	if (!IGNORE_SET.contains(file.getFileName())) {
+	if (!IGNORE_SET.contains(file.getFileName().toString())) {
 	    Files.copy(file, target, replace);
 	}
 	return FileVisitResult.CONTINUE;

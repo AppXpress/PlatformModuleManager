@@ -7,13 +7,12 @@ import java.util.Collection;
 
 import com.gtnexus.appxpress.AppXpressDirResolver;
 import com.gtnexus.appxpress.cli.Select;
+import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreterImpl;
 import com.gtnexus.appxpress.cli.option.CLICommandOptionInterpreter;
-import com.gtnexus.appxpress.cli.option.CLIOptionInterpreter;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
 import com.gtnexus.appxpress.commons.file.filter.FileFilterFactory;
 import com.gtnexus.appxpress.commons.properties.PMProperties;
-import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
 
@@ -22,22 +21,22 @@ import com.gtnexus.appxpress.pmbuilder.exception.PMBuilderException;
  * @author jdonovan
  *
  */
-public class BuilderOptionInterpreter extends CLICommandOptionInterpreter<BuilderOption>
-	implements CLIOptionInterpreter<BuilderOption> {
+public class BuilderOptionInterpreter extends CLICommandOptionInterpreterImpl
+	implements CLICommandOptionInterpreter {
 
     private final Select<File> selector;
     private final AppXpressDirResolver resolver;
 
-    public BuilderOptionInterpreter(PMMCommandInfo app, SimpleShutdown shutdown,
-	    ParsedOptions<BuilderOption> parsedOptions, PMProperties properties, Select<File> selector,
+    public BuilderOptionInterpreter(PMMCommandInfo app, 
+	    ParsedOptions parsedOptions, PMProperties properties, Select<File> selector,
 	    AppXpressDirResolver resolver) {
-	super(app, shutdown, parsedOptions, properties);
+	super(app, parsedOptions, properties);
 	this.selector = selector;
 	this.resolver = resolver;
     }
 
     @Override
-    public ParsedOptions<BuilderOption> performCustomInterpretation(ParsedOptions<BuilderOption> parsedOpts)
+    public ParsedOptions performCustomInterpretation(ParsedOptions parsedOpts)
 	    throws AppXpressException {
 	if (parsedOpts == null) {
 	    throw new NullPointerException("parsedOpts cannot be null");
@@ -52,7 +51,7 @@ public class BuilderOptionInterpreter extends CLICommandOptionInterpreter<Builde
 	return parsedOpts;
     }
 
-    private void doSelect(ParsedOptions<BuilderOption> parsedOpts, Path cwd)
+    private void doSelect(ParsedOptions parsedOpts, Path cwd)
 	    throws AppXpressException, PMBuilderException {
 	if (!isCustomerFolder(cwd, BuilderOption.LOCAL_DIR)) {
 	    throw new PMBuilderException("The select option must be run from a customer folder.");
@@ -66,7 +65,7 @@ public class BuilderOptionInterpreter extends CLICommandOptionInterpreter<Builde
 	parsedOpts.put(BuilderOption.CUSTOMER, cwd);
     }
 
-    private boolean isCandidateForArgInjection(ParsedOptions<BuilderOption> parsedOpts, Path cwd)
+    private boolean isCandidateForArgInjection(ParsedOptions parsedOpts, Path cwd)
 	    throws AppXpressException {
 	return !parsedOpts.hasOption(BuilderOption.CUSTOMER) && isCustomerFolder(cwd, BuilderOption.LOCAL_DIR);
     }

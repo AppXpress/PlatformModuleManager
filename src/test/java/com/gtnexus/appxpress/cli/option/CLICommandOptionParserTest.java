@@ -13,33 +13,33 @@ import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 
-public class CLIOptionParserTest {
+public class CLICommandOptionParserTest {
 
-    CLIOptionParser<DummyOption> cli;
+    CLICommandOptionParser cli;
     String appName = "ParserTest";
-    Set<DummyOption> optSet = new ImmutableSet.Builder<DummyOption>().add(DummyOption.DUMMY).build();
+    Set<CLICommandOption> optSet = new ImmutableSet.Builder<CLICommandOption>().add(DummyOption.DUMMY).build();
 
     @Before
     public void setUp() {
 	String[] args = { "-Dummy" };
-	cli = CLIOptionParser.createParser(optSet, args);
+	cli = CLICommandOptionParser.createParser(optSet, args);
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullArgs() {
-	new CLIOptionParser<>(null, null, null);
+	new CLICommandOptionParser(null, null, null);
     }
 
     @Test
     public void testParse() throws Exception {
-	ParsedOptions<DummyOption> parsedOpts = cli.parse();
+	ParsedOptions parsedOpts = cli.parse();
 	assertTrue(parsedOpts.hasOption(DummyOption.DUMMY));
     }
 
     @Test(expected = AppXpressException.class)
     public void testParseWithInvalidOpt() throws Exception {
 	String[] args = { "-invalidOpt" };
-	CLIOptionParser<DummyOption> cli2 = CLIOptionParser.createParser(optSet, args);
+	CLICommandOptionParser cli2 = CLICommandOptionParser.createParser(optSet, args);
 	cli2.parse();
     }
 

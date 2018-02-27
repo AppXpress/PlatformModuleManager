@@ -8,6 +8,7 @@
 package com.gtnexus.appxpress.platform.module.model.design;
 
 import java.math.BigInteger;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;

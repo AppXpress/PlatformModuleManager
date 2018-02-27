@@ -2,11 +2,8 @@ package com.gtnexus.appxpress.context;
 
 import static com.gtnexus.appxpress.AppXpressConstants.LIB;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,35 +24,38 @@ import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
  *
  * @param <T>
  */
-public class AppXpressContext<T extends CLICommandOption>
-	implements SimpleShutdown, PMMCommandInfo, TempResourceHolder {
+public class PmmContext<T extends CLICommandOption> {
 
     private final PMMCommandInfo app;
     private final DirectoryHelper dHelper;
     private final Options options;
-    private final Map<T, String> optMap;
+    private final Map<CLICommandOption, String> optMap;
     private final PMProperties properties;
     private final SimpleShutdown shutdown;
-    private final List<File> delOnExit;
+    private final TempResourceHolderImpl tempResourceHolder;
     private boolean terminatedRegulary;
 
-    public AppXpressContext(PMMCommandInfo app, SimpleShutdown shutdown, DirectoryHelper dHelper, Options options,
-	    PMProperties properties, Map<T, String> optMap) {
+    public PmmContext(PMMCommandInfo app, SimpleShutdown shutdown, DirectoryHelper dHelper, Options options,
+	    PMProperties properties, Map<CLICommandOption, String> optMap) {
 	this.app = app;
 	this.shutdown = shutdown;
 	this.dHelper = dHelper;
 	this.optMap = optMap;
 	this.properties = properties;
 	this.options = options;
-	this.delOnExit = new LinkedList<>();
 	this.terminatedRegulary = true;
+	this.tempResourceHolder = new TempResourceHolderImpl();
+    }
+
+    public TempResourceHolderImpl getTempResourceHolder() {
+        return tempResourceHolder;
     }
 
     public PMMCommandInfo getApplicationInfo() {
 	return app;
     }
 
-    public Map<T, String> getOptMap() {
+    public Map<CLICommandOption, String> getOptMap() {
 	return optMap;
     }
 
@@ -76,43 +76,7 @@ public class AppXpressContext<T extends CLICommandOption>
     public void displayHelpAndExit() {
 	HelpFormatter formatter = new HelpFormatter();
 	formatter.printHelp(app.getName(), app.getHelpHeader(), options, app.getHelpFooter());
-	shutdown();
-    }
-
-    public String getHelpHeader() {
-	return app.getHelpHeader();
-    }
-
-    public String getHelpFooter() {
-	return app.getHelpHeader();
-    }
-
-    @Override
-    public void shutdown() {
 	shutdown.shutdown();
-    }
-
-    @Override
-    public void shutdown(String message) {
-	shutdown.shutdown(message);
-    }
-
-    @Override
-    public String getName() {
-	return app.getName();
-    }
-
-    @Override
-    public Class<?> getContextType() {
-	return app.getContextType();
-    }
-
-    public void deleteOnExit(File f) {
-	delOnExit.add(f);
-    }
-
-    public List<File> getFilesToDeleteOnExit() {
-	return delOnExit;
     }
 
     public boolean propertiesWereChanged() {
@@ -132,7 +96,6 @@ public class AppXpressContext<T extends CLICommandOption>
 	this.terminatedRegulary = terminatedRegulary;
     }
 
-    @Override
     public <M extends CLICommandOption> Set<M> getOptions() {
 	return null;
     }

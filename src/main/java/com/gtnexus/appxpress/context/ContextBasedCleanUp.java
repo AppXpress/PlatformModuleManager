@@ -14,10 +14,10 @@ import com.gtnexus.appxpress.exception.AppXpressException;
  */
 public class ContextBasedCleanUp<T extends CLICommandOption> implements Runnable {
 
-    private final AppXpressContext<T> ctx;
+    private final PmmContext<T> ctx;
     private final FileCleanup cleanup;
 
-    public ContextBasedCleanUp(AppXpressContext<T> context) {
+    public ContextBasedCleanUp(PmmContext<T> context) {
 	this.ctx = context;
 	this.cleanup = new FileCleanup();
     }
@@ -25,7 +25,7 @@ public class ContextBasedCleanUp<T extends CLICommandOption> implements Runnable
     @Override
     public void run() {
 	checkToSave();
-	cleanup.cleanup(ctx.getFilesToDeleteOnExit());
+	cleanup.cleanup(ctx.getTempResourceHolder().getFilesToDeleteOnExit());
     }
 
     public void checkToSave() {
