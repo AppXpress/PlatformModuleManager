@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
-import com.gtnexus.appxpress.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CLICommandOption;
 
 public enum DummyOption implements CLICommandOption {
 

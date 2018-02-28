@@ -13,6 +13,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
+import com.gtnexus.pmm.platform.module.model.platformmodule.PlatformModuleXml;
+
 public class PlatformModuleTest {
 
     @Test

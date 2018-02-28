@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.gtnexus.appxpress.exception.AppXpressException;
+import com.gtnexus.pmm.AppXpressException;
 
 public class AppXpressExceptionTest {
 

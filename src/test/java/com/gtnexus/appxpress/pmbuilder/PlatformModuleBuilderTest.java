@@ -5,7 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
+import com.gtnexus.pmm.pmbuilder.PlatformModuleBuilder;
+import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
 
 public class PlatformModuleBuilderTest {
 

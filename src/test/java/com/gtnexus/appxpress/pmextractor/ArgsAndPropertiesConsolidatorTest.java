@@ -17,10 +17,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.gtnexus.appxpress.NullOutputStream;
-import com.gtnexus.appxpress.cli.CLIOptsAndPropConsolidator;
-import com.gtnexus.appxpress.cli.option.CLICommandOption;
-import com.gtnexus.appxpress.commons.properties.PMProperties;
-import com.gtnexus.appxpress.pmextractor.cli.ExtractorOption;
+import com.gtnexus.pmm.cli.CLIOptsAndPropConsolidator;
+import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 
 /**
  * Created by jjdonov on 9/29/14.

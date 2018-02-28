@@ -10,8 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.appxpress.exception.AppXpressException;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
+import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CLICommandOptionParser;
+import com.gtnexus.pmm.cli.option.ParsedOptions;
 
 public class CLICommandOptionParserTest {
 

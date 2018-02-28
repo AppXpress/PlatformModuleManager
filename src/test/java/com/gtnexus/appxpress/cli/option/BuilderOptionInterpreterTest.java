@@ -11,14 +11,14 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.gtnexus.appxpress.AppXpressDirResolver;
-import com.gtnexus.appxpress.cli.FileSelector;
-import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
-import com.gtnexus.appxpress.commons.properties.PMProperties;
-import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
-import com.gtnexus.appxpress.exception.AppXpressException;
-import com.gtnexus.appxpress.pmbuilder.cli.BuilderOption;
-import com.gtnexus.appxpress.pmbuilder.cli.BuilderOptionInterpreter;
+import com.gtnexus.pmm.AppXpressDirResolver;
+import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.cli.FileSelector;
+import com.gtnexus.pmm.commons.command.PMMCommandInfo;
+import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.commons.runtime.SimpleShutdown;
+import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
+import com.gtnexus.pmm.pmbuilder.cli.BuilderOptionInterpreter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BuilderOptionInterpreterTest {

@@ -9,7 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.gtnexus.appxpress.commons.properties.PMProperties;
+import com.gtnexus.pmm.commons.properties.PMProperties;
 
 public class PMPropertiesTest {
 

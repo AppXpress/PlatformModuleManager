@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.gtnexus.pmm.pmbuilder.scriptimport.ImportScanner;
+
 public class ImportScannerTest {
 
     @Test
