@@ -34,7 +34,7 @@ public class ZipService {
     private final Set<String> ignoreSet;
 
     public ZipService() {
-	this(Collections.<String> emptySet());
+	this(Collections.<String>emptySet());
     }
 
     public ZipService(Set<String> ignoreDirNames) {

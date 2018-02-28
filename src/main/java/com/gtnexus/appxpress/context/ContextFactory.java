@@ -10,7 +10,6 @@ import com.gtnexus.appxpress.cli.option.CLICommandOptionParser;
 import com.gtnexus.appxpress.cli.option.ParsedOptions;
 import com.gtnexus.appxpress.commons.DirectoryHelper;
 import com.gtnexus.appxpress.commons.command.PMMCommandInfo;
-import com.gtnexus.appxpress.commons.properties.PMProperties;
 import com.gtnexus.appxpress.commons.runtime.SimpleShutdown;
 import com.gtnexus.appxpress.commons.runtime.SimpleShutdownImpl;
 import com.gtnexus.appxpress.exception.AppXpressException;
@@ -26,15 +25,14 @@ public class ContextFactory {
 	    throws AppXpressException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();
-	PMProperties pmProperties = dHelper.getPmProperties();
 	Set<CLICommandOption> options = app.getOptions();
 	CLICommandOptionParser parser = CLICommandOptionParser.createParser(options, args);
 	ParsedOptions parsedOptions = parser.parse();
 	SimpleShutdown shutdown = new SimpleShutdownImpl();
 	CLICommandOptionInterpreter interpreter = interpreterFac.createInterpreter(app, parsedOptions,
-		pmProperties);
+		dHelper.getPmProperties());
 	Map<CLICommandOption, String> interpretedOptions = interpreter.interpret();
-	return new PmmContext(app, shutdown, dHelper, parser.getOptions(), pmProperties, interpretedOptions);
+	return new PmmContext(app, shutdown, dHelper.getPmProperties(), interpretedOptions);
     }
 
 }

@@ -13,9 +13,15 @@ import com.gtnexus.appxpress.platform.module.model.design.Workflow;
 
 public class EdgeDescriptorDisplayAdapter extends DisplayAdapter<EdgeDescriptorDisplayAdapter> {
 
-    private static final Map<String, String> DUMMY_DESC = new ImmutableMap.Builder<String, String>().put("State", "")
-	    .put("Edit Role", "").put("Action", "").put("To State", "").put("Action Roles", "")
-	    .put("Precondition Fn", "").put("Post Transition Fn", "").build();
+    private static final Map<String, String> DUMMY_DESC = new ImmutableMap.Builder<String, String>()
+	    .put("State", "")
+	    .put("Edit Role", "")
+	    .put("Action", "")
+	    .put("To State", "")
+	    .put("Action Roles", "")
+	    .put("Precondition Fn", "")
+	    .put("Post Transition Fn", "")
+	    .build();
 
     public static List<EdgeDescriptorDisplayAdapter> createDescriptors(Workflow wf) {
 	return createDescriptors(WorkflowGraph.constructGraph(wf));
@@ -39,10 +45,15 @@ public class EdgeDescriptorDisplayAdapter extends DisplayAdapter<EdgeDescriptorD
 		? Lists.newArrayList(new Transition())
 		: n.getTransitions();
 	for (Transition t : trans) {
-	    Map<String, String> desc = new NullSafeStringEntryImmutableMapBuilder<String>().put("State", n.getState())
-		    .put("Edit Role", n.getEditRoles()).put("Action", t.getAction()).put("To State", t.getToState())
-		    .put("Action Roles", t.getRoles()).put("Precondition Fn", t.getPreconditionFn())
-		    .put("Post Transition Fn", t.getPostTransitionFn()).build();
+	    Map<String, String> desc = new NullSafeStringEntryImmutableMapBuilder<String>()
+		    .put("State", n.getState())
+		    .put("Edit Role", n.getEditRoles())
+		    .put("Action", t.getAction())
+		    .put("To State", t.getToState())
+		    .put("Action Roles", t.getRoles())
+		    .put("Precondition Fn", t.getPreconditionFn())
+		    .put("Post Transition Fn", t.getPostTransitionFn())
+		    .build();
 	    descs.add(new EdgeDescriptorDisplayAdapter(desc));
 	}
 	return descs;

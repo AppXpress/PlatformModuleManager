@@ -11,7 +11,7 @@ public class AppXpressExceptionTest {
     @Test
     public void testGetMessage() {
 	StringBuilder sb = new StringBuilder();
-	String[] ss = { "1", "2", "3", "4" };
+	String[] ss = {"1", "2", "3", "4" };
 	for (String s : ss) {
 	    sb.append(s);
 	    sb.append("\n");
