@@ -9,12 +9,10 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 public class PMDocGenCommand implements Command {
 
     private String[] args;
-    private ContextFactory contextFactory;
 
     public PMDocGenCommand(String... args) {
 	Preconditions.checkNotNull(args);
 	this.args = args;
-	this.contextFactory = new ContextFactory();
     }
 
     @Override
@@ -22,7 +20,7 @@ public class PMDocGenCommand implements Command {
 	PlatformModuleDocumentGenerator pmdg = new PlatformModuleDocumentGenerator();
 	PmmContext context;
 	try {
-	    context = contextFactory.createContext(pmdg, args);
+	    context = ContextFactory.createContext(pmdg, args);
 	    pmdg.generateDocs(context);
 	} catch (AppXpressException e) {
 	    throw new AppXpressException("docgen has failed.", e);

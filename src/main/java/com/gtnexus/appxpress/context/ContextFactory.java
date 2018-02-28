@@ -16,16 +16,13 @@ import com.gtnexus.appxpress.commons.runtime.SimpleShutdownImpl;
 import com.gtnexus.appxpress.exception.AppXpressException;
 
 public class ContextFactory {
+    
+    private ContextFactory() {}
 
-    private final AppXpressDirResolver resolver;
-    private final InterpreterFactory interpreterFac;
+    private static final AppXpressDirResolver resolver = new AppXpressDirResolver();
+    private static final InterpreterFactory interpreterFac = new InterpreterFactory(resolver);
 
-    public ContextFactory() {
-	this.resolver = new AppXpressDirResolver();
-	this.interpreterFac = new InterpreterFactory(resolver);
-    }
-
-    public PmmContext createContext(PMMCommandInfo app, String[] args)
+    public static PmmContext createContext(PMMCommandInfo app, String[] args)
 	    throws AppXpressException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();

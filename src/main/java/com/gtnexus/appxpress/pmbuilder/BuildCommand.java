@@ -9,12 +9,10 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 public class BuildCommand implements Command {
 
     private String[] args;
-    private ContextFactory contextFactory;
 
     public BuildCommand(String... args) {
 	Preconditions.checkNotNull(args);
 	this.args = args;
-	this.contextFactory = new ContextFactory();
     }
 
     @Override
@@ -22,7 +20,7 @@ public class BuildCommand implements Command {
 	PlatformModuleBuilder pmb = new PlatformModuleBuilder();
 	PmmContext context;
 	try {
-	    context = contextFactory.createContext(pmb, args);
+	    context = ContextFactory.createContext(pmb, args);
 	    pmb.build(context);
 	} catch (AppXpressException e) {
 	    throw new AppXpressException("build has failed.", e);

@@ -9,12 +9,10 @@ import com.gtnexus.appxpress.exception.AppXpressException;
 public class ExtractCommand implements Command {
 
     private String[] args;
-    private ContextFactory contextFactory;
 
     public ExtractCommand(String... args) {
 	Preconditions.checkNotNull(args);
 	this.args = args;
-	this.contextFactory = new ContextFactory();
     }
 
     @Override
@@ -22,7 +20,7 @@ public class ExtractCommand implements Command {
 	PlatformModuleExtractor extractor = new PlatformModuleExtractor();
 	PmmContext context;
 	try {
-	    context = contextFactory.createContext(extractor, args);
+	    context = ContextFactory.createContext(extractor, args);
 	    extractor.extract(context);
 	} catch (AppXpressException e) {
 	    throw new AppXpressException("extract has failed.", e);
