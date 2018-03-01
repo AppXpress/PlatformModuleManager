@@ -3,7 +3,7 @@ package com.gtnexus.pmm;
 import java.util.Set;
 
 import com.gtnexus.pmm.cli.command.CLICommand;
-import com.gtnexus.pmm.cli.command.CommandParser;
+import com.gtnexus.pmm.cli.command.CommandIdentifier;
 import com.gtnexus.pmm.commons.DirectoryHelper;
 import com.gtnexus.pmm.commons.command.Command;
 import com.gtnexus.pmm.commons.properties.PMProperties;
@@ -61,8 +61,8 @@ public class PlatformModuleManager {
     }
 
     public static Command getCommand(PlatformModuleManager pmm) {
-	return new CommandParser(pmm.getCommands())
-		.parse(pmm.getRawArgs())
+	return new CommandIdentifier(pmm.getCommands())
+		.identify(pmm.getRawArgs())
 		.or(PlatformModuleManagerCommand.HELP.constructCommand(pmm.getRawArgs()));
     }
 

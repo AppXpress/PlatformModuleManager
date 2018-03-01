@@ -7,18 +7,18 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.gtnexus.pmm.commons.command.Command;
 
-public class CommandParser {
+public class CommandIdentifier {
 
     private final Set<CLICommand> commands;
 
-    public CommandParser(Set<CLICommand> commands) {
+    public CommandIdentifier(Set<CLICommand> commands) {
 	Preconditions.checkNotNull(commands);
 	Preconditions.checkArgument(commands.size() > 0);
 	this.commands = commands;
     }
 
     // we assume the first argument is either a valid command or a help flag
-    public Optional<Command> parse(String... args) {
+    public Optional<Command> identify(String... args) {
 	if (args.length == 0) {
 	    return Optional.absent();
 	}
