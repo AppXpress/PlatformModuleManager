@@ -12,35 +12,46 @@ public class PlatformModuleManager {
 
     public static void main(String... args) {
 	try {
-	 PlatformModuleManager pmm = start(args);
-	 pmm.run();
-	} catch(AppXpressException e) {
+	    PlatformModuleManager pmm = start(args);
+	    pmm.run();
+	} catch (AppXpressException e) {
 	    System.out.println("Failed to start.");
 	}
     }
-    
-    public static PlatformModuleManager start(String ...args) throws AppXpressException{
+
+    public static PlatformModuleManager start(String... args) throws AppXpressException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();
-	return new PlatformModuleManager(dHelper.getPmProperties(), args);
+	// need to discover subcommands here.
+	// need to start services here.
+	return new PlatformModuleManager(
+		new PlatformModuleManagerServicesImpl(), 
+		dHelper.getPmProperties(), 
+		args);
     }
-    
+
     private final PMProperties properties;
     private final String[] rawArgs;
+    private final PlatformModuleManagerServices services;
 
-    public PlatformModuleManager(PMProperties properties, String ...args) {
+    public PlatformModuleManager(PlatformModuleManagerServices services, PMProperties properties, String... args) {
 	this.properties = properties;
 	this.rawArgs = args;
+	this.services = services;
     }
-    
+
     public PMProperties getProperties() {
-        return properties;
+	return properties;
     }
 
     public String[] getRawArgs() {
-        return rawArgs;
+	return rawArgs;
     }
     
+    public PlatformModuleManagerServices getServices() {
+	return this.services;
+    }
+
     protected void run() {
 	try {
 	    PlatformModuleManager.getCommand(this).execute();
