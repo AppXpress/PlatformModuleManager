@@ -7,7 +7,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.gtnexus.pmm.cli.command.CLICommand;
-import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 import com.gtnexus.pmm.commons.command.Command;
 import com.gtnexus.pmm.pmbuilder.BuildCommand;
 import com.gtnexus.pmm.pmdocgen.DocGenCommand;
@@ -33,11 +32,6 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 	@Override
 	public String getDescription() {
 	    return "displays this message";
-	}
-
-	@Override
-	public boolean isHelpFlag() {
-	    return true;
 	}
 
 	@Override
@@ -140,21 +134,9 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 	    .add(DOCGEN)
 	    .build();
 
-    private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
-
-    @Override
-    public boolean isHelpFlag() {
-	return false;
-    }
-
     @Override
     public String getFlag() {
 	return null;
-    }
-
-    @Override
-    public String getMessage() {
-	return msgProvider.getMessage(Command.class, this.getName());
     }
 
     public static Set<CLICommand> getAllCommands() {

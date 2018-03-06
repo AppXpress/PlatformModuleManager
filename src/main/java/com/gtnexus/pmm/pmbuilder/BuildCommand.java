@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.SubCommandMarker;
 import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.commons.command.AbstractSubCommand;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
@@ -12,6 +13,10 @@ import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 
+@SubCommandMarker(
+	name = "build", 
+	flag = "b", 
+	description = "build all the things!")
 public class BuildCommand extends AbstractSubCommand {
 
     private static final String NAME = "pmbuilder";
