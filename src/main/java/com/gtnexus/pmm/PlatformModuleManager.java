@@ -1,19 +1,12 @@
 package com.gtnexus.pmm;
 
-import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.reflections.Reflections;
-import org.reflections.util.ConfigurationBuilder;
-
-import com.google.common.collect.Sets;
-import com.google.common.collect.Sets.SetView;
 import com.gtnexus.pmm.cli.command.CLICommand;
 import com.gtnexus.pmm.cli.command.CommandIdentifier;
 import com.gtnexus.pmm.commons.DirectoryHelper;
-import com.gtnexus.pmm.commons.command.AbstractSubCommand;
 import com.gtnexus.pmm.commons.command.Command;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
@@ -31,39 +24,20 @@ public class PlatformModuleManager {
     public static PlatformModuleManager start(String... args) throws AppXpressException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();
-	Set<CLICommand> commands = scan();
+	Set<CLICommand> commands = SubCommandScanner.scan();
+	Help help = new Help(commands);
 	PlatformModuleManagerServicesImpl services = new PlatformModuleManagerServicesImpl(dHelper.getPmProperties(), args);
-	return new PlatformModuleManager(services, commands);
-    }
-
-    public static Set<CLICommand> scan() {
-	Set<CLICommand> coreCommands = new HashSet<>();
-	ConfigurationBuilder b = new ConfigurationBuilder().forPackages("com.gtnexus.pmm");
-	Reflections reflections = new Reflections(b);
-	Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(SubCommandMarker.class);
-	Set<Class<? extends AbstractSubCommand>> subTypesOf = reflections.getSubTypesOf(AbstractSubCommand.class);
-	SetView<Class<?>> intersection = Sets.intersection(typesAnnotatedWith, subTypesOf);
-	for (Class<?> type : intersection) {
-	    SubCommandMarker marker = type.getAnnotation(SubCommandMarker.class);
-	    Constructor<? extends AbstractSubCommand> constructor;
-	    try {
-		constructor = (Constructor<? extends AbstractSubCommand>) type.getConstructor(PlatformModuleManagerServices.class, String[].class);
-	    } catch (NoSuchMethodException e) {
-		throw new RuntimeException(marker.name() + " is missing a constructor.", e);
-	    } catch (SecurityException e) {
-		throw new RuntimeException("Failure during startup. Access to " + marker.name() + "'s constructor was denied", e);
-	    }
-	   coreCommands.add(CLICommand.Helper.wrap(marker, constructor)); 
-	}
-	return coreCommands;
+	return new PlatformModuleManager(services, commands, help);
     }
 
     private final PlatformModuleManagerServices services;
     private final Set<CLICommand> commands;
+    private final Help help;
 
-    public PlatformModuleManager(PlatformModuleManagerServices services, Set<CLICommand> commands) {
+    public PlatformModuleManager(PlatformModuleManagerServices services, Set<CLICommand> commands, Help help) {
 	this.services = services;
 	this.commands = commands;
+	this.help = help;
     }
 
     public PMProperties getProperties() {
@@ -76,6 +50,10 @@ public class PlatformModuleManager {
 
     public PlatformModuleManagerServices getServices() {
 	return this.services;
+    }
+    
+    Help getHelp() {
+	return this.help;
     }
 
     protected void run() {
@@ -91,12 +69,14 @@ public class PlatformModuleManager {
 	String[] args = pmm.getRawArgs();
 	if (args.length > 0) {
 	    String cmdNameOrFlag = args[0];
-	    CLICommand cliCmd = new CommandIdentifier(pmm.getCommands())
+	    Set<CLICommand> allCmds = new HashSet<>(pmm.getCommands());
+	    allCmds.add(pmm.getHelp());
+	    CLICommand cliCmd = new CommandIdentifier(allCmds)
 		    .identify(cmdNameOrFlag)
-		    .or(PlatformModuleManagerCommand.HELP);
+		    .or(pmm.getHelp());
 	    cmd = cliCmd.constructCommand(pmm.getServices(), restOf(args));
 	} else {
-	    cmd = PlatformModuleManagerCommand.HELP.constructCommand(pmm.getServices(), args);
+	    cmd = pmm.getHelp().constructCommand(pmm.getServices(), args);
 	}
 	return cmd;
     }
