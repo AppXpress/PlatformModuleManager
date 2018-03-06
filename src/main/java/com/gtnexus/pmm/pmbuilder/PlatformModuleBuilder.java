@@ -32,6 +32,7 @@ import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
+@Deprecated
 public class PlatformModuleBuilder /*implements PMMCommandInfo*/ {
 
     public void build(PmmContext context) throws AppXpressException {

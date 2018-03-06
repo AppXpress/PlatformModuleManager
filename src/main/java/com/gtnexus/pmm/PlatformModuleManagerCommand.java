@@ -111,7 +111,7 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 
 	@Override
 	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
-	    return new ExtractCommand(args);
+	    return new ExtractCommand(services, args);
 	}
 
     };

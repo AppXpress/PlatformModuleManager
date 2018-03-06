@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;
@@ -38,14 +39,12 @@ import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
  */
 public class GitMapper implements Mapper {
 
-    private final PmmContext ctx;
     private final GitMapVO vo;
     private List<Path> overwrittenScripts;
     private final Preparation<GitMapVO> prep;
     private final FileService fs;
 
-    public static GitMapper createMapper(PmmContext context) {
-	Map<CLICommandOption, String> optionMap = context.getOptMap();
+    public static GitMapper createMapper(PlatformModuleManagerServices services, Map<CLICommandOption, String> optionMap) {
 	if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 	    String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 	    if (!platformZip.endsWith(ZIP_EXTENSION)) {
@@ -53,14 +52,13 @@ public class GitMapper implements Mapper {
 		optionMap.put(ExtractorOption.PLATFORM_ZIP, platformZip);
 	    }
 	}
-	return new GitMapper(context);
+	return new GitMapper(services, optionMap);
     }
 
-    public GitMapper(PmmContext context) {
-	this.ctx = context;
-	this.vo = new GitMapVO(context.getOptMap());
+    public GitMapper(PlatformModuleManagerServices services, Map<CLICommandOption, String> optionMap) {
+	this.vo = new GitMapVO(optionMap);
 	this.overwrittenScripts = new ArrayList<>();
-	this.prep = new GitMapPrep(ctx.getTempResourceHolder());
+	this.prep = new GitMapPrep(services);
 	this.fs = new FileService();
     }
 

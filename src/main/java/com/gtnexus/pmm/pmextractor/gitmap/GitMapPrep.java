@@ -13,11 +13,9 @@ import java.nio.file.Path;
 import com.gtnexus.pmm.AppXpressConstants;
 import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.commons.HasPrerequisite;
 import com.gtnexus.pmm.commons.Preparation;
-import com.gtnexus.pmm.commons.ZipService;
-import com.gtnexus.pmm.commons.file.FileService;
-import com.gtnexus.pmm.context.TempResourceHolder;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -29,14 +27,10 @@ import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
  */
 public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMapVO> {
 
-    private final FileService fs;
-    private final ZipService zs;
-    private final TempResourceHolder tmp;
+    private final PlatformModuleManagerServices  services;
 
-    public GitMapPrep(TempResourceHolder tmp) {
-	this.fs = new FileService();
-	this.zs = new ZipService(AppXpressConstants.IGNORE_SET);
-	this.tmp = tmp;
+    public GitMapPrep(PlatformModuleManagerServices services) {
+	this.services = services;
     }
 
     @Override
@@ -54,7 +48,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
     private void cleanup(File unzipDestination) throws PMBuilderException {
 	if (unzipDestination.exists()) {
 	    try {
-		fs.emptyDir(unzipDestination);
+		this.services.getFileService().emptyDir(unzipDestination);
 	    } catch (IOException e) {
 		throw new PMBuilderException("Exception when cleaning unzipDestination", e);
 	    }
@@ -78,8 +72,8 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
     private void unzipPlatformZip(File platformZip, File unzipDestination) throws PMBuilderException {
 	if (platformZip.exists()) {
 	    try {
-		zs.unzip(platformZip, unzipDestination, true);
-		tmp.deleteOnExit(unzipDestination);
+		this.services.getZipService().unzip(platformZip, unzipDestination, true);
+		this.services.getTemporaryResourceService().markForDeletion(unzipDestination);
 	    } catch (AppXpressException e) {
 		throw new PMBuilderException("Exception when unzipping platformZip: " + platformZip, e);
 	    }
@@ -108,10 +102,10 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
 	}
 	try {
 	    if (f.getName().contains($)) {
-		fs.renameFile(f, f.getName().replace($, ""));
+		this.services.getFileService().renameFile(f, f.getName().replace($, ""));
 	    }
 	    if (parentIsCustomUi(f) && customUiBundleHasPrefix(f)) {
-		fs.renameFile(f, f.getName().substring(2));
+		this.services.getFileService().renameFile(f, f.getName().substring(2));
 	    }
 	} catch (IOException e) {
 	    throw new PMBuilderException("Exception when coercing module to human readable format ->" + f, e);
@@ -133,7 +127,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
 	    int terminal = fName.length() - "Bundle".length();
 	    fName = fName.substring(0, terminal);
 	    try {
-		fs.renameFile(f, fName);
+		this.services.getFileService().renameFile(f, fName);
 	    } catch (IOException e) {
 		throw new PMBuilderException("Failed to rename bundle " + fName, e);
 	    }
@@ -148,9 +142,9 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
 	Path bkpPath = resolver.resolveAppXpressDir().resolve(BACKUP_FLDR).resolve(platform);
 	try {
 	    if (Files.exists(bkpPath)) {
-		fs.emptyDir(bkpPath);
+		this.services.getFileService().emptyDir(bkpPath);
 	    }
-	    fs.copyDirectory(customerPath, bkpPath);
+	    this.services.getFileService().copyDirectory(customerPath, bkpPath);
 	} catch (IOException e) {
 	    System.err.println("error backing up -> " + e);
 	}
