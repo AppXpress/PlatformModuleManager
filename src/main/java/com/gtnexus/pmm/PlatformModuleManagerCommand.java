@@ -10,7 +10,7 @@ import com.gtnexus.pmm.cli.command.CLICommand;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 import com.gtnexus.pmm.commons.command.Command;
 import com.gtnexus.pmm.pmbuilder.BuildCommand;
-import com.gtnexus.pmm.pmdocgen.PMDocGenCommand;
+import com.gtnexus.pmm.pmdocgen.DocGenCommand;
 import com.gtnexus.pmm.pmextractor.ExtractCommand;
 
 public abstract class PlatformModuleManagerCommand implements CLICommand {
@@ -88,8 +88,7 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 
 	@Override
 	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
-	    // TODO: inject services
-	    return new BuildCommand(null, args);
+	    return new BuildCommand(services, args);
 	}
 
     };
@@ -130,7 +129,7 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 
 	@Override
 	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
-	    return new PMDocGenCommand(args);
+	    return new DocGenCommand(services, args);
 	}
     };
 

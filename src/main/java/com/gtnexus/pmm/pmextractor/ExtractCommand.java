@@ -17,11 +17,8 @@ public class ExtractCommand extends AbstractSubCommand {
 
     private static final String NAME = "pmextractor";
 
-    private String[] args;
-
     public ExtractCommand(PlatformModuleManagerServices services, String... args) {
 	super(services, args);
-	this.args = args;
     }
 
     private void attachCleanUpHook(PmmContext ctx) {

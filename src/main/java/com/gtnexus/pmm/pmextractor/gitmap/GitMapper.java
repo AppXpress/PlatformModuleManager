@@ -23,7 +23,6 @@ import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.commons.file.FileService;
-import com.gtnexus.pmm.context.PmmContext;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
 

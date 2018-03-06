@@ -1,12 +1,6 @@
 package com.gtnexus.appxpress.pmbuilder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
-
-import com.gtnexus.pmm.pmbuilder.PlatformModuleBuilder;
-import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
 
 public class PlatformModuleBuilderTest {
 

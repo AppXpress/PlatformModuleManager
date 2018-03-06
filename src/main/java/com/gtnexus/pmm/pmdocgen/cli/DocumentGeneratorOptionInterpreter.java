@@ -14,7 +14,7 @@ import com.gtnexus.pmm.cli.option.ParsedOptions;
 import com.gtnexus.pmm.commons.command.PMMCommandInfo;
 import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.commons.properties.PMProperties;
-import com.gtnexus.pmm.pmdocgen.PlatformModuleDocumentGenerator;
+import com.gtnexus.pmm.pmdocgen.DocGenCommand;
 
 public class DocumentGeneratorOptionInterpreter extends CLICommandOptionInterpreterImpl
 	implements CLICommandOptionInterpreter {
@@ -34,23 +34,23 @@ public class DocumentGeneratorOptionInterpreter extends CLICommandOptionInterpre
     protected ParsedOptions performCustomInterpretation(ParsedOptions parsedOpts)
 	    throws AppXpressException {
 	Path cwd = resolver.resovleCurrentDirectory();
-	if (parsedOpts.hasOption(PlatformModuleDocumentGenerator.selectOpt)) {
+	if (parsedOpts.hasOption(DocGenCommand.selectOpt)) {
 	    doSelect(parsedOpts, cwd);
 	}
 	if (isCandidateForArgInjection(parsedOpts, cwd)) {
-	    parsedOpts.put(PlatformModuleDocumentGenerator.customerOpt, cwd);
+	    parsedOpts.put(DocGenCommand.customerOpt, cwd);
 	}
 	return parsedOpts;
-    }
+   }
 
     private boolean isCandidateForArgInjection(ParsedOptions parsedOpts, Path cwd)
 	    throws AppXpressException {
-	return !parsedOpts.hasOption(PlatformModuleDocumentGenerator.customerOpt)
-		&& isCustomerFolder(cwd, PlatformModuleDocumentGenerator.localDirOpt);
+	return !parsedOpts.hasOption(DocGenCommand.customerOpt)
+		&& isCustomerFolder(cwd, DocGenCommand.localDirOpt);
     }
 
     private void doSelect(ParsedOptions parsedOpts, Path cwd) throws AppXpressException {
-	if (!isCustomerFolder(cwd, PlatformModuleDocumentGenerator.localDirOpt)) {
+	if (!isCustomerFolder(cwd, DocGenCommand.localDirOpt)) {
 	    throw new AppXpressException("The select option must be run from a customer folder.");
 	}
 	Collection<File> choices = getCandidates(cwd);
@@ -58,8 +58,8 @@ public class DocumentGeneratorOptionInterpreter extends CLICommandOptionInterpre
 	    throw new AppXpressException("Nothing to select from!");
 	}
 	File selection = selector.select(choices);
-	parsedOpts.put(PlatformModuleDocumentGenerator.moduleOpt, selection);
-	parsedOpts.put(PlatformModuleDocumentGenerator.customerOpt, cwd);
+	parsedOpts.put(DocGenCommand.moduleOpt, selection);
+	parsedOpts.put(DocGenCommand.customerOpt, cwd);
     }
 
     private Collection<File> getCandidates(Path dir) {
