@@ -1,15 +1,12 @@
 package com.gtnexus.pmm.pmbuilder;
 
-import java.util.Set;
-
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
-import com.gtnexus.pmm.commons.command.PMMCommandInfo;
+import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.cli.option.ParsedOptions;
 import com.gtnexus.pmm.context.ContextBasedCleanUp;
 import com.gtnexus.pmm.context.PmmContext;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
-import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 
 /**
@@ -35,12 +32,7 @@ import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class PlatformModuleBuilder implements PMMCommandInfo {
-
-    private static final String NAME = "pmbuilder";
-
-    public PlatformModuleBuilder() {
-    }
+public class PlatformModuleBuilder /*implements PMMCommandInfo*/ {
 
     public void build(PmmContext context) throws AppXpressException {
 	attachCleanUpHook(context);
@@ -55,34 +47,9 @@ public class PlatformModuleBuilder implements PMMCommandInfo {
 	    throw new AppXpressException("Failed to build module.", e);
 	}
     }
-
+    
     private void attachCleanUpHook(PmmContext ctx) {
 	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
-    }
-
-    @Override
-    public String getName() {
-	return NAME;
-    }
-
-    @Override
-    public Class<?> getContextType() {
-	return BuilderOption.class;
-    }
-
-    @Override
-    public String getHelpHeader() {
-	return "";
-    }
-
-    @Override
-    public String getHelpFooter() {
-	return "";
-    }
-
-    @Override
-    public Set<CLICommandOption> getOptions() {
-	return BuilderOption.getAllOptions();
     }
 
 }

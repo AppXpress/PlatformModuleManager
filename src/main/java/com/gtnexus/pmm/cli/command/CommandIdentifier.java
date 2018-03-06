@@ -1,11 +1,9 @@
 package com.gtnexus.pmm.cli.command;
 
-import java.util.Arrays;
 import java.util.Set;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import com.gtnexus.pmm.commons.command.Command;
 
 public class CommandIdentifier {
 
@@ -17,19 +15,16 @@ public class CommandIdentifier {
 	this.commands = commands;
     }
 
-    // we assume the first argument is either a valid command or a help flag
-    public Optional<Command> identify(String... args) {
-	if (args.length == 0) {
+    public Optional<CLICommand> identify(String cmdNameOrFlag) {
+	if (cmdNameOrFlag == null || cmdNameOrFlag.isEmpty()) {
 	    return Optional.absent();
 	}
-	String cmd = args[0];
-	String[] childArgs = restOf(args);
 	for (CLICommand command : commands) {
-	    if (isNameOrFlagMatch(command, cmd)) {
-		return Optional.fromNullable(command.constructCommand(childArgs));
+	    if (isNameOrFlagMatch(command, cmdNameOrFlag)) {
+		return Optional.fromNullable(command);
 	    }
 	}
-	System.out.println("Not a recognized command" + cmd);
+	System.out.println("Not a recognized command: " + cmdNameOrFlag);
 	return Optional.absent();
     }
 
@@ -45,11 +40,6 @@ public class CommandIdentifier {
 	return false;
     }
 
-    private String[] restOf(String... args) {
-	if (args.length < 2) {
-	    return new String[0];
-	}
-	return Arrays.copyOfRange(args, 1, args.length);
-    }
+
 
 }

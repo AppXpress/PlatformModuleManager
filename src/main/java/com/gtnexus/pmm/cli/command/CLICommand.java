@@ -1,5 +1,6 @@
 package com.gtnexus.pmm.cli.command;
 
+import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.commons.command.Command;
 
 public interface CLICommand {
@@ -13,5 +14,5 @@ public interface CLICommand {
 
     public String getMessage();
 
-    public Command constructCommand(String... args);
+    public Command constructCommand(PlatformModuleManagerServices services, String... args);
 }

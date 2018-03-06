@@ -1,5 +1,6 @@
 package com.gtnexus.pmm;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import com.gtnexus.pmm.cli.command.CLICommand;
@@ -22,32 +23,23 @@ public class PlatformModuleManager {
     public static PlatformModuleManager start(String... args) throws AppXpressException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();
-	// need to discover subcommands here.
-	// need to start services here.
-	return new PlatformModuleManager(
-		new PlatformModuleManagerServicesImpl(), 
-		dHelper.getPmProperties(), 
-		args);
+	return new PlatformModuleManager(new PlatformModuleManagerServicesImpl(dHelper.getPmProperties(), args));
     }
 
-    private final PMProperties properties;
-    private final String[] rawArgs;
     private final PlatformModuleManagerServices services;
 
-    public PlatformModuleManager(PlatformModuleManagerServices services, PMProperties properties, String... args) {
-	this.properties = properties;
-	this.rawArgs = args;
+    public PlatformModuleManager(PlatformModuleManagerServices services) {
 	this.services = services;
     }
 
     public PMProperties getProperties() {
-	return properties;
+	return this.services.getEnvironmentService().getProperties();
     }
 
     public String[] getRawArgs() {
-	return rawArgs;
+	return this.services.getEnvironmentService().getRawArgs();
     }
-    
+
     public PlatformModuleManagerServices getServices() {
 	return this.services;
     }
@@ -61,9 +53,25 @@ public class PlatformModuleManager {
     }
 
     public static Command getCommand(PlatformModuleManager pmm) {
-	return new CommandIdentifier(pmm.getCommands())
-		.identify(pmm.getRawArgs())
-		.or(PlatformModuleManagerCommand.HELP.constructCommand(pmm.getRawArgs()));
+	Command cmd;
+	String[] args = pmm.getRawArgs();
+	if (args.length > 0) {
+	    String cmdNameOrFlag = args[0];
+	    CLICommand cliCmd = new CommandIdentifier(pmm.getCommands())
+		    .identify(cmdNameOrFlag)
+		    .or(PlatformModuleManagerCommand.HELP);
+	    cmd = cliCmd.constructCommand(pmm.getServices(), restOf(args));
+	} else {
+	    cmd = PlatformModuleManagerCommand.HELP.constructCommand(pmm.getServices(), args);
+	}
+	return cmd;
+    }
+
+    private static String[] restOf(String... args) {
+	if (args.length < 2) {
+	    return new String[0];
+	}
+	return Arrays.copyOfRange(args, 1, args.length);
     }
 
     public Set<CLICommand> getCommands() {

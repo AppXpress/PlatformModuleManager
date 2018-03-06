@@ -1,29 +1,64 @@
 package com.gtnexus.pmm.pmbuilder;
 
-import com.google.common.base.Preconditions;
+import java.util.Map;
+import java.util.Set;
+
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.command.Command;
-import com.gtnexus.pmm.context.ContextFactory;
-import com.gtnexus.pmm.context.PmmContext;
+import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.commons.command.AbstractSubCommand;
+import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
+import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
+import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
+import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 
-public class BuildCommand implements Command {
+public class BuildCommand extends AbstractSubCommand {
 
-    private String[] args;
+    private static final String NAME = "pmbuilder";
 
-    public BuildCommand(String... args) {
-	Preconditions.checkNotNull(args);
-	this.args = args;
+    public BuildCommand(PlatformModuleManagerServices services, String... args) {
+	super(services, args);
+    }
+
+    @Override
+    public String getName() {
+	return NAME;
+    }
+
+    @Override
+    public Class<?> getContextType() {
+	return BuilderOption.class;
+    }
+
+    @Override
+    public String getHelpHeader() {
+	return "";
+    }
+
+    @Override
+    public String getHelpFooter() {
+	return "";
+    }
+
+    @Override
+    public Set<CLICommandOption> getOptions() {
+	return BuilderOption.getAllOptions();
     }
 
     @Override
     public void execute() throws AppXpressException {
-	PlatformModuleBuilder pmb = new PlatformModuleBuilder();
-	PmmContext context;
+	Map<CLICommandOption, String> optionsMap = this.parse().getOptionsMap();
+	PMBuilderVO vo = new PMBuilderVO(optionsMap);
+	BuildPrep prep = new BuildPrep(
+		this.getServices().getFileService(),
+		this.getServices().getTemporaryResourceService(),
+		this.getServices().getEnvironmentService().getLibPath());
+	PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
 	try {
-	    context = ContextFactory.createContext(pmb, args);
-	    pmb.build(context);
+	    prep.prepare(vo);
+	    bundler.bundle(vo.getWorkingDir());
 	} catch (AppXpressException e) {
-	    throw new AppXpressException("build has failed.", e);
+	    throw new AppXpressException("Failed to build module.", e);
 	}
     }
 

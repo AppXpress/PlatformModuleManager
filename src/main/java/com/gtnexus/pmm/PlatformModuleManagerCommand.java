@@ -41,7 +41,7 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 	}
 
 	@Override
-	public Command constructCommand(String... args) {
+	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
 	    return new Command() {
 		private final String blurb = Joiner.on("\n")
 			.join(Iterables.transform(ALL_COMMANDS, new Function<CLICommand, String>() {
@@ -87,8 +87,9 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 	}
 
 	@Override
-	public Command constructCommand(String... args) {
-	    return new BuildCommand(args);
+	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
+	    // TODO: inject services
+	    return new BuildCommand(null, args);
 	}
 
     };
@@ -109,7 +110,7 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 	}
 
 	@Override
-	public Command constructCommand(String... args) {
+	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
 	    return new ExtractCommand(args);
 	}
 
@@ -128,7 +129,7 @@ public abstract class PlatformModuleManagerCommand implements CLICommand {
 	}
 
 	@Override
-	public Command constructCommand(String... args) {
+	public Command constructCommand(PlatformModuleManagerServices services, String... args) {
 	    return new PMDocGenCommand(args);
 	}
     };

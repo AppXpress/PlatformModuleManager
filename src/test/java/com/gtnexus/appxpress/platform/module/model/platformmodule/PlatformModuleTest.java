@@ -21,7 +21,7 @@ public class PlatformModuleTest {
     public void testUnmarshall() throws FileNotFoundException, JAXBException {
 	File file = new File("src/test/resources/PlatformModule.xml");
 	FileReader reader = new FileReader(file);
-	JAXBContext context = JAXBContext.newInstance("com.gtnexus.appxpress.platform.module.model.platformmodule");
+	JAXBContext context = JAXBContext.newInstance("com.gtnexus.pmm.platform.module.model.platformmodule");
 	Unmarshaller unmarshaller = context.createUnmarshaller();
 	PlatformModuleXml platformMod = (PlatformModuleXml) JAXBIntrospector.getValue(unmarshaller.unmarshal(reader));
 	assertNotNull(platformMod);

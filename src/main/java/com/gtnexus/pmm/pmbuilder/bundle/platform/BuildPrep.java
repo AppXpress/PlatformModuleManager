@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.TemporaryResourceService;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.commons.file.FileService;
@@ -25,6 +26,7 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
     private final FileService fs;
     private final AppXpressDirResolver resolver;
     private final TempResourceHolder tmpHolder;
+    private final TemporaryResourceService tempService;
     private final Path libPath;
 
     public BuildPrep(TempResourceHolder tmp, Path libPath) {
@@ -32,6 +34,15 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 	this.resolver = new AppXpressDirResolver();
 	this.tmpHolder = tmp;
 	this.libPath = libPath;
+	this.tempService = null;
+    }
+
+    public BuildPrep(FileService fs, TemporaryResourceService tmpService, Path libPath) {
+	this.fs = fs;
+	this.resolver = new AppXpressDirResolver();
+	this.tmpHolder = null;
+	this.libPath = libPath;
+	this.tempService = tmpService;
     }
 
     @Override
@@ -52,7 +63,11 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 	String tmpPrefix = String.valueOf(System.currentTimeMillis());
 	Path destination = Files.createTempDirectory(tmpPath, tmpPrefix);
 	File dest = destination.toFile();
-	tmpHolder.deleteOnExit(dest);
+	if (tmpHolder != null) {
+	    tmpHolder.deleteOnExit(dest);
+	} else {
+	    tempService.markForDeletion(dest);
+	}
 	fs.copyDirectory(source, destination);
 	return dest;
     }
