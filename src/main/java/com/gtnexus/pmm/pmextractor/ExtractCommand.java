@@ -41,7 +41,6 @@ public class ExtractCommand extends AbstractSubCommand {
 
     @Override
     public void execute() throws AppXpressException {
-	// attachCleanUpHook(context);
 	Map<CLICommandOption, String> optionsMap = this.parse().getOptionsMap();
 	Mapper tool = GitMapper.createMapper(this.getServices(), optionsMap);
 	try {

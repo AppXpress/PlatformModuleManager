@@ -23,16 +23,21 @@ public interface CLICommandOption {
 
     public boolean isHelpFlag();
 
+    //TODO: remove
     public String getMessage();
 
+    //TODO: remove
     public boolean isAppXpressMandatory();
 
+    //TODO: remove
     public boolean shouldBeOmitted();
 
+    //TODO:remove
     public boolean isValid(String val);
 
     public String getDefaultValue();
 
+    //TODO: remove
     public boolean isStoreableProperty();
     
 }
