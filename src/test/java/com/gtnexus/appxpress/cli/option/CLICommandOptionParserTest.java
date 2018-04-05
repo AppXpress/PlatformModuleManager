@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
@@ -18,37 +17,28 @@ import com.gtnexus.pmm.cli.option.ParsedOptions;
 
 public class CLICommandOptionParserTest {
 
-    CLICommandOptionParser cli;
-    String appName = "ParserTest";
-    Set<CLICommandOption> optSet = new ImmutableSet.Builder<CLICommandOption>().add(DummyOption.DUMMY).build();
-
-    @Before
-    public void setUp() {
-	String[] args = { "-Dummy" };
-	cli = CLICommandOptionParser.createParser(optSet, args);
-    }
+    private final Set<CLICommandOption> optSet = new ImmutableSet.Builder<CLICommandOption>().add(DummyOption.DUMMY).build();
+    private final CLICommandOptionParser parser = CLICommandOptionParser.createParser(optSet);
 
     @Test(expected = NullPointerException.class)
     public void testWithNullArgs() {
-	new CLICommandOptionParser(null, null, null);
+	new CLICommandOptionParser(null, null);
     }
 
     @Test
     public void testParse() throws Exception {
-	ParsedOptions parsedOpts = cli.parse();
+	ParsedOptions parsedOpts = parser.parse(new String[] {"-Dummy"});
 	assertTrue(parsedOpts.hasOption(DummyOption.DUMMY));
     }
 
     @Test(expected = AppXpressException.class)
     public void testParseWithInvalidOpt() throws Exception {
-	String[] args = { "-invalidOpt" };
-	CLICommandOptionParser cli2 = CLICommandOptionParser.createParser(optSet, args);
-	cli2.parse();
+	parser.parse(new String[] {"-invalidOpt"});
     }
 
     @Test
     public void testGetCliOptionSet() throws Exception {
-	assertEquals(EnumSet.allOf(DummyOption.class), cli.getCliOptionSet());
+	assertEquals(EnumSet.allOf(DummyOption.class), parser.getCliOptionSet());
     }
 
 }

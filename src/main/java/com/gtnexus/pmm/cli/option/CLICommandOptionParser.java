@@ -20,12 +20,11 @@ import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
  */
 public class CLICommandOptionParser {
 
-    private final String[] userArgs;
     private final Set<CLICommandOption> cliOptionSet;
     private final Options options;
     private CommandLine cmd;
 
-    public static CLICommandOptionParser createParser(Set<CLICommandOption> cliOptSet, String[] userArgs) {
+    public static CLICommandOptionParser createParser(Set<CLICommandOption> cliOptSet) {
 	Options options = new Options();
 	for (CLICommandOption opt : cliOptSet) {
 	    Option o = Option
@@ -38,7 +37,7 @@ public class CLICommandOptionParser {
 		    .build();
 	    options.addOption(o);
 	}
-	return new CLICommandOptionParser(userArgs, cliOptSet, options);
+	return new CLICommandOptionParser(cliOptSet, options);
     }
 
     /**
@@ -48,11 +47,10 @@ public class CLICommandOptionParser {
      * @param cliOptionSet
      *            the option set defining what can be passed to this tool
      */
-    public CLICommandOptionParser(String[] userArgs, Set<CLICommandOption> cliOptionSet, Options options) {
-	if (userArgs == null || cliOptionSet == null) {
-	    throw new NullPointerException("Cannot parse null args, or null option set.");
+    public CLICommandOptionParser(Set<CLICommandOption> cliOptionSet, Options options) {
+	if (cliOptionSet == null) {
+	    throw new NullPointerException("Cannot parse for null option set.");
 	}
-	this.userArgs = userArgs;
 	this.cliOptionSet = cliOptionSet;
 	this.options = options;
     }
@@ -63,7 +61,7 @@ public class CLICommandOptionParser {
      * @throws PMExtractorException
      *             if input is not parasable.
      */
-    public ParsedOptions parse() throws AppXpressException {
+    public ParsedOptions parse(String[] userArgs) throws AppXpressException {
 	CommandLineParser parser = new DefaultParser();
 	try {
 	    cmd = parser.parse(options, userArgs);

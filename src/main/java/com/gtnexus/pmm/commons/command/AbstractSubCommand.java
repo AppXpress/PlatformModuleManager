@@ -27,8 +27,9 @@ public abstract class AbstractSubCommand implements SubCommand {
     }
     
     protected ParsedOptions parse() throws AppXpressException {
-	//TODO: parse() should take the args, not the constructor.
-	return CLICommandOptionParser.createParser(this.getOptions(), this.args).parse();
+	return CLICommandOptionParser
+		.createParser(this.getOptions())
+		.parse(this.args);
     }
     
 }
