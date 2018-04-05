@@ -8,8 +8,6 @@ import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.command.AbstractSubCommand;
-import com.gtnexus.pmm.context.ContextBasedCleanUp;
-import com.gtnexus.pmm.context.PmmContext;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.gitmap.GitMapper;
 
@@ -19,10 +17,6 @@ public class ExtractCommand extends AbstractSubCommand {
 
     public ExtractCommand(PlatformModuleManagerServices services, String... args) {
 	super(services, args);
-    }
-
-    private void attachCleanUpHook(PmmContext ctx) {
-	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
     }
 
     @Override
@@ -38,11 +32,6 @@ public class ExtractCommand extends AbstractSubCommand {
     @Override
     public String getHelpFooter() {
 	return "";
-    }
-
-    @Override
-    public Class<?> getContextType() {
-	return ExtractorOption.class;
     }
 
     @Override

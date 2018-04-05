@@ -9,12 +9,11 @@ import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 
 public enum BuilderOption implements CLICommandOption {
-    HELP("h", "help", String.class, "Display usage for this tool", false, false, null), CUSTOMER("c", "customer",
-	    String.class, "The customer who owns this module.", true, true,
-	    null), MODULE("m", "module", String.class, "The name of the module.", true, true, null), LOCAL_DIR("ld",
-		    "localDir", String.class, "Relative Path of git staging folder.", true, true, null), SELECT("s",
-			    "select", Integer.class, "Select platform from the folders present in the cwd.", false,
-			    false, null);
+    HELP("h", "help", String.class, "Display usage for this tool", false, false, null),
+    CUSTOMER("c", "customer", String.class, "The customer who owns this module.", true, true, null),
+    MODULE("m", "module", String.class, "The name of the module.", true, true, null),
+    LOCAL_DIR("ld", "localDir", String.class, "Relative Path of git staging folder.", true, true, null),
+    SELECT("s", "select", Integer.class, "Select platform from the folders present in the cwd.", false, false, null);
 
     private final String flag;
     private final String name;

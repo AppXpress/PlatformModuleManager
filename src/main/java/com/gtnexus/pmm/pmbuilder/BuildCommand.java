@@ -31,11 +31,6 @@ public class BuildCommand extends AbstractSubCommand {
     }
 
     @Override
-    public Class<?> getContextType() {
-	return BuilderOption.class;
-    }
-
-    @Override
     public String getHelpHeader() {
 	return "";
     }
@@ -53,6 +48,7 @@ public class BuildCommand extends AbstractSubCommand {
     @Override
     public void execute() throws AppXpressException {
 	Map<CLICommandOption, String> optionsMap = this.parse().getOptionsMap();
+	optionsMap.put(BuilderOption.LOCAL_DIR, this.getServices().getEnvironmentService().getLocalDir().toString());
 	PMBuilderVO vo = new PMBuilderVO(optionsMap);
 	BuildPrep prep = new BuildPrep(
 		this.getServices().getFileService(),
@@ -66,5 +62,5 @@ public class BuildCommand extends AbstractSubCommand {
 	    throw new AppXpressException("Failed to build module.", e);
 	}
     }
-
+    
 }

@@ -66,7 +66,7 @@ public class CLICommandOptionParser {
 	try {
 	    cmd = parser.parse(options, userArgs);
 	} catch (ParseException e) {
-	    throw new PMExtractorException("Failed to parse args from command line!\n" + e.getMessage());
+	    throw new AppXpressException("Failed to parse args from command line!\n" + e.getMessage());
 	}
 	return ParsedOptions.createFrom(this);
     }

@@ -34,5 +34,5 @@ public interface CLICommandOption {
     public String getDefaultValue();
 
     public boolean isStoreableProperty();
-
+    
 }

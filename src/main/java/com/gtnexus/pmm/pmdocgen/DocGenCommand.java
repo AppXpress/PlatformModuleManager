@@ -21,7 +21,6 @@ import com.gtnexus.pmm.commons.command.AbstractSubCommand;
 import com.gtnexus.pmm.platform.module.ModulePointer;
 import com.gtnexus.pmm.platform.module.ModuleVO;
 import com.gtnexus.pmm.platform.module.interpretation.PlatformModuleInterpreter;
-import com.gtnexus.pmm.pmdocgen.cli.option.DocumentGeneratorOptions;
 
 /**
  * Generates documentation for the given platform module.
@@ -86,11 +85,6 @@ public class DocGenCommand extends AbstractSubCommand {
     @Override
     public String getHelpFooter() {
 	return "";
-    }
-
-    @Override
-    public Class<?> getContextType() {
-	return DocumentGeneratorOptions.class;
     }
 
     @Override

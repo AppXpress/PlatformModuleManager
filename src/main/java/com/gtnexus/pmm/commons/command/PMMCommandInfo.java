@@ -12,8 +12,6 @@ public interface PMMCommandInfo {
 
     public String getHelpFooter();
 
-    public Class<?> getContextType();
-
     public  Set<CLICommandOption> getOptions();
     
 }
