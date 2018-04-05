@@ -20,11 +20,6 @@ public class CLICommandOptionParserTest {
     private final Set<CLICommandOption> optSet = new ImmutableSet.Builder<CLICommandOption>().add(DummyOption.DUMMY).build();
     private final CLICommandOptionParser parser = CLICommandOptionParser.createParser(optSet);
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullArgs() {
-	new CLICommandOptionParser(null, null);
-    }
-
     @Test
     public void testParse() throws Exception {
 	ParsedOptions parsedOpts = parser.parse(new String[] {"-Dummy"});

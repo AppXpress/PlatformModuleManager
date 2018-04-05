@@ -47,7 +47,7 @@ public class CLICommandOptionParser {
      * @param cliOptionSet
      *            the option set defining what can be passed to this tool
      */
-    public CLICommandOptionParser(Set<CLICommandOption> cliOptionSet, Options options) {
+    private CLICommandOptionParser(Set<CLICommandOption> cliOptionSet, Options options) {
 	if (cliOptionSet == null) {
 	    throw new NullPointerException("Cannot parse for null option set.");
 	}
