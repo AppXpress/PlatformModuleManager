@@ -1,8 +1,11 @@
 package com.gtnexus.pmm.commons.command;
 
+import java.util.Set;
+
 import com.google.common.base.Preconditions;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.cli.option.CLICommandOptionParser;
 import com.gtnexus.pmm.cli.option.ParsedOptions;
 
@@ -30,6 +33,11 @@ public abstract class AbstractSubCommand implements SubCommand {
 	return CLICommandOptionParser
 		.createParser(this.getOptions())
 		.parse(this.args);
+    }
+    
+    @Override
+    public Set<CLICommandOption> getOptions() {
+	return CLICommandOption.Helper.standardOptions();
     }
     
 }

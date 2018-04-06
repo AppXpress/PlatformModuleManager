@@ -5,18 +5,21 @@ import com.gtnexus.pmm.cli.option.CLICommandOption;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 
 public class LocalDirOpt implements CLICommandOption {
+    
+    public static final String  NAME = "localDir";
+    public static final String  FLAG = "ld";
 
     private final OptionMessageProvider msgProvider = new OptionMessageProvider();
     private final ValidityProvider validityProvider = new ValidityProvider();
 
     @Override
     public String getLongName() {
-	return "localDir";
+	return NAME;
     }
 
     @Override
     public String getFlag() {
-	return "ld";
+	return FLAG;
     }
 
     @Override

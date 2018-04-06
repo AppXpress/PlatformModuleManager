@@ -1,25 +1,18 @@
 package com.gtnexus.pmm.pmbuilder.cli;
 
 import java.io.File;
-import java.util.Map;
-
-import com.gtnexus.pmm.cli.option.CLICommandOption;
 
 public class PMBuilderVO {
 
     private final File localDir;
     private final File rootFile;
     private File workingDir;
-
-    public PMBuilderVO(Map<CLICommandOption, String> optionMap) {
-	this.localDir = new File(optionMap.get(BuilderOption.LOCAL_DIR));
-	this.rootFile = localDir
-		.toPath()
-		.resolve(optionMap.get(BuilderOption.CUSTOMER))
-		.resolve(optionMap.get(BuilderOption.MODULE))
-		.toFile();
+    
+    public PMBuilderVO(File localDir, File rootFile) {
+	this.localDir = localDir;
+	this.rootFile = rootFile;
     }
-
+    
     public File getLocalDir() {
 	return localDir;
     }

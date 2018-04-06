@@ -1,12 +1,5 @@
 package com.gtnexus.pmm.pmbuilder;
 
-import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.context.ContextBasedCleanUp;
-import com.gtnexus.pmm.context.PmmContext;
-import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
-import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
-import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
-
 /**
  * This executable does the following things in order with the end goal to
  * create an importable .zip file.
@@ -33,22 +26,22 @@ import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 @Deprecated
 public class PlatformModuleBuilder /*implements PMMCommandInfo*/ {
 
-    public void build(PmmContext context) throws AppXpressException {
-	attachCleanUpHook(context);
-	PMBuilderVO vo = new PMBuilderVO(context.getOptMap());
-	BuildPrep prep = new BuildPrep(context.getTempResourceHolder(), context.getLibPath());
-	PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
-	try {
-	    prep.prepare(vo);
-	    bundler.bundle(vo.getWorkingDir());
-	} catch (AppXpressException e) {
-	    context.setTerminatedRegulary(false);
-	    throw new AppXpressException("Failed to build module.", e);
-	}
-    }
-    
-    private void attachCleanUpHook(PmmContext ctx) {
-	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
-    }
+//    public void build(PmmContext context) throws AppXpressException {
+//	attachCleanUpHook(context);
+//	PMBuilderVO vo = new PMBuilderVO(null, null /*context.getOptMap()*/);
+//	BuildPrep prep = new BuildPrep(context.getTempResourceHolder(), context.getLibPath());
+//	PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
+//	try {
+//	    prep.prepare(vo);
+//	    bundler.bundle(vo.getWorkingDir());
+//	} catch (AppXpressException e) {
+//	    context.setTerminatedRegulary(false);
+//	    throw new AppXpressException("Failed to build module.", e);
+//	}
+//    }
+//    
+//    private void attachCleanUpHook(PmmContext ctx) {
+//	Runtime.getRuntime().addShutdownHook(new Thread(new ContextBasedCleanUp(ctx)));
+//    }
 
 }

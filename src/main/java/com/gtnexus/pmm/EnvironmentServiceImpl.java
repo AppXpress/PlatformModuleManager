@@ -5,8 +5,8 @@ import static com.gtnexus.pmm.AppXpressConstants.LIB;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.gtnexus.pmm.cli.option.options.LocalDirOpt;
 import com.gtnexus.pmm.commons.properties.PMProperties;
-import com.gtnexus.pmm.pmbuilder.cli.BuilderOption;
 
 public class EnvironmentServiceImpl implements EnvironmentService {
 
@@ -20,7 +20,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
     @Override
     public Path getLocalDir() {
-	String ld = this.properties.getProperty(BuilderOption.LOCAL_DIR);
+	String ld = this.properties.getProperty(LocalDirOpt.NAME);
 	return Paths.get(ld);
     }
 
