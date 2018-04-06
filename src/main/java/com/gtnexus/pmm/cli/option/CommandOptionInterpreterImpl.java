@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.cli.HelpFormatter;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.CLIOptsAndPropConsolidator;
+import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
 import com.gtnexus.pmm.commons.command.PMMCommandInfo;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
@@ -38,7 +38,7 @@ public abstract class CommandOptionInterpreterImpl implements CommandOptionInter
 	    throw new RuntimeException("Was supposed to shut down...");
 	}
 	parsedOptions = performCustomInterpretation(parsedOptions);
-	CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(parsedOptions.getOptionsMap(),
+	OptsAndPropConsolidator consolidator = new OptsAndPropConsolidator(parsedOptions.getOptionsMap(),
 		parsedOptions.getCliOptionSet(), properties);
 	Map<CommandOption, String> optMap = consolidator.consolidate();
 	return optMap;

@@ -37,7 +37,7 @@ public abstract class AbstractSubCommand implements SubCommand {
     
     @Override
     public Set<CommandOption> getOptions() {
-	return CommandOption.Helper.standardOptions();
+	return CommandOption.StandardOptions.set();
     }
     
 }

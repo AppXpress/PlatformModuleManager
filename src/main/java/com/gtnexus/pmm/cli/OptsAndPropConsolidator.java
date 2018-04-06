@@ -20,7 +20,7 @@ import com.gtnexus.pmm.commons.properties.PMProperties;
  *
  * @author jjdonov
  */
-public class CLIOptsAndPropConsolidator {
+public class OptsAndPropConsolidator {
 
     private final Map<CommandOption, String> userArgs;
     private final Set<CommandOption> optSet;
@@ -35,7 +35,7 @@ public class CLIOptsAndPropConsolidator {
      * @param properties
      *            Properties file read from user's AppXpress directory.
      */
-    public CLIOptsAndPropConsolidator(Map<CommandOption, String> userArgs, Set<CommandOption> optSet, PMProperties properties) {
+    public OptsAndPropConsolidator(Map<CommandOption, String> userArgs, Set<CommandOption> optSet, PMProperties properties) {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
@@ -52,7 +52,7 @@ public class CLIOptsAndPropConsolidator {
      * @param printStream
      *            CLICommandOptionhe printStream that this consolidator should write to.
      */
-    public CLIOptsAndPropConsolidator(Map<CommandOption, String> userArgs, Set<CommandOption> optSet, PMProperties properties, InputStream inputStream, PrintStream printStream) {
+    public OptsAndPropConsolidator(Map<CommandOption, String> userArgs, Set<CommandOption> optSet, PMProperties properties, InputStream inputStream, PrintStream printStream) {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;

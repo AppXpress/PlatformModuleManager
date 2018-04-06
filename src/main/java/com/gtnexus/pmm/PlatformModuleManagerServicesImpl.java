@@ -8,12 +8,14 @@ public class PlatformModuleManagerServicesImpl implements PlatformModuleManagerS
    
     private final EnvironmentService es;
     private final FileService fs;
+    private final TemporaryResourceService ts;
     private final ZipService zs;
     
     public PlatformModuleManagerServicesImpl(PMProperties properties, String[] args) {
 	this.fs = new FileService();
 	this.zs = new ZipService();
 	this.es = new EnvironmentServiceImpl(properties, args);
+	this.ts = new TemporaryResourceServiceImpl();
     }
 
     @Override
@@ -28,7 +30,7 @@ public class PlatformModuleManagerServicesImpl implements PlatformModuleManagerS
     
     @Override
     public TemporaryResourceService getTemporaryResourceService() {
-	return null;
+	return ts;
     }
 
     @Override

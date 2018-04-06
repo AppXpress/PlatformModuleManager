@@ -49,7 +49,7 @@ public interface CommandOption {
     // TODO: remove
     public boolean isStoreableProperty();
 
-    public class Helper {
+    public class StandardOptions {
 
 	public static CommandOption HELP = new HelpOption();
 	public static CommandOption CUSTOMER = new CustomerOption();
@@ -65,7 +65,7 @@ public interface CommandOption {
 		.add(SELECT)
 		.build();
 
-	public static Set<CommandOption> standardOptions() {
+	public static Set<CommandOption> set() {
 	    return standardOpts;
 	}
     }
