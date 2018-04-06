@@ -13,8 +13,8 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.options.CustomerOption;
-import com.gtnexus.pmm.cli.option.options.HelpOpt;
-import com.gtnexus.pmm.cli.option.options.LocalDirOpt;
+import com.gtnexus.pmm.cli.option.options.HelpOption;
+import com.gtnexus.pmm.cli.option.options.LocalDirOption;
 import com.gtnexus.pmm.cli.option.options.ModuleOption;
 import com.gtnexus.pmm.cli.option.options.SelectOption;
 import com.gtnexus.pmm.commons.command.AbstractSubCommand;
@@ -34,10 +34,10 @@ public class DocGenCommand extends AbstractSubCommand {
 
     private static final String NAME = "pmdocgen";
 
-    public static final CommandOption helpOpt = new HelpOpt();
+    public static final CommandOption helpOpt = new HelpOption();
     public static final CommandOption customerOpt = new CustomerOption();
     public static final CommandOption moduleOpt = new ModuleOption();
-    public static final CommandOption localDirOpt = new LocalDirOpt();
+    public static final CommandOption localDirOpt = new LocalDirOption();
     public static final CommandOption selectOpt = new SelectOption();
 
     private final WorkbookRenderer renderer;

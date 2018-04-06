@@ -6,7 +6,7 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.SubCommandMarker;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.options.LocalDirOpt;
+import com.gtnexus.pmm.cli.option.options.LocalDirOption;
 import com.gtnexus.pmm.commons.command.AbstractSubCommand;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
@@ -42,7 +42,7 @@ public class BuildCommand extends AbstractSubCommand {
     @Override
     public void execute() throws AppXpressException {
 	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
-	optionsMap.put(new LocalDirOpt(), this.getServices().getEnvironmentService().getLocalDir().toString());
+	optionsMap.put(new LocalDirOption(), this.getServices().getEnvironmentService().getLocalDir().toString());
 	PMBuilderVO vo = genValueObj(optionsMap);
 	BuildPrep prep = new BuildPrep(
 		this.getServices().getFileService(),

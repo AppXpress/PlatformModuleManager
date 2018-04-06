@@ -1,17 +1,26 @@
 package com.gtnexus.pmm.cli.option.options;
 
+import com.gtnexus.pmm.cli.asker.ValidityProvider;
+import com.gtnexus.pmm.cli.option.AbstractCommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 
-public class HelpOpt implements CommandOption {
+public class LocalDirOption  extends AbstractCommandOption implements CommandOption {
+    
+    public static final String  NAME = "localDir";
+    public static final String  FLAG = "ld";
+
+    private final OptionMessageProvider msgProvider = new OptionMessageProvider();
+    private final ValidityProvider validityProvider = new ValidityProvider();
 
     @Override
     public String getLongName() {
-	return "help";
+	return NAME;
     }
 
     @Override
     public String getFlag() {
-	return "h";
+	return FLAG;
     }
 
     @Override
@@ -21,37 +30,37 @@ public class HelpOpt implements CommandOption {
 
     @Override
     public String getDescription() {
-	return "Display usage for this tool";
+	return "Relative path of git staging folder.";
     }
 
     @Override
     public boolean hasArg() {
-	return false;
+	return true;
     }
 
     @Override
     public boolean isHelpFlag() {
-	return true;
-    }
-
-    @Override
-    public String getMessage() {
-	return "we have no msg :(";
-    }
-
-    @Override
-    public boolean isAppXpressMandatory() {
 	return false;
     }
 
     @Override
-    public boolean shouldBeOmitted() {
+    public String getMessage() {
+	return msgProvider.getMessage(this.getType(), this.getLongName());
+    }
+
+    @Override
+    public boolean isAppXpressMandatory() {
 	return true;
     }
 
     @Override
+    public boolean shouldBeOmitted() {
+	return false;
+    }
+
+    @Override
     public boolean isValid(String val) {
-	return true;
+	return validityProvider.isValid(val, this.getType());
     }
 
     @Override
@@ -61,7 +70,7 @@ public class HelpOpt implements CommandOption {
 
     @Override
     public boolean isStoreableProperty() {
-	return false;
+	return true;
     }
 
 }

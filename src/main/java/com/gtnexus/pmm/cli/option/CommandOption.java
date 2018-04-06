@@ -4,8 +4,8 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.cli.option.options.CustomerOption;
-import com.gtnexus.pmm.cli.option.options.HelpOpt;
-import com.gtnexus.pmm.cli.option.options.LocalDirOpt;
+import com.gtnexus.pmm.cli.option.options.HelpOption;
+import com.gtnexus.pmm.cli.option.options.LocalDirOption;
 import com.gtnexus.pmm.cli.option.options.ModuleOption;
 import com.gtnexus.pmm.cli.option.options.SelectOption;
 
@@ -51,10 +51,10 @@ public interface CommandOption {
 
     public class Helper {
 
-	public static CommandOption HELP = new HelpOpt();
+	public static CommandOption HELP = new HelpOption();
 	public static CommandOption CUSTOMER = new CustomerOption();
 	public static CommandOption MODULE = new ModuleOption();
-	public static CommandOption LOCAL_DIR = new LocalDirOpt();
+	public static CommandOption LOCAL_DIR = new LocalDirOption();
 	public static CommandOption SELECT = new SelectOption();
 
 	private static final Set<CommandOption> standardOpts = new ImmutableSet.Builder<CommandOption>()
