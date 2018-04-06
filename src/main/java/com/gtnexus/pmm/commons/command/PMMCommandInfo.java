@@ -2,7 +2,7 @@ package com.gtnexus.pmm.commons.command;
 
 import java.util.Set;
 
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 
 public interface PMMCommandInfo {
 
@@ -12,6 +12,6 @@ public interface PMMCommandInfo {
 
     public String getHelpFooter();
 
-    public  Set<CLICommandOption> getOptions();
+    public  Set<CommandOption> getOptions();
     
 }

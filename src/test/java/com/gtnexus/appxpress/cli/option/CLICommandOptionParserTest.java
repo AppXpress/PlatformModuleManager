@@ -11,14 +11,14 @@ import org.junit.Test;
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
-import com.gtnexus.pmm.cli.option.CLICommandOptionParser;
+import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.cli.option.CommandOptionParser;
 import com.gtnexus.pmm.cli.option.ParsedOptions;
 
 public class CLICommandOptionParserTest {
 
-    private final Set<CLICommandOption> optSet = new ImmutableSet.Builder<CLICommandOption>().add(DummyOption.DUMMY).build();
-    private final CLICommandOptionParser parser = CLICommandOptionParser.createParser(optSet);
+    private final Set<CommandOption> optSet = new ImmutableSet.Builder<CommandOption>().add(DummyOption.DUMMY).build();
+    private final CommandOptionParser parser = CommandOptionParser.createParser(optSet);
 
     @Test
     public void testParse() throws Exception {

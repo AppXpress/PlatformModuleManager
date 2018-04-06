@@ -16,7 +16,7 @@ import com.gtnexus.pmm.cli.option.options.SelectOption;
  * @author jdonovan
  *
  */
-public interface CLICommandOption {
+public interface CommandOption {
     @Override
     public String toString();
 
@@ -51,13 +51,13 @@ public interface CLICommandOption {
 
     public class Helper {
 
-	public static CLICommandOption HELP = new HelpOpt();
-	public static CLICommandOption CUSTOMER = new CustomerOption();
-	public static CLICommandOption MODULE = new ModuleOption();
-	public static CLICommandOption LOCAL_DIR = new LocalDirOpt();
-	public static CLICommandOption SELECT = new SelectOption();
+	public static CommandOption HELP = new HelpOpt();
+	public static CommandOption CUSTOMER = new CustomerOption();
+	public static CommandOption MODULE = new ModuleOption();
+	public static CommandOption LOCAL_DIR = new LocalDirOpt();
+	public static CommandOption SELECT = new SelectOption();
 
-	private static final Set<CLICommandOption> standardOpts = new ImmutableSet.Builder<CLICommandOption>()
+	private static final Set<CommandOption> standardOpts = new ImmutableSet.Builder<CommandOption>()
 		.add(HELP)
 		.add(CUSTOMER)
 		.add(MODULE)
@@ -65,7 +65,7 @@ public interface CLICommandOption {
 		.add(SELECT)
 		.build();
 
-	public static Set<CLICommandOption> standardOptions() {
+	public static Set<CommandOption> standardOptions() {
 	    return standardOpts;
 	}
     }

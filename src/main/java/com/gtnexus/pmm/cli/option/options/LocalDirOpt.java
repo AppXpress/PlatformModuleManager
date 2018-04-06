@@ -1,10 +1,10 @@
 package com.gtnexus.pmm.cli.option.options;
 
 import com.gtnexus.pmm.cli.asker.ValidityProvider;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 
-public class LocalDirOpt implements CLICommandOption {
+public class LocalDirOpt implements CommandOption {
     
     public static final String  NAME = "localDir";
     public static final String  FLAG = "ld";

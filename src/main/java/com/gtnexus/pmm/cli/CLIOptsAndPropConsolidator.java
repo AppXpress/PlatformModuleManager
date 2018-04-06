@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.gtnexus.pmm.cli.asker.Asker;
 import com.gtnexus.pmm.cli.asker.SimpleAsker;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
 /**
@@ -22,8 +22,8 @@ import com.gtnexus.pmm.commons.properties.PMProperties;
  */
 public class CLIOptsAndPropConsolidator {
 
-    private final Map<CLICommandOption, String> userArgs;
-    private final Set<CLICommandOption> optSet;
+    private final Map<CommandOption, String> userArgs;
+    private final Set<CommandOption> optSet;
     private final PMProperties properties;
     private final SimpleAsker asker;
 
@@ -35,7 +35,7 @@ public class CLIOptsAndPropConsolidator {
      * @param properties
      *            Properties file read from user's AppXpress directory.
      */
-    public CLIOptsAndPropConsolidator(Map<CLICommandOption, String> userArgs, Set<CLICommandOption> optSet, PMProperties properties) {
+    public CLIOptsAndPropConsolidator(Map<CommandOption, String> userArgs, Set<CommandOption> optSet, PMProperties properties) {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
@@ -52,7 +52,7 @@ public class CLIOptsAndPropConsolidator {
      * @param printStream
      *            CLICommandOptionhe printStream that this consolidator should write to.
      */
-    public CLIOptsAndPropConsolidator(Map<CLICommandOption, String> userArgs, Set<CLICommandOption> optSet, PMProperties properties, InputStream inputStream, PrintStream printStream) {
+    public CLIOptsAndPropConsolidator(Map<CommandOption, String> userArgs, Set<CommandOption> optSet, PMProperties properties, InputStream inputStream, PrintStream printStream) {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
@@ -62,9 +62,9 @@ public class CLIOptsAndPropConsolidator {
     /**
      * @return the map of consolidated ExtractorOptions and their values.
      */
-    public Map<CLICommandOption, String> consolidate() {
-	final Map<CLICommandOption, String> optMap = new HashMap<>();
-	for (CLICommandOption opt : optSet) {
+    public Map<CommandOption, String> consolidate() {
+	final Map<CommandOption, String> optMap = new HashMap<>();
+	for (CommandOption opt : optSet) {
 	    if (!opt.shouldBeOmitted()) {
 		String val = consolidateSingle(opt);
 		optMap.put(opt, val);
@@ -79,7 +79,7 @@ public class CLIOptsAndPropConsolidator {
      *            the option we are consolidating
      * @return the consolidated result
      */
-    private String consolidateSingle(CLICommandOption option) {
+    private String consolidateSingle(CommandOption option) {
 	String input = null;
 	String propVal = null;
 	if (option.isStoreableProperty()) {
@@ -100,7 +100,7 @@ public class CLIOptsAndPropConsolidator {
 	}
     }
 
-    private void storeIfAppropriate(CLICommandOption option, String input) {
+    private void storeIfAppropriate(CommandOption option, String input) {
 	if (option.isStoreableProperty()) {
 	    properties.put(option.getLongName(), input);
 	}
@@ -111,7 +111,7 @@ public class CLIOptsAndPropConsolidator {
      *            CLICommandOptionhe ExtractorOption to be query the user for.
      * @return CLICommandOptionhe value entered by the user.
      */
-    private String getParameterFromUser(CLICommandOption option) {
+    private String getParameterFromUser(CommandOption option) {
 	String val = asker.ask(option.getMessage());
 	while (!option.isValid(val)) {
 	    val = asker.ask(Asker.INVALID_INPUT);

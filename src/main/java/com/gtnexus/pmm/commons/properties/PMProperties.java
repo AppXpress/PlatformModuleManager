@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 
 /**
  * Simple wrapper around a File and Property objects.
@@ -41,7 +41,7 @@ public class PMProperties {
 	return properties.getProperty(property);
     }
 
-    public String getProperty(CLICommandOption opt) {
+    public String getProperty(CommandOption opt) {
 	return properties.getProperty(opt.getLongName());
     }
 

@@ -13,18 +13,18 @@ import com.google.common.base.Preconditions;
 
 public class ParsedOptions {
 
-    public static ParsedOptions createFrom(CLICommandOptionParser parser) {
+    public static ParsedOptions createFrom(CommandOptionParser parser) {
 	return createFrom(parser.getCommandLine(), parser.getOptions(), parser.getCliOptionSet());
     }
 
-    public static  ParsedOptions createFrom(CommandLine cmd, Options options, Set<CLICommandOption> optSet) {
+    public static  ParsedOptions createFrom(CommandLine cmd, Options options, Set<CommandOption> optSet) {
 	Preconditions.checkNotNull(cmd);
 	Preconditions.checkNotNull(options);
 	Preconditions.checkNotNull(optSet);
-	Map<CLICommandOption, String> optMap;
+	Map<CommandOption, String> optMap;
 	boolean helpFlagIsSet = false;
 	optMap = new HashMap<>();
-	for (CLICommandOption opt : optSet) {
+	for (CommandOption opt : optSet) {
 	    if (cmd.hasOption(opt.getLongName()) || cmd.hasOption(opt.getFlag())) {
 		optMap.put(opt, cmd.getOptionValue(opt.getLongName()));
 		if (opt.isHelpFlag()) {
@@ -38,22 +38,22 @@ public class ParsedOptions {
     // ---------------------------------------------------------------------------------------------
 
     private final Options options;
-    private final Map<CLICommandOption, String> optionsMap;
+    private final Map<CommandOption, String> optionsMap;
     private final boolean helpFlagIsSet;
-    private final Set<CLICommandOption> optSet;
+    private final Set<CommandOption> optSet;
 
-    public ParsedOptions(Options options, Map<CLICommandOption, String> optionsMap, Set<CLICommandOption> optSet) {
+    public ParsedOptions(Options options, Map<CommandOption, String> optionsMap, Set<CommandOption> optSet) {
 	this(options, optionsMap, false, optSet);
     }
 
-    public ParsedOptions(Options options, Map<CLICommandOption, String> optionsMap, boolean helpFlagIsSet, Set<CLICommandOption> optSet) {
+    public ParsedOptions(Options options, Map<CommandOption, String> optionsMap, boolean helpFlagIsSet, Set<CommandOption> optSet) {
 	this.options = options;
 	this.optionsMap = optionsMap;
 	this.helpFlagIsSet = helpFlagIsSet;
 	this.optSet = optSet;
     }
 
-    public Map<CLICommandOption, String> getOptionsMap() {
+    public Map<CommandOption, String> getOptionsMap() {
 	return optionsMap;
     }
 
@@ -68,15 +68,15 @@ public class ParsedOptions {
      *            the CLICommandOption being checked for.
      * @return false if parsing has not yet been performed.
      */
-    public boolean hasOption(CLICommandOption opt) {
+    public boolean hasOption(CommandOption opt) {
 	return optionsMap.containsKey(opt);
     }
 
-    public String getOption(CLICommandOption opt) {
+    public String getOption(CommandOption opt) {
 	return optionsMap.get(opt);
     }
 
-    public Set<CLICommandOption> getCliOptionSet() {
+    public Set<CommandOption> getCliOptionSet() {
 	return optSet;
     }
 
@@ -88,15 +88,15 @@ public class ParsedOptions {
 	return helpFlagIsSet;
     }
 
-    public void put(CLICommandOption opt, String val) {
+    public void put(CommandOption opt, String val) {
 	optionsMap.put(opt, val);
     }
 
-    public void put(CLICommandOption opt, Path val) {
+    public void put(CommandOption opt, Path val) {
 	put(opt, val.getFileName().toString());
     }
 
-    public void put(CLICommandOption opt, File val) {
+    public void put(CommandOption opt, File val) {
 	put(opt, val.getName());
     }
 

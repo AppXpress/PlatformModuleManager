@@ -11,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.options.CustomerOption;
 import com.gtnexus.pmm.cli.option.options.HelpOpt;
 import com.gtnexus.pmm.cli.option.options.LocalDirOpt;
@@ -34,15 +34,15 @@ public class DocGenCommand extends AbstractSubCommand {
 
     private static final String NAME = "pmdocgen";
 
-    public static final CLICommandOption helpOpt = new HelpOpt();
-    public static final CLICommandOption customerOpt = new CustomerOption();
-    public static final CLICommandOption moduleOpt = new ModuleOption();
-    public static final CLICommandOption localDirOpt = new LocalDirOpt();
-    public static final CLICommandOption selectOpt = new SelectOption();
+    public static final CommandOption helpOpt = new HelpOpt();
+    public static final CommandOption customerOpt = new CustomerOption();
+    public static final CommandOption moduleOpt = new ModuleOption();
+    public static final CommandOption localDirOpt = new LocalDirOpt();
+    public static final CommandOption selectOpt = new SelectOption();
 
     private final WorkbookRenderer renderer;
 
-    private static final Set<CLICommandOption> options = new ImmutableSet.Builder<CLICommandOption>()
+    private static final Set<CommandOption> options = new ImmutableSet.Builder<CommandOption>()
 	    .add(helpOpt)
 	    .add(customerOpt)
 	    .add(moduleOpt)
@@ -58,7 +58,7 @@ public class DocGenCommand extends AbstractSubCommand {
     @Override
     public void execute() throws AppXpressException {
 	// attachCleanUpHook(context);
-	Map<CLICommandOption, String> optionsMap = this.parse().getOptionsMap();
+	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
 	ModulePointer pointer = ModulePointer.make(optionsMap);
 	PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);
 	ModuleVO vo = interp.interpret();
@@ -88,11 +88,11 @@ public class DocGenCommand extends AbstractSubCommand {
     }
 
     @Override
-    public Set<CLICommandOption> getOptions() {
+    public Set<CommandOption> getOptions() {
 	return options;
     }
 
-    private String fileName(Map<CLICommandOption, String> optMap) {
+    private String fileName(Map<CommandOption, String> optMap) {
 	String fileNameTemplate = "%s-%s-TechnicalSpecification.xlsx";
 	return String.format(fileNameTemplate, optMap.get(customerOpt), optMap.get(moduleOpt));
     }

@@ -8,16 +8,16 @@ import java.util.Collection;
 import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.cli.Select;
-import com.gtnexus.pmm.cli.option.CLICommandOptionInterpreter;
-import com.gtnexus.pmm.cli.option.CLICommandOptionInterpreterImpl;
+import com.gtnexus.pmm.cli.option.CommandOptionInterpreter;
+import com.gtnexus.pmm.cli.option.CommandOptionInterpreterImpl;
 import com.gtnexus.pmm.cli.option.ParsedOptions;
 import com.gtnexus.pmm.commons.command.PMMCommandInfo;
 import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 import com.gtnexus.pmm.pmdocgen.DocGenCommand;
 
-public class DocumentGeneratorOptionInterpreter extends CLICommandOptionInterpreterImpl
-	implements CLICommandOptionInterpreter {
+public class DocumentGeneratorOptionInterpreter extends CommandOptionInterpreterImpl
+	implements CommandOptionInterpreter {
 
     private final AppXpressDirResolver resolver;
     private final Select<File> selector;

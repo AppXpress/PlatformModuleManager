@@ -1,10 +1,10 @@
 package com.gtnexus.pmm.cli.option.options;
 
 import com.gtnexus.pmm.cli.asker.ValidityProvider;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 
-public class SelectOption implements CLICommandOption {
+public class SelectOption implements CommandOption {
 
     private final OptionMessageProvider msgProvider = new OptionMessageProvider();
     private final ValidityProvider validityProvider = new ValidityProvider();

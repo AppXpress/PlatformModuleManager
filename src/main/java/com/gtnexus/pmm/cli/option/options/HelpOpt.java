@@ -1,8 +1,8 @@
 package com.gtnexus.pmm.cli.option.options;
 
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 
-public class HelpOpt implements CLICommandOption {
+public class HelpOpt implements CommandOption {
 
     @Override
     public String getLongName() {

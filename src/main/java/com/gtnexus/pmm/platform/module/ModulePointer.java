@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.pmdocgen.DocGenCommand;
 
 public class ModulePointer {
@@ -12,7 +12,7 @@ public class ModulePointer {
     private final File localDir;
     private final File targetModule;
 
-    public static ModulePointer make(Map<CLICommandOption, String> optMap) throws AppXpressException {
+    public static ModulePointer make(Map<CommandOption, String> optMap) throws AppXpressException {
 	File localDir = new File(optMap.get(DocGenCommand.localDirOpt));
 	File target = localDir.toPath().resolve(optMap.get(DocGenCommand.customerOpt))
 		.resolve(optMap.get(DocGenCommand.moduleOpt)).toFile();

@@ -18,15 +18,15 @@ import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
  * @author jdonovan
  *
  */
-public class CLICommandOptionParser {
+public class CommandOptionParser {
 
-    private final Set<CLICommandOption> cliOptionSet;
+    private final Set<CommandOption> cliOptionSet;
     private final Options options;
     private CommandLine cmd;
 
-    public static CLICommandOptionParser createParser(Set<CLICommandOption> cliOptSet) {
+    public static CommandOptionParser createParser(Set<CommandOption> cliOptSet) {
 	Options options = new Options();
-	for (CLICommandOption opt : cliOptSet) {
+	for (CommandOption opt : cliOptSet) {
 	    Option o = Option
 		    .builder(opt.getFlag())
 		    .longOpt(opt.getLongName())
@@ -37,7 +37,7 @@ public class CLICommandOptionParser {
 		    .build();
 	    options.addOption(o);
 	}
-	return new CLICommandOptionParser(cliOptSet, options);
+	return new CommandOptionParser(cliOptSet, options);
     }
 
     /**
@@ -47,7 +47,7 @@ public class CLICommandOptionParser {
      * @param cliOptionSet
      *            the option set defining what can be passed to this tool
      */
-    private CLICommandOptionParser(Set<CLICommandOption> cliOptionSet, Options options) {
+    private CommandOptionParser(Set<CommandOption> cliOptionSet, Options options) {
 	if (cliOptionSet == null) {
 	    throw new NullPointerException("Cannot parse for null option set.");
 	}
@@ -75,7 +75,7 @@ public class CLICommandOptionParser {
 	return cmd;
     }
 
-    public Set<CLICommandOption> getCliOptionSet() {
+    public Set<CommandOption> getCliOptionSet() {
 	return cliOptionSet;
     }
 

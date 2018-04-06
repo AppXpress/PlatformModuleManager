@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import com.gtnexus.appxpress.NullOutputStream;
 import com.gtnexus.pmm.cli.CLIOptsAndPropConsolidator;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 
@@ -27,14 +27,14 @@ import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
  */
 public class ArgsAndPropertiesConsolidatorTest {
 
-    private static Set<CLICommandOption> optSet = ExtractorOption.getAllOptions();
-    private Map<CLICommandOption, String> mandatoryFieldsAndVals;
+    private static Set<CommandOption> optSet = ExtractorOption.getAllOptions();
+    private Map<CommandOption, String> mandatoryFieldsAndVals;
     private static Set<ExtractorOption> allNonOmmitable;
 
 
     @Before
     public void before() {
-	mandatoryFieldsAndVals = new HashMap<CLICommandOption, String>();
+	mandatoryFieldsAndVals = new HashMap<CommandOption, String>();
 	mandatoryFieldsAndVals.put(ExtractorOption.PLATFORM_ZIP, "arg_myZip");
 	mandatoryFieldsAndVals.put(ExtractorOption.LOCAL_DIR, "arg_myLocalDir");
 	mandatoryFieldsAndVals.put(ExtractorOption.CUSTOMER, "arg_myCustomer");
@@ -48,7 +48,7 @@ public class ArgsAndPropertiesConsolidatorTest {
 	PMProperties properties = new PMProperties(new Properties(), new File(""));
 	CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(mandatoryFieldsAndVals, optSet,
 		properties, inputStreamFrom(), new PrintStream(new NullOutputStream()));
-	Map<CLICommandOption, String> consolidated = consolidator.consolidate();
+	Map<CommandOption, String> consolidated = consolidator.consolidate();
 	for (ExtractorOption option : allNonOmmitable) {
 	    if (!option.equals(ExtractorOption.SELECT)) {
 		assertNotNull(option.toString() + " is missing!", consolidated.get(option));
@@ -63,13 +63,13 @@ public class ArgsAndPropertiesConsolidatorTest {
     public void testWithArgsAndProps() {
 	mandatoryFieldsAndVals.remove(ExtractorOption.LOCAL_DIR);
 	mandatoryFieldsAndVals.remove(ExtractorOption.MODULE);
-	Map<CLICommandOption, String> args = mandatoryFieldsAndVals;
+	Map<CommandOption, String> args = mandatoryFieldsAndVals;
 	PMProperties properties = new PMProperties(new Properties(), new File(""));
 	properties.put(ExtractorOption.LOCAL_DIR.toString(), "prop_local_dir");
 	properties.put(ExtractorOption.MODULE.toString(), "prop_platform");
 	CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(args, optSet,
 		properties, inputStreamFrom("arg_customer", "arg_platform"), new PrintStream(new NullOutputStream()));
-	Map<CLICommandOption, String> consolidated = consolidator.consolidate();
+	Map<CommandOption, String> consolidated = consolidator.consolidate();
 	for (ExtractorOption option : allNonOmmitable) {
 	    if (option.equals(ExtractorOption.LOCAL_DIR)) {
 		assertTrue("The option was " + consolidated.get(option), consolidated.get(option).startsWith("prop_"));
@@ -85,23 +85,23 @@ public class ArgsAndPropertiesConsolidatorTest {
     @Test
     public void testWithArgsPropsAndInputStream() {
 	mandatoryFieldsAndVals.remove(ExtractorOption.LOCAL_DIR);
-	Map<CLICommandOption, String> args = mandatoryFieldsAndVals;
+	Map<CommandOption, String> args = mandatoryFieldsAndVals;
 	PMProperties properties = new PMProperties(new Properties(), new File(""));
 	properties.put(ExtractorOption.MODULE.toString(), "prop_platform");
 	CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(args, optSet,
 		properties, inputStreamFrom("some_local_dir", "Y"), new PrintStream(new NullOutputStream()));
-	Map<CLICommandOption, String> consolidated = consolidator.consolidate();
+	Map<CommandOption, String> consolidated = consolidator.consolidate();
 	assertTrue(consolidated.get(ExtractorOption.LOCAL_DIR).equals("some_local_dir"));
     }
 
     @Test
     public void testDefaultValForOptional() {
-	Map<CLICommandOption, String> args = mandatoryFieldsAndVals;
+	Map<CommandOption, String> args = mandatoryFieldsAndVals;
 	PMProperties properties = new PMProperties(new Properties(), new File(""));
 	properties.put(ExtractorOption.MODULE.toString(), "prop_platform");
 	CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(args, optSet,
 		properties, inputStreamFrom("some_local_dir", "Y"), new PrintStream(new NullOutputStream()));
-	Map<CLICommandOption, String> consolidated = consolidator.consolidate();
+	Map<CommandOption, String> consolidated = consolidator.consolidate();
 	assertTrue(consolidated.get(ExtractorOption.OVERWRITE_FEF).equals("Y"));
     }
 

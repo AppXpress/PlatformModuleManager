@@ -11,14 +11,14 @@ import com.gtnexus.pmm.cli.CLIOptsAndPropConsolidator;
 import com.gtnexus.pmm.commons.command.PMMCommandInfo;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
-public abstract class CLICommandOptionInterpreterImpl implements CLICommandOptionInterpreter {
+public abstract class CommandOptionInterpreterImpl implements CommandOptionInterpreter {
 
     private ParsedOptions parsedOptions;
     private final PMMCommandInfo app;
     // protected final SimpleShutdown shutdown;
     protected final PMProperties properties;
 
-    public CLICommandOptionInterpreterImpl(PMMCommandInfo app, /* SimpleShutdown shutdown, */ ParsedOptions parsedOptions,
+    public CommandOptionInterpreterImpl(PMMCommandInfo app, /* SimpleShutdown shutdown, */ ParsedOptions parsedOptions,
 	    PMProperties properties) {
 	this.app = app;
 	// this.shutdown = shutdown;
@@ -27,7 +27,7 @@ public abstract class CLICommandOptionInterpreterImpl implements CLICommandOptio
     }
 
     @Override
-    public final Map<CLICommandOption, String> interpret() throws AppXpressException {
+    public final Map<CommandOption, String> interpret() throws AppXpressException {
 	// code smell: why is the interpreter trying to exit? individual sub commands
 	// should control that.
 	if (parsedOptions.isHelpFlagSet()) {
@@ -40,11 +40,11 @@ public abstract class CLICommandOptionInterpreterImpl implements CLICommandOptio
 	parsedOptions = performCustomInterpretation(parsedOptions);
 	CLIOptsAndPropConsolidator consolidator = new CLIOptsAndPropConsolidator(parsedOptions.getOptionsMap(),
 		parsedOptions.getCliOptionSet(), properties);
-	Map<CLICommandOption, String> optMap = consolidator.consolidate();
+	Map<CommandOption, String> optMap = consolidator.consolidate();
 	return optMap;
     }
 
-    protected boolean isCustomerFolder(Path dir, CLICommandOption localDirKey) throws AppXpressException {
+    protected boolean isCustomerFolder(Path dir, CommandOption localDirKey) throws AppXpressException {
 	final String localDir = resolveLocalDir(localDirKey);
 	if (localDir == null || localDir.isEmpty()) {
 	    throw new AppXpressException("Local Directory property is not set. "
@@ -58,7 +58,7 @@ public abstract class CLICommandOptionInterpreterImpl implements CLICommandOptio
 	return false;
     }
 
-    private String resolveLocalDir(CLICommandOption localDirKey) {
+    private String resolveLocalDir(CommandOption localDirKey) {
 	if (parsedOptions.hasOption(localDirKey)) {
 	    return parsedOptions.getOption(localDirKey);
 	}

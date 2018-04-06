@@ -5,8 +5,8 @@ import java.util.Set;
 import com.google.common.base.Preconditions;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
-import com.gtnexus.pmm.cli.option.CLICommandOptionParser;
+import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.cli.option.CommandOptionParser;
 import com.gtnexus.pmm.cli.option.ParsedOptions;
 
 public abstract class AbstractSubCommand implements SubCommand {
@@ -30,14 +30,14 @@ public abstract class AbstractSubCommand implements SubCommand {
     }
     
     protected ParsedOptions parse() throws AppXpressException {
-	return CLICommandOptionParser
+	return CommandOptionParser
 		.createParser(this.getOptions())
 		.parse(this.args);
     }
     
     @Override
-    public Set<CLICommandOption> getOptions() {
-	return CLICommandOption.Helper.standardOptions();
+    public Set<CommandOption> getOptions() {
+	return CommandOption.Helper.standardOptions();
     }
     
 }

@@ -19,7 +19,7 @@ import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.commons.file.FileService;
@@ -43,7 +43,7 @@ public class GitMapper implements Mapper {
     private final Preparation<GitMapVO> prep;
     private final FileService fs;
 
-    public static GitMapper createMapper(PlatformModuleManagerServices services, Map<CLICommandOption, String> optionMap) {
+    public static GitMapper createMapper(PlatformModuleManagerServices services, Map<CommandOption, String> optionMap) {
 	if (optionMap.containsKey(ExtractorOption.PLATFORM_ZIP)) {
 	    String platformZip = optionMap.get(ExtractorOption.PLATFORM_ZIP);
 	    if (!platformZip.endsWith(ZIP_EXTENSION)) {
@@ -54,7 +54,7 @@ public class GitMapper implements Mapper {
 	return new GitMapper(services, optionMap);
     }
 
-    public GitMapper(PlatformModuleManagerServices services, Map<CLICommandOption, String> optionMap) {
+    public GitMapper(PlatformModuleManagerServices services, Map<CommandOption, String> optionMap) {
 	this.vo = new GitMapVO(optionMap);
 	this.overwrittenScripts = new ArrayList<>();
 	this.prep = new GitMapPrep(services);

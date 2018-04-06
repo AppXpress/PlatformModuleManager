@@ -5,14 +5,14 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.cli.asker.ValidityProvider;
-import com.gtnexus.pmm.cli.option.CLICommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in
  * from the CLI.
  */
-public enum ExtractorOption implements CLICommandOption {
+public enum ExtractorOption implements CommandOption {
 
     HELP("h", "help", String.class, "Display usage for this tool", false, false, null),
     PLATFORM_ZIP("pz", "platformZip", String.class, "Exported Platform Module Name", true, true, null),
@@ -33,7 +33,7 @@ public enum ExtractorOption implements CLICommandOption {
     private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
     private static final ValidityProvider validityProvider = new ValidityProvider();
 
-    private final static Set<CLICommandOption> allOptions = new ImmutableSet.Builder<CLICommandOption>()
+    private final static Set<CommandOption> allOptions = new ImmutableSet.Builder<CommandOption>()
 	    .addAll(EnumSet.allOf(ExtractorOption.class)).build();
 
     /**
@@ -141,7 +141,7 @@ public enum ExtractorOption implements CLICommandOption {
 	return this.equals(HELP);
     }
 
-    public static Set<CLICommandOption> getAllOptions() {
+    public static Set<CommandOption> getAllOptions() {
 	return allOptions;
     }
 
