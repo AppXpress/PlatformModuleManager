@@ -112,11 +112,24 @@ public class OptsAndPropConsolidator {
      * @return CLICommandOptionhe value entered by the user.
      */
     private String getParameterFromUser(CommandOption option) {
-	String val = asker.prompt(option.getMessage());
+	String val = asker.prompt(getMessage(option));
 	while (!option.isValid(val)) {
 	    val = asker.prompt(Prompt.INVALID_INPUT);
 	}
 	return val;
+    }
+    
+    private String getMessage(CommandOption option) {
+	Class<?> type = option.getType();
+	String name = option.getLongName();
+	if (type.equals(Integer.class)) {
+	    return ("Please enter the number of " + name + "(s): ");
+	} else if (type.equals(String.class)) {
+	    return ("Please enter " + name + ": ");
+	} else if (type.equals(Boolean.class)) {
+	    return ("Do you want " + name + "? [y/n]: ");
+	}
+	throw new IllegalArgumentException("Option type" + type.toString() + " is unsupported");
     }
 
 }

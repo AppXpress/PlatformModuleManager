@@ -2,7 +2,6 @@ package com.gtnexus.pmm.cli.option.options;
 
 import com.gtnexus.pmm.cli.option.AbstractCommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 import com.gtnexus.pmm.cli.prompt.ValidityProvider;
 
 public class LocalDirOption  extends AbstractCommandOption implements CommandOption {
@@ -10,7 +9,6 @@ public class LocalDirOption  extends AbstractCommandOption implements CommandOpt
     public static final String  NAME = "localDir";
     public static final String  FLAG = "ld";
 
-    private final OptionMessageProvider msgProvider = new OptionMessageProvider();
     private final ValidityProvider validityProvider = new ValidityProvider();
 
     @Override
@@ -41,11 +39,6 @@ public class LocalDirOption  extends AbstractCommandOption implements CommandOpt
     @Override
     public boolean isHelpFlag() {
 	return false;
-    }
-
-    @Override
-    public String getMessage() {
-	return msgProvider.getMessage(this.getType(), this.getLongName());
     }
 
     @Override

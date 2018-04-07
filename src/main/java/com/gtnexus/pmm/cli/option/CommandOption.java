@@ -33,9 +33,6 @@ public interface CommandOption {
     public boolean isHelpFlag();
 
     // TODO: remove
-    public String getMessage();
-
-    // TODO: remove
     public boolean isAppXpressMandatory();
 
     // TODO: remove

@@ -36,11 +36,6 @@ public class HelpOption  extends AbstractCommandOption implements CommandOption 
     }
 
     @Override
-    public String getMessage() {
-	return "we have no msg :(";
-    }
-
-    @Override
     public boolean isAppXpressMandatory() {
 	return false;
     }

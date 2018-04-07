@@ -2,12 +2,10 @@ package com.gtnexus.pmm.cli.option.options;
 
 import com.gtnexus.pmm.cli.option.AbstractCommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 import com.gtnexus.pmm.cli.prompt.ValidityProvider;
 
 public class CustomerOption extends AbstractCommandOption implements CommandOption {
 
-    private final OptionMessageProvider msgProvider = new OptionMessageProvider();
     private final ValidityProvider validityProvider = new ValidityProvider();
 
     @Override
@@ -38,11 +36,6 @@ public class CustomerOption extends AbstractCommandOption implements CommandOpti
     @Override
     public boolean isHelpFlag() {
 	return false;
-    }
-
-    @Override
-    public String getMessage() {
-	return msgProvider.getMessage(this.getType(), this.getLongName());
     }
 
     @Override

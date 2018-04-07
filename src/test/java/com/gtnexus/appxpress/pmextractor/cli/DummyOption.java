@@ -37,12 +37,6 @@ public enum DummyOption implements CommandOption {
     }
 
     @Override
-    public String getMessage() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
     public boolean isAppXpressMandatory() {
 	// TODO Auto-generated method stub
 	return false;

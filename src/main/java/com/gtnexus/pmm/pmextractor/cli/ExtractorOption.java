@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.OptionMessageProvider;
 import com.gtnexus.pmm.cli.prompt.ValidityProvider;
 
 /**
@@ -30,7 +29,6 @@ public enum ExtractorOption implements CommandOption {
     private final boolean isMandatory;
     private final String defaultValue;
     private final String description;
-    private static final OptionMessageProvider msgProvider = new OptionMessageProvider();
     private static final ValidityProvider validityProvider = new ValidityProvider();
 
     private final static Set<CommandOption> allOptions = new ImmutableSet.Builder<CommandOption>()
@@ -70,11 +68,6 @@ public enum ExtractorOption implements CommandOption {
     @Override
     public Class<?> getType() {
 	return type;
-    }
-
-    @Override
-    public String getMessage() {
-	return msgProvider.getMessage(type, longName);
     }
 
     @Override
