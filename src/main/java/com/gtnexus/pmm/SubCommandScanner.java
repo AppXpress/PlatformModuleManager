@@ -10,6 +10,7 @@ import org.reflections.util.ConfigurationBuilder;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.command.CLICommand;
 

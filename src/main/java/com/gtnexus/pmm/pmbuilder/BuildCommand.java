@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
 import com.gtnexus.pmm.cli.option.CommandOption;

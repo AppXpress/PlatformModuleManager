@@ -1,4 +1,4 @@
-package com.gtnexus.pmm;
+package com.gtnexus.pmm.api.v100.command;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

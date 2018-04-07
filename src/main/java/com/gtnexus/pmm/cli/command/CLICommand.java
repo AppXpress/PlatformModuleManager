@@ -3,9 +3,9 @@ package com.gtnexus.pmm.cli.command;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import com.gtnexus.pmm.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
 import com.gtnexus.pmm.api.v100.command.Command;
+import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 
 public interface CLICommand {
