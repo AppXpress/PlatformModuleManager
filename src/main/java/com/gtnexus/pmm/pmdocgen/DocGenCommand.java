@@ -10,14 +10,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.options.CustomerOption;
 import com.gtnexus.pmm.cli.option.options.HelpOption;
 import com.gtnexus.pmm.cli.option.options.LocalDirOption;
 import com.gtnexus.pmm.cli.option.options.ModuleOption;
 import com.gtnexus.pmm.cli.option.options.SelectOption;
-import com.gtnexus.pmm.commons.command.AbstractSubCommand;
 import com.gtnexus.pmm.platform.module.ModulePointer;
 import com.gtnexus.pmm.platform.module.ModuleVO;
 import com.gtnexus.pmm.platform.module.interpretation.PlatformModuleInterpreter;

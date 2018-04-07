@@ -1,9 +1,9 @@
-package com.gtnexus.pmm.cli.asker;
+package com.gtnexus.pmm.cli.prompt;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class BoundIntegerAsker extends IntegerAsker {
+public class BoundIntegerAsker extends IntegerPrompt {
 
     private Integer high, low;
 
@@ -17,7 +17,7 @@ public class BoundIntegerAsker extends IntegerAsker {
 	super(in, out);
     }
 
-    public BoundIntegerAsker(SimpleAsker asker) {
+    public BoundIntegerAsker(SimplePrompt asker) {
 	super(asker);
     }
 

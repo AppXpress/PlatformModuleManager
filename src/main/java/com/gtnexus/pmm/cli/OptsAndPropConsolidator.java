@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.gtnexus.pmm.cli.asker.Asker;
-import com.gtnexus.pmm.cli.asker.SimpleAsker;
 import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.cli.prompt.Prompt;
+import com.gtnexus.pmm.cli.prompt.SimplePrompt;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
 /**
@@ -25,7 +25,7 @@ public class OptsAndPropConsolidator {
     private final Map<CommandOption, String> userArgs;
     private final Set<CommandOption> optSet;
     private final PMProperties properties;
-    private final SimpleAsker asker;
+    private final SimplePrompt asker;
 
     /**
      * 
@@ -39,7 +39,7 @@ public class OptsAndPropConsolidator {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
-	this.asker = new SimpleAsker(System.in, System.out);
+	this.asker = new SimplePrompt(System.in, System.out);
     }
 
     /**
@@ -56,7 +56,7 @@ public class OptsAndPropConsolidator {
 	this.userArgs = userArgs;
 	this.optSet = optSet;
 	this.properties = properties;
-	this.asker = new SimpleAsker(inputStream, printStream);
+	this.asker = new SimplePrompt(inputStream, printStream);
     }
 
     /**
@@ -112,9 +112,9 @@ public class OptsAndPropConsolidator {
      * @return CLICommandOptionhe value entered by the user.
      */
     private String getParameterFromUser(CommandOption option) {
-	String val = asker.ask(option.getMessage());
+	String val = asker.prompt(option.getMessage());
 	while (!option.isValid(val)) {
-	    val = asker.ask(Asker.INVALID_INPUT);
+	    val = asker.prompt(Prompt.INVALID_INPUT);
 	}
 	return val;
     }

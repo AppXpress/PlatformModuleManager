@@ -7,8 +7,8 @@ import java.util.Map;
 import org.apache.commons.cli.HelpFormatter;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.PMMCommandInfo;
 import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
-import com.gtnexus.pmm.commons.command.PMMCommandInfo;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
 public abstract class CommandOptionInterpreterImpl implements CommandOptionInterpreter {

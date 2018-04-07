@@ -1,17 +1,17 @@
 package com.gtnexus.pmm.commons.properties;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.asker.Asker;
-import com.gtnexus.pmm.cli.asker.SimpleAsker;
+import com.gtnexus.pmm.cli.prompt.Prompt;
+import com.gtnexus.pmm.cli.prompt.SimplePrompt;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
 
 public class PropertiesPersister {
 
-    private Asker<String> asker;
+    private Prompt<String> asker;
     private PMProperties properties;
 
     public PropertiesPersister(PMProperties properties) {
-	this.asker = new SimpleAsker(System.in, System.out);
+	this.asker = new SimplePrompt(System.in, System.out);
 	this.properties = properties;
     }
 
@@ -42,9 +42,9 @@ public class PropertiesPersister {
      * @return
      */
     private String askSaveQuestion() {
-	String answer = asker.ask("Save settings? [y/n]: ");
+	String answer = asker.prompt("Save settings? [y/n]: ");
 	while (!answer.equalsIgnoreCase("Y") && !answer.equalsIgnoreCase("N")) {
-	    answer = asker.ask(Asker.INVALID_INPUT);
+	    answer = asker.prompt(Prompt.INVALID_INPUT);
 	}
 	return answer;
     }

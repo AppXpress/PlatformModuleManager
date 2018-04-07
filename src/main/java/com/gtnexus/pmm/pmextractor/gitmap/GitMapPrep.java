@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import com.gtnexus.pmm.AppXpressConstants;
 import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.commons.HasPrerequisite;
 import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;

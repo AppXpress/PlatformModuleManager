@@ -1,4 +1,4 @@
-package com.gtnexus.pmm;
+package com.gtnexus.pmm.api.v100.service;
 
 import java.io.File;
 

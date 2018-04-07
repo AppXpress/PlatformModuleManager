@@ -1,15 +1,15 @@
-package com.gtnexus.pmm.cli.asker;
+package com.gtnexus.pmm.cli.prompt;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class IntegerAsker extends SimpleTypedAsker<Integer> {
+public class IntegerPrompt extends SimpleTypedPrompt<Integer> {
 
-    public IntegerAsker(InputStream in, PrintStream out) {
+    public IntegerPrompt(InputStream in, PrintStream out) {
 	super(in, out);
     }
 
-    public IntegerAsker(SimpleAsker asker) {
+    public IntegerPrompt(SimplePrompt asker) {
 	super(asker);
     }
 
@@ -18,8 +18,7 @@ public class IntegerAsker extends SimpleTypedAsker<Integer> {
 	Integer r = null;
 	try {
 	    r = Integer.valueOf(m);
-	} catch (NumberFormatException e) {
-	}
+	} catch (NumberFormatException e) {}
 	return r;
     }
 

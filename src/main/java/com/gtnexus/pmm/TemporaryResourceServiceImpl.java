@@ -2,6 +2,8 @@ package com.gtnexus.pmm;
 
 import java.io.File;
 
+import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
+
 public class TemporaryResourceServiceImpl implements TemporaryResourceService {
 
     @Override

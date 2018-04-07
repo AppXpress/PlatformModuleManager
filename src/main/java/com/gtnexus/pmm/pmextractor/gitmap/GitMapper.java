@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;

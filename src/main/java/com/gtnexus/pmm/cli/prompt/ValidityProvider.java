@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli.asker;
+package com.gtnexus.pmm.cli.prompt;
 
 public class ValidityProvider {
 

@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli.asker;
+package com.gtnexus.pmm.cli.prompt;
 
 /**
  * 
@@ -6,10 +6,10 @@ package com.gtnexus.pmm.cli.asker;
  *
  * @param <T>
  */
-public interface Asker<T> {
+public interface Prompt<T> {
 
     public static final String INVALID_INPUT = "Invalid input. Please try again.";
 
-    public T ask(String message);
+    public T prompt(String message);
 
 }

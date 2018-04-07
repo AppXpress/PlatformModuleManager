@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.commons.command;
+package com.gtnexus.pmm.api.v100.command;
 
 import java.util.Set;
 

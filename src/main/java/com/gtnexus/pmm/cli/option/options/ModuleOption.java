@@ -1,9 +1,9 @@
 package com.gtnexus.pmm.cli.option.options;
 
-import com.gtnexus.pmm.cli.asker.ValidityProvider;
 import com.gtnexus.pmm.cli.option.AbstractCommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.OptionMessageProvider;
+import com.gtnexus.pmm.cli.prompt.ValidityProvider;
 
 public class ModuleOption  extends AbstractCommandOption implements CommandOption {
 

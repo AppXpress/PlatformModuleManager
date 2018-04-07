@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.PlatformModuleManagerServices;
 import com.gtnexus.pmm.SubCommandMarker;
+import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.ParsedOptions;
-import com.gtnexus.pmm.commons.command.AbstractSubCommand;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;

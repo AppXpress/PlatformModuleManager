@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Collection;
 
-import com.gtnexus.pmm.cli.asker.Asker;
-import com.gtnexus.pmm.cli.asker.BoundIntegerAsker;
-import com.gtnexus.pmm.cli.asker.SimpleAsker;
+import com.gtnexus.pmm.cli.prompt.BoundIntegerAsker;
+import com.gtnexus.pmm.cli.prompt.Prompt;
+import com.gtnexus.pmm.cli.prompt.SimplePrompt;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class FileSelector implements Select<File> {
 	this.asker = asker;
     }
 
-    public FileSelector(SimpleAsker asker) {
+    public FileSelector(SimplePrompt asker) {
 	this.asker = new BoundIntegerAsker(asker);
     }
 
@@ -68,9 +68,9 @@ public class FileSelector implements Select<File> {
      * @return
      */
     private Integer getSelectionFromUser(String message) {
-	Integer selection = asker.ask(message);
+	Integer selection = asker.prompt(message);
 	while (selection == null) {
-	    selection = asker.ask(Asker.INVALID_INPUT);
+	    selection = asker.prompt(Prompt.INVALID_INPUT);
 	}
 	return selection - 1;
     }

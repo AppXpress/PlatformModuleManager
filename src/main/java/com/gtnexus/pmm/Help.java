@@ -5,8 +5,9 @@ import java.util.Set;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
+import com.gtnexus.pmm.api.v100.command.Command;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.command.CLICommand;
-import com.gtnexus.pmm.commons.command.Command;
 
 public class Help implements CLICommand {
 

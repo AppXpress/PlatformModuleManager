@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 
 import com.gtnexus.appxpress.NullOutputStream;
 import com.gtnexus.pmm.cli.FileSelector;
-import com.gtnexus.pmm.cli.asker.BoundIntegerAsker;
+import com.gtnexus.pmm.cli.prompt.BoundIntegerAsker;
 
 public class PlatformSelectorTest {
 
@@ -25,7 +25,7 @@ public class PlatformSelectorTest {
 		files[i] = new File("File" + i);
 	    }
 	    BoundIntegerAsker asker = Mockito.mock(BoundIntegerAsker.class);
-	    Mockito.when(asker.ask(Matchers.anyString())).thenReturn(1);
+	    Mockito.when(asker.prompt(Matchers.anyString())).thenReturn(1);
 	    out = new PrintStream(new NullOutputStream());
 	    FileSelector selector = new FileSelector(asker);
 	    File f = selector.select(Arrays.asList(files));

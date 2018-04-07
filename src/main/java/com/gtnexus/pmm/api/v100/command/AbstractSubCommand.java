@@ -1,10 +1,10 @@
-package com.gtnexus.pmm.commons.command;
+package com.gtnexus.pmm.api.v100.command;
 
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.PlatformModuleManagerServices;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.CommandOptionParser;
 import com.gtnexus.pmm.cli.option.ParsedOptions;

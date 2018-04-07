@@ -1,5 +1,8 @@
 package com.gtnexus.pmm;
 
+import com.gtnexus.pmm.api.v100.service.EnvironmentService;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
+import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
 import com.gtnexus.pmm.commons.ZipService;
 import com.gtnexus.pmm.commons.file.FileService;
 import com.gtnexus.pmm.commons.properties.PMProperties;

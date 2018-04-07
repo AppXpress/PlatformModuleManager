@@ -1,6 +1,6 @@
 package com.gtnexus.pmm.cli.option;
 
-import com.gtnexus.pmm.commons.command.Command;
+import com.gtnexus.pmm.api.v100.command.Command;
 
 public class OptionMessageProvider {
 
