@@ -1,4 +1,4 @@
-package com.gtnexus.pmm;
+package com.gtnexus.pmm.service;
 
 import static com.gtnexus.pmm.AppXpressConstants.LIB;
 

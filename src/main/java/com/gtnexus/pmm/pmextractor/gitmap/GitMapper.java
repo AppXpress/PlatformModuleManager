@@ -18,13 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;
-import com.gtnexus.pmm.commons.file.FileService;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
+import com.gtnexus.pmm.service.FileServiceImpl;
 
 /**
  * Relies on Preparation, then takes extracted platform and maps it to the
@@ -58,7 +59,7 @@ public class GitMapper implements Mapper {
 	this.vo = new GitMapVO(optionMap);
 	this.overwrittenScripts = new ArrayList<>();
 	this.prep = new GitMapPrep(services);
-	this.fs = new FileService();
+	this.fs = new FileServiceImpl();
     }
 
     /**

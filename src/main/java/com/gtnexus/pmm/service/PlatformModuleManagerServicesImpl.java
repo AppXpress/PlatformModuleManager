@@ -1,10 +1,10 @@
-package com.gtnexus.pmm;
+package com.gtnexus.pmm.service;
 
 import com.gtnexus.pmm.api.v100.service.EnvironmentService;
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
-import com.gtnexus.pmm.commons.ZipService;
-import com.gtnexus.pmm.commons.file.FileService;
+import com.gtnexus.pmm.api.v100.service.ZipService;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 
 public class PlatformModuleManagerServicesImpl implements PlatformModuleManagerServices {
@@ -15,8 +15,8 @@ public class PlatformModuleManagerServicesImpl implements PlatformModuleManagerS
     private final ZipService zs;
     
     public PlatformModuleManagerServicesImpl(PMProperties properties, String[] args) {
-	this.fs = new FileService();
-	this.zs = new ZipService();
+	this.fs = new FileServiceImpl();
+	this.zs = new ZipServiceImpl();
 	this.es = new EnvironmentServiceImpl(properties, args);
 	this.ts = new TemporaryResourceServiceImpl();
     }

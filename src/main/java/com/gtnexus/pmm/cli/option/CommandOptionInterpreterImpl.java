@@ -4,8 +4,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-import org.apache.commons.cli.HelpFormatter;
-
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.command.PMMCommandInfo;
 import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
@@ -14,13 +12,13 @@ import com.gtnexus.pmm.commons.properties.PMProperties;
 public abstract class CommandOptionInterpreterImpl implements CommandOptionInterpreter {
 
     private ParsedOptions parsedOptions;
-    private final PMMCommandInfo app;
+//    private final PMMCommandInfo app;
     // protected final SimpleShutdown shutdown;
     protected final PMProperties properties;
 
     public CommandOptionInterpreterImpl(PMMCommandInfo app, /* SimpleShutdown shutdown, */ ParsedOptions parsedOptions,
 	    PMProperties properties) {
-	this.app = app;
+//	this.app = app;
 	// this.shutdown = shutdown;
 	this.parsedOptions = parsedOptions;
 	this.properties = properties;
@@ -31,9 +29,9 @@ public abstract class CommandOptionInterpreterImpl implements CommandOptionInter
 	// code smell: why is the interpreter trying to exit? individual sub commands
 	// should control that.
 	if (parsedOptions.isHelpFlagSet()) {
-	    HelpFormatter helpFormatter = new HelpFormatter();
-	    helpFormatter.printHelp(app.getName(), app.getHelpHeader(), parsedOptions.getOptions(),
-		    app.getHelpFooter());
+//	    HelpFormatter helpFormatter = new HelpFormatter();
+//	    helpFormatter.printHelp(app.getName(), app.getHelpHeader(), parsedOptions.getOptions(),
+//		    app.getHelpFooter());
 	    // shutdown.shutdown();
 	    throw new RuntimeException("Was supposed to shut down...");
 	}

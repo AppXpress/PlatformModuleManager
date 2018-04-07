@@ -18,13 +18,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.ZipService;
-import com.gtnexus.pmm.commons.file.FileService;
+import com.gtnexus.pmm.api.v100.service.FileService;
+import com.gtnexus.pmm.api.v100.service.ZipService;
 import com.gtnexus.pmm.commons.file.filter.ChainedAnd;
 import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.pmbuilder.bundle.Bundler;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
+import com.gtnexus.pmm.service.FileServiceImpl;
+import com.gtnexus.pmm.service.ZipServiceImpl;
 
 /**
  * 
@@ -37,8 +39,8 @@ public class ScriptBundler implements Bundler {
     private final FileService fs;
 
     public ScriptBundler() {
-	this.zs = new ZipService();
-	this.fs = new FileService();
+	this.zs = new ZipServiceImpl();
+	this.fs = new FileServiceImpl();
     }
 
     @Override

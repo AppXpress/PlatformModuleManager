@@ -10,6 +10,7 @@ import com.gtnexus.pmm.cli.command.CLICommand;
 import com.gtnexus.pmm.cli.command.CommandIdentifier;
 import com.gtnexus.pmm.commons.DirectoryHelper;
 import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.service.PlatformModuleManagerServicesImpl;
 
 public class PlatformModuleManager {
 

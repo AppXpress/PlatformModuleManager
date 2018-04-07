@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.gtnexus.pmm.api.v100.service.FileService;
+import com.gtnexus.pmm.service.FileServiceImpl;
+
 /**
  * 
  * @author jdonovan
@@ -15,7 +18,7 @@ public class FileCleanup {
     private final FileService fs;
 
     public FileCleanup() {
-	this.fs = new FileService();
+	this.fs = new FileServiceImpl();
     }
 
     public void cleanup(Collection<File> files) {

@@ -4,8 +4,9 @@ import java.io.File;
 
 import com.gtnexus.pmm.AppXpressConstants;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.ZipService;
+import com.gtnexus.pmm.api.v100.service.ZipService;
 import com.gtnexus.pmm.pmbuilder.bundle.Bundler;
+import com.gtnexus.pmm.service.ZipServiceImpl;
 
 public class PlatformModuleBundler implements Bundler {
 
@@ -13,7 +14,7 @@ public class PlatformModuleBundler implements Bundler {
     private final File root;
 
     public PlatformModuleBundler(File root) {
-	this.zs = new ZipService(AppXpressConstants.IGNORE_SET);
+	this.zs = new ZipServiceImpl(AppXpressConstants.IGNORE_SET);
 	this.root = root;
     }
 

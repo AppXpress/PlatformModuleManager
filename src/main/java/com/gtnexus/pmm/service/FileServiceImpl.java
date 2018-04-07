@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.commons.file;
+package com.gtnexus.pmm.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.common.base.Preconditions;
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.commons.HasPrerequisite;
+import com.gtnexus.pmm.commons.file.CopyDirVisitor;
+import com.gtnexus.pmm.commons.file.DeleteDirVisitor;
+import com.gtnexus.pmm.commons.file.NameToPath;
 
 /**
  * Service class to handle File IO procedures common to app.
@@ -18,46 +22,36 @@ import com.gtnexus.pmm.commons.HasPrerequisite;
  * @author jdonovan
  *
  */
-public class FileService {
+public class FileServiceImpl implements FileService {
 
-    /**
-     * Prepends a String to the front of a single file.
-     * 
-     * @param file
-     *            The file whose name will be altered.
-     * @param prepend
-     *            The String to prepend to the file's name.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#prependToName(java.io.File, java.lang.String)
      */
+    @Override
     public Path prependToName(File file, String prepend) throws IOException {
 	return renameFile(file, prepend + file.getName());
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#prependToName(java.io.File, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
+     */
+    @Override
     public Path prependToName(File file, String prepend, HasPrerequisite<File> precondition) throws IOException {
 	return renameFile(file, prepend + file.getName(), precondition);
     }
 
-    /**
-     * Prepends a String to the the names of a collection of a files.
-     * 
-     * @param files
-     *            The list of files who's name will be altered.
-     * @param prepend
-     *            The String to prepend to each file name.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#prependToName(java.util.Collection, java.lang.String)
      */
+    @Override
     public List<Path> prependToName(Collection<File> files, String prepend) throws IOException {
 	return prependToName(files, prepend, new HasPrerequisite.EmptyCondition<File>());
     }
 
-    /**
-     * Prepends a String to the the names of a collection of a files.
-     * 
-     * @param files
-     *            The list of files who's name will be altered.
-     * @param prepend
-     *            The String to prepend to each file name.
-     * @precondition The condition that must be met before string is prepended to
-     *               file name
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#prependToName(java.util.Collection, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
      */
+    @Override
     public List<Path> prependToName(Collection<File> files, String prepend, HasPrerequisite<File> precondition)
 	    throws IOException {
 	List<Path> paths = new LinkedList<>();
@@ -67,30 +61,18 @@ public class FileService {
 	return paths;
     }
 
-    /**
-     * Rename a single file
-     * 
-     * @param file
-     *            The file whose name will be altered.
-     * @param newName
-     *            The files new name.
-     * @throws IOException
-     *             if the renaming operation fails.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#renameFile(java.io.File, java.lang.String)
      */
+    @Override
     public Path renameFile(File file, String newName) throws IOException {
 	return renameFile(file, newName, new HasPrerequisite.EmptyCondition<File>());
     }
 
-    /**
-     * Rename a single file
-     * 
-     * @param file
-     *            The file whose name will be altered.
-     * @param newName
-     *            The files new name.
-     * @throws IOException
-     *             if the renaming operation fails.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#renameFile(java.io.File, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
      */
+    @Override
     public Path renameFile(File file, String newName, HasPrerequisite<File> precondition) throws IOException {
 	Path path = file.toPath();
 	if (!precondition.isMet(file))
@@ -103,35 +85,18 @@ public class FileService {
 	return path;
     }
 
-    /**
-     * Renames a set of files by replacing a matched string with some replacement.
-     * 
-     * @param files
-     *            The set of file's whose names will be altered if they match the
-     *            replacement string.
-     * @param toReplace
-     *            The string that will be replaced if found in any file names.
-     * @param replacement
-     *            The string that will replace the found string in the file name.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#renameFile(java.util.Collection, java.lang.String, java.lang.String)
      */
+    @Override
     public List<Path> renameFile(Collection<File> files, String toReplace, String replacement) throws IOException {
 	return renameFile(files, toReplace, replacement, new HasPrerequisite.EmptyCondition<File>());
     }
 
-    /**
-     * Renames a set of files by replacing a matched string with some replacement as
-     * long as some precondition is met for each file.
-     * 
-     * @param files
-     *            The set of file's whose names will be altered if they match the
-     *            replacement string.
-     * @param toReplace
-     *            The string that will be replaced if found in any file names.
-     * @param replacement
-     *            The string that will replace the found string in the file name.
-     * @param precondition
-     *            The precondition that must be met in order for file to be renamed.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#renameFile(java.util.Collection, java.lang.String, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
      */
+    @Override
     public List<Path> renameFile(Collection<File> files, String toReplace, String replacement,
 	    HasPrerequisite<File> precondition) throws IOException {
 	Preconditions.checkNotNull(files, "Files to rename cannot be null.");
@@ -146,17 +111,10 @@ public class FileService {
 	return paths;
     }
 
-    /**
-     * 
-     * @param files
-     *            The files to be copied.
-     * @param destination
-     *            The destination directory.
-     * @return The list of paths to the the copied files.
-     * @throws IOException
-     * @throws IllegalArgumentDestination
-     *             If destination is not a directory.
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#moveFiles(java.util.Collection, java.io.File)
      */
+    @Override
     public List<Path> moveFiles(final Collection<File> files, final File destination) throws IOException {
 	if (files == null || destination == null) {
 	    throw new NullPointerException("files and destination cannot be null.");
@@ -173,6 +131,10 @@ public class FileService {
 	return paths;
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#copyFiles(java.util.Collection, com.gtnexus.pmm.commons.file.NameToPath, java.io.File, com.gtnexus.pmm.commons.HasPrerequisite)
+     */
+    @Override
     public List<Path> copyFiles(final Collection<String> fileNames, final NameToPath converter, final File destination,
 	    HasPrerequisite<File> precondition) throws IOException {
 	if (fileNames == null || destination == null) {
@@ -188,14 +150,10 @@ public class FileService {
 	return paths;
     }
 
-    /**
-     * 
-     * @param files
-     * @param destination
-     * @param precondition
-     * @return
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#copyFiles(java.util.Collection, java.io.File, com.gtnexus.pmm.commons.HasPrerequisite)
      */
+    @Override
     public List<Path> copyFiles(final Collection<File> files, final File destination,
 	    HasPrerequisite<File> precondition) throws IOException {
 	Preconditions.checkArgument(files != null && destination != null, "files and destination cannot be null.");
@@ -226,24 +184,18 @@ public class FileService {
 	return null;
     }
 
-    /**
-     * 
-     * @param sourceDir
-     * @param destination
-     * @return
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#copyDirectory(java.io.File, java.io.File)
      */
+    @Override
     public Path copyDirectory(File sourceDir, File destination) throws IOException {
 	return copyDirectory(sourceDir.toPath(), destination.toPath());
     }
 
-    /**
-     * 
-     * @param source
-     * @param destination
-     * @return
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#copyDirectory(java.nio.file.Path, java.nio.file.Path)
      */
+    @Override
     public Path copyDirectory(Path source, Path destination) throws IOException {
 	if (!Files.exists(source)) {
 	    throw new IOException("Cannot copy directory tree from source: " + source.toString()
@@ -259,39 +211,42 @@ public class FileService {
 	return Files.walkFileTree(source, visitor);
     }
 
-    /**
-     * 
-     * @param file
-     * @param mimeType
-     * @return
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#isFileType(java.io.File, java.lang.String)
      */
+    @Override
     public boolean isFileType(final File file, final String extension) {
 	return file.getName().endsWith(extension);
     }
 
-    /**
-     * 
-     * @param root
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#emptyDir(java.io.File)
      */
+    @Override
     public void emptyDir(final File root) throws IOException {
 	emptyDir(root, false);
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#emptyDir(java.nio.file.Path)
+     */
+    @Override
     public void emptyDir(final Path root) throws IOException {
 	emptyDir(root, false);
     }
 
-    /**
-     * 
-     * @param root
-     * @param deleteRoot
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#emptyDir(java.io.File, boolean)
      */
+    @Override
     public void emptyDir(final File root, boolean deleteRoot) throws IOException {
 	emptyDir(root.toPath(), deleteRoot);
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.file.FileService#emptyDir(java.nio.file.Path, boolean)
+     */
+    @Override
     public void emptyDir(final Path root, boolean deleteRoot) throws IOException {
 	DeleteDirVisitor visitor = new DeleteDirVisitor(root, deleteRoot);
 	Files.walkFileTree(root, visitor);

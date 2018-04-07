@@ -16,15 +16,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.commons.HasPrerequisite;
-import com.gtnexus.pmm.commons.file.FileService;
+import com.gtnexus.pmm.service.FileServiceImpl;
 
 public class FileServiceTest {
 
     @Rule
     public TemporaryFolder tmp = new TemporaryFolder();
 
-    private FileService fs = new FileService();
+    private FileService fs = new FileServiceImpl();
 
     @Test
     public void testPrependToName() throws IOException {

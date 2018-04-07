@@ -14,19 +14,20 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.commons.HasPrerequisite;
 import com.gtnexus.pmm.commons.Preparation;
-import com.gtnexus.pmm.commons.file.FileService;
 import com.gtnexus.pmm.commons.file.filter.ChainedAnd;
 import com.gtnexus.pmm.commons.file.filter.FileFilterChain;
 import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
+import com.gtnexus.pmm.service.FileServiceImpl;
 
 public class FolderPrep implements Preparation<File> {
 
     private final FileService fs;
 
     public FolderPrep() {
-	fs = new FileService();
+	fs = new FileServiceImpl();
     }
 
     /**

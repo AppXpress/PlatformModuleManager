@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.commons;
+package com.gtnexus.pmm.service;
 
 import static com.gtnexus.pmm.AppXpressConstants.ZIP_EXTENSION;
 
@@ -15,7 +15,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.file.FileService;
+import com.gtnexus.pmm.api.v100.service.FileService;
+import com.gtnexus.pmm.api.v100.service.ZipService;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -28,20 +29,24 @@ import net.lingala.zip4j.exception.ZipException;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class ZipService {
+public class ZipServiceImpl implements ZipService {
 
     private final FileService fs;
     private final Set<String> ignoreSet;
 
-    public ZipService() {
+    public ZipServiceImpl() {
 	this(Collections.<String>emptySet());
     }
 
-    public ZipService(Set<String> ignoreDirNames) {
-	this.fs = new FileService();
+    public ZipServiceImpl(Set<String> ignoreDirNames) {
+	this.fs = new FileServiceImpl();
 	this.ignoreSet = ignoreDirNames;
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#zipFiles(java.util.Collection, java.lang.String)
+     */
+    @Override
     public void zipFiles(Collection<File> files, String absPathToDestinationZip) throws AppXpressException {
 	try (FileOutputStream fos = new FileOutputStream(absPathToDestinationZip);
 		ZipOutputStream zos = new ZipOutputStream(fos)) {
@@ -65,17 +70,18 @@ public class ZipService {
 	}
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.nio.file.Path)
+     */
+    @Override
     public void zipDirectory(Path directory) throws AppXpressException {
 	zipDirectory(directory.toFile());
     }
 
-    /**
-     * Packs the given directory into a a zip file named after the directory.
-     * 
-     * @param directoryPath
-     *            - the directory that is going to be packed
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.io.File)
      */
+    @Override
     public void zipDirectory(File directory) throws AppXpressException {
 	if (!directory.exists() || !directory.isDirectory()) {
 	    throw new AppXpressException("No such directory" + directory.getAbsolutePath());
@@ -84,25 +90,18 @@ public class ZipService {
 	zipDirectory(directory, outputZip);
     }
 
-    /**
-     * Packs the given directory into a a zip file named after the directory.
-     * 
-     * @param directoryPath
-     *            - the directory that is going to be packed
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.io.File, java.lang.String)
      */
+    @Override
     public void zipDirectory(File directory, String outputZip) throws AppXpressException {
 	zipDirectory(directory, new File(outputZip));
     }
 
-    /**
-     * Packs the given directory into the zip file pointer. If the outputZip does
-     * not end with .zip it is appended.
-     * 
-     * @param directory
-     * @param outputZip
-     * @throws AppXpressException
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.io.File, java.io.File)
      */
+    @Override
     public void zipDirectory(File directory, File outputZip) throws AppXpressException {
 	if (!directory.exists() || !directory.isDirectory()) {
 	    throw new AppXpressException("No such directory " + directory.getAbsolutePath());
@@ -153,6 +152,10 @@ public class ZipService {
 		file.getCanonicalPath().length());
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#unzip(java.io.File, java.io.File, boolean)
+     */
+    @Override
     public void unzip(File source, File destination, boolean recurse) throws AppXpressException {
 	unzip(source, destination);
 	if (recurse) {
@@ -160,6 +163,10 @@ public class ZipService {
 	}
     }
 
+    /* (non-Javadoc)
+     * @see com.gtnexus.pmm.commons.ZipService#unzip(java.io.File, java.io.File)
+     */
+    @Override
     public void unzip(File source, File destination) throws AppXpressException {
 	try {
 	    ZipFile zip = new ZipFile(source);

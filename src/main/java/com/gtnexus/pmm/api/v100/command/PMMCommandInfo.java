@@ -4,6 +4,11 @@ import java.util.Set;
 
 import com.gtnexus.pmm.cli.option.CommandOption;
 
+//TODO: remove once we are ok to drop legacy 
+// * CommandOptionInterpreterImpl
+// * DocumentGeneratorOptionInterpreter
+// * ExtractorOptionInterpreter
+@Deprecated
 public interface PMMCommandInfo {
 
     public String getName();

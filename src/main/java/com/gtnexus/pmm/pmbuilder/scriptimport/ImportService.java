@@ -11,9 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.commons.HasPrerequisite;
-import com.gtnexus.pmm.commons.file.FileService;
 import com.gtnexus.pmm.commons.file.LibResourceToPath;
+import com.gtnexus.pmm.service.FileServiceImpl;
 
 /**
  * Parses a file for !import statements
@@ -35,7 +36,7 @@ public class ImportService {
 	this.root = new ImportFile(root);
 	this.libPath = libPath;
 	this.importScanner = new ImportScanner();
-	this.fs = new FileService();
+	this.fs = new FileServiceImpl();
 	this.precondition = new HasPrerequisite<File>() {
 	    /**
 	     * This precondition is here as a guard. Some File objects are created via

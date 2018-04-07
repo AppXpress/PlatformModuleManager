@@ -7,10 +7,10 @@ import java.nio.file.Path;
 
 import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
 import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.commons.Preparation;
-import com.gtnexus.pmm.commons.file.FileService;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.pmm.pmbuilder.scriptimport.ImportService;
