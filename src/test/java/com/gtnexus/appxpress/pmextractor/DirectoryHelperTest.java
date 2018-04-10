@@ -7,7 +7,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.DirectoryHelper;
+import com.gtnexus.pmm.manager.DirectoryHelper;
 
 /**
  * Created by jjdonov on 9/29/14.
