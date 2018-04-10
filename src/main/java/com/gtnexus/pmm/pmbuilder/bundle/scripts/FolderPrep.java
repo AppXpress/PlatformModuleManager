@@ -16,13 +16,12 @@ import java.util.Arrays;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.commons.HasPrerequisite;
-import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.commons.file.filter.ChainedAnd;
 import com.gtnexus.pmm.commons.file.filter.FileFilterChain;
 import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.service.FileServiceImpl;
 
-public class FolderPrep implements Preparation<File> {
+public class FolderPrep {
 
     private final FileService fs;
 
@@ -33,7 +32,6 @@ public class FolderPrep implements Preparation<File> {
     /**
      * Renames directories, and handle's special cases for specific directories.
      */
-    @Override
     public void prepare(File root) throws AppXpressException {
 	for (File dir : root.listFiles(FileFilterFactory.directoriesOnly())) {
 	    try {

@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.commons.Mapper;
-import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.pmbuilder.bundle.Bundler;
 import com.gtnexus.pmm.pmbuilder.bundle.scripts.FolderPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.scripts.ScriptBundler;
@@ -22,7 +21,7 @@ public class AppXpressMapper implements Mapper {
 
     private final File root;
     private final Bundler bundler;
-    private final Preparation<File> prep;
+    private final FolderPrep prep;
 
     public AppXpressMapper(File root) {
 	this.root = root;

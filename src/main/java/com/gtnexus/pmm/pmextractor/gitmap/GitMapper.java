@@ -22,7 +22,6 @@ import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.commons.Mapper;
-import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
 import com.gtnexus.pmm.service.FileServiceImpl;
@@ -41,7 +40,7 @@ public class GitMapper implements Mapper {
 
     private final GitMapVO vo;
     private List<Path> overwrittenScripts;
-    private final Preparation<GitMapVO> prep;
+    private final GitMapPrep prep;
     private final FileService fs;
 
     public static GitMapper createMapper(PlatformModuleManagerServices services, Map<CommandOption, String> optionMap) {

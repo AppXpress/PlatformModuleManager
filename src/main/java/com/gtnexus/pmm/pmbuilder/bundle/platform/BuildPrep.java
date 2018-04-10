@@ -10,7 +10,6 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
 import com.gtnexus.pmm.commons.Mapper;
-import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.pmm.pmbuilder.scriptimport.ImportService;
@@ -20,7 +19,7 @@ import com.gtnexus.pmm.pmbuilder.scriptimport.ImportService;
  * @author jdonovan
  *
  */
-public class BuildPrep implements Preparation<PMBuilderVO> {
+public class BuildPrep {
 
     private final FileService fs;
     private final AppXpressDirResolver resolver;
@@ -34,7 +33,6 @@ public class BuildPrep implements Preparation<PMBuilderVO> {
 	this.tempService = tmpService;
     }
 
-    @Override
     public void prepare(final PMBuilderVO vo) throws PMBuilderException {
 	try {
 	    File tmp = createTemp(vo);

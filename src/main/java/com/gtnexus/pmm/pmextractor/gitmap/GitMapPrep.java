@@ -15,7 +15,6 @@ import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.commons.HasPrerequisite;
-import com.gtnexus.pmm.commons.Preparation;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 
 /**
@@ -25,7 +24,7 @@ import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
  * @author jdonovan
  *
  */
-public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMapVO> {
+public class GitMapPrep implements HasPrerequisite<GitMapVO> {
 
     private final PlatformModuleManagerServices  services;
 
@@ -33,7 +32,6 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO>, Preparation<GitMap
 	this.services = services;
     }
 
-    @Override
     public void prepare(GitMapVO vo) throws PMBuilderException {
 	if (!isMet(vo)) {
 	    throw new PMBuilderException("Precondition failed.");
