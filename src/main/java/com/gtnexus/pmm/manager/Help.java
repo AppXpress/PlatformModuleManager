@@ -1,4 +1,4 @@
-package com.gtnexus.pmm;
+package com.gtnexus.pmm.manager;
 
 import java.util.Set;
 
