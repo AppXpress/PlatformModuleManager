@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.commons;
+package com.gtnexus.pmm.pmdocgen.adapter;
 
 import java.util.Map;
 import java.util.Map.Entry;
