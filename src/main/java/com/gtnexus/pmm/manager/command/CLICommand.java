@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli.command;
+package com.gtnexus.pmm.manager.command;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
