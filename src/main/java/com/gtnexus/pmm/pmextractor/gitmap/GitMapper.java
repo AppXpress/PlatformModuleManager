@@ -21,7 +21,6 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
 import com.gtnexus.pmm.service.FileServiceImpl;
@@ -36,7 +35,7 @@ import com.gtnexus.pmm.service.FileServiceImpl;
  * @version 1.0
  * @date 8-27-2014 GT Nexus
  */
-public class GitMapper implements Mapper {
+public class GitMapper {
 
     private final GitMapVO vo;
     private List<Path> overwrittenScripts;
@@ -64,7 +63,6 @@ public class GitMapper implements Mapper {
     /**
      * Performs the appropriate actions for module extraction
      */
-    @Override
     public void doMapping() throws AppXpressException {
 	try {
 	    prep.prepare(vo);

@@ -9,7 +9,6 @@ import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
-import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.pmm.pmbuilder.scriptimport.ImportService;
@@ -78,8 +77,7 @@ public class BuildPrep {
      *            File path of platform module
      */
     private void map(File rootFile) throws AppXpressException {
-	Mapper mapper = new AppXpressMapper(rootFile);
-	mapper.doMapping();
+	new AppXpressMapper(rootFile).doMapping();
     }
 
 }

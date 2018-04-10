@@ -7,7 +7,6 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.commons.Mapper;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.gitmap.GitMapper;
 
@@ -42,7 +41,7 @@ public class ExtractCommand extends AbstractSubCommand {
     @Override
     public void execute() throws AppXpressException {
 	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
-	Mapper tool = GitMapper.createMapper(this.getServices(), optionsMap);
+	GitMapper tool = GitMapper.createMapper(this.getServices(), optionsMap);
 	try {
 	    tool.doMapping();
 	    System.out.println("Success!");
