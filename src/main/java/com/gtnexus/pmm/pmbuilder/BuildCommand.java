@@ -58,8 +58,7 @@ public class BuildCommand extends AbstractSubCommand {
 	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
 	PMBuilderVO vo = genValueObj(optionsMap);
 	BuildPrep prep = new BuildPrep(
-		this.getServices().getFileService(),
-		this.getServices().getTemporaryResourceService(),
+		this.getServices(),
 		this.getServices().getEnvironmentService().getLibPath());
 	PlatformModuleBundler bundler = new PlatformModuleBundler(vo.getRootFile());
 	try {

@@ -24,6 +24,16 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	String ld = this.properties.getProperty(LocalDirOption.NAME);
 	return Paths.get(ld);
     }
+    
+    @Override
+    public Path getCWD() {
+	throw new RuntimeException("Unimplemtned");
+    }
+    
+    @Override
+    public Path getAppXDir() {
+	throw new RuntimeException("Unimplemtned");
+    }
 
     @Override
     public Path getLibPath() {

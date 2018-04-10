@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.gtnexus.pmm.AppXpressConstants;
-import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 

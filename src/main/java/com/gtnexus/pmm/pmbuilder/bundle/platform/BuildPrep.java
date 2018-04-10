@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.api.v100.service.FileService;
-import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
+import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 import com.gtnexus.pmm.pmbuilder.exception.PMBuilderException;
 import com.gtnexus.pmm.pmbuilder.scriptimport.ImportService;
@@ -20,16 +18,12 @@ import com.gtnexus.pmm.pmbuilder.scriptimport.ImportService;
  */
 public class BuildPrep {
 
-    private final FileService fs;
-    private final AppXpressDirResolver resolver;
-    private final TemporaryResourceService tempService;
+    private final PlatformModuleManagerServices services;
     private final Path libPath;
 
-    public BuildPrep(FileService fs, TemporaryResourceService tmpService, Path libPath) {
-	this.fs = fs;
-	this.resolver = new AppXpressDirResolver();
+    public BuildPrep(PlatformModuleManagerServices services, Path libPath) {
 	this.libPath = libPath;
-	this.tempService = tmpService;
+	this.services = services;
     }
 
     public void prepare(final PMBuilderVO vo) throws PMBuilderException {
@@ -45,12 +39,13 @@ public class BuildPrep {
 
     private File createTemp(final PMBuilderVO vo) throws IOException {
 	Path source = vo.getRootFile().toPath();
-	Path tmpPath = resolver.resolveAppXpressDir().toAbsolutePath();
+	Path appxDir = services.getEnvironmentService().getAppXDir();
+	Path tmpPath = appxDir.toAbsolutePath();
 	String tmpPrefix = String.valueOf(System.currentTimeMillis());
 	Path destination = Files.createTempDirectory(tmpPath, tmpPrefix);
 	File dest = destination.toFile();
-	tempService.markForDeletion(dest);
-	fs.copyDirectory(source, destination);
+	services.getTemporaryResourceService().markForDeletion(dest);
+	services.getFileService().copyDirectory(source, destination);
 	return dest;
     }
 

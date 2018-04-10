@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.command.PMMCommandInfo;
 import com.gtnexus.pmm.cli.Select;
@@ -16,6 +15,7 @@ import com.gtnexus.pmm.cli.option.CommandOptionInterpreterImpl;
 import com.gtnexus.pmm.cli.option.ParsedOptions;
 import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.manager.AppXpressDirResolver;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
 
 public class ExtractorOptionInterpreter extends CommandOptionInterpreterImpl

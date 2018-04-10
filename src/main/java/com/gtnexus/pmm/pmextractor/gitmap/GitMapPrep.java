@@ -11,7 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.gtnexus.pmm.AppXpressConstants;
-import com.gtnexus.pmm.AppXpressDirResolver;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.commons.HasPrerequisite;
@@ -136,8 +135,8 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO> {
      * Backs up folder/customer/cust/plat into a folder called PM_Git_Backup
      */
     private void backup(Path customerPath, String platform) {
-	AppXpressDirResolver resolver = new AppXpressDirResolver();
-	Path bkpPath = resolver.resolveAppXpressDir().resolve(BACKUP_FLDR).resolve(platform);
+	Path appXDir = this.services.getEnvironmentService().getAppXDir();
+	Path bkpPath = appXDir.resolve(BACKUP_FLDR).resolve(platform);
 	try {
 	    if (Files.exists(bkpPath)) {
 		this.services.getFileService().emptyDir(bkpPath);

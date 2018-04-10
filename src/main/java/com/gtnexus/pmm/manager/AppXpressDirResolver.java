@@ -1,4 +1,4 @@
-package com.gtnexus.pmm;
+package com.gtnexus.pmm.manager;
 
 import static com.gtnexus.pmm.AppXpressConstants.DIR_TEMPLATE;
 

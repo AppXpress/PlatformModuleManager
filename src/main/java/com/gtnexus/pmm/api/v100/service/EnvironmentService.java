@@ -5,6 +5,8 @@ import com.gtnexus.pmm.commons.properties.PMProperties;
 
 public interface EnvironmentService {
     public Path getLocalDir();
+    public Path getCWD();
+    public Path getAppXDir();
     public Path getLibPath();
     public PMProperties getProperties();
     public String[] getRawArgs();
