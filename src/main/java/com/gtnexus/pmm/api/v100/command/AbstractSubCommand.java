@@ -1,5 +1,6 @@
 package com.gtnexus.pmm.api.v100.command;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
@@ -7,7 +8,6 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.CommandOptionParser;
-import com.gtnexus.pmm.cli.option.ParsedOptions;
 
 public abstract class AbstractSubCommand implements SubCommand {
     
@@ -29,7 +29,7 @@ public abstract class AbstractSubCommand implements SubCommand {
 	return this.args;
     }
     
-    protected ParsedOptions parse() throws AppXpressException {
+    protected Map<CommandOption, String> parse() throws AppXpressException {
 	return CommandOptionParser
 		.createParser(this.getOptions())
 		.parse(this.args);

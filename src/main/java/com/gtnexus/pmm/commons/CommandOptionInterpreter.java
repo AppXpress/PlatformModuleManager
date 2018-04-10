@@ -1,8 +1,9 @@
-package com.gtnexus.pmm.cli.option;
+package com.gtnexus.pmm.commons;
 
 import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.cli.option.CommandOption;
 
 public interface CommandOptionInterpreter {
 

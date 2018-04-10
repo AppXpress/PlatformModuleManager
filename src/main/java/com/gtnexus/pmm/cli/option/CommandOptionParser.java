@@ -1,5 +1,7 @@
 package com.gtnexus.pmm.cli.option;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
@@ -22,7 +24,6 @@ public class CommandOptionParser {
 
     private final Set<CommandOption> cliOptionSet;
     private final Options options;
-    private CommandLine cmd;
 
     public static CommandOptionParser createParser(Set<CommandOption> cliOptSet) {
 	Options options = new Options();
@@ -61,18 +62,13 @@ public class CommandOptionParser {
      * @throws PMExtractorException
      *             if input is not parasable.
      */
-    public ParsedOptions parse(String[] userArgs) throws AppXpressException {
+    public Map<CommandOption, String> parse(String[] userArgs) throws AppXpressException {
 	CommandLineParser parser = new DefaultParser();
 	try {
-	    cmd = parser.parse(options, userArgs);
+	    return transform(parser.parse(options, userArgs));
 	} catch (ParseException e) {
 	    throw new AppXpressException("Failed to parse args from command line!\n" + e.getMessage());
 	}
-	return ParsedOptions.createFrom(this);
-    }
-
-    public CommandLine getCommandLine() {
-	return cmd;
     }
 
     public Set<CommandOption> getCliOptionSet() {
@@ -81,6 +77,16 @@ public class CommandOptionParser {
 
     public Options getOptions() {
 	return options;
+    }
+
+    private Map<CommandOption, String> transform(CommandLine apacheParseResult) {
+	Map<CommandOption, String> optMap = new HashMap<>();
+	for(CommandOption opt: cliOptionSet) {
+	    if (apacheParseResult.hasOption(opt.getLongName()) || apacheParseResult.hasOption(opt.getFlag())) {
+		optMap.put(opt, apacheParseResult.getOptionValue(opt.getLongName()));
+	    }
+	}
+	return optMap;
     }
 
 }

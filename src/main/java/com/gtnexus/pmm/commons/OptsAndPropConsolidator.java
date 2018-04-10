@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli;
+package com.gtnexus.pmm.commons;
 
 import java.io.InputStream;
 import java.io.PrintStream;

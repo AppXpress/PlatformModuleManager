@@ -58,7 +58,7 @@ public class DocGenCommand extends AbstractSubCommand {
     @Override
     public void execute() throws AppXpressException {
 	// attachCleanUpHook(context);
-	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
+	Map<CommandOption, String> optionsMap = this.parse();
 	ModulePointer pointer = ModulePointer.make(optionsMap);
 	PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);
 	ModuleVO vo = interp.interpret();

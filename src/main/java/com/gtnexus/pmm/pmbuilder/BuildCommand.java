@@ -9,9 +9,8 @@ import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
 import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.ParsedOptions;
+import com.gtnexus.pmm.commons.OptsAndPropConsolidator;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
@@ -41,12 +40,11 @@ public class BuildCommand extends AbstractSubCommand {
     }
 
     @Override
-    protected ParsedOptions parse() throws AppXpressException {
-	ParsedOptions parsedOpts = super.parse();
-	OptsAndPropConsolidator consolidator = new OptsAndPropConsolidator(parsedOpts.getOptionsMap(),
+    protected Map<CommandOption, String> parse() throws AppXpressException {
+	Map<CommandOption, String> parsedOpts = super.parse();
+	OptsAndPropConsolidator consolidator = new OptsAndPropConsolidator(parsedOpts,
 		this.getOptions(), this.getServices().getEnvironmentService().getProperties());
 	Map<CommandOption, String> consolidated = consolidator.consolidate();
-	// TODO: hacky..parsedopts purpose is not clear. Seems to just get in the way
 	for (Entry<CommandOption, String> entry : consolidated.entrySet()) {
 	    parsedOpts.put(entry.getKey(), entry.getValue());
 	}
@@ -55,7 +53,7 @@ public class BuildCommand extends AbstractSubCommand {
 
     @Override
     public void execute() throws AppXpressException {
-	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
+	Map<CommandOption, String> optionsMap = this.parse();
 	PMBuilderVO vo = genValueObj(optionsMap);
 	BuildPrep prep = new BuildPrep(
 		this.getServices(),

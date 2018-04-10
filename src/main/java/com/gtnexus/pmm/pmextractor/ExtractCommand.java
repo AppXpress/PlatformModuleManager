@@ -40,7 +40,7 @@ public class ExtractCommand extends AbstractSubCommand {
 
     @Override
     public void execute() throws AppXpressException {
-	Map<CommandOption, String> optionsMap = this.parse().getOptionsMap();
+	Map<CommandOption, String> optionsMap = this.parse();
 	GitMapper tool = GitMapper.createMapper(this.getServices(), optionsMap);
 	try {
 	    tool.doMapping();

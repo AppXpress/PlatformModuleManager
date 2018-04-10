@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.EnumSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
@@ -13,7 +14,6 @@ import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.CommandOptionParser;
-import com.gtnexus.pmm.cli.option.ParsedOptions;
 
 public class CLICommandOptionParserTest {
 
@@ -22,8 +22,8 @@ public class CLICommandOptionParserTest {
 
     @Test
     public void testParse() throws Exception {
-	ParsedOptions parsedOpts = parser.parse(new String[] {"-Dummy"});
-	assertTrue(parsedOpts.hasOption(DummyOption.DUMMY));
+	Map<CommandOption, String> parsedOpts = parser.parse(new String[] {"-Dummy"});
+	assertTrue(parsedOpts.containsKey(DummyOption.DUMMY));
     }
 
     @Test(expected = AppXpressException.class)

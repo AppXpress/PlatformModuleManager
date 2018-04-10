@@ -17,8 +17,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.gtnexus.appxpress.NullOutputStream;
-import com.gtnexus.pmm.cli.OptsAndPropConsolidator;
 import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.commons.OptsAndPropConsolidator;
 import com.gtnexus.pmm.commons.properties.PMProperties;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 
