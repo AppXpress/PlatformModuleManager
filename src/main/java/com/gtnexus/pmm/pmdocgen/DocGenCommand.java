@@ -16,6 +16,7 @@ import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.commons.CommandOptionCompleter;
+import com.gtnexus.pmm.commons.SubCommandHelpFormatter;
 import com.gtnexus.pmm.platform.module.ModulePointer;
 import com.gtnexus.pmm.platform.module.ModuleVO;
 import com.gtnexus.pmm.platform.module.interpretation.PlatformModuleInterpreter;
@@ -29,12 +30,12 @@ import com.gtnexus.pmm.platform.module.interpretation.PlatformModuleInterpreter;
  * @author jdonovan
  */
 @SubCommandMarker(
-	name = "docgen",
+	name = DocGenCommand.NAME,
 	description = "generates docs/specs for a given platform module"
 )
 public class DocGenCommand extends AbstractSubCommand {
 
-    private static final String NAME = "pmdocgen";
+    public static final String NAME = "docgen";
 
     private final WorkbookRenderer renderer;
 
@@ -53,6 +54,10 @@ public class DocGenCommand extends AbstractSubCommand {
     public void execute() throws AppXpressException {
 	// attachCleanUpHook(context);
 	Map<CommandOption, String> optionsMap = this.parse();
+	if(optionsMap.containsKey(StandardOptions.HELP)) {
+	    new SubCommandHelpFormatter(this).displayHelp();
+	    return;
+	}
 	optionsMap = new CommandOptionCompleter(getServices(), requiredOptions).complete(optionsMap);
 	ModulePointer pointer = ModulePointer.make(optionsMap);
 	PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);

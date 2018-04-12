@@ -33,29 +33,4 @@ public class LocalDirOption  extends AbstractCommandOption implements CommandOpt
 	return true;
     }
 
-    @Override
-    public boolean isHelpFlag() {
-	return false;
-    }
-
-    @Override
-    public boolean isAppXpressMandatory() {
-	return true;
-    }
-
-    @Override
-    public boolean shouldBeOmitted() {
-	return false;
-    }
-
-    @Override
-    public String getDefaultValue() {
-	return null;
-    }
-
-    @Override
-    public boolean isStoreableProperty() {
-	return true;
-    }
-
 }

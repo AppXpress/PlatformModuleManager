@@ -12,16 +12,17 @@ import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.commons.CommandOptionCompleter;
+import com.gtnexus.pmm.commons.SubCommandHelpFormatter;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 import com.gtnexus.pmm.pmextractor.gitmap.GitMapper;
 
 @SubCommandMarker(
-	name = "extract",
+	name = ExtractCommand.NAME,
 	description = "runs the platform module extractor tool. for more information please run pmm extract -h"
 )
 public class ExtractCommand extends AbstractSubCommand {
 
-    private static final String NAME = "pmextractor";
+    public static final String NAME = "extract";
 
     private final Set<CommandOption> requiredOptions = new ImmutableSet.Builder<CommandOption>()
 	    .add(StandardOptions.LOCAL_DIR)
@@ -61,7 +62,12 @@ public class ExtractCommand extends AbstractSubCommand {
 
     @Override
     public void execute() throws AppXpressException {
-	Map<CommandOption, String> optionsMap = optionsCompleter.complete(this.parse());
+	Map<CommandOption, String> optionsMap = this.parse();
+	if(optionsMap.containsKey(StandardOptions.HELP)) {
+	    new SubCommandHelpFormatter(this).displayHelp();
+	    return;
+	}
+	optionsMap = optionsCompleter.complete(optionsMap);
 	GitMapper tool = GitMapper.createMapper(this.getServices(), optionsMap);
 	try {
 	    tool.doMapping();

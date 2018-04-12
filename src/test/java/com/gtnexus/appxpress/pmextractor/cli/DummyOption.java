@@ -31,33 +31,4 @@ public enum DummyOption implements CommandOption {
 	return "d";
     }
 
-    @Override
-    public boolean isHelpFlag() {
-	return false;
-    }
-
-    @Override
-    public boolean isAppXpressMandatory() {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
-    @Override
-    public boolean shouldBeOmitted() {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
-    @Override
-    public String getDefaultValue() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public boolean isStoreableProperty() {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
 }

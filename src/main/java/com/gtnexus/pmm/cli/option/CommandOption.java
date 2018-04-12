@@ -27,19 +27,6 @@ public interface CommandOption {
 
     public boolean hasArg();
 
-    public boolean isHelpFlag();
-
-    // TODO: remove
-    public boolean isAppXpressMandatory();
-
-    // TODO: remove
-    public boolean shouldBeOmitted();
-
-    public String getDefaultValue();
-
-    // TODO: remove
-    public boolean isStoreableProperty();
-
     public class StandardOptions {
 
 	public static CommandOption HELP = new HelpOption();

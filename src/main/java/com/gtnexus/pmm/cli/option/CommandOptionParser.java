@@ -7,11 +7,11 @@ import java.util.Set;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.commons.CommandOptionTransformers;
 import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
 
 /**
@@ -26,18 +26,7 @@ public class CommandOptionParser {
     private final Options options;
 
     public static CommandOptionParser createParser(Set<CommandOption> cliOptSet) {
-	Options options = new Options();
-	for (CommandOption opt : cliOptSet) {
-	    Option o = Option
-		    .builder(opt.getFlag())
-		    .longOpt(opt.getLongName())
-		    .type(opt.getType())
-		    .desc(opt.getDescription())
-		    .hasArg(opt.hasArg())
-		    .required(false)
-		    .build();
-	    options.addOption(o);
-	}
+	Options options = CommandOptionTransformers.transformToOptions(cliOptSet);
 	return new CommandOptionParser(cliOptSet, options);
     }
 

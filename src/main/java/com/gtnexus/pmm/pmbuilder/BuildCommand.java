@@ -13,17 +13,18 @@ import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.commons.CommandOptionCompleter;
+import com.gtnexus.pmm.commons.SubCommandHelpFormatter;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 
 @SubCommandMarker(
-	name = "build", 
+	name = BuildCommand.NAME, 
 	description = "runs the platform module builder tool. for more information please run pmm build -h"
 )
 public class BuildCommand extends AbstractSubCommand {
 
-    private static final String NAME = "pmbuilder";
+    public static final String NAME = "build";
     
     private final Set<CommandOption> requiredOptions = new ImmutableSet.Builder<CommandOption>()
 	    .add(StandardOptions.LOCAL_DIR)
@@ -44,7 +45,7 @@ public class BuildCommand extends AbstractSubCommand {
     public void execute() throws AppXpressException {
 	Map<CommandOption, String> optionsMap = this.parse();
 	if(optionsMap.containsKey(StandardOptions.HELP)) {
-	    //TODO:
+	    new SubCommandHelpFormatter(this).displayHelp();
 	    return;
 	}
 	optionsMap = new CommandOptionCompleter(this.getServices(), requiredOptions).complete(optionsMap);

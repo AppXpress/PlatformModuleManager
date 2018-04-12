@@ -30,29 +30,4 @@ public class ModuleOption  extends AbstractCommandOption implements CommandOptio
 	return true;
     }
 
-    @Override
-    public boolean isHelpFlag() {
-	return false;
-    }
-
-    @Override
-    public boolean isAppXpressMandatory() {
-	return true;
-    }
-
-    @Override
-    public boolean shouldBeOmitted() {
-	return false;
-    }
-
-    @Override
-    public String getDefaultValue() {
-	return null;
-    }
-
-    @Override
-    public boolean isStoreableProperty() {
-	return false;
-    }
-
 }

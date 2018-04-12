@@ -30,29 +30,4 @@ public class SelectOption  extends AbstractCommandOption implements CommandOptio
 	return false;
     }
 
-    @Override
-    public boolean isHelpFlag() {
-	return false;
-    }
-
-    @Override
-    public boolean isAppXpressMandatory() {
-	return false;
-    }
-
-    @Override
-    public boolean shouldBeOmitted() {
-	return true;
-    }
-
-    @Override
-    public String getDefaultValue() {
-	return null;
-    }
-
-    @Override
-    public boolean isStoreableProperty() {
-	return false;
-    }
-
 }

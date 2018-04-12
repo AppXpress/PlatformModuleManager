@@ -25,12 +25,11 @@ public enum ExtractorOption implements CommandOption {
     private final String longName;
     private final Class<?> type;
     private final boolean hasArg;
-    private final boolean isMandatory;
-    private final String defaultValue;
     private final String description;
 
     private final static Set<CommandOption> allOptions = new ImmutableSet.Builder<CommandOption>()
-	    .addAll(EnumSet.allOf(ExtractorOption.class)).build();
+	    .addAll(EnumSet.allOf(ExtractorOption.class))
+	    .build();
 
     /**
      * 
@@ -49,8 +48,6 @@ public enum ExtractorOption implements CommandOption {
 	this.type = type;
 	this.hasArg = hasArg;
 	this.description = description;
-	this.isMandatory = isMandatory;
-	this.defaultValue = defaulValue;
     }
 
     @Override
@@ -79,45 +76,8 @@ public enum ExtractorOption implements CommandOption {
     }
 
     @Override
-    public boolean isAppXpressMandatory() {
-	return isMandatory;
-    }
-
-    @Override
-    public boolean shouldBeOmitted() {
-	return !isMandatory && defaultValue == null;
-    }
-
-    /**
-     * @return the default value for non-mandatory options.
-     * @throws java.lang.UnsupportedOperationException
-     *             if this method is called on a mandatory option.
-     */
-    @Override
-    public String getDefaultValue() {
-	if (this.isMandatory) {
-	    throw new UnsupportedOperationException(this.longName + " is a mandatory field, and must come from "
-		    + "user args or properties. There is no default value.");
-	}
-	return defaultValue;
-    }
-
-    @Override
     public String getFlag() {
 	return flag;
-    }
-
-    @Override
-    public boolean isStoreableProperty() {
-	if (this == LOCAL_DIR) {
-	    return true;
-	}
-	return false;
-    }
-
-    @Override
-    public boolean isHelpFlag() {
-	return this.equals(HELP);
     }
 
     public static Set<CommandOption> getAllOptions() {

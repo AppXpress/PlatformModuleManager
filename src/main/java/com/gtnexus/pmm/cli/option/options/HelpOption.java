@@ -30,29 +30,4 @@ public class HelpOption  extends AbstractCommandOption implements CommandOption 
 	return false;
     }
 
-    @Override
-    public boolean isHelpFlag() {
-	return true;
-    }
-
-    @Override
-    public boolean isAppXpressMandatory() {
-	return false;
-    }
-
-    @Override
-    public boolean shouldBeOmitted() {
-	return true;
-    }
-
-    @Override
-    public String getDefaultValue() {
-	return null;
-    }
-
-    @Override
-    public boolean isStoreableProperty() {
-	return false;
-    }
-
 }
