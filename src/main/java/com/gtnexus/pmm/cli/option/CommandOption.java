@@ -17,9 +17,6 @@ import com.gtnexus.pmm.cli.option.options.SelectOption;
  *
  */
 public interface CommandOption {
-    @Override
-    public String toString();
-
     public String getLongName();
 
     public String getFlag();

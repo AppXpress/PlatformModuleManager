@@ -1,12 +1,25 @@
 package com.gtnexus.pmm.cli.option;
 
 public abstract class AbstractCommandOption implements CommandOption {
-    
+
+    @Override
+    public String toString() {
+	StringBuilder sb = new StringBuilder();
+	sb.append("(")
+	.append("--")
+	.append(this.getLongName())
+	.append(", ")
+	.append("-")
+	.append(this.getFlag())
+	.append(")");
+	return sb.toString();
+    }
+
     @Override
     public int hashCode() {
 	return this.getLongName().hashCode();
     }
-    
+
     @Override
     public boolean equals(Object other) {
 	if(other == null) {

@@ -3,22 +3,33 @@ package com.gtnexus.pmm.pmbuilder;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
 import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.commons.OptsAndPropConsolidator;
+import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
+import com.gtnexus.pmm.commons.CommandOptionCompleter;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.BuildPrep;
 import com.gtnexus.pmm.pmbuilder.bundle.platform.PlatformModuleBundler;
 import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 
-@SubCommandMarker(name = "build", description = "runs the platform module builder tool. for more information please run pmm build -h")
+@SubCommandMarker(
+	name = "build", 
+	description = "runs the platform module builder tool. for more information please run pmm build -h"
+)
 public class BuildCommand extends AbstractSubCommand {
 
     private static final String NAME = "pmbuilder";
+    
+    private final Set<CommandOption> requiredOptions = new ImmutableSet.Builder<CommandOption>()
+	    .add(StandardOptions.LOCAL_DIR)
+	    .add(StandardOptions.CUSTOMER)
+	    .add(StandardOptions.MODULE)
+	    .build();
 
     public BuildCommand(PlatformModuleManagerServices services, String... args) {
 	super(services, args);
@@ -31,7 +42,7 @@ public class BuildCommand extends AbstractSubCommand {
 
     @Override
     public String getHelpHeader() {
-	return "";
+	return ""; //TODO: abstract should provide default impl
     }
 
     @Override
@@ -40,20 +51,13 @@ public class BuildCommand extends AbstractSubCommand {
     }
 
     @Override
-    protected Map<CommandOption, String> parse() throws AppXpressException {
-	Map<CommandOption, String> parsedOpts = super.parse();
-	OptsAndPropConsolidator consolidator = new OptsAndPropConsolidator(parsedOpts,
-		this.getOptions(), this.getServices().getEnvironmentService().getProperties());
-	Map<CommandOption, String> consolidated = consolidator.consolidate();
-	for (Entry<CommandOption, String> entry : consolidated.entrySet()) {
-	    parsedOpts.put(entry.getKey(), entry.getValue());
-	}
-	return parsedOpts;
-    }
-
-    @Override
     public void execute() throws AppXpressException {
 	Map<CommandOption, String> optionsMap = this.parse();
+	if(optionsMap.containsKey(StandardOptions.HELP)) {
+	    //TODO:
+	    return;
+	}
+	optionsMap = new CommandOptionCompleter(this.getServices(), requiredOptions).complete(optionsMap);
 	PMBuilderVO vo = genValueObj(optionsMap);
 	BuildPrep prep = new BuildPrep(
 		this.getServices(),

@@ -11,6 +11,7 @@ import com.gtnexus.pmm.commons.properties.PMProperties;
 
 public class EnvironmentServiceImpl implements EnvironmentService {
 
+    private static final String CWD = "user.dir";
     private final PMProperties properties;
     private final String[] rawArgs;
 
@@ -27,7 +28,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     
     @Override
     public Path getCWD() {
-	throw new RuntimeException("Unimplemtned");
+	return Paths.get(System.getProperty(CWD)).toAbsolutePath();
     }
     
     @Override
