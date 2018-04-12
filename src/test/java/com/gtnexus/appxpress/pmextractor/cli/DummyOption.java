@@ -49,12 +49,6 @@ public enum DummyOption implements CommandOption {
     }
 
     @Override
-    public boolean isValid(String val) {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
-    @Override
     public String getDefaultValue() {
 	// TODO Auto-generated method stub
 	return null;

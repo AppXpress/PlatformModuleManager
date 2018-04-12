@@ -2,11 +2,8 @@ package com.gtnexus.pmm.cli.option.options;
 
 import com.gtnexus.pmm.cli.option.AbstractCommandOption;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.prompt.ValidityProvider;
 
 public class CustomerOption extends AbstractCommandOption implements CommandOption {
-
-    private final ValidityProvider validityProvider = new ValidityProvider();
 
     @Override
     public String getLongName() {
@@ -46,11 +43,6 @@ public class CustomerOption extends AbstractCommandOption implements CommandOpti
     @Override
     public boolean shouldBeOmitted() {
 	return false;
-    }
-
-    @Override
-    public boolean isValid(String val) {
-	return validityProvider.isValid(val, this.getType());
     }
 
     @Override

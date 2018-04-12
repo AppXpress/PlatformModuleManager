@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.prompt.ValidityProvider;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in
@@ -29,7 +28,6 @@ public enum ExtractorOption implements CommandOption {
     private final boolean isMandatory;
     private final String defaultValue;
     private final String description;
-    private static final ValidityProvider validityProvider = new ValidityProvider();
 
     private final static Set<CommandOption> allOptions = new ImmutableSet.Builder<CommandOption>()
 	    .addAll(EnumSet.allOf(ExtractorOption.class)).build();
@@ -102,18 +100,6 @@ public enum ExtractorOption implements CommandOption {
 		    + "user args or properties. There is no default value.");
 	}
 	return defaultValue;
-    }
-
-    /**
-     * Checks to see if the val supplies is a valid argument according to this
-     * option's type.
-     *
-     * @param val
-     * @return
-     */
-    @Override
-    public boolean isValid(String val) {
-	return validityProvider.isValid(val, type);
     }
 
     @Override

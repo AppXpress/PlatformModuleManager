@@ -35,5 +35,4 @@ public abstract class AbstractCommandOption implements CommandOption {
 	return false;
     }
 
-
 }

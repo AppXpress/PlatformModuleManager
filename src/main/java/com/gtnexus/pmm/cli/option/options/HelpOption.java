@@ -46,11 +46,6 @@ public class HelpOption  extends AbstractCommandOption implements CommandOption 
     }
 
     @Override
-    public boolean isValid(String val) {
-	return true;
-    }
-
-    @Override
     public String getDefaultValue() {
 	return null;
     }

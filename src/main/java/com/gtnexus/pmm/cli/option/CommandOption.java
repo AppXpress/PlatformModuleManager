@@ -35,9 +35,6 @@ public interface CommandOption {
     // TODO: remove
     public boolean shouldBeOmitted();
 
-    // TODO:remove
-    public boolean isValid(String val);
-
     public String getDefaultValue();
 
     // TODO: remove
