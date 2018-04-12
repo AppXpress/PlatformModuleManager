@@ -11,13 +11,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.options.CustomerOption;
-import com.gtnexus.pmm.cli.option.options.HelpOption;
-import com.gtnexus.pmm.cli.option.options.LocalDirOption;
-import com.gtnexus.pmm.cli.option.options.ModuleOption;
-import com.gtnexus.pmm.cli.option.options.SelectOption;
+import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
+import com.gtnexus.pmm.commons.CommandOptionCompleter;
 import com.gtnexus.pmm.platform.module.ModulePointer;
 import com.gtnexus.pmm.platform.module.ModuleVO;
 import com.gtnexus.pmm.platform.module.interpretation.PlatformModuleInterpreter;
@@ -30,24 +28,20 @@ import com.gtnexus.pmm.platform.module.interpretation.PlatformModuleInterpreter;
  * 
  * @author jdonovan
  */
+@SubCommandMarker(
+	name = "docgen",
+	description = "generates docs/specs for a given platform module"
+)
 public class DocGenCommand extends AbstractSubCommand {
 
     private static final String NAME = "pmdocgen";
 
-    public static final CommandOption helpOpt = new HelpOption();
-    public static final CommandOption customerOpt = new CustomerOption();
-    public static final CommandOption moduleOpt = new ModuleOption();
-    public static final CommandOption localDirOpt = new LocalDirOption();
-    public static final CommandOption selectOpt = new SelectOption();
-
     private final WorkbookRenderer renderer;
 
-    private static final Set<CommandOption> options = new ImmutableSet.Builder<CommandOption>()
-	    .add(helpOpt)
-	    .add(customerOpt)
-	    .add(moduleOpt)
-	    .add(localDirOpt)
-	    .add(selectOpt)
+    private static final Set<CommandOption> requiredOptions = new ImmutableSet.Builder<CommandOption>()
+	    .add(StandardOptions.LOCAL_DIR)
+	    .add(StandardOptions.CUSTOMER)
+	    .add(StandardOptions.MODULE)
 	    .build();
 
     public DocGenCommand(PlatformModuleManagerServices services, String... args) {
@@ -59,6 +53,7 @@ public class DocGenCommand extends AbstractSubCommand {
     public void execute() throws AppXpressException {
 	// attachCleanUpHook(context);
 	Map<CommandOption, String> optionsMap = this.parse();
+	optionsMap = new CommandOptionCompleter(getServices(), requiredOptions).complete(optionsMap);
 	ModulePointer pointer = ModulePointer.make(optionsMap);
 	PlatformModuleInterpreter interp = new PlatformModuleInterpreter(pointer);
 	ModuleVO vo = interp.interpret();
@@ -89,12 +84,14 @@ public class DocGenCommand extends AbstractSubCommand {
 
     @Override
     public Set<CommandOption> getOptions() {
-	return options;
+	return StandardOptions.set();
     }
 
     private String fileName(Map<CommandOption, String> optMap) {
 	String fileNameTemplate = "%s-%s-TechnicalSpecification.xlsx";
-	return String.format(fileNameTemplate, optMap.get(customerOpt), optMap.get(moduleOpt));
+	String customer = optMap.get(StandardOptions.CUSTOMER);
+	String module = optMap.get(StandardOptions.MODULE);
+	return String.format(fileNameTemplate, customer, module);
     }
 
 }

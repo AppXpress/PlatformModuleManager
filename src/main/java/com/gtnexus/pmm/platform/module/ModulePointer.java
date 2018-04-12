@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.pmdocgen.DocGenCommand;
+import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
 
 public class ModulePointer {
 
@@ -13,9 +13,9 @@ public class ModulePointer {
     private final File targetModule;
 
     public static ModulePointer make(Map<CommandOption, String> optMap) throws AppXpressException {
-	File localDir = new File(optMap.get(DocGenCommand.localDirOpt));
-	File target = localDir.toPath().resolve(optMap.get(DocGenCommand.customerOpt))
-		.resolve(optMap.get(DocGenCommand.moduleOpt)).toFile();
+	File localDir = new File(optMap.get(StandardOptions.LOCAL_DIR));
+	File target = localDir.toPath().resolve(optMap.get(StandardOptions.CUSTOMER))
+		.resolve(optMap.get(StandardOptions.MODULE)).toFile();
 	if (!localDir.exists()) {
 	    throw new RuntimeException("Fatal error. LocalDir should be set prior to execution.");
 	}
