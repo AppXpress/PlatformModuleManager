@@ -1,8 +1,10 @@
 package com.gtnexus.pmm.commons;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.gtnexus.pmm.api.v100.service.EnvironmentService;
@@ -16,10 +18,17 @@ public class CommandOptionCompleter {
 
     private final PlatformModuleManagerServices services;
     private final Set<CommandOption> requiredOptions;
+    private final Map<CommandOption, String> defaults;
     
     public CommandOptionCompleter(PlatformModuleManagerServices services, Set<CommandOption> requiredOptions) {
+	this(services, requiredOptions, Collections.<CommandOption, String>emptyMap());
+    }
+    
+    
+    public CommandOptionCompleter(PlatformModuleManagerServices services, Set<CommandOption> requiredOptions, Map<CommandOption, String> defaults) {
 	this.services = services;
 	this.requiredOptions = requiredOptions;
+	this.defaults = defaults;
     }
 
     public Map<CommandOption, String> complete(final Map<CommandOption, String> options) {
@@ -35,6 +44,11 @@ public class CommandOptionCompleter {
 	    if(!consolidated.containsKey(requiredOption)) {
 		consolidated.put(requiredOption, getParameterFromUser(requiredOption));
 	    }
+	}
+	for(Entry<CommandOption, String> entry : defaults.entrySet()) {
+	   if(!consolidated.containsKey(entry.getKey())) {
+	       consolidated.put(entry.getKey(), entry.getValue());
+	   }
 	}
 	return consolidated;
     }

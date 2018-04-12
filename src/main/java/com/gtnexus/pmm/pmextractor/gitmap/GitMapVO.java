@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Map;
 
 import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.pmextractor.cli.ExtractorOption;
 
 public class GitMapVO {
@@ -21,9 +22,9 @@ public class GitMapVO {
     private final boolean overwriteFef;
 
     public GitMapVO(Map<CommandOption, String> optionMap) {
-	this.localDir = new File(optionMap.get(ExtractorOption.LOCAL_DIR));
-	this.customer = optionMap.get(ExtractorOption.CUSTOMER);
-	this.platform = optionMap.get(ExtractorOption.MODULE);
+	this.localDir = new File(optionMap.get(StandardOptions.LOCAL_DIR));
+	this.customer = optionMap.get(StandardOptions.CUSTOMER);
+	this.platform = optionMap.get(StandardOptions.MODULE);
 	this.customerDir = localDir.toPath().resolve(customer).toFile();
 	this.platformDir = customerDir.toPath().resolve(platform).toFile();
 	this.platformZip = new File(optionMap.get(ExtractorOption.PLATFORM_ZIP));

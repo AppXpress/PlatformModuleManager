@@ -40,4 +40,13 @@ public abstract class AbstractSubCommand implements SubCommand {
 	return CommandOption.StandardOptions.set();
     }
     
+    @Override
+    public String getHelpHeader() {
+	return "";
+    }
+
+    @Override
+    public String getHelpFooter() {
+	return "";
+    }
 }

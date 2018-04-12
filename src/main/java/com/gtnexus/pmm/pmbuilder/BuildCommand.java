@@ -41,16 +41,6 @@ public class BuildCommand extends AbstractSubCommand {
     }
 
     @Override
-    public String getHelpHeader() {
-	return ""; //TODO: abstract should provide default impl
-    }
-
-    @Override
-    public String getHelpFooter() {
-	return "";
-    }
-
-    @Override
     public void execute() throws AppXpressException {
 	Map<CommandOption, String> optionsMap = this.parse();
 	if(optionsMap.containsKey(StandardOptions.HELP)) {

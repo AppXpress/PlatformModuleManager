@@ -73,16 +73,6 @@ public class DocGenCommand extends AbstractSubCommand {
     }
 
     @Override
-    public String getHelpHeader() {
-	return "";
-    }
-
-    @Override
-    public String getHelpFooter() {
-	return "";
-    }
-
-    @Override
     public Set<CommandOption> getOptions() {
 	return StandardOptions.set();
     }
