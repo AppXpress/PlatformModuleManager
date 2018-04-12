@@ -19,6 +19,8 @@ public class SubCommandScanner {
     @SuppressWarnings("unchecked")
     public static Set<CLICommand> scan() {
 	Set<CLICommand> coreCommands = new HashSet<>();
+	//TODO: this is a very wide initial scan. for internal tools, we should scan a smaller
+	//	surface area. For external tools, it should be a known relative directory.
 	ConfigurationBuilder b = new ConfigurationBuilder().forPackages("com.gtnexus.pmm");
 	Reflections reflections = new Reflections(b);
 	Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(SubCommandMarker.class);

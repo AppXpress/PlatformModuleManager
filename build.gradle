@@ -5,7 +5,7 @@ apply plugin: 'application'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-mainClassName = 'com.gtnexus.appxpress.PlatformModuleManager'
+mainClassName = 'com.gtnexus.pmm.PlatformModuleManager'
 
 /*
  * Gets the version name from the latest Git tag
@@ -55,7 +55,7 @@ task fatJar(type: Jar) {
   manifest {
         attributes 'Implementation-Title': 'PlatformModuleManager',
           'Implementation-Version': '1.0.0',
-          'Main-Class': 'com.gtnexus.appxpress.PlatformModuleManager'
+          'Main-Class': 'com.gtnexus.pmm.PlatformModuleManager'
     }
     baseName = 'pmm' + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
