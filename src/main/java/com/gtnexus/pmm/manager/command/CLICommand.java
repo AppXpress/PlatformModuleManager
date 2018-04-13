@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
-import com.gtnexus.pmm.api.v100.command.Command;
+import com.gtnexus.pmm.api.v100.command.SubCommand;
 import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 
@@ -16,7 +16,7 @@ public interface CLICommand {
 
     public String getFlag();
 
-    public Command constructCommand(PlatformModuleManagerServices services, String... args);
+    public SubCommand constructCommand(PlatformModuleManagerServices services, String... args);
 
     public static class Helper {
 	
@@ -39,7 +39,7 @@ public interface CLICommand {
 		}
 
 		@Override
-		public Command constructCommand(PlatformModuleManagerServices services, String... args) {
+		public SubCommand constructCommand(PlatformModuleManagerServices services, String... args) {
 		    try {
 			return constructor.newInstance(services, args);
 		    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException

@@ -5,7 +5,7 @@ import java.util.Set;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-import com.gtnexus.pmm.api.v100.command.Command;
+import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.manager.command.CLICommand;
 
@@ -33,8 +33,10 @@ public class Help implements CLICommand {
     }
 
     @Override
-    public Command constructCommand(PlatformModuleManagerServices services, String... args) {
-	return new Command() {
+    public AbstractSubCommand constructCommand(PlatformModuleManagerServices services, String... args) {
+	return new AbstractSubCommand(services, args) {
+	    
+	    private final String name = "help";
 	    private final String blurb = Joiner.on("\n")
 		    .join(Iterables.transform(commands, new Function<CLICommand, String>() {
 			@Override
@@ -52,6 +54,11 @@ public class Help implements CLICommand {
 		    }));
 
 	    private final String template = "Welcome to the AppXpress Platform Module Manager\n\n%s";
+	    
+	    @Override
+	    public String getName() {
+		return name;
+	    }
 
 	    @Override
 	    public void execute() {

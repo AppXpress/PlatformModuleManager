@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gtnexus.pmm.api.v100.command.Command;
+import com.gtnexus.pmm.api.v100.command.SubCommand;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.common.properties.PMProperties;
 import com.gtnexus.pmm.manager.DirectoryHelper;
@@ -68,8 +68,8 @@ public class PlatformModuleManager {
 	}
     }
 
-    public static Command getCommand(PlatformModuleManager pmm) {
-	Command cmd;
+    public static SubCommand getCommand(PlatformModuleManager pmm) {
+	SubCommand  cmd;
 	String[] args = pmm.getRawArgs();
 	if (args.length > 0) {
 	    String cmdNameOrFlag = args[0];
