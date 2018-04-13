@@ -41,7 +41,7 @@ public class Help implements CLICommand {
 			public String apply(CLICommand cmd) {
 			    StringBuilder b = new StringBuilder();
 			    b.append(cmd.getName());
-			    if (cmd.getFlag() != null) {
+			    if (cmd.getFlag() != null && !cmd.getFlag().isEmpty()) {
 				b.append(" (-").append(cmd.getFlag()).append(")");
 			    } else {
 				b.append("\t");

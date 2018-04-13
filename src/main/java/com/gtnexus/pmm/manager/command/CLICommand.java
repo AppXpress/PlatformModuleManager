@@ -19,6 +19,7 @@ public interface CLICommand {
     public Command constructCommand(PlatformModuleManagerServices services, String... args);
 
     public static class Helper {
+	
 	public static CLICommand wrap(final SubCommandMarker marker, final Constructor<? extends AbstractSubCommand> constructor) {
 	    return new CLICommand() {
 		

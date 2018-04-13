@@ -20,11 +20,12 @@ import com.gtnexus.pmm.pmbuilder.cli.PMBuilderVO;
 
 @SubCommandMarker(
 	name = BuildCommand.NAME, 
-	description = "runs the platform module builder tool. for more information please run pmm build -h"
+	description = BuildCommand.DESCRIPTION
 )
 public class BuildCommand extends AbstractSubCommand {
 
     public static final String NAME = "build";
+    public static final String DESCRIPTION = "runs the platform module builder tool. for more information please run pmm build -h";
     
     private final Set<CommandOption> requiredOptions = new ImmutableSet.Builder<CommandOption>()
 	    .add(StandardOptions.LOCAL_DIR)
