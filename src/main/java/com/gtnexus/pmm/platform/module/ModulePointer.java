@@ -3,16 +3,16 @@ package com.gtnexus.pmm.platform.module;
 import java.io.File;
 import java.util.Map;
 
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption.StandardOptions;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 
 public class ModulePointer {
 
     private final File localDir;
     private final File targetModule;
 
-    public static ModulePointer make(Map<CommandOption, String> optMap) throws AppXpressException {
+    public static ModulePointer make(Map<CommandOption, String> optMap) throws SubCommandException {
 	File localDir = new File(optMap.get(StandardOptions.LOCAL_DIR));
 	File target = localDir.toPath().resolve(optMap.get(StandardOptions.CUSTOMER))
 		.resolve(optMap.get(StandardOptions.MODULE)).toFile();
@@ -20,7 +20,7 @@ public class ModulePointer {
 	    throw new RuntimeException("Fatal error. LocalDir should be set prior to execution.");
 	}
 	if (!target.exists()) {
-	    throw new AppXpressException("PMM was unable to locate the module (" + target.toString() + ")."
+	    throw new SubCommandException("PMM was unable to locate the module (" + target.toString() + ")."
 		    + " Are you sure this is the correct customer and module name?");
 	}
 

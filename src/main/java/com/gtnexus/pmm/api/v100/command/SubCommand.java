@@ -2,7 +2,6 @@ package com.gtnexus.pmm.api.v100.command;
 
 import java.util.Set;
 
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 
 public interface SubCommand {
@@ -14,5 +13,5 @@ public interface SubCommand {
 
     public  Set<CommandOption> getOptions();
     
-    public void execute() throws AppXpressException; //TODO: throw subcommand exception?
+    public void execute() throws SubCommandException; //TODO: throw subcommand exception?
 }

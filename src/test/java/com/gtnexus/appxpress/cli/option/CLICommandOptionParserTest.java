@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
 import com.gtnexus.appxpress.pmextractor.cli.DummyOption;
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOptionParser;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 
 public class CLICommandOptionParserTest {
 
@@ -26,7 +26,7 @@ public class CLICommandOptionParserTest {
 	assertTrue(parsedOpts.containsKey(DummyOption.DUMMY));
     }
 
-    @Test(expected = AppXpressException.class)
+    @Test(expected = SubCommandException.class)
     public void testParseWithInvalidOpt() throws Exception {
 	parser.parse(new String[] {"-invalidOpt"});
     }

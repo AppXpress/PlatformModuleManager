@@ -1,8 +1,8 @@
 package com.gtnexus.pmm.common.properties;
 
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.prompt.Prompt;
 import com.gtnexus.pmm.api.v100.cli.prompt.SimplePrompt;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.extract.exception.PMExtractorException;
 
 public class PropertiesPersister {
@@ -22,7 +22,7 @@ public class PropertiesPersister {
      *             when there is an IOException when writing to the properties file
      *             at the propPath.
      */
-    public void presentSaveOption() throws AppXpressException {
+    public void presentSaveOption() throws SubCommandException {
 	final String answer = askSaveQuestion();
 	if (answer.equalsIgnoreCase("Y")) {
 	    saveProps();
@@ -33,7 +33,7 @@ public class PropertiesPersister {
      * 
      * @throws PMExtractorException
      */
-    private void saveProps() throws AppXpressException {
+    private void saveProps() throws SubCommandException {
 	properties.store();
     }
 

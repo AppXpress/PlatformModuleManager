@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.build.cli.PMBuilderVO;
 import com.gtnexus.pmm.build.exception.PMBuilderException;
@@ -32,7 +32,7 @@ public class BuildPrep {
 	    vo.setWorkingDir(tmp);
 	    runImportFind(tmp, libPath);
 	    map(tmp);
-	} catch (AppXpressException | IOException e) {
+	} catch (SubCommandException | IOException e) {
 	    throw new PMBuilderException("Exception when mapping file structure.", e);
 	}
     }
@@ -56,9 +56,9 @@ public class BuildPrep {
      *            Name of customer folder
      * @param folder
      *            Name of platform module folder
-     * @throws AppXpressException
+     * @throws SubCommandException
      */
-    private void runImportFind(final File rootFile, final Path lib) throws AppXpressException {
+    private void runImportFind(final File rootFile, final Path lib) throws SubCommandException {
 	System.out.println("Gathering imports...");
 	ImportService iScanner = new ImportService(rootFile, lib);
 	iScanner.scanAndImport();
@@ -71,7 +71,7 @@ public class BuildPrep {
      * @param root
      *            File path of platform module
      */
-    private void map(File rootFile) throws AppXpressException {
+    private void map(File rootFile) throws SubCommandException {
 	new AppXpressMapper(rootFile).doMapping();
     }
 

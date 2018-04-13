@@ -3,7 +3,7 @@ package com.gtnexus.pmm.build.bundle.platform;
 import java.io.File;
 
 import com.gtnexus.pmm.AppXpressConstants;
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.ZipService;
 import com.gtnexus.pmm.build.bundle.Bundler;
 import com.gtnexus.pmm.service.ZipServiceImpl;
@@ -19,7 +19,7 @@ public class PlatformModuleBundler implements Bundler {
     }
 
     @Override
-    public void bundle(File dir) throws AppXpressException {
+    public void bundle(File dir) throws SubCommandException {
 	zs.zipDirectory(dir, root);
     }
 

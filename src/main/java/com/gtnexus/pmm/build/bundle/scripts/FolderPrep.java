@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.common.HasPrerequisite;
 import com.gtnexus.pmm.common.file.filter.ChainedAnd;
@@ -32,12 +32,12 @@ public class FolderPrep {
     /**
      * Renames directories, and handle's special cases for specific directories.
      */
-    public void prepare(File root) throws AppXpressException {
+    public void prepare(File root) throws SubCommandException {
 	for (File dir : root.listFiles(FileFilterFactory.directoriesOnly())) {
 	    try {
 		route(dir);
 	    } catch (IOException e) {
-		throw new AppXpressException("Exception when preparing " + dir.toString() + ".", e);
+		throw new SubCommandException("Exception when preparing " + dir.toString() + ".", e);
 	    }
 	}
     }

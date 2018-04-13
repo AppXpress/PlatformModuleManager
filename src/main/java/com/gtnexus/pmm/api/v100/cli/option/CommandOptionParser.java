@@ -10,7 +10,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.common.CommandOptionTransformers;
 import com.gtnexus.pmm.extract.exception.PMExtractorException;
 
@@ -51,12 +51,12 @@ public class CommandOptionParser {
      * @throws PMExtractorException
      *             if input is not parasable.
      */
-    public Map<CommandOption, String> parse(String[] userArgs) throws AppXpressException {
+    public Map<CommandOption, String> parse(String[] userArgs) throws SubCommandException {
 	CommandLineParser parser = new DefaultParser();
 	try {
 	    return transform(parser.parse(options, userArgs));
 	} catch (ParseException e) {
-	    throw new AppXpressException("Failed to parse args from command line!\n" + e.getMessage());
+	    throw new SubCommandException("Failed to parse args from command line!\n" + e.getMessage());
 	}
     }
 

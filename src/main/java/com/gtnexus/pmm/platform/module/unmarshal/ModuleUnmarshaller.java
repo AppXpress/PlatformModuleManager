@@ -10,7 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Unmarshaller;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.platform.module.ModuleModelPointer;
 import com.gtnexus.pmm.platform.module.ModuleVO;
 import com.gtnexus.pmm.platform.module.model.customaction.CustomActionD1;
@@ -26,7 +26,7 @@ public class ModuleUnmarshaller {
 
     }
 
-    public ModuleVO unmarshall(ModuleModelPointer vo) throws AppXpressException {
+    public ModuleVO unmarshall(ModuleModelPointer vo) throws SubCommandException {
 	ModuleVO.Builder builder = new ModuleVO.Builder();
 	try {
 	    builder.setPlatformModuleXml(unmarshallPlatMod(vo.getPlatformModuleXml()));
@@ -46,7 +46,7 @@ public class ModuleUnmarshaller {
 		builder.addDesign(unmarshallCustomObjectDesignV110(f));
 	    }
 	} catch (JAXBException | IOException e) {
-	    throw new AppXpressException("Failed to unmarshall the platform module", e);
+	    throw new SubCommandException("Failed to unmarshall the platform module", e);
 	}
 	return builder.build();
     }

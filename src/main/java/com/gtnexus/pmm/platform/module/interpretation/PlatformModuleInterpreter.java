@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.common.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.platform.module.ModuleModelPointer;
 import com.gtnexus.pmm.platform.module.ModulePointer;
@@ -27,11 +27,11 @@ public class PlatformModuleInterpreter {
 	this.root = root;
     }
 
-    public ModuleVO interpret() throws AppXpressException {
+    public ModuleVO interpret() throws SubCommandException {
 	return getVO();
     }
 
-    protected ModuleVO getVO() throws AppXpressException {
+    protected ModuleVO getVO() throws SubCommandException {
 	ModuleModelPointer filesForDocumentation = collectFilesForDocumentation(root);
 	ModuleUnmarshaller unmarshaller = new ModuleUnmarshaller();
 	return unmarshaller.unmarshall(filesForDocumentation);

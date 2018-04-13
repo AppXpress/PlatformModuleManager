@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.ZipService;
 import com.gtnexus.pmm.build.bundle.Bundler;
@@ -44,7 +44,7 @@ public class ScriptBundler implements Bundler {
     }
 
     @Override
-    public void bundle(final File directory) throws AppXpressException {
+    public void bundle(final File directory) throws SubCommandException {
 	for (File f : directory.listFiles(FileFilterFactory.directoriesOnly())) {
 	    searchForPotentialBundles(f);
 	}
@@ -90,7 +90,7 @@ public class ScriptBundler implements Bundler {
 	    try {
 		zs.zipFiles(jsFiles, dir.getAbsolutePath() + BUNDLE + ZIP_EXTENSION);
 		fs.emptyDir(dir, true);
-	    } catch (AppXpressException | IOException e) {
+	    } catch (SubCommandException | IOException e) {
 		throw new PMBuilderException("Failed to bundle directory generically", e);
 	    }
 	}
@@ -111,7 +111,7 @@ public class ScriptBundler implements Bundler {
 		addPathsToUIBundle(filter.listPaths(dir), customUiBundle);
 		zs.zipDirectory(customUiBundle);
 		fs.emptyDir(customUiBundle, true);
-	    } catch (AppXpressException | IOException e) {
+	    } catch (SubCommandException | IOException e) {
 		throw new PMExtractorException("Could not handle FEF", e);
 	    }
 	}
@@ -144,7 +144,7 @@ public class ScriptBundler implements Bundler {
 		zs.zipDirectory(p);
 	    }
 	    fs.emptyDir(p, true);
-	} catch (AppXpressException | IOException e) {
+	} catch (SubCommandException | IOException e) {
 	    throw new PMExtractorException("Couldn't handle single custom object design script " + dir.toString(), e);
 	}
     }

@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 
 /**
  * Simple wrapper around a File and Property objects.
@@ -52,11 +52,11 @@ public class PMProperties {
 	properties.put(key, value);
     }
 
-    public void store() throws AppXpressException {
+    public void store() throws SubCommandException {
 	try (FileOutputStream settingsOutputStream = new FileOutputStream(propertiesFile)) {
 	    properties.store(settingsOutputStream, null);
 	} catch (IOException e) {
-	    throw new AppXpressException("Failed to write properties file!", e);
+	    throw new SubCommandException("Failed to write properties file!", e);
 	}
     }
 

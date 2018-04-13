@@ -2,7 +2,7 @@ package com.gtnexus.pmm.build.bundle.platform;
 
 import java.io.File;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.build.bundle.Bundler;
 import com.gtnexus.pmm.build.bundle.scripts.FolderPrep;
 import com.gtnexus.pmm.build.bundle.scripts.ScriptBundler;
@@ -31,7 +31,7 @@ public class AppXpressMapper {
     /**
      * Performs the directory mappings (renaming, moving, etc.)
      */
-    public void doMapping() throws AppXpressException {
+    public void doMapping() throws SubCommandException {
 	if (root == null || !root.isDirectory()) {
 	    System.err.println("Module root cannot be found, or is empty. " + "No mapping can be performed.");
 	    return;

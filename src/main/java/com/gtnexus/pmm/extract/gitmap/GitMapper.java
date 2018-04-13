@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.extract.cli.ExtractorOption;
@@ -63,7 +63,7 @@ public class GitMapper {
     /**
      * Performs the appropriate actions for module extraction
      */
-    public void doMapping() throws AppXpressException {
+    public void doMapping() throws SubCommandException {
 	try {
 	    prep.prepare(vo);
 	    mapCustomObjectDesign();
@@ -71,8 +71,8 @@ public class GitMapper {
 	    if (vo.isOverwriteScripts() && overwrittenScripts.size() > 0) {
 		printOverwrittenScripts();
 	    }
-	} catch (AppXpressException e) {
-	    throw new AppXpressException("Exception when performing mapping!", e);
+	} catch (SubCommandException e) {
+	    throw new SubCommandException("Exception when performing mapping!", e);
 	}
     }
 
@@ -102,9 +102,9 @@ public class GitMapper {
      * 
      * @param path
      *            Path of Unzipped Exported platform module
-     * @throws AppXpressException
+     * @throws SubCommandException
      */
-    private void mapCustomObjectDesign() throws AppXpressException {
+    private void mapCustomObjectDesign() throws SubCommandException {
 	Path scriptsPath = vo.getUnzipDir().toPath().resolve(CUSTOM_OBJECT_MODULE).resolve(DESIGNS).resolve(SCRIPTS);
 	if (!Files.exists(scriptsPath)) {
 	    System.out.println("Cannot find script folder: " + scriptsPath.toString());
@@ -117,7 +117,7 @@ public class GitMapper {
 		try {
 		    fs.renameFile(co, co.getName().replace(SCRIPT_DESIGN + $, ""));
 		} catch (IOException e) {
-		    throw new AppXpressException("Exception when renaming script!", e);
+		    throw new SubCommandException("Exception when renaming script!", e);
 		}
 	    } else {
 		String dirName = co.getName().replace(SCRIPT_DESIGN + $, "").replace(JS_EXTENSION, "");

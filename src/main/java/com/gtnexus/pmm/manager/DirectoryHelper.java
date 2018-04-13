@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.gtnexus.pmm.AppXpressConstants;
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.common.properties.PMProperties;
 
 /**
@@ -40,32 +40,32 @@ public class DirectoryHelper {
     /**
      * Ensures AppXPress Directories and associated files exist on the system.
      *
-     * @throws AppXpressException
+     * @throws SubCommandException
      */
-    public void ensureAppXpress() throws AppXpressException {
+    public void ensureAppXpress() throws SubCommandException {
 	ensureAppXPressDirectoryExists();
 	pmbProperties = getAndEnsurePropertiesExist();
     }
 
     /**
-     * @throws AppXpressException
+     * @throws SubCommandException
      *             if the AppXpress directory does not exist and cannot be created.
      */
-    private void ensureAppXPressDirectoryExists() throws AppXpressException {
+    private void ensureAppXPressDirectoryExists() throws SubCommandException {
 	File appXpressDirectory = resolver.resolveAppXpressDir().toFile();
 	if (!appXpressDirectory.isDirectory() && !appXpressDirectory.mkdirs()) {
-	    throw new AppXpressException("WARNING: AppXpress directory could not be found"
+	    throw new SubCommandException("WARNING: AppXpress directory could not be found"
 		    + "and could not be created: " + appXpressDirectory.getAbsolutePath());
 	}
     }
 
     /**
      * @return the properties file if one exists, else a newly created one.
-     * @throws AppXpressException
+     * @throws SubCommandException
      *             if the properties file does not exist and a new one cannot be
      *             created.
      */
-    private PMProperties getAndEnsurePropertiesExist() throws AppXpressException {
+    private PMProperties getAndEnsurePropertiesExist() throws SubCommandException {
 	File propertiesFile = new File(getPropertiesFilePath());
 	if (!propertiesFile.exists()) {
 	    return makePropertiesFile(propertiesFile);
@@ -74,21 +74,21 @@ public class DirectoryHelper {
 	}
     }
 
-    private PMProperties makePropertiesFile(File propertiesFile) throws AppXpressException {
+    private PMProperties makePropertiesFile(File propertiesFile) throws SubCommandException {
 	try {
 	    propertiesFile.createNewFile();
 	} catch (IOException e) {
-	    throw new AppXpressException("WARNING: Settings file couldn't be created: " + getPropertiesFilePath(), e);
+	    throw new SubCommandException("WARNING: Settings file couldn't be created: " + getPropertiesFilePath(), e);
 	}
 	return new PMProperties(new Properties(), propertiesFile);
     }
 
-    private PMProperties readProperties(File propertiesFile) throws AppXpressException {
+    private PMProperties readProperties(File propertiesFile) throws SubCommandException {
 	Properties properties = new Properties();
 	try (FileInputStream propInputStream = new FileInputStream(propertiesFile)) {
 	    properties.load(propInputStream);
 	} catch (IOException e) {
-	    throw new AppXpressException("Exception while loading properties file.", e);
+	    throw new SubCommandException("Exception while loading properties file.", e);
 	}
 	return new PMProperties(properties, propertiesFile);
     }
@@ -96,11 +96,11 @@ public class DirectoryHelper {
     /**
      *
      * @return the properties file
-     * @throws AppXpressException
+     * @throws SubCommandException
      */
-    public PMProperties getPmProperties() throws AppXpressException {
+    public PMProperties getPmProperties() throws SubCommandException {
 	if (pmbProperties == null) {
-	    throw new AppXpressException("ensureAppXpress() must be called before getPmbProperties");
+	    throw new SubCommandException("ensureAppXpress() must be called before getPmbProperties");
 	}
 	return pmbProperties;
     }

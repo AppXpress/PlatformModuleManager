@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.ZipService;
 
@@ -47,14 +47,14 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#zipFiles(java.util.Collection, java.lang.String)
      */
     @Override
-    public void zipFiles(Collection<File> files, String absPathToDestinationZip) throws AppXpressException {
+    public void zipFiles(Collection<File> files, String absPathToDestinationZip) throws SubCommandException {
 	try (FileOutputStream fos = new FileOutputStream(absPathToDestinationZip);
 		ZipOutputStream zos = new ZipOutputStream(fos)) {
 	    for (File f : files) {
 		zipSingle(zos, f);
 	    }
 	} catch (IOException e) {
-	    throw new AppXpressException("Error when zipping collection of files", e);
+	    throw new SubCommandException("Error when zipping collection of files", e);
 	}
     }
 
@@ -74,7 +74,7 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.nio.file.Path)
      */
     @Override
-    public void zipDirectory(Path directory) throws AppXpressException {
+    public void zipDirectory(Path directory) throws SubCommandException {
 	zipDirectory(directory.toFile());
     }
 
@@ -82,9 +82,9 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.io.File)
      */
     @Override
-    public void zipDirectory(File directory) throws AppXpressException {
+    public void zipDirectory(File directory) throws SubCommandException {
 	if (!directory.exists() || !directory.isDirectory()) {
-	    throw new AppXpressException("No such directory" + directory.getAbsolutePath());
+	    throw new SubCommandException("No such directory" + directory.getAbsolutePath());
 	}
 	String outputZip = directory.getAbsolutePath() + ZIP_EXTENSION;
 	zipDirectory(directory, outputZip);
@@ -94,7 +94,7 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.io.File, java.lang.String)
      */
     @Override
-    public void zipDirectory(File directory, String outputZip) throws AppXpressException {
+    public void zipDirectory(File directory, String outputZip) throws SubCommandException {
 	zipDirectory(directory, new File(outputZip));
     }
 
@@ -102,9 +102,9 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#zipDirectory(java.io.File, java.io.File)
      */
     @Override
-    public void zipDirectory(File directory, File outputZip) throws AppXpressException {
+    public void zipDirectory(File directory, File outputZip) throws SubCommandException {
 	if (!directory.exists() || !directory.isDirectory()) {
-	    throw new AppXpressException("No such directory " + directory.getAbsolutePath());
+	    throw new SubCommandException("No such directory " + directory.getAbsolutePath());
 	}
 	if (!outputZip.getName().endsWith(ZIP_EXTENSION)) {
 	    outputZip = new File(outputZip.toString() + ZIP_EXTENSION);
@@ -114,7 +114,7 @@ public class ZipServiceImpl implements ZipService {
 	    zipDirFiles(directory, directory, zos);
 	    zos.closeEntry();
 	} catch (IOException e) {
-	    throw new AppXpressException("Exception when recursively zipping " + directory.getAbsolutePath(), e);
+	    throw new SubCommandException("Exception when recursively zipping " + directory.getAbsolutePath(), e);
 	}
     }
 
@@ -156,7 +156,7 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#unzip(java.io.File, java.io.File, boolean)
      */
     @Override
-    public void unzip(File source, File destination, boolean recurse) throws AppXpressException {
+    public void unzip(File source, File destination, boolean recurse) throws SubCommandException {
 	unzip(source, destination);
 	if (recurse) {
 	    recurseUnzip(destination);
@@ -167,12 +167,12 @@ public class ZipServiceImpl implements ZipService {
      * @see com.gtnexus.pmm.commons.ZipService#unzip(java.io.File, java.io.File)
      */
     @Override
-    public void unzip(File source, File destination) throws AppXpressException {
+    public void unzip(File source, File destination) throws SubCommandException {
 	try {
 	    ZipFile zip = new ZipFile(source);
 	    zip.extractAll(destination.getAbsolutePath());
 	} catch (ZipException e) {
-	    throw new AppXpressException("Exception when unzipping", e);
+	    throw new SubCommandException("Exception when unzipping", e);
 	}
     }
 
@@ -186,7 +186,7 @@ public class ZipServiceImpl implements ZipService {
      * @param path
      *            Destination of file structure to iterate over
      */
-    private void recurseUnzip(File f) throws AppXpressException {
+    private void recurseUnzip(File f) throws SubCommandException {
 	if (f.isDirectory() && !ignoreSet.contains(f.getName())) {
 	    for (File item : f.listFiles()) {
 		recurseUnzip(item);

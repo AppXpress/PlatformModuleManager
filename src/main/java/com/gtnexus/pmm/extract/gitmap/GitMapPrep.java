@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.gtnexus.pmm.AppXpressConstants;
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.build.exception.PMBuilderException;
 import com.gtnexus.pmm.common.HasPrerequisite;
@@ -71,7 +71,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO> {
 	    try {
 		this.services.getZipService().unzip(platformZip, unzipDestination, true);
 		this.services.getTemporaryResourceService().markForDeletion(unzipDestination);
-	    } catch (AppXpressException e) {
+	    } catch (SubCommandException e) {
 		throw new PMBuilderException("Exception when unzipping platformZip: " + platformZip, e);
 	    }
 	} else {

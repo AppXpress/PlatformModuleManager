@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOptionParser;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
@@ -29,7 +28,7 @@ public abstract class AbstractSubCommand implements SubCommand {
 	return this.args;
     }
     
-    protected Map<CommandOption, String> parse() throws AppXpressException {
+    protected Map<CommandOption, String> parse() throws SubCommandException {
 	return CommandOptionParser
 		.createParser(this.getOptions())
 		.parse(this.args);

@@ -6,7 +6,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.manager.DirectoryHelper;
 
 /**
@@ -15,8 +15,8 @@ import com.gtnexus.pmm.manager.DirectoryHelper;
 @Deprecated
 public class DirectoryHelperTest {
 
-    @Test(expected = AppXpressException.class)
-    public void testWithoutEnsuring() throws AppXpressException {
+    @Test(expected = SubCommandException.class)
+    public void testWithoutEnsuring() throws SubCommandException {
 	DirectoryHelper directoryHelper = new DirectoryHelper("test");
 	directoryHelper.getPmProperties();
     }
@@ -30,7 +30,7 @@ public class DirectoryHelperTest {
 	    if (propFile == null || !propFile.exists()) {
 		fail("Property file does not exist");
 	    }
-	} catch (AppXpressException e) {
+	} catch (SubCommandException e) {
 	    fail("Exception when ensuring\n" + e.getMessage());
 	}
     }

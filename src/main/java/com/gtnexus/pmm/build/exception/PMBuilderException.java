@@ -1,8 +1,8 @@
 package com.gtnexus.pmm.build.exception;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 
-public class PMBuilderException extends AppXpressException {
+public class PMBuilderException extends SubCommandException {
 
     /**
      * 

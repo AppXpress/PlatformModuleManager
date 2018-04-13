@@ -5,10 +5,10 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.common.CommandOptionCompleter;
@@ -61,7 +61,7 @@ public class ExtractCommand extends AbstractSubCommand {
     }
 
     @Override
-    public void execute() throws AppXpressException {
+    public void execute() throws SubCommandException {
 	Map<CommandOption, String> optionsMap = this.parse();
 	if(optionsMap.containsKey(StandardOptions.HELP)) {
 	    new SubCommandHelpFormatter(this).displayHelp();
@@ -72,8 +72,8 @@ public class ExtractCommand extends AbstractSubCommand {
 	try {
 	    tool.doMapping();
 	    System.out.println("Success!");
-	} catch (AppXpressException e) {
-	    throw new AppXpressException("Failure when running pmextractor.", e);
+	} catch (SubCommandException e) {
+	    throw new SubCommandException("Failure when running pmextractor.", e);
 	}
     }
 

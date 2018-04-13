@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.common.HasPrerequisite;
 import com.gtnexus.pmm.common.file.LibResourceToPath;
@@ -56,11 +56,11 @@ public class ImportService {
      * 
      * @param filePath
      *            File path to recursively search
-     * @throws AppXpressException
+     * @throws SubCommandException
      */
-    public void scanAndImport() throws AppXpressException {
+    public void scanAndImport() throws SubCommandException {
 	if (!root.isDirectory()) {
-	    throw new AppXpressException(
+	    throw new SubCommandException(
 		    root.getAbsolutePath() + " is invalid. filePath " + "must be a valid path to a directory");
 	}
 	traverse(root);

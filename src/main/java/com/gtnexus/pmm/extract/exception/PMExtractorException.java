@@ -1,11 +1,11 @@
 package com.gtnexus.pmm.extract.exception;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 
 /**
  * Created by jjdonov on 9/29/14.
  */
-public class PMExtractorException extends AppXpressException {
+public class PMExtractorException extends SubCommandException {
 
     private static final long serialVersionUID = 5468857470158908903L;
 

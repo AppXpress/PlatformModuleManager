@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 
 public class AppXpressExceptionTest {
 
@@ -17,9 +17,9 @@ public class AppXpressExceptionTest {
 	    sb.append("\n");
 	}
 	String expected = sb.toString().trim();
-	AppXpressException root = new AppXpressException(ss[ss.length - 1]);
+	SubCommandException root = new SubCommandException(ss[ss.length - 1]);
 	for (int i = ss.length - 2; i >= 0; i--) {
-	    root = new AppXpressException(ss[i], root);
+	    root = new SubCommandException(ss[i], root);
 	}
 	String actual = root.getAppXpressMessage();
 	assertEquals(expected, actual);

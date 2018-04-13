@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gtnexus.pmm.api.v100.command.SubCommand;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.common.properties.PMProperties;
 import com.gtnexus.pmm.manager.DirectoryHelper;
@@ -19,12 +20,12 @@ public class PlatformModuleManager {
 	try {
 	    PlatformModuleManager pmm = start(args);
 	    pmm.run();
-	} catch (AppXpressException e) {
+	} catch (SubCommandException e) {
 	    System.out.println("Failed to start.");
 	}
     }
 
-    public static PlatformModuleManager start(String... args) throws AppXpressException {
+    public static PlatformModuleManager start(String... args) throws SubCommandException {
 	DirectoryHelper dHelper = new DirectoryHelper();
 	dHelper.ensureAppXpress();
 	Set<CLICommand> commands = SubCommandScanner.scan();
@@ -62,7 +63,7 @@ public class PlatformModuleManager {
     protected void run() {
 	try {
 	    PlatformModuleManager.getCommand(this).execute();
-	} catch (AppXpressException e) {
+	} catch (SubCommandException e) {
 	    System.out.println(e.getAppXpressMessage());
 	}
     }

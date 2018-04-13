@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.pmm.AppXpressException;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 import com.gtnexus.pmm.api.v100.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
+import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.build.bundle.platform.BuildPrep;
@@ -43,7 +43,7 @@ public class BuildCommand extends AbstractSubCommand {
     }
 
     @Override
-    public void execute() throws AppXpressException {
+    public void execute() throws SubCommandException {
 	Map<CommandOption, String> optionsMap = this.parse();
 	if(optionsMap.containsKey(StandardOptions.HELP)) {
 	    new SubCommandHelpFormatter(this).displayHelp();
@@ -58,8 +58,8 @@ public class BuildCommand extends AbstractSubCommand {
 	try {
 	    prep.prepare(vo);
 	    bundler.bundle(vo.getWorkingDir());
-	} catch (AppXpressException e) {
-	    throw new AppXpressException("Failed to build module.", e);
+	} catch (SubCommandException e) {
+	    throw new SubCommandException("Failed to build module.", e);
 	}
     }
 
