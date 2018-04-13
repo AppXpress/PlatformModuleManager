@@ -11,8 +11,8 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.gtnexus.appxpress.NullOutputStream;
-import com.gtnexus.pmm.cli.FileSelector;
-import com.gtnexus.pmm.cli.prompt.BoundIntegerAsker;
+import com.gtnexus.pmm.api.v100.cli.FileSelector;
+import com.gtnexus.pmm.api.v100.cli.prompt.BoundIntegerAsker;
 
 public class PlatformSelectorTest {
 

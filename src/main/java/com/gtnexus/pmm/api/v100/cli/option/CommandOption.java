@@ -1,13 +1,13 @@
-package com.gtnexus.pmm.cli.option;
+package com.gtnexus.pmm.api.v100.cli.option;
 
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.pmm.cli.option.options.CustomerOption;
-import com.gtnexus.pmm.cli.option.options.HelpOption;
-import com.gtnexus.pmm.cli.option.options.LocalDirOption;
-import com.gtnexus.pmm.cli.option.options.ModuleOption;
-import com.gtnexus.pmm.cli.option.options.SelectOption;
+import com.gtnexus.pmm.api.v100.cli.option.options.CustomerOption;
+import com.gtnexus.pmm.api.v100.cli.option.options.HelpOption;
+import com.gtnexus.pmm.api.v100.cli.option.options.LocalDirOption;
+import com.gtnexus.pmm.api.v100.cli.option.options.ModuleOption;
+import com.gtnexus.pmm.api.v100.cli.option.options.SelectOption;
 
 /**
  * Extension of typical command line options interface. Holds AppXpress specific

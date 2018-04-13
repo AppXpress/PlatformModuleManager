@@ -4,7 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 
 /**
  * Enumeration of options that can be stored in the Properties file or read in

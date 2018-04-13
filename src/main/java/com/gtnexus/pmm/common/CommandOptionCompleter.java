@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption.StandardOptions;
+import com.gtnexus.pmm.api.v100.cli.prompt.Prompt;
+import com.gtnexus.pmm.api.v100.cli.prompt.SimplePrompt;
 import com.gtnexus.pmm.api.v100.service.EnvironmentService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
-import com.gtnexus.pmm.cli.prompt.Prompt;
-import com.gtnexus.pmm.cli.prompt.SimplePrompt;
 
 public class CommandOptionCompleter {
 

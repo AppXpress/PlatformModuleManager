@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli.prompt;
+package com.gtnexus.pmm.api.v100.cli.prompt;
 
 /**
  * 

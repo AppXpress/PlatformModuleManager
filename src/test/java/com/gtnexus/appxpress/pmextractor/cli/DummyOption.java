@@ -1,6 +1,6 @@
 package com.gtnexus.appxpress.pmextractor.cli;
 
-import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 
 public enum DummyOption implements CommandOption {
 

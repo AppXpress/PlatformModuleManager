@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.option.CommandOption;
 import com.gtnexus.pmm.extract.cli.ExtractorOption;
 import com.gtnexus.pmm.extract.exception.PMExtractorException;
 import com.gtnexus.pmm.service.FileServiceImpl;

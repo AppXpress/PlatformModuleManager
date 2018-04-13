@@ -1,13 +1,13 @@
-package com.gtnexus.pmm.cli;
+package com.gtnexus.pmm.api.v100.cli;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Collection;
 
-import com.gtnexus.pmm.cli.prompt.BoundIntegerAsker;
-import com.gtnexus.pmm.cli.prompt.Prompt;
-import com.gtnexus.pmm.cli.prompt.SimplePrompt;
+import com.gtnexus.pmm.api.v100.cli.prompt.BoundIntegerAsker;
+import com.gtnexus.pmm.api.v100.cli.prompt.Prompt;
+import com.gtnexus.pmm.api.v100.cli.prompt.SimplePrompt;
 
 /**
  * 

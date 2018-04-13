@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli;
+package com.gtnexus.pmm.api.v100.cli;
 
 import java.util.Collection;
 

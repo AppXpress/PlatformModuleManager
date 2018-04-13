@@ -1,7 +1,7 @@
-package com.gtnexus.pmm.cli.option.options;
+package com.gtnexus.pmm.api.v100.cli.option.options;
 
-import com.gtnexus.pmm.cli.option.AbstractCommandOption;
-import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.AbstractCommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 
 public class HelpOption  extends AbstractCommandOption implements CommandOption {
 

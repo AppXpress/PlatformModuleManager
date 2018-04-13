@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.cli.option;
+package com.gtnexus.pmm.api.v100.cli.option;
 
 import java.util.HashMap;
 import java.util.Map;

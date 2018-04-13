@@ -5,8 +5,8 @@ import static com.gtnexus.pmm.AppXpressConstants.PLATFORM_MODULE_UNZIP_NAME;
 import java.io.File;
 import java.util.Map;
 
-import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.CommandOption.StandardOptions;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption.StandardOptions;
 import com.gtnexus.pmm.extract.cli.ExtractorOption;
 
 public class GitMapVO {

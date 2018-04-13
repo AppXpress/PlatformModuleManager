@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 
 /**
  * Simple wrapper around a File and Property objects.

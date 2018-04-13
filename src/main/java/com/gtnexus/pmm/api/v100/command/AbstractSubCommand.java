@@ -5,9 +5,9 @@ import java.util.Set;
 
 import com.google.common.base.Preconditions;
 import com.gtnexus.pmm.AppXpressException;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
+import com.gtnexus.pmm.api.v100.cli.option.CommandOptionParser;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
-import com.gtnexus.pmm.cli.option.CommandOption;
-import com.gtnexus.pmm.cli.option.CommandOptionParser;
 
 public abstract class AbstractSubCommand implements SubCommand {
     
