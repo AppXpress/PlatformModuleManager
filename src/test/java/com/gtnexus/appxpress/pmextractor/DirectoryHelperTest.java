@@ -7,7 +7,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
-import com.gtnexus.pmm.manager.DirectoryHelper;
+import com.gtnexus.pmm.app.manager.DirectoryHelper;
 
 /**
  * Created by jjdonov on 9/29/14.

@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.gtnexus.pmm.common.file.CopyDirVisitor;
+import com.gtnexus.pmm.app.common.file.CopyDirVisitor;
 
 public class CopyDirVisitorTest {
 

@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import com.gtnexus.pmm.api.v100.service.FileService;
-import com.gtnexus.pmm.common.HasPrerequisite;
-import com.gtnexus.pmm.service.FileServiceImpl;
+import com.gtnexus.pmm.app.common.HasPrerequisite;
+import com.gtnexus.pmm.app.service.FileServiceImpl;
 
 public class FileServiceTest {
 
