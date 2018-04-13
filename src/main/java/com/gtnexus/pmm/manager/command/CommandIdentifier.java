@@ -24,7 +24,6 @@ public class CommandIdentifier {
 		return Optional.fromNullable(command);
 	    }
 	}
-	System.out.println("Not a recognized command: " + cmdNameOrFlag);
 	return Optional.absent();
     }
 

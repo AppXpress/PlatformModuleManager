@@ -1,6 +1,5 @@
 package com.gtnexus.pmm;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -78,18 +77,11 @@ public class PlatformModuleManager {
 	    CLICommand cliCmd = new CommandIdentifier(allCmds)
 		    .identify(cmdNameOrFlag)
 		    .or(pmm.getHelp());
-	    cmd = cliCmd.constructCommand(pmm.getServices(), restOf(args));
+	    cmd = cliCmd.constructCommand(pmm.getServices(), args);
 	} else {
 	    cmd = pmm.getHelp().constructCommand(pmm.getServices(), args);
 	}
 	return cmd;
-    }
-
-    private static String[] restOf(String... args) {
-	if (args.length < 2) {
-	    return new String[0];
-	}
-	return Arrays.copyOfRange(args, 1, args.length);
     }
 
     public Set<CLICommand> getCommands() {

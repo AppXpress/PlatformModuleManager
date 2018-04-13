@@ -14,5 +14,5 @@ public interface SubCommand {
 
     public  Set<CommandOption> getOptions();
     
-    public void execute() throws AppXpressException;
+    public void execute() throws AppXpressException; //TODO: throw subcommand exception?
 }

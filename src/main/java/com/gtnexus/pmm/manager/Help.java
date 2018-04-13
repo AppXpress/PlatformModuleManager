@@ -1,6 +1,7 @@
 package com.gtnexus.pmm.manager;
 
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -33,11 +34,11 @@ public class Help implements CLICommand {
     }
 
     @Override
-    public AbstractSubCommand constructCommand(PlatformModuleManagerServices services, String... args) {
+    public AbstractSubCommand constructCommand(final PlatformModuleManagerServices services, final String... args) {
 	return new AbstractSubCommand(services, args) {
-	    
+
 	    private final String name = "help";
-	    private final String blurb = Joiner.on("\n")
+	    private final String usage = Joiner.on("\n")
 		    .join(Iterables.transform(commands, new Function<CLICommand, String>() {
 			@Override
 			public String apply(CLICommand cmd) {
@@ -52,9 +53,11 @@ public class Help implements CLICommand {
 			    return b.toString();
 			}
 		    }));
+	    private final String unrecognizedMsg = "Unrecognized command %s. See pmm help.";
+	    private final String helpMsg = "Welcome to the AppXpress Platform Module Manager\n\n%s";
 
-	    private final String template = "Welcome to the AppXpress Platform Module Manager\n\n%s";
-	    
+	    private Pattern p = Pattern.compile("^(-h|(--)?hello)");
+
 	    @Override
 	    public String getName() {
 		return name;
@@ -62,8 +65,15 @@ public class Help implements CLICommand {
 
 	    @Override
 	    public void execute() {
-		System.out.println(String.format(template, blurb));
-		System.exit(0);
+		if(p.matcher(args[0]).matches()) {
+		    printHelp(helpMsg, usage);
+		} else {
+		    printHelp(unrecognizedMsg, args[0]);
+		}
+	    }
+
+	    private void printHelp(String template, String ...args) {
+		System.out.println(String.format(template, (Object[])args));
 	    }
 
 	};
