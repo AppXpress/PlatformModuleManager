@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
+import com.gtnexus.pmm.common.file.filter.FileFilterFactory;
 import com.gtnexus.pmm.platform.module.ModuleModelPointer;
 import com.gtnexus.pmm.platform.module.ModulePointer;
 import com.gtnexus.pmm.platform.module.ModuleVO;

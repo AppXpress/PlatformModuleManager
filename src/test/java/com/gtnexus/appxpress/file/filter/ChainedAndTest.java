@@ -9,8 +9,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.gtnexus.pmm.commons.file.filter.ChainedAnd;
-import com.gtnexus.pmm.commons.file.filter.FileFilterFactory;
+import com.gtnexus.pmm.common.file.filter.ChainedAnd;
+import com.gtnexus.pmm.common.file.filter.FileFilterFactory;
 
 public class ChainedAndTest {
 

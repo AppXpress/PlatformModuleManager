@@ -5,7 +5,7 @@ import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.api.v100.service.TemporaryResourceService;
 import com.gtnexus.pmm.api.v100.service.ZipService;
-import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.common.properties.PMProperties;
 
 public class PlatformModuleManagerServicesImpl implements PlatformModuleManagerServices {
    

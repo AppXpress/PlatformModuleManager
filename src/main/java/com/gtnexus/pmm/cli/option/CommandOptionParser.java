@@ -11,8 +11,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.CommandOptionTransformers;
-import com.gtnexus.pmm.pmextractor.exception.PMExtractorException;
+import com.gtnexus.pmm.common.CommandOptionTransformers;
+import com.gtnexus.pmm.extract.exception.PMExtractorException;
 
 /**
  * Wrapper to tie together CLICommandOptions and the Apache Commons CLI library.

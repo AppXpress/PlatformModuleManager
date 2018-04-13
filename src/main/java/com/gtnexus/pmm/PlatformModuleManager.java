@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.gtnexus.pmm.api.v100.command.Command;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
-import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.common.properties.PMProperties;
 import com.gtnexus.pmm.manager.DirectoryHelper;
 import com.gtnexus.pmm.manager.Help;
 import com.gtnexus.pmm.manager.SubCommandScanner;

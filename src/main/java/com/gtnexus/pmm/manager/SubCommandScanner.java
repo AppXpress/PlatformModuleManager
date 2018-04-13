@@ -13,10 +13,10 @@ import com.google.common.collect.Sets.SetView;
 import com.gtnexus.pmm.api.v100.command.AbstractSubCommand;
 import com.gtnexus.pmm.api.v100.command.SubCommandMarker;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
+import com.gtnexus.pmm.build.BuildCommand;
+import com.gtnexus.pmm.docgen.DocGenCommand;
+import com.gtnexus.pmm.extract.ExtractCommand;
 import com.gtnexus.pmm.manager.command.CLICommand;
-import com.gtnexus.pmm.pmbuilder.BuildCommand;
-import com.gtnexus.pmm.pmdocgen.DocGenCommand;
-import com.gtnexus.pmm.pmextractor.ExtractCommand;
 
 @SuppressWarnings("unchecked")
 public class SubCommandScanner {

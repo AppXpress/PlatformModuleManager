@@ -7,7 +7,7 @@ import java.util.Properties;
 
 import com.gtnexus.pmm.AppXpressConstants;
 import com.gtnexus.pmm.AppXpressException;
-import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.common.properties.PMProperties;
 
 /**
  * Helper class used by pmm. Ensures the existence of necessary directories and

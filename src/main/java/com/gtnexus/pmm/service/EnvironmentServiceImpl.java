@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import com.gtnexus.pmm.api.v100.service.EnvironmentService;
 import com.gtnexus.pmm.cli.option.options.LocalDirOption;
-import com.gtnexus.pmm.commons.properties.PMProperties;
+import com.gtnexus.pmm.common.properties.PMProperties;
 
 public class EnvironmentServiceImpl implements EnvironmentService {
 
