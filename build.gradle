@@ -21,11 +21,6 @@ def getVersionName = { ->
 }
 
 allprojects {
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked"
-        }
-    }
 }
 
 repositories {
@@ -67,7 +62,7 @@ task wrapper(type: Wrapper) {
 }
 
 compileJava.doFirst {
-	println "" 
+	println ""
 	println "on tag -> " + getVersionName()
     println "source compatibility >>" + sourceCompatibility
     println "java_home: " + System.getProperty("java.home")
