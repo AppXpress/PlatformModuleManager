@@ -1,7 +1,7 @@
 subprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
-  version = '1.0'
+  //version = '1.0'
   repositories {
     mavenCentral()
     flatDir {
@@ -34,6 +34,17 @@ project(':mapp') {
    */
   run {
     args System.getProperty("exec.args", "").split()
+  }
+
+  task fatJar(type: Jar) {
+    manifest {
+          attributes 'Implementation-Title': 'PlatformModuleManager',
+            'Implementation-Version': '1.0.0',
+            'Main-Class': 'com.gtnexus.pmm.app.PlatformModuleManager'
+      }
+      baseName = 'pmm' + '-all'
+      from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+      with jar
   }
 
 }
