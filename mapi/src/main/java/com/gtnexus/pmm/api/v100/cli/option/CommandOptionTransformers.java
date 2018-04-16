@@ -1,9 +1,7 @@
-package com.gtnexus.pmm.app.common;
+package com.gtnexus.pmm.api.v100.cli.option;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-
-import com.gtnexus.pmm.api.v100.cli.option.CommandOption;
 
 
 public class CommandOptionTransformers {

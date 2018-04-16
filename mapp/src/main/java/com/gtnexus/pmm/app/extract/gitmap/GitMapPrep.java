@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.gtnexus.pmm.api.v100.HasPrerequisite;
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.app.AppXpressConstants;
 import com.gtnexus.pmm.app.build.exception.PMBuilderException;
-import com.gtnexus.pmm.app.common.HasPrerequisite;
 
 /**
  * Performs all prep work for GitMap, including cleaning directories, unzipping

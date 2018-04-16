@@ -65,10 +65,11 @@ public class Help implements CLICommand {
 
 	    @Override
 	    public void execute() {
-		if(p.matcher(args[0]).matches()) {
+		String identifier = args.length > 0 ? args[0] : null;
+		if(identifier == null || p.matcher(identifier).matches()) {
 		    printHelp(helpMsg, usage);
 		} else {
-		    printHelp(unrecognizedMsg, args[0]);
+		    printHelp(unrecognizedMsg, identifier);
 		}
 	    }
 

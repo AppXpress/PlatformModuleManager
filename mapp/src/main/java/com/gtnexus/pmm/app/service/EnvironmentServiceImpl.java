@@ -5,9 +5,9 @@ import static com.gtnexus.pmm.app.AppXpressConstants.LIB;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.gtnexus.pmm.api.v100.PMProperties;
 import com.gtnexus.pmm.api.v100.cli.option.options.LocalDirOption;
 import com.gtnexus.pmm.api.v100.service.EnvironmentService;
-import com.gtnexus.pmm.app.common.properties.PMProperties;
 
 public class EnvironmentServiceImpl implements EnvironmentService {
 

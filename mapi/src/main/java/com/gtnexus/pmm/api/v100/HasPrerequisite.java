@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.app.common;
+package com.gtnexus.pmm.api.v100;
 
 public interface HasPrerequisite<T> {
     public boolean isMet(T obj);

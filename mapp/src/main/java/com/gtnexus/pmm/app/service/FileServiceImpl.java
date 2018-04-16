@@ -10,11 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.common.base.Preconditions;
+import com.gtnexus.pmm.api.v100.HasPrerequisite;
+import com.gtnexus.pmm.api.v100.NameToPath;
 import com.gtnexus.pmm.api.v100.service.FileService;
-import com.gtnexus.pmm.app.common.HasPrerequisite;
 import com.gtnexus.pmm.app.common.file.CopyDirVisitor;
 import com.gtnexus.pmm.app.common.file.DeleteDirVisitor;
-import com.gtnexus.pmm.app.common.file.NameToPath;
 
 /**
  * Service class to handle File IO procedures common to app.

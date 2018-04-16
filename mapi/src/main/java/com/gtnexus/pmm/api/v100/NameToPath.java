@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.app.common.file;
+package com.gtnexus.pmm.api.v100;
 
 import java.nio.file.Path;
 

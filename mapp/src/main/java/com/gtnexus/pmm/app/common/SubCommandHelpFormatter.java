@@ -3,6 +3,7 @@ package com.gtnexus.pmm.app.common;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
+import com.gtnexus.pmm.api.v100.cli.option.CommandOptionTransformers;
 import com.gtnexus.pmm.api.v100.command.SubCommand;
 
 public class SubCommandHelpFormatter {

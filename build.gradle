@@ -1,6 +1,3 @@
-apply plugin: 'java'
-apply plugin: 'application'
-
 subprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
@@ -13,7 +10,6 @@ subprojects {
   }
 
   dependencies {
-
     testCompile 'junit:junit:4.12'
     compile 'com.google.guava:guava:19.0'
     compile 'org.apache.poi:poi:3.14'
@@ -27,9 +23,19 @@ subprojects {
 }
 
 project(':mapp') {
+  apply plugin: 'application'
+  mainClassName = 'com.gtnexus.pmm.app.PlatformModuleManager'
   dependencies {
     compile project(':mapi')
   }
+  /*
+   * To run app, pass args to app behind -Dexec.args flag
+   * eg: gradle run -Dexec.args="build -h"
+   */
+  run {
+    args System.getProperty("exec.args", "").split()
+  }
+
 }
 
 //project(':app') {

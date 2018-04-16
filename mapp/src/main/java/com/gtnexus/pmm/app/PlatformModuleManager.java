@@ -3,10 +3,10 @@ package com.gtnexus.pmm.app;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.gtnexus.pmm.api.v100.PMProperties;
 import com.gtnexus.pmm.api.v100.command.SubCommand;
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
-import com.gtnexus.pmm.app.common.properties.PMProperties;
 import com.gtnexus.pmm.app.manager.DirectoryHelper;
 import com.gtnexus.pmm.app.manager.Help;
 import com.gtnexus.pmm.app.manager.SubCommandScanner;

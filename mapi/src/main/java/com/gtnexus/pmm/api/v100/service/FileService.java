@@ -6,8 +6,8 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
-import com.gtnexus.pmm.app.common.HasPrerequisite;
-import com.gtnexus.pmm.app.common.file.NameToPath;
+import com.gtnexus.pmm.api.v100.HasPrerequisite;
+import com.gtnexus.pmm.api.v100.NameToPath;
 
 public interface FileService {
 
