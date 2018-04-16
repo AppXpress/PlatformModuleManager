@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.google.common.base.Predicate;
-import com.gtnexus.pmm.api.v100.NameToPath;
 
 public interface FileService {
 
@@ -112,9 +111,6 @@ public interface FileService {
      *             If destination is not a directory.
      */
     List<Path> moveFiles(Collection<File> files, File destination) throws IOException;
-
-    List<Path> copyFiles(Collection<String> fileNames, NameToPath converter, File destination,
-	    Predicate<File> precondition) throws IOException;
 
     /**
      * 

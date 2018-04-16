@@ -12,7 +12,6 @@ import java.util.List;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.gtnexus.pmm.api.v100.NameToPath;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.app.common.file.CopyDirVisitor;
 import com.gtnexus.pmm.app.common.file.DeleteDirVisitor;
@@ -128,25 +127,6 @@ public class FileServiceImpl implements FileService {
 	    Path p = destination.toPath().resolve(file.getName());
 	    Path result = Files.move(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
 	    paths.add(result);
-	}
-	return paths;
-    }
-
-    /* (non-Javadoc)
-     * @see com.gtnexus.pmm.commons.file.FileService#copyFiles(java.util.Collection, com.gtnexus.pmm.commons.file.NameToPath, java.io.File, com.gtnexus.pmm.commons.HasPrerequisite)
-     */
-    @Override
-    public List<Path> copyFiles(final Collection<String> fileNames, final NameToPath converter, final File destination,
-	    Predicate<File> precondition) throws IOException {
-	if (fileNames == null || destination == null) {
-	    throw new NullPointerException("files and destination cannot be null.");
-	}
-	if (!destination.isDirectory()) {
-	    throw new IllegalArgumentException("Destination must be a directory.");
-	}
-	List<Path> paths = new LinkedList<>();
-	for (String file : fileNames) {
-	    paths.add(_copyFile(destination, precondition, converter.resolve(file).toFile()));
 	}
 	return paths;
     }
