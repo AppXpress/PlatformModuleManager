@@ -1,0 +1,41 @@
+<PlatformModule>
+	<__metadata>
+		<apiVersion>400</apiVersion>
+		<type>PlatformModule</type>
+		<uid>210318869</uid>
+		<createTimestamp>2015-07-13 22:50:59.766</createTimestamp>
+		<modifyTimestamp>2015-09-15 16:41:40.593</modifyTimestamp>
+		<status>Active</status>
+		<fingerprint>56181b3ef3f602471bd3fb8c8d8b59bc</fingerprint>
+	</__metadata>
+	<moduleId>210318869</moduleId>
+	<createTimestamp>2015-07-13 22:50:59.766</createTimestamp>
+	<modifyTimestamp>2015-09-15 16:41:40.593</modifyTimestamp>
+	<authorId>-1</authorId>
+	<authorType>Organization</authorType>
+	<ownerId>3717989018020186</ownerId>
+	<ownerType>TradeCustomer</ownerType>
+	<name>ParcelTracking</name>
+	<description>Master table modeling all parcel shipments
+	</description>
+	<customUiConfiguration>
+		<globalObjectType>$ParcelTrackerS1</globalObjectType>
+		<uiType>STANDARD</uiType>
+	</customUiConfiguration>
+	<customUiConfiguration>
+		<globalObjectType>$StagedTrackerS1</globalObjectType>
+		<uiType>STANDARD</uiType>
+	</customUiConfiguration>
+	<notificationTopic>
+		<topicName>ProofOfDelivery</topicName>
+		<notificationConfiguration>
+			<targetType>$ParcelTrackerS1</targetType>
+			<apiVersion>310</apiVersion>
+			<notificationDeliveryMethod>OUTBOUNDINTEGRATION
+			</notificationDeliveryMethod>
+			<suppressible>false</suppressible>
+			<role>Buyer</role>
+		</notificationConfiguration>
+	</notificationTopic>
+	<userVersion>0.0.1</userVersion>
+</PlatformModule>
