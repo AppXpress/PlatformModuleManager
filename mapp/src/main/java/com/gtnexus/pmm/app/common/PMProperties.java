@@ -1,4 +1,4 @@
-package com.gtnexus.pmm.api.v100;
+package com.gtnexus.pmm.app.common;
 
 import java.io.File;
 import java.io.FileOutputStream;

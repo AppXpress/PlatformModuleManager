@@ -1,9 +1,9 @@
 package com.gtnexus.pmm.app.common.properties;
 
-import com.gtnexus.pmm.api.v100.PMProperties;
 import com.gtnexus.pmm.api.v100.cli.prompt.Prompt;
 import com.gtnexus.pmm.api.v100.cli.prompt.SimplePrompt;
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
+import com.gtnexus.pmm.app.common.PMProperties;
 import com.gtnexus.pmm.app.extract.exception.PMExtractorException;
 
 public class PropertiesPersister {

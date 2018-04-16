@@ -5,9 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.gtnexus.pmm.api.v100.PMProperties;
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.app.AppXpressConstants;
+import com.gtnexus.pmm.app.common.PMProperties;
 
 /**
  * Helper class used by pmm. Ensures the existence of necessary directories and

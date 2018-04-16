@@ -3,7 +3,6 @@ package com.gtnexus.pmm.app;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gtnexus.pmm.api.v100.PMProperties;
 import com.gtnexus.pmm.api.v100.command.SubCommand;
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
@@ -42,10 +41,6 @@ public class PlatformModuleManager {
 	this.services = services;
 	this.commands = commands;
 	this.help = help;
-    }
-
-    public PMProperties getProperties() {
-	return this.services.getEnvironmentService().getProperties();
     }
 
     public String[] getRawArgs() {
