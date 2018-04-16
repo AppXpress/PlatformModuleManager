@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.gtnexus.pmm.api.v100.HasPrerequisite;
+import com.google.common.base.Predicate;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.app.service.FileServiceImpl;
 
@@ -106,10 +106,10 @@ public class FileServiceTest {
     @Test
     public void testCopyFiles() throws IOException {
 	final String[] extension = { ".js", ".zip" };
-	HasPrerequisite<File> pre = new HasPrerequisite<File>() {
+	Predicate<File> pre = new Predicate<File>() {
 
 	    @Override
-	    public boolean isMet(File f) {
+	    public boolean apply(File f) {
 		return f.getName().endsWith(extension[0]);
 	    }
 

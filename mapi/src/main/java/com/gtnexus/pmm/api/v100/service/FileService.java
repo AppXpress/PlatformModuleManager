@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
-import com.gtnexus.pmm.api.v100.HasPrerequisite;
+import com.google.common.base.Predicate;
 import com.gtnexus.pmm.api.v100.NameToPath;
 
 public interface FileService {
@@ -21,7 +21,7 @@ public interface FileService {
      */
     Path prependToName(File file, String prepend) throws IOException;
 
-    Path prependToName(File file, String prepend, HasPrerequisite<File> precondition) throws IOException;
+    Path prependToName(File file, String prepend, Predicate<File> precondition) throws IOException;
 
     /**
      * Prepends a String to the the names of a collection of a files.
@@ -43,7 +43,7 @@ public interface FileService {
      * @precondition The condition that must be met before string is prepended to
      *               file name
      */
-    List<Path> prependToName(Collection<File> files, String prepend, HasPrerequisite<File> precondition)
+    List<Path> prependToName(Collection<File> files, String prepend, Predicate<File> precondition)
 	    throws IOException;
 
     /**
@@ -68,7 +68,7 @@ public interface FileService {
      * @throws IOException
      *             if the renaming operation fails.
      */
-    Path renameFile(File file, String newName, HasPrerequisite<File> precondition) throws IOException;
+    Path renameFile(File file, String newName, Predicate<File> precondition) throws IOException;
 
     /**
      * Renames a set of files by replacing a matched string with some replacement.
@@ -98,7 +98,7 @@ public interface FileService {
      *            The precondition that must be met in order for file to be renamed.
      */
     List<Path> renameFile(Collection<File> files, String toReplace, String replacement,
-	    HasPrerequisite<File> precondition) throws IOException;
+	    Predicate<File> precondition) throws IOException;
 
     /**
      * 
@@ -114,7 +114,7 @@ public interface FileService {
     List<Path> moveFiles(Collection<File> files, File destination) throws IOException;
 
     List<Path> copyFiles(Collection<String> fileNames, NameToPath converter, File destination,
-	    HasPrerequisite<File> precondition) throws IOException;
+	    Predicate<File> precondition) throws IOException;
 
     /**
      * 
@@ -125,7 +125,7 @@ public interface FileService {
      * @throws IOException
      */
     List<Path> copyFiles(Collection<File> files, File destination,
-	    HasPrerequisite<File> precondition) throws IOException;
+	    Predicate<File> precondition) throws IOException;
 
     /**
      * 

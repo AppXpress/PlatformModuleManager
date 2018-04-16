@@ -10,7 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.common.base.Preconditions;
-import com.gtnexus.pmm.api.v100.HasPrerequisite;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.gtnexus.pmm.api.v100.NameToPath;
 import com.gtnexus.pmm.api.v100.service.FileService;
 import com.gtnexus.pmm.app.common.file.CopyDirVisitor;
@@ -36,7 +37,7 @@ public class FileServiceImpl implements FileService {
      * @see com.gtnexus.pmm.commons.file.FileService#prependToName(java.io.File, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
      */
     @Override
-    public Path prependToName(File file, String prepend, HasPrerequisite<File> precondition) throws IOException {
+    public Path prependToName(File file, String prepend, Predicate<File> precondition) throws IOException {
 	return renameFile(file, prepend + file.getName(), precondition);
     }
 
@@ -45,14 +46,14 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public List<Path> prependToName(Collection<File> files, String prepend) throws IOException {
-	return prependToName(files, prepend, new HasPrerequisite.EmptyCondition<File>());
+	return prependToName(files, prepend, Predicates.<File>alwaysTrue());
     }
 
     /* (non-Javadoc)
      * @see com.gtnexus.pmm.commons.file.FileService#prependToName(java.util.Collection, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
      */
     @Override
-    public List<Path> prependToName(Collection<File> files, String prepend, HasPrerequisite<File> precondition)
+    public List<Path> prependToName(Collection<File> files, String prepend, Predicate<File> precondition)
 	    throws IOException {
 	List<Path> paths = new LinkedList<>();
 	for (File file : files) {
@@ -66,16 +67,16 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public Path renameFile(File file, String newName) throws IOException {
-	return renameFile(file, newName, new HasPrerequisite.EmptyCondition<File>());
+	return renameFile(file, newName, Predicates.<File>alwaysTrue());
     }
 
     /* (non-Javadoc)
      * @see com.gtnexus.pmm.commons.file.FileService#renameFile(java.io.File, java.lang.String, com.gtnexus.pmm.commons.HasPrerequisite)
      */
     @Override
-    public Path renameFile(File file, String newName, HasPrerequisite<File> precondition) throws IOException {
+    public Path renameFile(File file, String newName, Predicate<File> precondition) throws IOException {
 	Path path = file.toPath();
-	if (!precondition.isMet(file))
+	if (!precondition.apply(file))
 	    return path;
 	try {
 	    path = Files.move(file.toPath(), file.toPath().resolveSibling(newName));
@@ -90,7 +91,7 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public List<Path> renameFile(Collection<File> files, String toReplace, String replacement) throws IOException {
-	return renameFile(files, toReplace, replacement, new HasPrerequisite.EmptyCondition<File>());
+	return renameFile(files, toReplace, replacement, Predicates.<File>alwaysTrue());
     }
 
     /* (non-Javadoc)
@@ -98,7 +99,7 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public List<Path> renameFile(Collection<File> files, String toReplace, String replacement,
-	    HasPrerequisite<File> precondition) throws IOException {
+	    Predicate<File> precondition) throws IOException {
 	Preconditions.checkNotNull(files, "Files to rename cannot be null.");
 	Preconditions.checkNotNull(toReplace, "String to be replaced cannot be null");
 	Preconditions.checkNotNull(replacement, "Replacement string cannot be null");
@@ -136,7 +137,7 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public List<Path> copyFiles(final Collection<String> fileNames, final NameToPath converter, final File destination,
-	    HasPrerequisite<File> precondition) throws IOException {
+	    Predicate<File> precondition) throws IOException {
 	if (fileNames == null || destination == null) {
 	    throw new NullPointerException("files and destination cannot be null.");
 	}
@@ -155,18 +156,18 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public List<Path> copyFiles(final Collection<File> files, final File destination,
-	    HasPrerequisite<File> precondition) throws IOException {
+	    Predicate<File> precondition) throws IOException {
 	Preconditions.checkArgument(files != null && destination != null, "files and destination cannot be null.");
 	Preconditions.checkArgument(destination.isDirectory(),
 		"Destination " + destination.getName() + " is not a directory.");
 	if (precondition == null) {
-	    precondition = new HasPrerequisite.EmptyCondition<>();
+	    precondition = Predicates.alwaysTrue();
 	}
 	return _copyFiles(files, destination, precondition);
     }
 
     private List<Path> _copyFiles(final Collection<File> files, final File destination,
-	    HasPrerequisite<File> precondition) throws IOException {
+	    Predicate<File> precondition) throws IOException {
 	List<Path> paths = new LinkedList<>();
 	for (File file : files) {
 	    Path result = _copyFile(destination, precondition, file);
@@ -176,8 +177,8 @@ public class FileServiceImpl implements FileService {
 	return paths;
     }
 
-    private Path _copyFile(final File destination, HasPrerequisite<File> precondition, File file) throws IOException {
-	if (precondition.isMet(file)) {
+    private Path _copyFile(final File destination, Predicate<File> precondition, File file) throws IOException {
+	if (precondition.apply(file)) {
 	    Path p = destination.toPath().resolve(file.getName());
 	    return Files.copy(file.toPath(), p, StandardCopyOption.REPLACE_EXISTING);
 	}

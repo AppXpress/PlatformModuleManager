@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.gtnexus.pmm.api.v100.HasPrerequisite;
 import com.gtnexus.pmm.api.v100.command.SubCommandException;
 import com.gtnexus.pmm.api.v100.service.PlatformModuleManagerServices;
 import com.gtnexus.pmm.app.AppXpressConstants;
@@ -23,7 +22,7 @@ import com.gtnexus.pmm.app.build.exception.PMBuilderException;
  * @author jdonovan
  *
  */
-public class GitMapPrep implements HasPrerequisite<GitMapVO> {
+public class GitMapPrep {
 
     private final PlatformModuleManagerServices  services;
 
@@ -32,7 +31,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO> {
     }
 
     public void prepare(GitMapVO vo) throws PMBuilderException {
-	if (!isMet(vo)) {
+	if (!preconditionsMet(vo)) {
 	    throw new PMBuilderException("Precondition failed.");
 	}
 	cleanup(vo.getUnzipDir());
@@ -147,8 +146,7 @@ public class GitMapPrep implements HasPrerequisite<GitMapVO> {
 	}
     }
 
-    @Override
-    public boolean isMet(GitMapVO vo) {
+    public boolean preconditionsMet(GitMapVO vo) {
 	if (!validateAndEnsurePathExists(vo)) {
 	    System.err.println("ERROR: Paths are not set up properly!");
 	    return false;
