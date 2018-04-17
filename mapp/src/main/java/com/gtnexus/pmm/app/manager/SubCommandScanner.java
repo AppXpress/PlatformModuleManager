@@ -1,6 +1,10 @@
 package com.gtnexus.pmm.app.manager;
 
 import java.lang.reflect.Constructor;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +25,7 @@ import com.gtnexus.pmm.app.manager.command.CLICommand;
 @SuppressWarnings("unchecked")
 public class SubCommandScanner {
 
-    private static boolean scanForPlugins = false;
+    private static boolean scanForPlugins = true;
     private static Set<Class<? extends AbstractSubCommand>> coreSubCommands = new ImmutableSet.Builder<Class<? extends AbstractSubCommand>>()
 	    .add(BuildCommand.class)
 	    .add(ExtractCommand.class)
@@ -51,7 +55,26 @@ public class SubCommandScanner {
     private static Set<CLICommand> scanForPluginCommands() {
 	Set<CLICommand> commands = new HashSet<>();
 	//TODO: This is a very wide initial scan. For external tools, it should be a known relative directory.
-	ConfigurationBuilder b = new ConfigurationBuilder().forPackages("com.gtnexus.pmm");
+	
+	URL p;
+	try {
+	    p = Paths.get("/code/gtnexus/appx/pmm-upload/build/libs/pmm-upload.jar").toUri().toURL();
+	} catch (MalformedURLException e) {
+	    throw new RuntimeException(e);
+	}
+	//URL url = new URL("")
+	URLClassLoader classLoader = new URLClassLoader(new URL[] {p});
+//	try {
+//	    Class<?> loadClass = classLoader.loadClass("com.gtnexus.pmm.plugin.PMMUpload");
+//	} catch (ClassNotFoundException e) {
+//	    // TODO Auto-generated catch block
+//	    e.printStackTrace();
+//	}
+	ConfigurationBuilder b = new ConfigurationBuilder()
+		.addClassLoader(classLoader)
+		.addUrls(p)
+		.forPackages("com.gtnexus.pmm.plugin");
+	//new ConfigurationBuilder().addClassLoader
 	Reflections reflections = new Reflections(b);
 	Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(SubCommandMarker.class);
 	Set<Class<? extends AbstractSubCommand>> subTypesOf = reflections.getSubTypesOf(AbstractSubCommand.class);
