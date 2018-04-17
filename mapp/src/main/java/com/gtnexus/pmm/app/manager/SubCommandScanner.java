@@ -1,10 +1,16 @@
 package com.gtnexus.pmm.app.manager;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +31,7 @@ import com.gtnexus.pmm.app.manager.command.CLICommand;
 @SuppressWarnings("unchecked")
 public class SubCommandScanner {
 
+    private static final String PLUGIN_PKG = "com.gtnexus.pmm.plugin";
     private static boolean scanForPlugins = true;
     private static Set<Class<? extends AbstractSubCommand>> coreSubCommands = new ImmutableSet.Builder<Class<? extends AbstractSubCommand>>()
 	    .add(BuildCommand.class)
@@ -51,30 +58,17 @@ public class SubCommandScanner {
 	return commands;
     }
 
-
     private static Set<CLICommand> scanForPluginCommands() {
-	Set<CLICommand> commands = new HashSet<>();
-	//TODO: This is a very wide initial scan. For external tools, it should be a known relative directory.
-	
-	URL p;
-	try {
-	    p = Paths.get("/code/gtnexus/appx/pmm-upload/build/libs/pmm-upload.jar").toUri().toURL();
-	} catch (MalformedURLException e) {
-	    throw new RuntimeException(e);
+	URL[] pluginUrls = getPluginUrls();
+	if(pluginUrls.length == 0) {
+	    return Collections.emptySet();
 	}
-	//URL url = new URL("")
-	URLClassLoader classLoader = new URLClassLoader(new URL[] {p});
-//	try {
-//	    Class<?> loadClass = classLoader.loadClass("com.gtnexus.pmm.plugin.PMMUpload");
-//	} catch (ClassNotFoundException e) {
-//	    // TODO Auto-generated catch block
-//	    e.printStackTrace();
-//	}
-	ConfigurationBuilder b = new ConfigurationBuilder()
-		.addClassLoader(classLoader)
-		.addUrls(p)
-		.forPackages("com.gtnexus.pmm.plugin");
-	//new ConfigurationBuilder().addClassLoader
+	return scanUrls(pluginUrls);
+    }
+
+    private static Set<CLICommand> scanUrls(URL[] pluginUrls) {
+	Set<CLICommand> commands = new HashSet<>();
+	ConfigurationBuilder b = createConfiguration(pluginUrls);
 	Reflections reflections = new Reflections(b);
 	Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(SubCommandMarker.class);
 	Set<Class<? extends AbstractSubCommand>> subTypesOf = reflections.getSubTypesOf(AbstractSubCommand.class);
@@ -85,6 +79,49 @@ public class SubCommandScanner {
 	    commands.add(wrap);
 	}
 	return commands;
+    }
+
+    private static ConfigurationBuilder createConfiguration(URL[] pluginUrls) {
+	URLClassLoader classLoader = new URLClassLoader(pluginUrls);
+	ConfigurationBuilder b = new ConfigurationBuilder()
+		.addClassLoader(classLoader)
+		.addUrls(pluginUrls)
+		.forPackages(PLUGIN_PKG);
+	return b;
+    }
+    
+    static PathMatcher pm = FileSystems.getDefault().getPathMatcher("glob:**.jar");
+
+    static DirectoryStream.Filter<Path> pf = new DirectoryStream.Filter<Path>() {
+
+	@Override
+	public boolean accept(Path entry) throws IOException {
+	    boolean matches = pm.matches(entry);
+	    return matches;
+	}
+
+    };
+
+
+    private static URL[] getPluginUrls() {
+	Set<URL> urlSet = new HashSet<>();
+	String preamble = "Exception during start up. ";
+	String notExistsTemplate = preamble + "PlugIn path %s does not exist";
+	String notADirTemplate =   preamble + "Plugin path %s is not a directory"; 
+	Path pluginPath = Paths.get("/code/gtnexus/appx/pmm-upload/build/libs/");
+	if(!Files.exists(pluginPath)) {
+	    throw new RuntimeException(String.format(notExistsTemplate, pluginPath.toAbsolutePath().toString()));
+	} else if(!Files.isDirectory(pluginPath)) {
+	    throw new RuntimeException(String.format(notADirTemplate, pluginPath.toAbsolutePath().toString()));
+	}
+	try(DirectoryStream<Path> pluginDirectoryStream = Files.newDirectoryStream(pluginPath, pf)) {
+	    for(Path p : pluginDirectoryStream) {
+		urlSet.add(p.toUri().toURL());
+	    }
+	} catch(IOException e) {
+	    throw new RuntimeException(preamble, e);
+	}
+	return urlSet.toArray(new URL[urlSet.size()]);
     }
 
     private static Constructor<? extends AbstractSubCommand> getConstructor(Class<?> type, SubCommandMarker marker) {
