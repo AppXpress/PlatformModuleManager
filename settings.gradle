@@ -1,1 +1,2 @@
+rootProject.name = 'PlatformModuleManager'
 include 'mapi', 'mapp'
