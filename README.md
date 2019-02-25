@@ -43,24 +43,41 @@ Please build from source.
 
 *NOTE*: The releases page is outdated, and new releases will not be published. Please build from source.
 
-From the project root:
+From the project root (where the PMM repo has been cloned to):
 
 ```bash
 $ ./gradlew fatjar
 ```
-After building, the `pmm` script file needs to be added to your path, or put in a directory that is in already on your path. This file is contained inn the scripts folder.:
+
+After building, the `pmm` script file (located inside `scripts` folder) needs to be added to your path, or put in a directory that is in already on your path.:
 
 e.g.:
 
 ```bash
-$ mv pmm ~/bin
+# REPLACE 'PATHTOPMM' WITH PATH TO YOUR PMM FILES
+$ cp /PATHTOPMM/scripts/pmm ~/usr/local/bin
 ```
 
 And `$APPXPRESS_HOME` environment variable must be declared. This variable should point to the parent directory of `pmm-all.jar`. `./gradlew fatjar` will deposit the `pmm-all.jar` in `build/libs`.
 
-e.g:
+e.g: 
 ```bash
-$ echo "export APPXPRESS_HOME='/path/to/parentDir/'" >> ~/.profile
+# REPLACE 'PATHTOPMM' WITH PATH TO YOUR PMM FILES
+$ echo "export APPXPRESS_HOME='/PATHTOPMM/build/libs'" >> ~/.profile
+```
+
+**OR** add the following line to your `~/.bash_profile`
+
+```script
+# REPLACE 'PATHTOPMM' WITH PATH TO YOUR PMM FILES
+APPXPRESS_HOME='/PATHTOPMM/build/libs'
+```
+
+**AND** run the following command from terminal
+
+```bash
+$ mkdir ~/.appxpress
+$ echo "localDir='/code/gtnexus/platform/customer" >> ~/.appxpress/pmm.properties
 ```
 
 ## Running `pmm build` and `pmm extract`
