@@ -77,7 +77,7 @@ APPXPRESS_HOME='/PATHTOPMM/build/libs'
 
 ```bash
 $ mkdir ~/.appxpress
-$ echo "localDir='/code/gtnexus/platform/customer" >> ~/.appxpress/pmm.properties
+$ echo "localDir='/code/gtnexus/platform/customer'" >> ~/.appxpress/pmm.properties
 ```
 
 ## Running `pmm build` and `pmm extract`
